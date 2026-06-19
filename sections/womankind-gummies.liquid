@@ -444,6 +444,7 @@
   #wk-{{ section.id }} header nav { display:none !important; }
   #wk-{{ section.id }} h1 { font-size:34px !important; }
   #wk-{{ section.id }} [data-wk-card] { flex-basis:84% !important; }
+  #wk-{{ section.id }} .wk-cofounder-img { aspect-ratio:3/2 !important; object-position:center 22% !important; }
 }
 #wk-{{ section.id }} [data-wk-track] { scrollbar-width:none; }
 #wk-{{ section.id }} [data-wk-track]::-webkit-scrollbar { display:none; }
@@ -618,7 +619,7 @@
       <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:32px;">Meet our co-founder</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;margin-bottom:48px;">
         <div>
-          <img src="{{ 'wk-cofounder-katie.jpg' | asset_url }}" alt="Dr. Katie Chen, Co-founder & Medical Director, in her practice" width="800" height="800" loading="lazy" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:14px;display:block;">
+          <img class="wk-cofounder-img" src="{{ 'wk-cofounder-katie.jpg' | asset_url }}" alt="Dr. Katie Chen, Co-founder & Medical Director, in her practice" width="800" height="800" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:center top;border-radius:14px;display:block;">
         </div>
         <div>
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
