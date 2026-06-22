@@ -596,6 +596,59 @@
     </div>
   </section>
 
+  <!-- ============ NEW BUY-BOX (DRAFT v2 — bundle model; delete old one once approved) ============ -->
+  <section data-wk2-box style="background:#FBF1E6;padding:56px 28px;border-top:1px solid rgba(107,61,66,0.12);">
+    <div style="max-width:580px;margin:0 auto;">
+      <div style="text-align:center;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:24px;">Choose your bundle</div>
+
+      <!-- TIER 1 -->
+      <button data-wk2-tier data-wk2-price="40" data-wk2-compare="50" style="position:relative;width:100%;cursor:pointer;font-family:inherit;text-align:left;background:#F5E6D8;border:1.5px solid rgba(107,61,66,0.35);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+        <span data-wk2-ring style="box-shadow:0 0 0 0 transparent;position:absolute;inset:-1.5px;border-radius:14px;pointer-events:none;"></span>
+        <span style="width:54px;height:54px;flex:0 0 auto;background:#C9A89F;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#6B3D42;">&times;1</span>
+        <span style="flex:1;"><span style="display:block;font-size:17px;font-weight:700;color:#6B3D42;letter-spacing:0.01em;">Buy 1</span><span style="display:block;font-size:13px;color:#C9653F;font-weight:600;margin-top:3px;">You save $10</span></span>
+        <span style="text-align:right;flex:0 0 auto;"><span style="display:block;font-size:21px;font-weight:700;color:#C9653F;">$40</span><span style="display:block;font-size:13px;text-decoration:line-through;color:#A07E81;">$50</span></span>
+      </button>
+
+      <!-- TIER 2 (Most popular) -->
+      <button data-wk2-tier data-wk2-price="80" data-wk2-compare="150" style="position:relative;width:100%;cursor:pointer;font-family:inherit;text-align:left;background:#F5E6D8;border:1.5px solid rgba(107,61,66,0.35);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+        <span data-wk2-ring style="box-shadow:0 0 0 2px #6B3D42;position:absolute;inset:-1.5px;border-radius:14px;pointer-events:none;"></span>
+        <span style="position:absolute;top:-10px;right:18px;background:#C9653F;color:#F5E6D8;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;padding:3px 11px;border-radius:999px;">Most popular</span>
+        <span style="width:54px;height:54px;flex:0 0 auto;background:#C9A89F;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#6B3D42;">&times;3</span>
+        <span style="flex:1;"><span style="display:block;font-size:17px;font-weight:700;color:#6B3D42;letter-spacing:0.01em;">Buy 2, get 1 free</span><span style="display:block;font-size:13px;color:#C9653F;font-weight:600;margin-top:3px;">You save $70</span></span>
+        <span style="text-align:right;flex:0 0 auto;"><span style="display:block;font-size:21px;font-weight:700;color:#C9653F;">$80</span><span style="display:block;font-size:13px;text-decoration:line-through;color:#A07E81;">$150</span></span>
+      </button>
+
+      <!-- TIER 3 (Best value) -->
+      <button data-wk2-tier data-wk2-price="120" data-wk2-compare="250" style="position:relative;width:100%;cursor:pointer;font-family:inherit;text-align:left;background:#F5E6D8;border:1.5px solid rgba(107,61,66,0.35);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:16px;margin-bottom:22px;">
+        <span data-wk2-ring style="box-shadow:0 0 0 0 transparent;position:absolute;inset:-1.5px;border-radius:14px;pointer-events:none;"></span>
+        <span style="position:absolute;top:-10px;right:18px;background:#6B3D42;color:#F5E6D8;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;padding:3px 11px;border-radius:999px;">Best value</span>
+        <span style="width:54px;height:54px;flex:0 0 auto;background:#C9A89F;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#6B3D42;">&times;5</span>
+        <span style="flex:1;"><span style="display:block;font-size:17px;font-weight:700;color:#6B3D42;letter-spacing:0.01em;">Buy 3, get 2 free</span><span style="display:block;font-size:13px;color:#C9653F;font-weight:600;margin-top:3px;">You save $130</span></span>
+        <span style="text-align:right;flex:0 0 auto;"><span style="display:block;font-size:21px;font-weight:700;color:#C9653F;">$120</span><span style="display:block;font-size:13px;text-decoration:line-through;color:#A07E81;">$250</span></span>
+      </button>
+
+      <!-- AUTO REFILLS -->
+      <div data-wk2-refill role="checkbox" aria-checked="false" tabindex="0" style="display:flex;align-items:center;gap:14px;border:1.5px dashed rgba(107,61,66,0.45);border-radius:12px;padding:16px 18px;cursor:pointer;margin-bottom:20px;">
+        <span data-wk2-checkbox style="width:24px;height:24px;flex:0 0 auto;border:1.5px solid #6B3D42;border-radius:6px;display:flex;align-items:center;justify-content:center;background:transparent;"><span data-wk2-checkmark style="color:#F5E6D8;font-size:14px;font-weight:700;line-height:1;display:none;">&check;</span></span>
+        <span style="flex:1;"><span style="display:block;font-size:15px;font-weight:700;color:#6B3D42;">Save 25% with automatic refills</span><span style="display:block;font-size:12.5px;color:#7a6258;margin-top:2px;">Zero commitment &mdash; pause, skip, or cancel anytime</span></span>
+      </div>
+
+      <!-- IN STOCK -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;background:rgba(107,61,66,0.06);border-radius:999px;padding:12px;margin-bottom:14px;font-size:13.5px;color:#6B3D42;font-weight:600;letter-spacing:0.02em;">
+        <span style="width:9px;height:9px;border-radius:50%;background:#4f8a3d;box-shadow:0 0 0 4px rgba(79,138,61,0.18);flex:0 0 auto;"></span>
+        In stock &mdash; ships by <strong style="text-decoration:underline;">{{ 'now' | date: '%s' | plus: 172800 | date: '%B %-d' }}</strong>
+      </div>
+
+      <!-- ATC -->
+      <button style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:10px;">Add to bag&nbsp;&mdash;&nbsp;<span data-wk2-atc-price>$80</span> <span data-wk2-atc-compare style="text-decoration:line-through;opacity:0.6;font-weight:500;letter-spacing:0;">$150</span></button>
+
+      <!-- TRUST -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:22px;margin-top:18px;font-size:13px;color:#6B3D42;font-weight:600;letter-spacing:0.02em;">
+        <span>Free shipping</span><span style="color:rgba(107,61,66,0.3);">|</span><span>90-day money-back guarantee</span>
+      </div>
+    </div>
+  </section>
+
 
   <!-- SYMPTOM / "FOR THE WOMAN WHO" SPLIT -->
   <section style="background:#D8C2BA;padding:0;">
@@ -1427,6 +1480,44 @@
       });
     });
     egUpdate();
+  }
+  // NEW BUY-BOX (draft v2): tier select + auto-refill 25% off + dynamic ATC price
+  var bb = root.querySelector('[data-wk2-box]');
+  if (bb) {
+    var tiers2 = [].slice.call(bb.querySelectorAll('[data-wk2-tier]'));
+    var refill = bb.querySelector('[data-wk2-refill]');
+    var checkbox = bb.querySelector('[data-wk2-checkbox]');
+    var checkmark = bb.querySelector('[data-wk2-checkmark]');
+    var atcP = bb.querySelector('[data-wk2-atc-price]');
+    var atcC = bb.querySelector('[data-wk2-atc-compare]');
+    var sel2 = 1; // default: Buy 2, get 1 free (Most popular)
+    function render2() {
+      tiers2.forEach(function (t, i) {
+        var ring = t.querySelector('[data-wk2-ring]');
+        if (ring) ring.style.boxShadow = (i === sel2) ? '0 0 0 2px #6B3D42' : '0 0 0 0 transparent';
+      });
+      var t = tiers2[sel2];
+      var price = parseFloat(t.getAttribute('data-wk2-price'));
+      var compare = parseFloat(t.getAttribute('data-wk2-compare'));
+      var on = refill && refill.getAttribute('aria-checked') === 'true';
+      var finalP = on ? Math.round(price * 0.75) : price;
+      var strike = on ? price : compare;
+      if (atcP) atcP.textContent = '$' + finalP;
+      if (atcC) atcC.textContent = '$' + strike;
+    }
+    tiers2.forEach(function (t, i) { t.addEventListener('click', function () { sel2 = i; render2(); }); });
+    function toggleRefill() {
+      var on = refill.getAttribute('aria-checked') === 'true';
+      refill.setAttribute('aria-checked', on ? 'false' : 'true');
+      if (checkbox) checkbox.style.background = on ? 'transparent' : '#6B3D42';
+      if (checkmark) checkmark.style.display = on ? 'none' : 'block';
+      render2();
+    }
+    if (refill) {
+      refill.addEventListener('click', toggleRefill);
+      refill.addEventListener('keydown', function (e) { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggleRefill(); } });
+    }
+    render2();
   }
 })();
 </script>
