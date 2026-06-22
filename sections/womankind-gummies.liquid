@@ -447,9 +447,13 @@
   #wk-{{ section.id }} .wk-experts-grid { display:flex !important; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
   #wk-{{ section.id }} .wk-experts-grid > div { flex:0 0 78%; scroll-snap-align:start; }
   #wk-{{ section.id }} .wk-experts-grid::-webkit-scrollbar { display:none; }
+  #wk-{{ section.id }} .wk-experts-dots { display:flex !important; }
 }
 #wk-{{ section.id }} [data-wk-track] { scrollbar-width:none; }
 #wk-{{ section.id }} [data-wk-track]::-webkit-scrollbar { display:none; }
+#wk-{{ section.id }} .wk-experts-dots { display:none; justify-content:center; gap:8px; margin-top:28px; }
+#wk-{{ section.id }} .wk-experts-dots span { width:7px; height:7px; border-radius:999px; background:rgba(107,61,66,0.28); cursor:pointer; transition:width .25s ease, background .25s ease; }
+#wk-{{ section.id }} .wk-experts-dots span.is-active { width:22px; background:#6B3D42; }
 {% endstyle %}
 
 <div class="wk-root" id="wk-{{ section.id }}" style="background:#F5E6D8;color:#3A2A20;font-family:'Hanken Grotesk',sans-serif;min-height:100vh;overflow:hidden;">
@@ -666,36 +670,40 @@
           <h3 style="font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:21px;margin:0 0 6px;color:#3A2A20;">Dr. Naomi Adeyemi</h3>
           <div style="font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#C9653F;font-weight:700;line-height:1.4;margin-bottom:14px;">MD · Endocrinologist</div>
           <div style="font-family:'Fraunces',serif;font-size:30px;line-height:0;color:#C9A89F;height:14px;">“</div>
-          <p style="font-size:13.5px;line-height:1.55;color:#4a3a30;margin:6px 0 0;">"This is the kind of perimenopause formula I wish more existed. Every active is named and dosed at a level you can actually reason about, and it respects the gut–hormone axis most products ignore. That's rare, and it's exactly right."</p>
+          <p style="font-size:13.5px;line-height:1.55;color:#4a3a30;margin:6px 0 0;">"Every active named and dosed at a level I can actually reason about — and it respects the gut–hormone axis most formulas ignore. That's rare."</p>
         </div>
         <div>
           <img src="{{ 'wk-expert-berg.jpg' | asset_url }}" alt="Hannah Berg, MS, RD, Registered Dietitian" width="512" height="512" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:12px;display:block;margin-bottom:18px;">
           <h3 style="font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:21px;margin:0 0 6px;color:#3A2A20;">Hannah Berg</h3>
           <div style="font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#C9653F;font-weight:700;line-height:1.4;margin-bottom:14px;">MS, RD · Registered Dietitian</div>
           <div style="font-family:'Fraunces',serif;font-size:30px;line-height:0;color:#C9A89F;height:14px;">“</div>
-          <p style="font-size:13.5px;line-height:1.55;color:#4a3a30;margin:6px 0 0;">"Food comes first, but the transition asks more of the body than a plate can cover — and this fills those gaps the right way. Botanicals at the doses the research actually used, sugar-free, nothing to spike or hide. That's the standard I'd want."</p>
+          <p style="font-size:13.5px;line-height:1.55;color:#4a3a30;margin:6px 0 0;">"Botanicals at the doses the research actually used, sugar-free, nothing to spike or hide. That's the standard I'd want."</p>
         </div>
         <div>
           <img src="{{ 'wk-expert-delgado.jpg' | asset_url }}" alt="Carmen Delgado, MSN, NP, Menopause Nurse Practitioner" width="512" height="512" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:12px;display:block;margin-bottom:18px;">
           <h3 style="font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:21px;margin:0 0 6px;color:#3A2A20;">Carmen Delgado</h3>
           <div style="font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#C9653F;font-weight:700;line-height:1.4;margin-bottom:14px;">MSN, NP · Menopause Nurse Practitioner</div>
           <div style="font-family:'Fraunces',serif;font-size:30px;line-height:0;color:#C9A89F;height:14px;">“</div>
-          <p style="font-size:13.5px;line-height:1.55;color:#4a3a30;margin:6px 0 0;">"What stands out here is that it takes the early symptoms seriously — sleep, mood, bloating — before menopause is even on the chart. So many women get sent home with 'your labs are normal.' A formula built for that gap is exactly what's needed."</p>
+          <p style="font-size:13.5px;line-height:1.55;color:#4a3a30;margin:6px 0 0;">"It takes the early symptoms seriously — sleep, mood, bloating — before menopause is even on the chart. Exactly what's needed."</p>
         </div>
         <div>
           <img src="{{ 'wk-expert-lin.jpg' | asset_url }}" alt="Dr. Wei Lin, PhD, Pharmacognosist" width="512" height="512" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:12px;display:block;margin-bottom:18px;">
           <h3 style="font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:21px;margin:0 0 6px;color:#3A2A20;">Dr. Wei Lin</h3>
           <div style="font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#C9653F;font-weight:700;line-height:1.4;margin-bottom:14px;">PhD · Pharmacognosist</div>
           <div style="font-family:'Fraunces',serif;font-size:30px;line-height:0;color:#C9A89F;height:14px;">“</div>
-          <p style="font-size:13.5px;line-height:1.55;color:#4a3a30;margin:6px 0 0;">"In plant medicine, specificity is everything, and this gets it right: standardized extracts with the actives specified — 5% triterpene glycosides, 40% isoflavones — not a vague 'herbal blend' hiding the dose. This is how a botanical formula should be built."</p>
+          <p style="font-size:13.5px;line-height:1.55;color:#4a3a30;margin:6px 0 0;">"Standardized extracts with the actives specified — 5% triterpene glycosides, 40% isoflavones — not a vague blend hiding the dose. This is how it should be built."</p>
         </div>
         <div>
           <img src="{{ 'wk-expert-okafor.jpg' | asset_url }}" alt="Patricia Okafor, RAC, Regulatory & DSHEA Consultant" width="512" height="512" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:12px;display:block;margin-bottom:18px;">
           <h3 style="font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:21px;margin:0 0 6px;color:#3A2A20;">Patricia Okafor</h3>
           <div style="font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#C9653F;font-weight:700;line-height:1.4;margin-bottom:14px;">RAC · Regulatory &amp; DSHEA Consultant</div>
           <div style="font-family:'Fraunces',serif;font-size:30px;line-height:0;color:#C9A89F;height:14px;">“</div>
-          <p style="font-size:13.5px;line-height:1.55;color:#4a3a30;margin:6px 0 0;">"The first thing I check is honesty — and this holds up. DSHEA-compliant language, every active disclosed, no 'cures.' That discipline is rarer in this category than it should be, and it's the right way to do it."</p>
+          <p style="font-size:13.5px;line-height:1.55;color:#4a3a30;margin:6px 0 0;">"DSHEA-compliant language, every active disclosed, no 'cures.' That discipline is rarer in this category than it should be."</p>
         </div>
+      </div>
+
+      <div class="wk-experts-dots" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
       </div>
     </div>
   </section>
@@ -1390,6 +1398,35 @@
     track.addEventListener('scroll', updateBar, { passive: true });
     window.addEventListener('resize', updateBar);
     updateBar();
+  }
+
+  // experts carousel: dot indicator (mobile) reflects + drives the scroll position
+  var eg = root.querySelector('.wk-experts-grid');
+  var dotsWrap = root.querySelector('.wk-experts-dots');
+  if (eg && dotsWrap) {
+    var dots = dotsWrap.querySelectorAll('span');
+    var cards = eg.children;
+    function egStep() {
+      return (cards.length > 1)
+        ? (cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left)
+        : eg.clientWidth;
+    }
+    function egUpdate() {
+      var step = egStep() || eg.clientWidth;
+      var idx = Math.round(eg.scrollLeft / step);
+      idx = Math.max(0, Math.min(dots.length - 1, idx));
+      for (var i = 0; i < dots.length; i++) dots[i].classList.toggle('is-active', i === idx);
+    }
+    eg.addEventListener('scroll', egUpdate, { passive: true });
+    window.addEventListener('resize', egUpdate);
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () {
+        if (!cards[i]) return;
+        var target = eg.scrollLeft + (cards[i].getBoundingClientRect().left - eg.getBoundingClientRect().left);
+        eg.scrollTo({ left: target, behavior: 'smooth' });
+      });
+    });
+    egUpdate();
   }
 })();
 </script>
