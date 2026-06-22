@@ -541,12 +541,6 @@
         <span style="cursor:pointer;">FAQs</span>
       </div>
 
-      <!-- PLAN TOGGLE -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid #6B3D42;border-radius:999px;padding:4px;margin-bottom:18px;background:#F5E6D8;">
-        <button data-wk="plan" data-wk-val="subscribe" data-wk-planbtn="subscribe" style="cursor:pointer;font-family:inherit;border:none;border-radius:999px;padding:11px;font-size:13px;font-weight:600;letter-spacing:0.04em;background:#6B3D42;color:#F5E6D8;">Subscribe &amp; save</button>
-        <button data-wk="plan" data-wk-val="onetime" data-wk-planbtn="onetime" style="cursor:pointer;font-family:inherit;border:none;border-radius:999px;padding:11px;font-size:13px;font-weight:600;letter-spacing:0.04em;background:transparent;color:#6B3D42;">One-time</button>
-      </div>
-
       <!-- SUPPLY TIERS -->
       <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:22px;">
         <button data-wk="supply" data-wk-val="6" style="position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
@@ -1384,7 +1378,7 @@
   if (!root || root.dataset.wkInit) return;
   root.dataset.wkInit = '1';
   var RING = '0 0 0 2px #6B3D42', NONE = '0 0 0 0 transparent';
-  var state = { flavor:'raspberry', plan:'subscribe', supply:'3' };
+  var state = { flavor:'raspberry', supply:'3' };
 
   function applySelection(group){
     var val = state[group];
@@ -1393,13 +1387,6 @@
       if (parts[0] !== group) return;
       el.style.boxShadow = (parts[1] === val) ? RING : NONE;
     });
-    if (group === 'plan'){
-      root.querySelectorAll('[data-wk-planbtn]').forEach(function(el){
-        var sel = el.getAttribute('data-wk-planbtn') === val;
-        el.style.background = sel ? '#6B3D42' : 'transparent';
-        el.style.color = sel ? '#F5E6D8' : '#6B3D42';
-      });
-    }
   }
   // sync cart quantity + button total price with the selected supply tier (1/3/6 bottles)
   function applySupply(val){
