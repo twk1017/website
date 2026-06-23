@@ -448,9 +448,12 @@
   #wk-{{ section.id }} .wk-experts-grid > div { flex:0 0 78%; scroll-snap-align:start; }
   #wk-{{ section.id }} .wk-experts-grid::-webkit-scrollbar { display:none; }
   #wk-{{ section.id }} .wk-experts-dots { display:flex !important; }
+  #wk-{{ section.id }} [data-wk-ing-card] { flex-basis:84% !important; }
 }
 #wk-{{ section.id }} [data-wk-track] { scrollbar-width:none; }
 #wk-{{ section.id }} [data-wk-track]::-webkit-scrollbar { display:none; }
+#wk-{{ section.id }} [data-wk-ing-track] { scrollbar-width:none; }
+#wk-{{ section.id }} [data-wk-ing-track]::-webkit-scrollbar { display:none; }
 #wk-{{ section.id }} .wk-experts-dots { display:none; justify-content:center; gap:8px; margin-top:28px; }
 #wk-{{ section.id }} .wk-experts-dots span { width:7px; height:7px; border-radius:999px; background:rgba(107,61,66,0.28); cursor:pointer; transition:width .25s ease, background .25s ease; }
 #wk-{{ section.id }} .wk-experts-dots span.is-active { width:22px; background:#6B3D42; }
@@ -770,39 +773,69 @@
         <p style="font-size:15px;line-height:1.6;color:#4a3a30;max-width:54ch;margin:0 auto;">No proprietary blends, no fairy dust. Each ingredient is standardised and dosed at the level the research actually used — and you can read every milligram on the panel.</p>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;">
-        <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:24px 26px;display:flex;gap:22px;align-items:center;justify-content:space-between;">
-          <div style="flex:1;"><div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:9px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:21px;margin:0;color:#6B3D42;">Ashwagandha root</h3><span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">200 mg</span></div><p style="font-size:14px;line-height:1.55;color:#4a3a30;margin:0;">A standardised adaptogen for the stress response — supporting steadier mood and calmer days through the transition.*</p></div>
-          <img src="{{ 'wk-ing-ashwagandha.jpg' | asset_url }}" alt="Ashwagandha root" width="108" height="108" loading="lazy" style="width:108px;height:108px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
+      <div data-wk-ing-track style="display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px;margin:-4px;">
+        <div data-wk-ing-card style="flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:22px;display:flex;gap:18px;align-items:center;">
+          <img src="{{ 'wk-ing-ashwagandha.jpg' | asset_url }}" alt="Ashwagandha root" width="104" height="104" loading="lazy" style="width:104px;height:104px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:8px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15;margin:0;color:#6B3D42;">Ashwagandha root</h3><span style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">200 mg</span></div>
+            <p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0;">A standardised adaptogen for the stress response — supporting steadier mood and calmer days through the transition.*</p>
+          </div>
         </div>
-        <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:24px 26px;display:flex;gap:22px;align-items:center;justify-content:space-between;">
-          <div style="flex:1;"><div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:9px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:21px;margin:0;color:#6B3D42;">Black cohosh</h3><span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">100 mg</span></div><p style="font-size:14px;line-height:1.55;color:#4a3a30;margin:0;">Standardised to 5% triterpene glycosides — the botanical most studied for hot flashes and night sweats.*</p></div>
-          <img src="{{ 'wk-ing-black-cohosh.jpg' | asset_url }}" alt="Black cohosh" width="108" height="108" loading="lazy" style="width:108px;height:108px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
+        <div data-wk-ing-card style="flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:22px;display:flex;gap:18px;align-items:center;">
+          <img src="{{ 'wk-ing-black-cohosh.jpg' | asset_url }}" alt="Black cohosh" width="104" height="104" loading="lazy" style="width:104px;height:104px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:8px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15;margin:0;color:#6B3D42;">Black cohosh</h3><span style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">100 mg</span></div>
+            <p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0;">Standardised to 5% triterpene glycosides — the botanical most studied for hot flashes and night sweats.*</p>
+          </div>
         </div>
-        <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:24px 26px;display:flex;gap:22px;align-items:center;justify-content:space-between;">
-          <div style="flex:1;"><div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:9px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:21px;margin:0;color:#6B3D42;">Red clover</h3><span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">100 mg</span></div><p style="font-size:14px;line-height:1.55;color:#4a3a30;margin:0;">40% isoflavones — plant compounds that gently support hormonal balance as estrogen shifts.*</p></div>
-          <img src="{{ 'wk-ing-red-clover.jpg' | asset_url }}" alt="Red clover" width="108" height="108" loading="lazy" style="width:108px;height:108px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
+        <div data-wk-ing-card style="flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:22px;display:flex;gap:18px;align-items:center;">
+          <img src="{{ 'wk-ing-red-clover.jpg' | asset_url }}" alt="Red clover" width="104" height="104" loading="lazy" style="width:104px;height:104px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:8px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15;margin:0;color:#6B3D42;">Red clover</h3><span style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">100 mg</span></div>
+            <p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0;">40% isoflavones — plant compounds that gently support hormonal balance as estrogen shifts.*</p>
+          </div>
         </div>
-        <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:24px 26px;display:flex;gap:22px;align-items:center;justify-content:space-between;">
-          <div style="flex:1;"><div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:9px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:21px;margin:0;color:#6B3D42;">Chasteberry</h3><span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">100 mg</span></div><p style="font-size:14px;line-height:1.55;color:#4a3a30;margin:0;">Also known as Vitex — traditionally used to support hormonal rhythm and the month-to-month patterns that shift in perimenopause.*</p></div>
-          <img src="{{ 'wk-ing-chasteberry.jpg' | asset_url }}" alt="Chasteberry (Vitex)" width="108" height="108" loading="lazy" style="width:108px;height:108px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
+        <div data-wk-ing-card style="flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:22px;display:flex;gap:18px;align-items:center;">
+          <img src="{{ 'wk-ing-chasteberry.jpg' | asset_url }}" alt="Chasteberry (Vitex)" width="104" height="104" loading="lazy" style="width:104px;height:104px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:8px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15;margin:0;color:#6B3D42;">Chasteberry</h3><span style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">100 mg</span></div>
+            <p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0;">Also known as Vitex — traditionally used to support hormonal rhythm and the month-to-month patterns that shift in perimenopause.*</p>
+          </div>
         </div>
-        <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:24px 26px;display:flex;gap:22px;align-items:center;justify-content:space-between;">
-          <div style="flex:1;"><div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:9px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:21px;margin:0;color:#6B3D42;">Dong quai</h3><span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">100 mg</span></div><p style="font-size:14px;line-height:1.55;color:#4a3a30;margin:0;">Standardised to 1% ligustilide — a traditional women's botanical, properly dosed rather than sprinkled in.*</p></div>
-          <img src="{{ 'wk-ing-dong-quai.jpg' | asset_url }}" alt="Dong quai root" width="108" height="108" loading="lazy" style="width:108px;height:108px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
+        <div data-wk-ing-card style="flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:22px;display:flex;gap:18px;align-items:center;">
+          <img src="{{ 'wk-ing-dong-quai.jpg' | asset_url }}" alt="Dong quai root" width="104" height="104" loading="lazy" style="width:104px;height:104px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:8px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15;margin:0;color:#6B3D42;">Dong quai</h3><span style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">100 mg</span></div>
+            <p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0;">Standardised to 1% ligustilide — a traditional women's botanical, properly dosed rather than sprinkled in.*</p>
+          </div>
         </div>
-        <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:24px 26px;display:flex;gap:22px;align-items:center;justify-content:space-between;">
-          <div style="flex:1;"><div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:9px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:21px;margin:0;color:#6B3D42;">Cranberry extract</h3><span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">100 mg</span></div><p style="font-size:14px;line-height:1.55;color:#4a3a30;margin:0;">Supports urinary and everyday comfort — one of the quieter changes estrogen brings.*</p></div>
-          <img src="{{ 'wk-ing-cranberry.jpg' | asset_url }}" alt="Cranberry" width="108" height="108" loading="lazy" style="width:108px;height:108px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
+        <div data-wk-ing-card style="flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:22px;display:flex;gap:18px;align-items:center;">
+          <img src="{{ 'wk-ing-cranberry.jpg' | asset_url }}" alt="Cranberry" width="104" height="104" loading="lazy" style="width:104px;height:104px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:8px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15;margin:0;color:#6B3D42;">Cranberry extract</h3><span style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">100 mg</span></div>
+            <p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0;">Supports urinary and everyday comfort — one of the quieter changes estrogen brings.*</p>
+          </div>
         </div>
-        <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:24px 26px;display:flex;gap:22px;align-items:center;justify-content:space-between;">
-          <div style="flex:1;"><div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:9px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:21px;margin:0;color:#6B3D42;">Vitamins B6, D3 &amp; E</h3><span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">2 mg · 20 mcg · 15 mg</span></div><p style="font-size:14px;line-height:1.55;color:#4a3a30;margin:0;">Foundational support for mood, bone, and cellular defense — with D3 sourced from lichen, not sheep's wool.*</p></div>
-          <img src="{{ 'wk-ing-vitamins.jpg' | asset_url }}" alt="Vitamins B6, D3 and E" width="108" height="108" loading="lazy" style="width:108px;height:108px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
+        <div data-wk-ing-card style="flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:22px;display:flex;gap:18px;align-items:center;">
+          <img src="{{ 'wk-ing-vitamins.jpg' | asset_url }}" alt="Vitamins B6, D3 and E" width="104" height="104" loading="lazy" style="width:104px;height:104px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:8px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15;margin:0;color:#6B3D42;">Vitamins B6, D3 &amp; E</h3><span style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">2 mg · 20 mcg · 15 mg</span></div>
+            <p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0;">Foundational support for mood, bone, and cellular defense — with D3 sourced from lichen, not sheep's wool.*</p>
+          </div>
         </div>
-        <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:24px 26px;display:flex;gap:22px;align-items:center;justify-content:space-between;">
-          <div style="flex:1;"><div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:9px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:21px;margin:0;color:#6B3D42;">Probiotic blend</h3><span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">10B CFU</span></div><p style="font-size:14px;line-height:1.55;color:#4a3a30;margin:0;">A 6-strain Lacto/Bifido blend that feeds the estrobolome — the gut bacteria that metabolise estrogen.*</p></div>
-          <img src="{{ 'wk-ing-probiotic.jpg' | asset_url }}" alt="Probiotic blend" width="108" height="108" loading="lazy" style="width:108px;height:108px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
+        <div data-wk-ing-card style="flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:22px;display:flex;gap:18px;align-items:center;">
+          <img src="{{ 'wk-ing-probiotic.jpg' | asset_url }}" alt="Probiotic blend" width="104" height="104" loading="lazy" style="width:104px;height:104px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:8px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15;margin:0;color:#6B3D42;">Probiotic blend</h3><span style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">10B CFU</span></div>
+            <p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0;">A 6-strain Lacto/Bifido blend that feeds the estrobolome — the gut bacteria that metabolise estrogen.*</p>
+          </div>
         </div>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:center;gap:20px;margin-top:36px;">
+        <button data-wk-ing-prev aria-label="Previous ingredient" style="cursor:pointer;font-family:inherit;width:46px;height:46px;border-radius:50%;border:none;background:#6B3D42;color:#F5E6D8;font-size:18px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;">&lsaquo;</button>
+        <div style="width:150px;height:3px;background:rgba(107,61,66,0.2);border-radius:999px;overflow:hidden;"><div data-wk-ing-bar style="width:33%;height:100%;background:#C9653F;border-radius:999px;transition:width 0.2s ease;"></div></div>
+        <button data-wk-ing-next aria-label="Next ingredient" style="cursor:pointer;font-family:inherit;width:46px;height:46px;border-radius:50%;border:none;background:#6B3D42;color:#F5E6D8;font-size:18px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;">&rsaquo;</button>
       </div>
 
       <div style="text-align:center;margin-top:48px;">
@@ -1526,6 +1559,29 @@
     }
     wkRefill.addEventListener('click', wkToggleRefill);
     wkRefill.addEventListener('keydown', function (e) { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); wkToggleRefill(); } });
+  }
+
+  // ingredient carousel: arrows scroll by one card, progress bar tracks position
+  var ingTrack = root.querySelector('[data-wk-ing-track]');
+  if (ingTrack) {
+    var ingPrev = root.querySelector('[data-wk-ing-prev]');
+    var ingNext = root.querySelector('[data-wk-ing-next]');
+    var ingBar = root.querySelector('[data-wk-ing-bar]');
+    function ingStep() {
+      var c = ingTrack.querySelector('[data-wk-ing-card]');
+      return c ? c.getBoundingClientRect().width + 18 : ingTrack.clientWidth;
+    }
+    if (ingPrev) ingPrev.addEventListener('click', function () { ingTrack.scrollBy({ left: -ingStep(), behavior: 'smooth' }); });
+    if (ingNext) ingNext.addEventListener('click', function () { ingTrack.scrollBy({ left: ingStep(), behavior: 'smooth' }); });
+    function ingBarUpdate() {
+      if (!ingBar) return;
+      var max = ingTrack.scrollWidth - ingTrack.clientWidth;
+      var ratio = max > 0 ? ingTrack.scrollLeft / max : 0;
+      ingBar.style.width = (33 + ratio * 67) + '%';
+    }
+    ingTrack.addEventListener('scroll', ingBarUpdate, { passive: true });
+    window.addEventListener('resize', ingBarUpdate);
+    ingBarUpdate();
   }
 })();
 </script>
