@@ -449,11 +449,16 @@
   #wk-{{ section.id }} .wk-experts-grid::-webkit-scrollbar { display:none; }
   #wk-{{ section.id }} .wk-experts-dots { display:flex !important; }
   #wk-{{ section.id }} [data-wk-ing-card] { flex-basis:84% !important; }
+  #wk-{{ section.id }} .wk-ugc-track { justify-content:flex-start; padding:8px 20px 16px !important; gap:14px !important; scroll-padding-left:20px; }
+  #wk-{{ section.id }} .wk-ugc-track > div { flex:0 0 78% !important; }
 }
 #wk-{{ section.id }} [data-wk-track] { scrollbar-width:none; }
 #wk-{{ section.id }} [data-wk-track]::-webkit-scrollbar { display:none; }
 #wk-{{ section.id }} [data-wk-ing-track] { scrollbar-width:none; }
 #wk-{{ section.id }} [data-wk-ing-track]::-webkit-scrollbar { display:none; }
+/* UGC testimonials carousel: center the row when it fits, scroll (no scrollbar) when it doesn't */
+#wk-{{ section.id }} .wk-ugc-track { justify-content:safe center; scrollbar-width:none; scroll-padding-left:28px; }
+#wk-{{ section.id }} .wk-ugc-track::-webkit-scrollbar { display:none; }
 #wk-{{ section.id }} .wk-experts-dots { display:none; justify-content:center; gap:8px; margin-top:28px; }
 #wk-{{ section.id }} .wk-experts-dots span { width:7px; height:7px; border-radius:999px; background:rgba(107,61,66,0.28); cursor:pointer; transition:width .25s ease, background .25s ease; }
 #wk-{{ section.id }} .wk-experts-dots span.is-active { width:22px; background:#6B3D42; }
@@ -534,7 +539,7 @@
       <!-- FLAVOR -->
       <div style="font-size:11.5px;letter-spacing:0.22em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:10px;">Flavor</div>
       <div style="display:flex;gap:10px;margin-bottom:26px;flex-wrap:wrap;">
-        <button data-wk="flavor" data-wk-val="raspberry" style="position:relative;cursor:pointer;font-family:inherit;background:#F5E6D8;border:1.5px solid #6B3D42;color:#6B3D42;border-radius:999px;padding:9px 18px;font-size:13px;letter-spacing:0.04em;">Deep-red raspberry<span data-wk-ring="flavor:raspberry" style="box-shadow:0 0 0 2px #6B3D42;position:absolute;inset:-1.5px;border-radius:999px;pointer-events:none;"></span></button>
+        <button data-wk="flavor" data-wk-val="cranberry" style="position:relative;cursor:pointer;font-family:inherit;background:#F5E6D8;border:1.5px solid #6B3D42;color:#6B3D42;border-radius:999px;padding:9px 18px;font-size:13px;letter-spacing:0.04em;">Deep-red cranberry<span data-wk-ring="flavor:cranberry" style="box-shadow:0 0 0 2px #6B3D42;position:absolute;inset:-1.5px;border-radius:999px;pointer-events:none;"></span></button>
       </div>
 
       <!-- TAB LINKS -->
@@ -1018,7 +1023,7 @@
       <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:40px;margin:0 0 12px;color:#6B3D42;">Women like you, in their own words</h2>
       <p style="font-size:14.5px;color:#5a4636;margin:0;">Unfiltered, unscripted — photographed at home, in their own bathrooms and kitchens.</p>
     </div>
-    <div style="display:flex;gap:18px;overflow-x:auto;padding:8px 28px 14px;scroll-snap-type:x mandatory;">
+    <div class="wk-ugc-track" style="display:flex;gap:18px;overflow-x:auto;padding:8px 28px 14px;scroll-snap-type:x mandatory;">
       <div style="flex:0 0 222px;scroll-snap-align:start;display:flex;flex-direction:column;"><div style="aspect-ratio:3/4;background:#C9A89F;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#6B3D42;margin-bottom:16px;"><span style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;">UGC photo</span><span style="font-size:10.5px;opacity:0.72;">customer + product</span></div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.18;color:#6B3D42;margin:0 0 10px;">“I feel like myself again”</h3><p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0 0 10px;">“The 2am wake-ups eased within a few weeks. I'd forgotten what a full night felt like.”</p><cite style="font-style:normal;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#A07E81;font-weight:600;">— Rowan, 46</cite></div>
       <div style="flex:0 0 222px;scroll-snap-align:start;display:flex;flex-direction:column;"><div style="aspect-ratio:3/4;background:#C9A89F;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#6B3D42;margin-bottom:16px;"><span style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;">UGC photo</span><span style="font-size:10.5px;opacity:0.72;">customer + product</span></div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.18;color:#6B3D42;margin:0 0 10px;">“Finally, no confetti”</h3><p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0 0 10px;">“A brand that explains the science and talks to me like an adult. I was sold by the second paragraph.”</p><cite style="font-style:normal;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#A07E81;font-weight:600;">— Dani, 49</cite></div>
       <div style="flex:0 0 222px;scroll-snap-align:start;display:flex;flex-direction:column;"><div style="aspect-ratio:3/4;background:#C9A89F;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#6B3D42;margin-bottom:16px;"><span style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;">UGC photo</span><span style="font-size:10.5px;opacity:0.72;">customer + product</span></div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.18;color:#6B3D42;margin:0 0 10px;">“The bloating calmed”</h3><p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0 0 10px;">“Three weeks in and my middle feels settled for the first time in a year. I didn't expect that.”</p><cite style="font-style:normal;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#A07E81;font-weight:600;">— Shanae, 44</cite></div>
@@ -1170,7 +1175,7 @@
             <span style="font-size:22px;color:#C9653F;font-weight:300;flex:0 0 auto;">+</span>
           </button>
           <div class="wk-panel" data-wk-faq-panel="6" style="display:none;">
-            <p style="font-size:15px;line-height:1.65;color:#4a3a30;margin:0 0 24px;max-width:66ch;">Yes — no added sugar and no sugar alcohols that upset the gut. The gummy is a deep-red raspberry, lightly tart rather than candy-sweet, designed to be a daily you actually look forward to without working against the formula's gut support.</p>
+            <p style="font-size:15px;line-height:1.65;color:#4a3a30;margin:0 0 24px;max-width:66ch;">Yes — no added sugar and no sugar alcohols that upset the gut. The gummy is a deep-red cranberry, lightly tart rather than candy-sweet, designed to be a daily you actually look forward to without working against the formula's gut support.</p>
           </div>
         </div>
         <!-- 7 -->
@@ -1293,7 +1298,7 @@
   if (!root || root.dataset.wkInit) return;
   root.dataset.wkInit = '1';
   var RING = '0 0 0 2px #6B3D42', NONE = '0 0 0 0 transparent';
-  var state = { flavor:'raspberry', supply:'3' };
+  var state = { flavor:'cranberry', supply:'3' };
 
   function applySelection(group){
     var val = state[group];
