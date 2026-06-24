@@ -445,6 +445,7 @@
   #wk-{{ section.id }} header nav { display:none !important; }
   #wk-{{ section.id }} h1 { font-size:34px !important; }
   #wk-{{ section.id }} .wk-gallery { position:static !important; top:auto !important; }
+  #wk-{{ section.id }} .wk-team-photo { min-height:0 !important; height:auto !important; aspect-ratio:1/1; }
   #wk-{{ section.id }} .wk-thumbs > div { flex:0 0 calc((100% - 27px) / 3.5) !important; }
   #wk-{{ section.id }} [data-wk-card] { flex-basis:84% !important; }
   #wk-{{ section.id }} .wk-experts-grid { display:flex !important; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
@@ -752,23 +753,17 @@
     </div>
   </section>
 
-  <!-- SYMPTOM / "FOR THE WOMAN WHO" SPLIT -->
+  <!-- MEET THE TEAM -->
   <section style="background:#D8C2BA;padding:0;">
     <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;align-items:stretch;">
-      <div style="min-height:520px;background:#C9A89F;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#6B3D42;">
-        <span style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;">Lifestyle · editorial</span>
-        <span style="font-size:12.5px;letter-spacing:0.04em;opacity:0.8;">woman 40–55 · natural light · domestic</span>
-        <span style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;opacity:0.55;">1000 × 1040</span>
+      <div class="wk-team-photo" style="height:100%;min-height:520px;">
+        <img src="{{ 'wk-team.jpg' | asset_url }}" alt="The women who founded and formulate Womankind" width="1024" height="1024" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
       </div>
       <div style="padding:72px 56px;display:flex;flex-direction:column;justify-content:center;">
-        <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:16px;">For the woman who senses the shift</div>
-        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:38px;line-height:1.1;margin:0 0 20px;color:#6B3D42;">You don't see yourself in the word menopause yet. We meet you earlier.</h2>
-        <p style="font-size:15px;line-height:1.65;color:#4a3a30;margin:0 0 26px;max-width:46ch;">The bloating that arrived from nowhere. The 2am wake-ups. The fog. At least one doctor has told you your labs are normal and it's probably stress. They're real, they have a name, and they're worth taking seriously.</p>
-        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:34px;">
-          <div style="display:flex;align-items:flex-start;gap:11px;font-size:14.5px;color:#3A2A20;"><span style="color:#C9653F;font-weight:700;">✓</span>Eases hot flashes &amp; night sweats*</div>
-          <div style="display:flex;align-items:flex-start;gap:11px;font-size:14.5px;color:#3A2A20;"><span style="color:#C9653F;font-weight:700;">✓</span>Steadies mood, stress &amp; sleep*</div>
-          <div style="display:flex;align-items:flex-start;gap:11px;font-size:14.5px;color:#3A2A20;"><span style="color:#C9653F;font-weight:700;">✓</span>Calms bloating &amp; supports digestion*</div>
-        </div>
+        <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:16px;">The women behind Womankind</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:38px;line-height:1.1;margin:0 0 20px;color:#6B3D42;">Founded by women who were done being dismissed.</h2>
+        <p style="font-size:15px;line-height:1.65;color:#4a3a30;margin:0 0 18px;max-width:48ch;">We're the OB/GYNs, dietitians and scientists who lived the same story our customers tell us — symptoms brushed aside, labs called "normal," an appointment that ended in "it's probably stress." We built Womankind because nothing on the shelf was good enough to recommend to our patients, our friends, or ourselves.</p>
+        <p style="font-size:15px;line-height:1.65;color:#4a3a30;margin:0 0 32px;max-width:48ch;">Care designed by women who know the transition from the inside — research-led, honestly dosed, and made to meet you years before the word menopause feels like yours.</p>
         <a href="#" style="align-self:flex-start;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:15px 34px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">Start with a 3-month supply</a>
       </div>
     </div>
