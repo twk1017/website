@@ -4,73 +4,32 @@
 
       <!-- LEFT: intro -->
       <div>
-        <div style="font-size:11.5px;letter-spacing:0.24em;text-transform:uppercase;color:#A07E81;font-weight:600;margin-bottom:22px;">How it works</div>
-        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:42px;line-height:1.12;margin:0;color:#6B3D42;letter-spacing:-0.01em;"><span style="font-weight:600;">Two gummies daily</span>, with or without food — at a time you'll remember</h2>
+        <div style="font-size:11.5px;letter-spacing:0.24em;text-transform:uppercase;color:#A07E81;font-weight:600;margin-bottom:22px;">{{ section.settings.eyebrow }}</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:42px;line-height:1.12;margin:0;color:#6B3D42;letter-spacing:-0.01em;">{{ section.settings.heading }}</h2>
       </div>
 
       <!-- RIGHT: timeline -->
       <div style="position:relative;">
         <div style="position:absolute;left:8px;top:12px;bottom:12px;width:2px;background:#6B3D42;"></div>
-
-        <!-- node -->
-        <div style="position:relative;display:grid;grid-template-columns:18px 1fr;gap:26px;padding-bottom:42px;">
-          <div style="width:18px;height:18px;border-radius:50%;background:#6B3D42;position:relative;z-index:1;margin-top:1px;"></div>
-          <div>
-            <span style="display:inline-block;border:1.5px solid #6B3D42;border-radius:4px;padding:5px 11px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#6B3D42;font-weight:600;">Week 2+</span>
-            <ul style="list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:9px;">
-              <li style="display:flex;gap:11px;font-size:15px;line-height:1.5;color:#3A2A20;"><span style="color:#6B3D42;flex:0 0 auto;">•</span><span>Steadier sleep — fewer 2am wake-ups*</span></li>
-              <li style="display:flex;gap:11px;font-size:15px;line-height:1.5;color:#3A2A20;"><span style="color:#6B3D42;flex:0 0 auto;">•</span><span>A calmer response to everyday stress*</span></li>
-              <li style="display:flex;gap:11px;font-size:15px;line-height:1.5;color:#3A2A20;"><span style="color:#6B3D42;flex:0 0 auto;">•</span><span>Easier, less foggy mornings*</span></li>
-            </ul>
+        {%- for i in (1..5) -%}
+          {%- assign lk = 'node_' | append: i | append: '_label' -%}
+          {%- assign label = section.settings[lk] -%}
+          {%- if label != blank -%}
+          <div style="position:relative;display:grid;grid-template-columns:18px 1fr;gap:26px;padding-bottom:{% if forloop.last %}0{% else %}42px{% endif %};">
+            <div style="width:18px;height:18px;border-radius:50%;background:#6B3D42;position:relative;z-index:1;margin-top:1px;"></div>
+            <div>
+              <span style="display:inline-block;border:1.5px solid #6B3D42;border-radius:4px;padding:5px 11px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#6B3D42;font-weight:600;">{{ label }}</span>
+              <ul style="list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:9px;">
+                {%- for j in (1..3) -%}
+                  {%- assign bk = 'node_' | append: i | append: '_b' | append: j -%}
+                  {%- assign bullet = section.settings[bk] -%}
+                  {%- if bullet != blank -%}<li style="display:flex;gap:11px;font-size:15px;line-height:1.5;color:#3A2A20;"><span style="color:#6B3D42;flex:0 0 auto;">•</span><span>{{ bullet }}</span></li>{%- endif -%}
+                {%- endfor -%}
+              </ul>
+            </div>
           </div>
-        </div>
-
-        <!-- node -->
-        <div style="position:relative;display:grid;grid-template-columns:18px 1fr;gap:26px;padding-bottom:42px;">
-          <div style="width:18px;height:18px;border-radius:50%;background:#6B3D42;position:relative;z-index:1;margin-top:1px;"></div>
-          <div>
-            <span style="display:inline-block;border:1.5px solid #6B3D42;border-radius:4px;padding:5px 11px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#6B3D42;font-weight:600;">Week 4+</span>
-            <ul style="list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:9px;">
-              <li style="display:flex;gap:11px;font-size:15px;line-height:1.5;color:#3A2A20;"><span style="color:#6B3D42;flex:0 0 auto;">•</span><span>Less bloating and calmer digestion*</span></li>
-              <li style="display:flex;gap:11px;font-size:15px;line-height:1.5;color:#3A2A20;"><span style="color:#6B3D42;flex:0 0 auto;">•</span><span>A steadier, more even mood through the day*</span></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- node -->
-        <div style="position:relative;display:grid;grid-template-columns:18px 1fr;gap:26px;padding-bottom:42px;">
-          <div style="width:18px;height:18px;border-radius:50%;background:#6B3D42;position:relative;z-index:1;margin-top:1px;"></div>
-          <div>
-            <span style="display:inline-block;border:1.5px solid #6B3D42;border-radius:4px;padding:5px 11px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#6B3D42;font-weight:600;">Week 6+</span>
-            <ul style="list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:9px;">
-              <li style="display:flex;gap:11px;font-size:15px;line-height:1.5;color:#3A2A20;"><span style="color:#6B3D42;flex:0 0 auto;">•</span><span>Clearer focus and less afternoon fog*</span></li>
-              <li style="display:flex;gap:11px;font-size:15px;line-height:1.5;color:#3A2A20;"><span style="color:#6B3D42;flex:0 0 auto;">•</span><span>Cooler nights, fewer night sweats*</span></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- node -->
-        <div style="position:relative;display:grid;grid-template-columns:18px 1fr;gap:26px;padding-bottom:42px;">
-          <div style="width:18px;height:18px;border-radius:50%;background:#6B3D42;position:relative;z-index:1;margin-top:1px;"></div>
-          <div>
-            <span style="display:inline-block;border:1.5px solid #6B3D42;border-radius:4px;padding:5px 11px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#6B3D42;font-weight:600;">Week 8–12+</span>
-            <ul style="list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:9px;">
-              <li style="display:flex;gap:11px;font-size:15px;line-height:1.5;color:#3A2A20;"><span style="color:#6B3D42;flex:0 0 auto;">•</span><span>Fewer, milder hot flashes as actives reach steady state*</span></li>
-              <li style="display:flex;gap:11px;font-size:15px;line-height:1.5;color:#3A2A20;"><span style="color:#6B3D42;flex:0 0 auto;">•</span><span>More consistent energy from morning to night*</span></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- node -->
-        <div style="position:relative;display:grid;grid-template-columns:18px 1fr;gap:26px;padding-bottom:0;">
-          <div style="width:18px;height:18px;border-radius:50%;background:#6B3D42;position:relative;z-index:1;margin-top:1px;"></div>
-          <div>
-            <span style="display:inline-block;border:1.5px solid #6B3D42;border-radius:4px;padding:5px 11px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#6B3D42;font-weight:600;">Month 6+</span>
-            <ul style="list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:9px;">
-              <li style="display:flex;gap:11px;font-size:15px;line-height:1.5;color:#3A2A20;"><span style="color:#6B3D42;flex:0 0 auto;">•</span><span>A steadier hormonal rhythm carried through the whole transition*</span></li>
-            </ul>
-          </div>
-        </div>
+          {%- endif -%}
+        {%- endfor -%}
       </div>
     </div>
   </section>
@@ -78,6 +37,34 @@
 {% schema %}
 {
   "name": "WK - Timeline",
-  "settings": []
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "How it works" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "<strong>Two gummies daily</strong>, with or without food — at a time you'll remember" },
+    { "type": "header", "content": "Step 1" },
+    { "type": "text", "id": "node_1_label", "label": "Label", "default": "Week 2+" },
+    { "type": "inline_richtext", "id": "node_1_b1", "label": "Bullet 1", "default": "Steadier sleep — fewer 2am wake-ups*" },
+    { "type": "inline_richtext", "id": "node_1_b2", "label": "Bullet 2", "default": "A calmer response to everyday stress*" },
+    { "type": "inline_richtext", "id": "node_1_b3", "label": "Bullet 3", "default": "Easier, less foggy mornings*" },
+    { "type": "header", "content": "Step 2" },
+    { "type": "text", "id": "node_2_label", "label": "Label", "default": "Week 4+" },
+    { "type": "inline_richtext", "id": "node_2_b1", "label": "Bullet 1", "default": "Less bloating and calmer digestion*" },
+    { "type": "inline_richtext", "id": "node_2_b2", "label": "Bullet 2", "default": "A steadier, more even mood through the day*" },
+    { "type": "inline_richtext", "id": "node_2_b3", "label": "Bullet 3" },
+    { "type": "header", "content": "Step 3" },
+    { "type": "text", "id": "node_3_label", "label": "Label", "default": "Week 6+" },
+    { "type": "inline_richtext", "id": "node_3_b1", "label": "Bullet 1", "default": "Clearer focus and less afternoon fog*" },
+    { "type": "inline_richtext", "id": "node_3_b2", "label": "Bullet 2", "default": "Cooler nights, fewer night sweats*" },
+    { "type": "inline_richtext", "id": "node_3_b3", "label": "Bullet 3" },
+    { "type": "header", "content": "Step 4" },
+    { "type": "text", "id": "node_4_label", "label": "Label", "default": "Week 8–12+" },
+    { "type": "inline_richtext", "id": "node_4_b1", "label": "Bullet 1", "default": "Fewer, milder hot flashes as actives reach steady state*" },
+    { "type": "inline_richtext", "id": "node_4_b2", "label": "Bullet 2", "default": "More consistent energy from morning to night*" },
+    { "type": "inline_richtext", "id": "node_4_b3", "label": "Bullet 3" },
+    { "type": "header", "content": "Step 5" },
+    { "type": "text", "id": "node_5_label", "label": "Label", "default": "Month 6+" },
+    { "type": "inline_richtext", "id": "node_5_b1", "label": "Bullet 1", "default": "A steadier hormonal rhythm carried through the whole transition*" },
+    { "type": "inline_richtext", "id": "node_5_b2", "label": "Bullet 2" },
+    { "type": "inline_richtext", "id": "node_5_b3", "label": "Bullet 3" }
+  ]
 }
 {% endschema %}

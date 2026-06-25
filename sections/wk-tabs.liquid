@@ -1,124 +1,36 @@
   <!-- WHAT TO EXPECT / HOW TO USE / SHIPPING TABS -->
+  {%- assign wk_panel_ids = 'expect,use,ship' | split: ',' -%}
   <section style="background:#F5E6D8;padding:80px 28px;">
     <div class="wk-xt" style="max-width:1180px;margin:0 auto;">
       <div class="wk-xt-tabs" role="tablist">
-        <button class="wk-xtab is-active" data-wk-xtab="expect" role="tab" aria-selected="true" type="button">What to expect</button>
-        <button class="wk-xtab" data-wk-xtab="use" role="tab" aria-selected="false" type="button">How to use</button>
-        <button class="wk-xtab" data-wk-xtab="ship" role="tab" aria-selected="false" type="button">Shipping</button>
+        <button class="wk-xtab is-active" data-wk-xtab="expect" role="tab" aria-selected="true" type="button">{{ section.settings.tab1_label }}</button>
+        <button class="wk-xtab" data-wk-xtab="use" role="tab" aria-selected="false" type="button">{{ section.settings.tab2_label }}</button>
+        <button class="wk-xtab" data-wk-xtab="ship" role="tab" aria-selected="false" type="button">{{ section.settings.tab3_label }}</button>
       </div>
       <div class="wk-xt-body">
-
-        <!-- PANEL: WHAT TO EXPECT -->
-        <div class="wk-xpanel is-active" data-wk-xpanel="expect" role="tabpanel">
-          <div>
-            <div style="display:flex;align-items:center;gap:13px;margin-bottom:18px;">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:11px;background:rgba(245,230,216,0.09);color:#E2A24C;flex:0 0 auto;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"/><path d="M12 12C12 8 9.5 5 5 5c0 4.5 2.5 7 7 7z"/><path d="M12 14c0-3 2.5-6 7-6 0 4-2.5 6-7 6z"/></svg></span>
-              <div><div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:700;margin-bottom:3px;">Week 1</div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;line-height:1.15;color:#F5E6D8;margin:0;">Settling in</h3></div>
-            </div>
-            <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;">
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>A gentler, more even daily energy</span></li>
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Easier wind-down as evening comes</span></li>
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>A morning ritual you look forward to</span></li>
-            </ul>
+        {%- for pid in wk_panel_ids -%}
+          <div class="wk-xpanel{% if forloop.first %} is-active{% endif %}" data-wk-xpanel="{{ pid }}" role="tabpanel">
+            {%- assign panel_base = forloop.index0 | times: 3 -%}
+            {%- for ci in (1..3) -%}
+              {%- assign gidx = panel_base | plus: ci -%}
+              {%- assign ek = 'c' | append: gidx | append: '_eyebrow' -%}
+              {%- assign tk = 'c' | append: gidx | append: '_title' -%}
+              <div>
+                <div style="display:flex;align-items:center;gap:13px;margin-bottom:18px;">
+                  <span style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:11px;background:rgba(245,230,216,0.09);color:#E2A24C;flex:0 0 auto;">{%- case gidx -%}{%- when 1 -%}<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"/><path d="M12 12C12 8 9.5 5 5 5c0 4.5 2.5 7 7 7z"/><path d="M12 14c0-3 2.5-6 7-6 0 4-2.5 6-7 6z"/></svg>{%- when 2 -%}<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>{%- when 3 -%}<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>{%- when 4 -%}<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11z"/></svg>{%- when 5 -%}<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16.5" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M8.5 14.5l2.5 2.5 4.5-5"/></svg>{%- when 6 -%}<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13C4 7 11 4 20 4c0 9-3 16-9 16z"/><path d="M4 20c2-4.5 5.5-7.5 10-9.5"/></svg>{%- when 7 -%}<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5h11v9H3zM14 9.5h3.5l3 3v3H14z"/><circle cx="7" cy="18" r="1.7"/><circle cx="17.5" cy="18" r="1.7"/></svg>{%- when 8 -%}<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 4v4h-4"/></svg>{%- when 9 -%}<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4.5"/></svg>{%- endcase -%}</span>
+                  <div><div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:700;margin-bottom:3px;">{{ section.settings[ek] }}</div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;line-height:1.15;color:#F5E6D8;margin:0;">{{ section.settings[tk] }}</h3></div>
+                </div>
+                <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;">
+                  {%- for bi in (1..3) -%}
+                    {%- assign bk = 'c' | append: gidx | append: '_b' | append: bi -%}
+                    {%- assign bt = section.settings[bk] -%}
+                    {%- if bt != blank -%}<li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>{{ bt }}</span></li>{%- endif -%}
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- endfor -%}
           </div>
-          <div>
-            <div style="display:flex;align-items:center;gap:13px;margin-bottom:18px;">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:11px;background:rgba(245,230,216,0.09);color:#E2A24C;flex:0 0 auto;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></span>
-              <div><div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:700;margin-bottom:3px;">Month 1</div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;line-height:1.15;color:#F5E6D8;margin:0;">Finding your rhythm</h3></div>
-            </div>
-            <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;">
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Fewer 2am wake-ups, deeper sleep*</span></li>
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Steadier, less reactive moods*</span></li>
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>A calmer, less bloated middle*</span></li>
-            </ul>
-          </div>
-          <div>
-            <div style="display:flex;align-items:center;gap:13px;margin-bottom:18px;">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:11px;background:rgba(245,230,216,0.09);color:#E2A24C;flex:0 0 auto;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg></span>
-              <div><div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:700;margin-bottom:3px;">Month 3+</div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;line-height:1.15;color:#F5E6D8;margin:0;">Feeling like yourself</h3></div>
-            </div>
-            <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;">
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Cooler nights, fewer hot flashes*</span></li>
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>More balanced hormonal support*</span></li>
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Like yourself again, in your own body</span></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- PANEL: HOW TO USE -->
-        <div class="wk-xpanel" data-wk-xpanel="use" role="tabpanel">
-          <div>
-            <div style="display:flex;align-items:center;gap:13px;margin-bottom:18px;">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:11px;background:rgba(245,230,216,0.09);color:#E2A24C;flex:0 0 auto;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11z"/></svg></span>
-              <div><div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:700;margin-bottom:3px;">Daily</div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;line-height:1.15;color:#F5E6D8;margin:0;">Two gummies</h3></div>
-            </div>
-            <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;">
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Take 2 gummies each morning</span></li>
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>With or without food</span></li>
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Pick a time you'll remember</span></li>
-            </ul>
-          </div>
-          <div>
-            <div style="display:flex;align-items:center;gap:13px;margin-bottom:18px;">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:11px;background:rgba(245,230,216,0.09);color:#E2A24C;flex:0 0 auto;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16.5" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M8.5 14.5l2.5 2.5 4.5-5"/></svg></span>
-              <div><div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:700;margin-bottom:3px;">Consistency</div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;line-height:1.15;color:#F5E6D8;margin:0;">Make it a habit</h3></div>
-            </div>
-            <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;">
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Works best taken every day</span></li>
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Give it a full transition cycle</span></li>
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Pair it with your morning coffee</span></li>
-            </ul>
-          </div>
-          <div>
-            <div style="display:flex;align-items:center;gap:13px;margin-bottom:18px;">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:11px;background:rgba(245,230,216,0.09);color:#E2A24C;flex:0 0 auto;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13C4 7 11 4 20 4c0 9-3 16-9 16z"/><path d="M4 20c2-4.5 5.5-7.5 10-9.5"/></svg></span>
-              <div><div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:700;margin-bottom:3px;">The gummy</div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;line-height:1.15;color:#F5E6D8;margin:0;">What you're taking</h3></div>
-            </div>
-            <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;">
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>No added sugar or sugar alcohols</span></li>
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Deep-red cranberry, lightly tart</span></li>
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Every active named and dosed</span></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- PANEL: SHIPPING -->
-        <div class="wk-xpanel" data-wk-xpanel="ship" role="tabpanel">
-          <div>
-            <div style="display:flex;align-items:center;gap:13px;margin-bottom:18px;">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:11px;background:rgba(245,230,216,0.09);color:#E2A24C;flex:0 0 auto;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5h11v9H3zM14 9.5h3.5l3 3v3H14z"/><circle cx="7" cy="18" r="1.7"/><circle cx="17.5" cy="18" r="1.7"/></svg></span>
-              <div><div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:700;margin-bottom:3px;">Delivery</div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;line-height:1.15;color:#F5E6D8;margin:0;">Free &amp; carbon-neutral</h3></div>
-            </div>
-            <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;">
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Free shipping on every subscription</span></li>
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Carbon-neutral delivery</span></li>
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Dispatched within 48 hours</span></li>
-            </ul>
-          </div>
-          <div>
-            <div style="display:flex;align-items:center;gap:13px;margin-bottom:18px;">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:11px;background:rgba(245,230,216,0.09);color:#E2A24C;flex:0 0 auto;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 4v4h-4"/></svg></span>
-              <div><div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:700;margin-bottom:3px;">Subscription</div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;line-height:1.15;color:#F5E6D8;margin:0;">On your terms</h3></div>
-            </div>
-            <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;">
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Pause, skip, or cancel anytime</span></li>
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Choose your own cadence</span></li>
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>No emails, no hoops</span></li>
-            </ul>
-          </div>
-          <div>
-            <div style="display:flex;align-items:center;gap:13px;margin-bottom:18px;">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:11px;background:rgba(245,230,216,0.09);color:#E2A24C;flex:0 0 auto;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4.5"/></svg></span>
-              <div><div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:700;margin-bottom:3px;">Guarantee</div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;line-height:1.15;color:#F5E6D8;margin:0;">90-day promise</h3></div>
-            </div>
-            <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;">
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Take the full three months</span></li>
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>Not right for you? Full refund</span></li>
-              <li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>No need to return the bottles</span></li>
-            </ul>
-          </div>
-        </div>
-
+        {%- endfor -%}
       </div>
     </div>
   </section>
@@ -126,6 +38,64 @@
 {% schema %}
 {
   "name": "WK - Tabs",
-  "settings": []
+  "settings": [
+    { "type": "text", "id": "tab1_label", "label": "Tab 1 label", "default": "What to expect" },
+    { "type": "text", "id": "tab2_label", "label": "Tab 2 label", "default": "How to use" },
+    { "type": "text", "id": "tab3_label", "label": "Tab 3 label", "default": "Shipping" },
+    { "type": "header", "content": "Tab 1 · Column 1" },
+    { "type": "text", "id": "c1_eyebrow", "label": "Eyebrow", "default": "Week 1" },
+    { "type": "text", "id": "c1_title", "label": "Title", "default": "Settling in" },
+    { "type": "text", "id": "c1_b1", "label": "Bullet 1", "default": "A gentler, more even daily energy" },
+    { "type": "text", "id": "c1_b2", "label": "Bullet 2", "default": "Easier wind-down as evening comes" },
+    { "type": "text", "id": "c1_b3", "label": "Bullet 3", "default": "A morning ritual you look forward to" },
+    { "type": "header", "content": "Tab 1 · Column 2" },
+    { "type": "text", "id": "c2_eyebrow", "label": "Eyebrow", "default": "Month 1" },
+    { "type": "text", "id": "c2_title", "label": "Title", "default": "Finding your rhythm" },
+    { "type": "text", "id": "c2_b1", "label": "Bullet 1", "default": "Fewer 2am wake-ups, deeper sleep*" },
+    { "type": "text", "id": "c2_b2", "label": "Bullet 2", "default": "Steadier, less reactive moods*" },
+    { "type": "text", "id": "c2_b3", "label": "Bullet 3", "default": "A calmer, less bloated middle*" },
+    { "type": "header", "content": "Tab 1 · Column 3" },
+    { "type": "text", "id": "c3_eyebrow", "label": "Eyebrow", "default": "Month 3+" },
+    { "type": "text", "id": "c3_title", "label": "Title", "default": "Feeling like yourself" },
+    { "type": "text", "id": "c3_b1", "label": "Bullet 1", "default": "Cooler nights, fewer hot flashes*" },
+    { "type": "text", "id": "c3_b2", "label": "Bullet 2", "default": "More balanced hormonal support*" },
+    { "type": "text", "id": "c3_b3", "label": "Bullet 3", "default": "Like yourself again, in your own body" },
+    { "type": "header", "content": "Tab 2 · Column 1" },
+    { "type": "text", "id": "c4_eyebrow", "label": "Eyebrow", "default": "Daily" },
+    { "type": "text", "id": "c4_title", "label": "Title", "default": "Two gummies" },
+    { "type": "text", "id": "c4_b1", "label": "Bullet 1", "default": "Take 2 gummies each morning" },
+    { "type": "text", "id": "c4_b2", "label": "Bullet 2", "default": "With or without food" },
+    { "type": "text", "id": "c4_b3", "label": "Bullet 3", "default": "Pick a time you'll remember" },
+    { "type": "header", "content": "Tab 2 · Column 2" },
+    { "type": "text", "id": "c5_eyebrow", "label": "Eyebrow", "default": "Consistency" },
+    { "type": "text", "id": "c5_title", "label": "Title", "default": "Make it a habit" },
+    { "type": "text", "id": "c5_b1", "label": "Bullet 1", "default": "Works best taken every day" },
+    { "type": "text", "id": "c5_b2", "label": "Bullet 2", "default": "Give it a full transition cycle" },
+    { "type": "text", "id": "c5_b3", "label": "Bullet 3", "default": "Pair it with your morning coffee" },
+    { "type": "header", "content": "Tab 2 · Column 3" },
+    { "type": "text", "id": "c6_eyebrow", "label": "Eyebrow", "default": "The gummy" },
+    { "type": "text", "id": "c6_title", "label": "Title", "default": "What you're taking" },
+    { "type": "text", "id": "c6_b1", "label": "Bullet 1", "default": "No added sugar or sugar alcohols" },
+    { "type": "text", "id": "c6_b2", "label": "Bullet 2", "default": "Deep-red cranberry, lightly tart" },
+    { "type": "text", "id": "c6_b3", "label": "Bullet 3", "default": "Every active named and dosed" },
+    { "type": "header", "content": "Tab 3 · Column 1" },
+    { "type": "text", "id": "c7_eyebrow", "label": "Eyebrow", "default": "Delivery" },
+    { "type": "text", "id": "c7_title", "label": "Title", "default": "Free & carbon-neutral" },
+    { "type": "text", "id": "c7_b1", "label": "Bullet 1", "default": "Free shipping on every subscription" },
+    { "type": "text", "id": "c7_b2", "label": "Bullet 2", "default": "Carbon-neutral delivery" },
+    { "type": "text", "id": "c7_b3", "label": "Bullet 3", "default": "Dispatched within 48 hours" },
+    { "type": "header", "content": "Tab 3 · Column 2" },
+    { "type": "text", "id": "c8_eyebrow", "label": "Eyebrow", "default": "Subscription" },
+    { "type": "text", "id": "c8_title", "label": "Title", "default": "On your terms" },
+    { "type": "text", "id": "c8_b1", "label": "Bullet 1", "default": "Pause, skip, or cancel anytime" },
+    { "type": "text", "id": "c8_b2", "label": "Bullet 2", "default": "Choose your own cadence" },
+    { "type": "text", "id": "c8_b3", "label": "Bullet 3", "default": "No emails, no hoops" },
+    { "type": "header", "content": "Tab 3 · Column 3" },
+    { "type": "text", "id": "c9_eyebrow", "label": "Eyebrow", "default": "Guarantee" },
+    { "type": "text", "id": "c9_title", "label": "Title", "default": "90-day promise" },
+    { "type": "text", "id": "c9_b1", "label": "Bullet 1", "default": "Take the full three months" },
+    { "type": "text", "id": "c9_b2", "label": "Bullet 2", "default": "Not right for you? Full refund" },
+    { "type": "text", "id": "c9_b3", "label": "Bullet 3", "default": "No need to return the bottles" }
+  ]
 }
 {% endschema %}

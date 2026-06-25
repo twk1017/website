@@ -6,24 +6,31 @@
 
     <!-- GALLERY -->
     <div class="wk-gallery" style="position:sticky;top:96px;">
+      {%- if section.settings.hero_image -%}{%- assign wk_hero_src = section.settings.hero_image | image_url: width: 1200 -%}{%- endif -%}
       <div class="wk-hero-img" style="position:relative;aspect-ratio:1/1;border-radius:18px;overflow:hidden;background:radial-gradient(120% 92% at 50% 16%, #ECDBCC 0%, #D8BFB4 52%, #C2A099 100%);">
-
-        <!-- product placeholder (swap for real bottle image) -->
+        {%- if section.settings.hero_image -%}
+        <img src="{{ wk_hero_src }}" alt="{{ section.settings.hero_image.alt | default: 'Womankind Hormonal Support Gummies' }}" width="1200" height="1200" loading="eager" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+        {%- else -%}
         <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:rgba(107,61,66,0.62);text-align:center;padding:0 28px;">
           <span style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;">Product · hero</span>
           <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;opacity:0.7;">1200 × 1200</span>
         </div>
+        {%- endif -%}
       </div>
 
       <!-- thumbnail carousel -->
       <div style="display:flex;align-items:center;gap:10px;margin-top:14px;">
         <button type="button" class="wk-thumb-arrow" data-wk-thumb-prev aria-label="Previous image">&lsaquo;</button>
         <div class="wk-thumbs" data-wk-thumb-track>
-          <div style="aspect-ratio:1/1;background:#D8C2BA;border-radius:9px;border:2px solid #6B3D42;display:flex;align-items:center;justify-content:center;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#6B3D42;text-align:center;font-weight:600;">Front</div>
-          <div style="aspect-ratio:1/1;background:#D8C2BA;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#6B3D42;text-align:center;font-weight:600;">Detail</div>
-          <div style="aspect-ratio:1/1;background:#D8C2BA;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#6B3D42;text-align:center;font-weight:600;">Formula</div>
-          <div style="aspect-ratio:1/1;background:#D8C2BA;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#6B3D42;text-align:center;font-weight:600;">In&nbsp;hand</div>
-          <div style="aspect-ratio:1/1;background:#D8C2BA;border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#6B3D42;text-align:center;font-weight:600;gap:3px;"><span style="font-size:15px;">&#9654;</span>Video</div>
+          {%- for i in (1..5) -%}
+            {%- assign tlk = 'thumb_' | append: i | append: '_label' -%}
+            {%- assign tik = 'thumb_' | append: i | append: '_image' -%}
+            {%- assign tlabel = section.settings[tlk] -%}
+            {%- assign timg = section.settings[tik] -%}
+            {%- if timg or tlabel != blank -%}
+            <div style="aspect-ratio:1/1;background:#D8C2BA;border-radius:9px;overflow:hidden;{% if forloop.first %}border:2px solid #6B3D42;{% endif %}display:flex;align-items:center;justify-content:center;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#6B3D42;text-align:center;font-weight:600;">{%- if timg -%}{%- assign tsrc = timg | image_url: width: 240 -%}<img src="{{ tsrc }}" alt="{{ tlabel }}" width="240" height="240" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">{%- else -%}{{ tlabel }}{%- endif -%}</div>
+            {%- endif -%}
+          {%- endfor -%}
         </div>
         <button type="button" class="wk-thumb-arrow" data-wk-thumb-next aria-label="Next image">&rsaquo;</button>
       </div>
@@ -31,53 +38,50 @@
 
     <!-- BUY BOX -->
     <div>
-      <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:14px;">Daily · for perimenopause &amp; beyond</div>
-      <h1 style="font-family:'Fraunces',serif;font-weight:400;font-size:48px;line-height:1.02;margin:0 0 14px;color:#6B3D42;letter-spacing:-0.01em;">hormonal support gummies</h1>
+      <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:14px;">{{ section.settings.eyebrow }}</div>
+      <h1 style="font-family:'Fraunces',serif;font-weight:400;font-size:48px;line-height:1.02;margin:0 0 14px;color:#6B3D42;letter-spacing:-0.01em;">{{ section.settings.heading }}</h1>
 
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
         <span style="color:#C9653F;font-size:17px;letter-spacing:2px;">★★★★★</span>
-        <span style="font-size:13.5px;color:#3A2A20;">4.8 &nbsp;·&nbsp; 1,200+ reviews</span>
+        <span style="font-size:13.5px;color:#3A2A20;">{{ section.settings.rating_text }}</span>
       </div>
 
-      <p style="font-size:15px;line-height:1.6;color:#4a3a30;margin:0 0 18px;max-width:30em;">A daily multi-symptom gummy for the four things that shift first — made with clinically-backed ingredients and a probiotic blend for the estrobolome. No hormones, no sugar.</p>
+      <p style="font-size:15px;line-height:1.6;color:#4a3a30;margin:0 0 18px;max-width:30em;">{{ section.settings.description }}</p>
 
       <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:22px;">
-        <div style="display:flex;align-items:flex-start;gap:11px;font-size:14.5px;color:#3A2A20;"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span><span>Eases hot flashes &amp; night sweats*</span></div>
-        <div style="display:flex;align-items:flex-start;gap:11px;font-size:14.5px;color:#3A2A20;"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span><span>Steadies mood &amp; the stress response*</span></div>
-        <div style="display:flex;align-items:flex-start;gap:11px;font-size:14.5px;color:#3A2A20;"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span><span>Calms bloating &amp; supports the gut*</span></div>
-        <div style="display:flex;align-items:flex-start;gap:11px;font-size:14.5px;color:#3A2A20;"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span><span>Supports hormonal balance through the transition*</span></div>
+        {%- for i in (1..4) -%}{%- assign bk = 'benefit_' | append: i -%}{%- assign bt = section.settings[bk] -%}{%- if bt != blank -%}<div style="display:flex;align-items:flex-start;gap:11px;font-size:14.5px;color:#3A2A20;"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span><span>{{ bt }}</span></div>{%- endif -%}{%- endfor -%}
       </div>
 
       <blockquote style="border-left:2px solid #C9653F;margin:0 0 24px;padding:4px 0 4px 18px;">
-        <p style="font-family:'Fraunces',serif;font-style:italic;font-size:17px;line-height:1.45;color:#6B3D42;margin:0 0 8px;">"Three weeks in and the 2am wake-ups have eased. I finally feel like myself in my own body again."</p>
-        <cite style="font-style:normal;font-size:11.5px;letter-spacing:0.16em;text-transform:uppercase;color:#A07E81;font-weight:600;">— Margaret R., 47 · Verified, 3+ months</cite>
+        <p style="font-family:'Fraunces',serif;font-style:italic;font-size:17px;line-height:1.45;color:#6B3D42;margin:0 0 8px;">{{ section.settings.quote }}</p>
+        <cite style="font-style:normal;font-size:11.5px;letter-spacing:0.16em;text-transform:uppercase;color:#A07E81;font-weight:600;">{{ section.settings.quote_cite }}</cite>
       </blockquote>
 
       <!-- FLAVOR -->
-      <div style="font-size:11.5px;letter-spacing:0.22em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:10px;">Flavor</div>
+      <div style="font-size:11.5px;letter-spacing:0.22em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:10px;">{{ section.settings.flavor_label }}</div>
       <div style="display:flex;gap:10px;margin-bottom:26px;flex-wrap:wrap;">
-        <button data-wk="flavor" data-wk-val="cranberry" style="position:relative;cursor:pointer;font-family:inherit;background:#F5E6D8;border:1.5px solid #6B3D42;color:#6B3D42;border-radius:999px;padding:9px 18px;font-size:13px;letter-spacing:0.04em;">Deep-red cranberry<span data-wk-ring="flavor:cranberry" style="box-shadow:0 0 0 2px #6B3D42;position:absolute;inset:-1.5px;border-radius:999px;pointer-events:none;"></span></button>
+        <button data-wk="flavor" data-wk-val="cranberry" style="position:relative;cursor:pointer;font-family:inherit;background:#F5E6D8;border:1.5px solid #6B3D42;color:#6B3D42;border-radius:999px;padding:9px 18px;font-size:13px;letter-spacing:0.04em;">{{ section.settings.flavor_pill }}<span data-wk-ring="flavor:cranberry" style="box-shadow:0 0 0 2px #6B3D42;position:absolute;inset:-1.5px;border-radius:999px;pointer-events:none;"></span></button>
       </div>
 
       <!-- SUPPLY TIERS -->
       <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:22px;">
         <button data-wk="supply" data-wk-val="6" style="position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
           <span data-wk-ring="supply:6" style="box-shadow:0 0 0 0 transparent;position:absolute;inset:-1.5px;border-radius:12px;pointer-events:none;"></span>
-          <span style="position:absolute;top:-10px;left:18px;background:#6B3D42;color:#F5E6D8;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;padding:3px 10px;border-radius:999px;">Best value</span>
-          <span><span style="display:block;font-size:15.5px;font-weight:600;color:#6B3D42;">6-month supply</span><span style="display:block;font-size:12.5px;color:#7a6258;margin-top:2px;">6 bottles · 180 servings · free shipping</span></span>
+          <span style="position:absolute;top:-10px;left:18px;background:#6B3D42;color:#F5E6D8;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;padding:3px 10px;border-radius:999px;">{{ section.settings.tier6_badge }}</span>
+          <span><span style="display:block;font-size:15.5px;font-weight:600;color:#6B3D42;">{{ section.settings.tier6_name }}</span><span style="display:block;font-size:12.5px;color:#7a6258;margin-top:2px;">{{ section.settings.tier6_sub }}</span></span>
           <span style="text-align:right;flex:0 0 auto;"><span style="display:flex;align-items:baseline;justify-content:flex-end;gap:7px;"><span data-wk-compare="6" style="font-size:11px;text-decoration:line-through;color:#A07E81;">$252</span><span data-wk-total="6" style="font-size:19px;font-weight:700;color:#C9653F;">$113.40</span></span><span data-wk-permo-line="6" style="display:block;font-size:12.5px;color:#7a6258;font-weight:600;margin-top:1px;"><span data-wk-permo="6">$18.90</span><span data-wk-mo style="font-size:11px;font-weight:500;">/mo</span></span><span data-wk-save="6" style="display:block;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-top:2px;">Save 55%</span></span>
         </button>
 
         <button data-wk="supply" data-wk-val="3" style="position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
           <span data-wk-ring="supply:3" style="box-shadow:0 0 0 2px #6B3D42;position:absolute;inset:-1.5px;border-radius:12px;pointer-events:none;"></span>
-          <span style="position:absolute;top:-10px;left:18px;background:#C9653F;color:#F5E6D8;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;padding:3px 10px;border-radius:999px;">Most popular</span>
-          <span><span style="display:block;font-size:15.5px;font-weight:600;color:#6B3D42;">3-month supply</span><span style="display:block;font-size:12.5px;color:#7a6258;margin-top:2px;">3 bottles · 90 servings · free shipping</span></span>
+          <span style="position:absolute;top:-10px;left:18px;background:#C9653F;color:#F5E6D8;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;padding:3px 10px;border-radius:999px;">{{ section.settings.tier3_badge }}</span>
+          <span><span style="display:block;font-size:15.5px;font-weight:600;color:#6B3D42;">{{ section.settings.tier3_name }}</span><span style="display:block;font-size:12.5px;color:#7a6258;margin-top:2px;">{{ section.settings.tier3_sub }}</span></span>
           <span style="text-align:right;flex:0 0 auto;"><span style="display:flex;align-items:baseline;justify-content:flex-end;gap:7px;"><span data-wk-compare="3" style="font-size:11px;text-decoration:line-through;color:#A07E81;">$126</span><span data-wk-total="3" style="font-size:19px;font-weight:700;color:#C9653F;">$66.15</span></span><span data-wk-permo-line="3" style="display:block;font-size:12.5px;color:#7a6258;font-weight:600;margin-top:1px;"><span data-wk-permo="3">$22.05</span><span data-wk-mo style="font-size:11px;font-weight:500;">/mo</span></span><span data-wk-save="3" style="display:block;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-top:2px;">Save 48%</span></span>
         </button>
 
         <button data-wk="supply" data-wk-val="1" style="position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
           <span data-wk-ring="supply:1" style="box-shadow:0 0 0 0 transparent;position:absolute;inset:-1.5px;border-radius:12px;pointer-events:none;"></span>
-          <span><span style="display:block;font-size:15.5px;font-weight:600;color:#6B3D42;">1-month supply</span><span style="display:block;font-size:12.5px;color:#7a6258;margin-top:2px;">1 bottle · 30 servings · free shipping</span></span>
+          <span><span style="display:block;font-size:15.5px;font-weight:600;color:#6B3D42;">{{ section.settings.tier1_name }}</span><span style="display:block;font-size:12.5px;color:#7a6258;margin-top:2px;">{{ section.settings.tier1_sub }}</span></span>
           <span style="text-align:right;flex:0 0 auto;"><span style="display:flex;align-items:baseline;justify-content:flex-end;gap:7px;"><span data-wk-compare="1" style="font-size:11px;text-decoration:line-through;color:#A07E81;">$42</span><span data-wk-total="1" style="font-size:19px;font-weight:700;color:#C9653F;">$31.50</span></span><span data-wk-permo-line="1" style="display:block;font-size:12.5px;color:#7a6258;font-weight:600;margin-top:1px;"><span data-wk-permo="1">$31.50</span><span data-wk-mo style="font-size:11px;font-weight:500;">/mo</span></span><span data-wk-save="1" style="display:block;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-top:2px;">Save 25%</span></span>
         </button>
       </div>
@@ -85,7 +89,7 @@
       <!-- AUTO REFILLS -->
       <div data-wk-refill role="checkbox" aria-checked="true" tabindex="0" style="display:flex;align-items:center;gap:14px;border:1.5px dashed rgba(107,61,66,0.45);border-radius:12px;padding:16px 18px;cursor:pointer;margin-bottom:14px;">
         <span data-wk-refill-box style="width:24px;height:24px;flex:0 0 auto;border:1.5px solid #6B3D42;border-radius:6px;display:flex;align-items:center;justify-content:center;background:#6B3D42;"><span data-wk-refill-check style="color:#F5E6D8;font-size:14px;font-weight:700;line-height:1;display:block;">&check;</span></span>
-        <span style="flex:1;"><span style="display:block;font-size:15px;font-weight:700;color:#6B3D42;">Save 25% with automatic refills</span><span style="display:block;font-size:12.5px;color:#7a6258;margin-top:2px;">Zero commitment &mdash; pause, skip, or cancel anytime</span></span>
+        <span style="flex:1;"><span style="display:block;font-size:15px;font-weight:700;color:#6B3D42;">{{ section.settings.refill_title }}</span><span style="display:block;font-size:12.5px;color:#7a6258;margin-top:2px;">{{ section.settings.refill_subtitle }}</span></span>
       </div>
 
       <!-- ADD TO CART -->
@@ -98,7 +102,7 @@
           <input type="hidden" name="selling_plan" value="{{ wk_selling_plan.id }}" data-wk-selling-plan disabled>
           <button type="submit"{% unless wk_variant.available %} disabled{% endunless %} style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;{% unless wk_variant.available %}opacity:0.55;cursor:not-allowed;{% endunless %}">
             {%- if wk_variant.available -%}
-              Add to bag <span style="opacity:0.85;">— <span data-wk-atc-total>{{ wk_variant.price | times: 3 | money }}</span></span>
+              {{ section.settings.atc_label }} <span style="opacity:0.85;">— <span data-wk-atc-total>{{ wk_variant.price | times: 3 | money }}</span></span>
             {%- else -%}
               Sold out
             {%- endif -%}
@@ -108,10 +112,10 @@
         <button style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;">Select a product</button>
       {%- endif -%}
       <div style="display:flex;align-items:center;justify-content:center;gap:11px;margin:16px 0 0;">
-        <span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:1.5px solid #C9653F;color:#C9653F;font-size:11px;font-weight:700;flex:0 0 auto;line-height:1;">90</span>
-        <span style="font-size:12.5px;color:#6B3D42;font-weight:600;letter-spacing:0.02em;">Try it for a full 90 days — love it or your money back</span>
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:1.5px solid #C9653F;color:#C9653F;font-size:11px;font-weight:700;flex:0 0 auto;line-height:1;">{{ section.settings.guarantee_badge }}</span>
+        <span style="font-size:12.5px;color:#6B3D42;font-weight:600;letter-spacing:0.02em;">{{ section.settings.guarantee_text }}</span>
       </div>
-      <p style="text-align:center;font-size:12px;color:#7a6258;margin:11px 0 0;letter-spacing:0.04em;">Pause, skip, or cancel anytime</p>
+      <p style="text-align:center;font-size:12px;color:#7a6258;margin:11px 0 0;letter-spacing:0.04em;">{{ section.settings.fineprint }}</p>
     </div>
   </section>
 
@@ -352,7 +356,51 @@
 {
   "name": "WK - Hero buy-box",
   "settings": [
-    { "type": "product", "id": "product", "label": "Product", "info": "Select the gummies product." }
+    { "type": "product", "id": "product", "label": "Product", "info": "Select the gummies product. Required for add-to-cart and pricing." },
+    { "type": "header", "content": "Gallery" },
+    { "type": "image_picker", "id": "hero_image", "label": "Main image", "info": "Shows a placeholder if empty." },
+    { "type": "image_picker", "id": "thumb_1_image", "label": "Thumbnail 1 image" },
+    { "type": "text", "id": "thumb_1_label", "label": "Thumbnail 1 label", "default": "Front" },
+    { "type": "image_picker", "id": "thumb_2_image", "label": "Thumbnail 2 image" },
+    { "type": "text", "id": "thumb_2_label", "label": "Thumbnail 2 label", "default": "Detail" },
+    { "type": "image_picker", "id": "thumb_3_image", "label": "Thumbnail 3 image" },
+    { "type": "text", "id": "thumb_3_label", "label": "Thumbnail 3 label", "default": "Formula" },
+    { "type": "image_picker", "id": "thumb_4_image", "label": "Thumbnail 4 image" },
+    { "type": "text", "id": "thumb_4_label", "label": "Thumbnail 4 label", "default": "In hand" },
+    { "type": "image_picker", "id": "thumb_5_image", "label": "Thumbnail 5 image" },
+    { "type": "text", "id": "thumb_5_label", "label": "Thumbnail 5 label", "default": "Video" },
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Daily · for perimenopause & beyond" },
+    { "type": "text", "id": "heading", "label": "Title", "default": "hormonal support gummies" },
+    { "type": "text", "id": "rating_text", "label": "Rating text", "default": "4.8 · 1,200+ reviews" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "A daily multi-symptom gummy for the four things that shift first — made with clinically-backed ingredients and a probiotic blend for the estrobolome. No hormones, no sugar." },
+    { "type": "header", "content": "Benefit checklist" },
+    { "type": "inline_richtext", "id": "benefit_1", "label": "Benefit 1", "default": "Eases hot flashes & night sweats*" },
+    { "type": "inline_richtext", "id": "benefit_2", "label": "Benefit 2", "default": "Steadies mood & the stress response*" },
+    { "type": "inline_richtext", "id": "benefit_3", "label": "Benefit 3", "default": "Calms bloating & supports the gut*" },
+    { "type": "inline_richtext", "id": "benefit_4", "label": "Benefit 4", "default": "Supports hormonal balance through the transition*" },
+    { "type": "header", "content": "Pull quote" },
+    { "type": "inline_richtext", "id": "quote", "label": "Quote", "default": "\"Three weeks in and the 2am wake-ups have eased. I finally feel like myself in my own body again.\"" },
+    { "type": "text", "id": "quote_cite", "label": "Attribution", "default": "— Margaret R., 47 · Verified, 3+ months" },
+    { "type": "header", "content": "Flavor" },
+    { "type": "text", "id": "flavor_label", "label": "Section label", "default": "Flavor" },
+    { "type": "text", "id": "flavor_pill", "label": "Flavor pill", "default": "Deep-red cranberry" },
+    { "type": "header", "content": "Supply tiers (prices are auto-calculated)" },
+    { "type": "text", "id": "tier6_badge", "label": "6-tier badge", "default": "Best value" },
+    { "type": "text", "id": "tier6_name", "label": "6-tier name", "default": "6-month supply" },
+    { "type": "text", "id": "tier6_sub", "label": "6-tier sub", "default": "6 bottles · 180 servings · free shipping" },
+    { "type": "text", "id": "tier3_badge", "label": "3-tier badge", "default": "Most popular" },
+    { "type": "text", "id": "tier3_name", "label": "3-tier name", "default": "3-month supply" },
+    { "type": "text", "id": "tier3_sub", "label": "3-tier sub", "default": "3 bottles · 90 servings · free shipping" },
+    { "type": "text", "id": "tier1_name", "label": "1-tier name", "default": "1-month supply" },
+    { "type": "text", "id": "tier1_sub", "label": "1-tier sub", "default": "1 bottle · 30 servings · free shipping" },
+    { "type": "header", "content": "Auto-refill + checkout" },
+    { "type": "text", "id": "refill_title", "label": "Refill title", "default": "Save 25% with automatic refills" },
+    { "type": "text", "id": "refill_subtitle", "label": "Refill subtitle", "default": "Zero commitment — pause, skip, or cancel anytime" },
+    { "type": "text", "id": "atc_label", "label": "Add-to-bag label", "default": "Add to bag" },
+    { "type": "text", "id": "guarantee_badge", "label": "Guarantee badge", "default": "90" },
+    { "type": "text", "id": "guarantee_text", "label": "Guarantee text", "default": "Try it for a full 90 days — love it or your money back" },
+    { "type": "text", "id": "fineprint", "label": "Fine print", "default": "Pause, skip, or cancel anytime" }
   ]
 }
 {% endschema %}

@@ -1,50 +1,34 @@
   <!-- RECOMMENDED BY EXPERTS -->
+  {%- assign exp_defaults = 'wk-expert-adeyemi.jpg,wk-expert-berg.jpg,wk-expert-delgado.jpg,wk-expert-lin.jpg,wk-expert-okafor.jpg' | split: ',' -%}
   <section style="background:#EFDFD0;padding:84px 28px;">
     <div style="max-width:1240px;margin:0 auto;">
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:46px;flex-wrap:wrap;">
-        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-style:italic;font-size:38px;line-height:1.05;margin:0;color:#3A2A20;">recommended by <span style="color:#6B3D42;font-style:normal;font-weight:500;">women's health experts</span></h2>
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-style:italic;font-size:38px;line-height:1.05;margin:0;color:#3A2A20;">{{ section.settings.heading_lead }} <span style="color:#6B3D42;font-style:normal;font-weight:500;">{{ section.settings.heading_emph }}</span></h2>
       </div>
 
       <div class="wk-experts-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:22px;">
-        <div>
-          <img src="{{ 'wk-expert-adeyemi.jpg' | asset_url }}" alt="Dr. Naomi Adeyemi, MD, Endocrinologist" width="512" height="512" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:12px;display:block;margin-bottom:18px;">
-          <h3 style="font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:21px;margin:0 0 6px;color:#3A2A20;">Dr. Naomi Adeyemi</h3>
-          <div style="font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#C9653F;font-weight:700;line-height:1.4;margin-bottom:14px;">MD · Endocrinologist</div>
-          <div style="font-family:'Fraunces',serif;font-size:30px;line-height:0;color:#C9A89F;height:14px;">“</div>
-          <p style="font-size:13.5px;line-height:1.55;color:#4a3a30;margin:6px 0 0;">"Every active named and dosed at a level I can actually reason about — and it respects the gut–hormone axis most formulas ignore. That's rare."</p>
-        </div>
-        <div>
-          <img src="{{ 'wk-expert-berg.jpg' | asset_url }}" alt="Hannah Berg, MS, RD, Registered Dietitian" width="512" height="512" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:12px;display:block;margin-bottom:18px;">
-          <h3 style="font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:21px;margin:0 0 6px;color:#3A2A20;">Hannah Berg</h3>
-          <div style="font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#C9653F;font-weight:700;line-height:1.4;margin-bottom:14px;">MS, RD · Registered Dietitian</div>
-          <div style="font-family:'Fraunces',serif;font-size:30px;line-height:0;color:#C9A89F;height:14px;">“</div>
-          <p style="font-size:13.5px;line-height:1.55;color:#4a3a30;margin:6px 0 0;">"Botanicals at the doses the research actually used, sugar-free, nothing to spike or hide. That's the standard I'd want."</p>
-        </div>
-        <div>
-          <img src="{{ 'wk-expert-delgado.jpg' | asset_url }}" alt="Carmen Delgado, MSN, NP, Menopause Nurse Practitioner" width="512" height="512" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:12px;display:block;margin-bottom:18px;">
-          <h3 style="font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:21px;margin:0 0 6px;color:#3A2A20;">Carmen Delgado</h3>
-          <div style="font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#C9653F;font-weight:700;line-height:1.4;margin-bottom:14px;">MSN, NP · Menopause Nurse Practitioner</div>
-          <div style="font-family:'Fraunces',serif;font-size:30px;line-height:0;color:#C9A89F;height:14px;">“</div>
-          <p style="font-size:13.5px;line-height:1.55;color:#4a3a30;margin:6px 0 0;">"It takes the early symptoms seriously — sleep, mood, bloating — before menopause is even on the chart. Exactly what's needed."</p>
-        </div>
-        <div>
-          <img src="{{ 'wk-expert-lin.jpg' | asset_url }}" alt="Dr. Wei Lin, PhD, Pharmacognosist" width="512" height="512" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:12px;display:block;margin-bottom:18px;">
-          <h3 style="font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:21px;margin:0 0 6px;color:#3A2A20;">Dr. Wei Lin</h3>
-          <div style="font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#C9653F;font-weight:700;line-height:1.4;margin-bottom:14px;">PhD · Pharmacognosist</div>
-          <div style="font-family:'Fraunces',serif;font-size:30px;line-height:0;color:#C9A89F;height:14px;">“</div>
-          <p style="font-size:13.5px;line-height:1.55;color:#4a3a30;margin:6px 0 0;">"Standardized extracts with the actives specified — 5% triterpene glycosides, 40% isoflavones — not a vague blend hiding the dose. This is how it should be built."</p>
-        </div>
-        <div>
-          <img src="{{ 'wk-expert-okafor.jpg' | asset_url }}" alt="Patricia Okafor, RAC, Regulatory & DSHEA Consultant" width="512" height="512" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:12px;display:block;margin-bottom:18px;">
-          <h3 style="font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:21px;margin:0 0 6px;color:#3A2A20;">Patricia Okafor</h3>
-          <div style="font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#C9653F;font-weight:700;line-height:1.4;margin-bottom:14px;">RAC · Regulatory &amp; DSHEA Consultant</div>
-          <div style="font-family:'Fraunces',serif;font-size:30px;line-height:0;color:#C9A89F;height:14px;">“</div>
-          <p style="font-size:13.5px;line-height:1.55;color:#4a3a30;margin:6px 0 0;">"DSHEA-compliant language, every active disclosed, no 'cures.' That discipline is rarer in this category than it should be."</p>
-        </div>
+        {%- for i in (1..5) -%}
+          {%- assign nk = 'exp' | append: i | append: '_name' -%}
+          {%- assign name = section.settings[nk] -%}
+          {%- if name != blank -%}
+            {%- assign ik = 'exp' | append: i | append: '_image' -%}
+            {%- assign ck = 'exp' | append: i | append: '_credential' -%}
+            {%- assign qk = 'exp' | append: i | append: '_quote' -%}
+            {%- assign img = section.settings[ik] -%}
+            {%- if img -%}{%- assign src = img | image_url: width: 512 -%}{%- else -%}{%- assign fname = exp_defaults[forloop.index0] -%}{%- assign src = fname | asset_url -%}{%- endif -%}
+            <div>
+              <img src="{{ src }}" alt="{{ name }}, {{ section.settings[ck] }}" width="512" height="512" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:12px;display:block;margin-bottom:18px;">
+              <h3 style="font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:21px;margin:0 0 6px;color:#3A2A20;">{{ name }}</h3>
+              <div style="font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#C9653F;font-weight:700;line-height:1.4;margin-bottom:14px;">{{ section.settings[ck] }}</div>
+              <div style="font-family:'Fraunces',serif;font-size:30px;line-height:0;color:#C9A89F;height:14px;">“</div>
+              <p style="font-size:13.5px;line-height:1.55;color:#4a3a30;margin:6px 0 0;">{{ section.settings[qk] }}</p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
       </div>
 
       <div class="wk-experts-dots" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span>
+        {%- for i in (1..5) -%}{%- assign nk = 'exp' | append: i | append: '_name' -%}{%- if section.settings[nk] != blank -%}<span></span>{%- endif -%}{%- endfor -%}
       </div>
     </div>
   </section>
@@ -52,6 +36,34 @@
 {% schema %}
 {
   "name": "WK - Experts",
-  "settings": []
+  "settings": [
+    { "type": "text", "id": "heading_lead", "label": "Heading (italic part)", "default": "recommended by" },
+    { "type": "text", "id": "heading_emph", "label": "Heading (emphasis part)", "default": "women's health experts" },
+    { "type": "header", "content": "Expert 1" },
+    { "type": "image_picker", "id": "exp1_image", "label": "Photo" },
+    { "type": "text", "id": "exp1_name", "label": "Name", "default": "Dr. Naomi Adeyemi" },
+    { "type": "text", "id": "exp1_credential", "label": "Credential", "default": "MD · Endocrinologist" },
+    { "type": "textarea", "id": "exp1_quote", "label": "Quote", "default": "\"Every active named and dosed at a level I can actually reason about — and it respects the gut–hormone axis most formulas ignore. That's rare.\"" },
+    { "type": "header", "content": "Expert 2" },
+    { "type": "image_picker", "id": "exp2_image", "label": "Photo" },
+    { "type": "text", "id": "exp2_name", "label": "Name", "default": "Hannah Berg" },
+    { "type": "text", "id": "exp2_credential", "label": "Credential", "default": "MS, RD · Registered Dietitian" },
+    { "type": "textarea", "id": "exp2_quote", "label": "Quote", "default": "\"Botanicals at the doses the research actually used, sugar-free, nothing to spike or hide. That's the standard I'd want.\"" },
+    { "type": "header", "content": "Expert 3" },
+    { "type": "image_picker", "id": "exp3_image", "label": "Photo" },
+    { "type": "text", "id": "exp3_name", "label": "Name", "default": "Carmen Delgado" },
+    { "type": "text", "id": "exp3_credential", "label": "Credential", "default": "MSN, NP · Menopause Nurse Practitioner" },
+    { "type": "textarea", "id": "exp3_quote", "label": "Quote", "default": "\"It takes the early symptoms seriously — sleep, mood, bloating — before menopause is even on the chart. Exactly what's needed.\"" },
+    { "type": "header", "content": "Expert 4" },
+    { "type": "image_picker", "id": "exp4_image", "label": "Photo" },
+    { "type": "text", "id": "exp4_name", "label": "Name", "default": "Dr. Wei Lin" },
+    { "type": "text", "id": "exp4_credential", "label": "Credential", "default": "PhD · Pharmacognosist" },
+    { "type": "textarea", "id": "exp4_quote", "label": "Quote", "default": "\"Standardized extracts with the actives specified — 5% triterpene glycosides, 40% isoflavones — not a vague blend hiding the dose. This is how it should be built.\"" },
+    { "type": "header", "content": "Expert 5" },
+    { "type": "image_picker", "id": "exp5_image", "label": "Photo" },
+    { "type": "text", "id": "exp5_name", "label": "Name", "default": "Patricia Okafor" },
+    { "type": "text", "id": "exp5_credential", "label": "Credential", "default": "RAC · Regulatory & DSHEA Consultant" },
+    { "type": "textarea", "id": "exp5_quote", "label": "Quote", "default": "\"DSHEA-compliant language, every active disclosed, no 'cures.' That discipline is rarer in this category than it should be.\"" }
+  ]
 }
 {% endschema %}

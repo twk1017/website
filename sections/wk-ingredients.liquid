@@ -1,69 +1,32 @@
   <!-- INGREDIENT DEEP DIVE -->
+  {%- assign ing_defaults = 'wk-ing-ashwagandha.jpg,wk-ing-black-cohosh.jpg,wk-ing-red-clover.jpg,wk-ing-chasteberry.jpg,wk-ing-dong-quai.jpg,wk-ing-cranberry.jpg,wk-ing-vitamins.jpg,wk-ing-probiotic.jpg' | split: ',' -%}
   <section style="background:#F5E6D8;padding:88px 28px;">
     <div style="max-width:1080px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:54px;">
-        <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:14px;">What's inside, and why</div>
-        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:40px;line-height:1.08;margin:0 auto 14px;max-width:20ch;color:#6B3D42;">Every active, named and dosed</h2>
-        <p style="font-size:15px;line-height:1.6;color:#4a3a30;max-width:54ch;margin:0 auto;">No proprietary blends, no fairy dust. Each ingredient is standardised and dosed at the level the research actually used — and you can read every milligram on the panel.</p>
+        <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:14px;">{{ section.settings.eyebrow }}</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:40px;line-height:1.08;margin:0 auto 14px;max-width:20ch;color:#6B3D42;">{{ section.settings.heading }}</h2>
+        <p style="font-size:15px;line-height:1.6;color:#4a3a30;max-width:54ch;margin:0 auto;">{{ section.settings.subhead }}</p>
       </div>
 
       <div data-wk-ing-track style="display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px;margin:-4px;">
-        <div data-wk-ing-card style="flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:22px;display:flex;gap:18px;align-items:center;">
-          <img src="{{ 'wk-ing-ashwagandha.jpg' | asset_url }}" alt="Ashwagandha root" width="104" height="104" loading="lazy" style="width:104px;height:104px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
-          <div style="flex:1;min-width:0;">
-            <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:8px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15;margin:0;color:#6B3D42;">Ashwagandha root</h3><span style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">200 mg</span></div>
-            <p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0;">A standardised adaptogen for the stress response — supporting steadier mood and calmer days through the transition.*</p>
-          </div>
-        </div>
-        <div data-wk-ing-card style="flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:22px;display:flex;gap:18px;align-items:center;">
-          <img src="{{ 'wk-ing-black-cohosh.jpg' | asset_url }}" alt="Black cohosh" width="104" height="104" loading="lazy" style="width:104px;height:104px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
-          <div style="flex:1;min-width:0;">
-            <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:8px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15;margin:0;color:#6B3D42;">Black cohosh</h3><span style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">100 mg</span></div>
-            <p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0;">Standardised to 5% triterpene glycosides — the botanical most studied for hot flashes and night sweats.*</p>
-          </div>
-        </div>
-        <div data-wk-ing-card style="flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:22px;display:flex;gap:18px;align-items:center;">
-          <img src="{{ 'wk-ing-red-clover.jpg' | asset_url }}" alt="Red clover" width="104" height="104" loading="lazy" style="width:104px;height:104px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
-          <div style="flex:1;min-width:0;">
-            <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:8px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15;margin:0;color:#6B3D42;">Red clover</h3><span style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">100 mg</span></div>
-            <p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0;">40% isoflavones — plant compounds that gently support hormonal balance as estrogen shifts.*</p>
-          </div>
-        </div>
-        <div data-wk-ing-card style="flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:22px;display:flex;gap:18px;align-items:center;">
-          <img src="{{ 'wk-ing-chasteberry.jpg' | asset_url }}" alt="Chasteberry (Vitex)" width="104" height="104" loading="lazy" style="width:104px;height:104px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
-          <div style="flex:1;min-width:0;">
-            <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:8px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15;margin:0;color:#6B3D42;">Chasteberry</h3><span style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">100 mg</span></div>
-            <p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0;">Also known as Vitex — traditionally used to support hormonal rhythm and the month-to-month patterns that shift in perimenopause.*</p>
-          </div>
-        </div>
-        <div data-wk-ing-card style="flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:22px;display:flex;gap:18px;align-items:center;">
-          <img src="{{ 'wk-ing-dong-quai.jpg' | asset_url }}" alt="Dong quai root" width="104" height="104" loading="lazy" style="width:104px;height:104px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
-          <div style="flex:1;min-width:0;">
-            <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:8px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15;margin:0;color:#6B3D42;">Dong quai</h3><span style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">100 mg</span></div>
-            <p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0;">Standardised to 1% ligustilide — a traditional women's botanical, properly dosed rather than sprinkled in.*</p>
-          </div>
-        </div>
-        <div data-wk-ing-card style="flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:22px;display:flex;gap:18px;align-items:center;">
-          <img src="{{ 'wk-ing-cranberry.jpg' | asset_url }}" alt="Cranberry" width="104" height="104" loading="lazy" style="width:104px;height:104px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
-          <div style="flex:1;min-width:0;">
-            <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:8px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15;margin:0;color:#6B3D42;">Cranberry extract</h3><span style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">100 mg</span></div>
-            <p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0;">Supports urinary and everyday comfort — one of the quieter changes estrogen brings.*</p>
-          </div>
-        </div>
-        <div data-wk-ing-card style="flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:22px;display:flex;gap:18px;align-items:center;">
-          <img src="{{ 'wk-ing-vitamins.jpg' | asset_url }}" alt="Vitamins B6, D3 and E" width="104" height="104" loading="lazy" style="width:104px;height:104px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
-          <div style="flex:1;min-width:0;">
-            <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:8px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15;margin:0;color:#6B3D42;">Vitamins B6, D3 &amp; E</h3><span style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">2 mg · 20 mcg · 15 mg</span></div>
-            <p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0;">Foundational support for mood, bone, and cellular defense — with D3 sourced from lichen, not sheep's wool.*</p>
-          </div>
-        </div>
-        <div data-wk-ing-card style="flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:22px;display:flex;gap:18px;align-items:center;">
-          <img src="{{ 'wk-ing-probiotic.jpg' | asset_url }}" alt="Probiotic blend" width="104" height="104" loading="lazy" style="width:104px;height:104px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
-          <div style="flex:1;min-width:0;">
-            <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:8px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15;margin:0;color:#6B3D42;">Probiotic blend</h3><span style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">10B CFU</span></div>
-            <p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0;">A 6-strain Lacto/Bifido blend that feeds the estrobolome — the gut bacteria that metabolise estrogen.*</p>
-          </div>
-        </div>
+        {%- for i in (1..8) -%}
+          {%- assign nk = 'ing' | append: i | append: '_name' -%}
+          {%- assign name = section.settings[nk] -%}
+          {%- if name != blank -%}
+            {%- assign ik = 'ing' | append: i | append: '_image' -%}
+            {%- assign dk = 'ing' | append: i | append: '_dose' -%}
+            {%- assign dsk = 'ing' | append: i | append: '_desc' -%}
+            {%- assign img = section.settings[ik] -%}
+            {%- if img -%}{%- assign src = img | image_url: width: 208 -%}{%- else -%}{%- assign fname = ing_defaults[forloop.index0] -%}{%- assign src = fname | asset_url -%}{%- endif -%}
+            <div data-wk-ing-card style="flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:22px;display:flex;gap:18px;align-items:center;">
+              <img src="{{ src }}" alt="{{ name }}" width="104" height="104" loading="lazy" style="width:104px;height:104px;flex:0 0 auto;object-fit:cover;border-radius:12px;display:block;">
+              <div style="flex:1;min-width:0;">
+                <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:8px;"><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15;margin:0;color:#6B3D42;">{{ name }}</h3><span style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">{{ section.settings[dk] }}</span></div>
+                <p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:0;">{{ section.settings[dsk] }}</p>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
       </div>
 
       <div style="display:flex;align-items:center;justify-content:center;gap:20px;margin-top:36px;">
@@ -73,15 +36,16 @@
       </div>
 
       <div style="text-align:center;margin-top:48px;">
-        <button type="button" data-wk-suppfacts-open style="cursor:pointer;font-family:inherit;display:inline-block;background:none;border:1.5px solid #6B3D42;color:#6B3D42;border-radius:999px;padding:15px 38px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">See full supplement facts</button>
+        <button type="button" data-wk-suppfacts-open style="cursor:pointer;font-family:inherit;display:inline-block;background:none;border:1.5px solid #6B3D42;color:#6B3D42;border-radius:999px;padding:15px 38px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.supp_button_label }}</button>
       </div>
     </div>
 
     <!-- SUPPLEMENT FACTS LIGHTBOX -->
+    {%- if section.settings.supp_facts_image -%}{%- assign supp_src = section.settings.supp_facts_image | image_url: width: 700 -%}{%- else -%}{%- assign supp_src = 'wk-supplement-facts.jpg' | asset_url -%}{%- endif -%}
     <div data-wk-suppfacts-overlay role="dialog" aria-modal="true" aria-label="Supplement facts" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(43,24,26,0.66);align-items:center;justify-content:center;padding:24px;">
       <div data-wk-suppfacts-dialog style="position:relative;background:#fff;border-radius:16px;max-width:560px;width:100%;max-height:90vh;overflow:auto;box-shadow:0 24px 70px rgba(0,0,0,0.35);">
         <button type="button" data-wk-suppfacts-close aria-label="Close" style="cursor:pointer;font-family:inherit;position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;border:none;background:#6B3D42;color:#F5E6D8;font-size:20px;line-height:1;display:inline-flex;align-items:center;justify-content:center;z-index:2;">&times;</button>
-        <img src="{{ 'wk-supplement-facts.jpg' | asset_url }}" alt="Womankind hormonal support gummies — full supplement facts panel" width="692" height="705" loading="lazy" style="display:block;width:100%;height:auto;border-radius:16px;">
+        <img src="{{ supp_src }}" alt="Womankind hormonal support gummies — full supplement facts panel" width="692" height="705" loading="lazy" style="display:block;width:100%;height:auto;border-radius:16px;">
       </div>
     </div>
   </section>
@@ -89,6 +53,52 @@
 {% schema %}
 {
   "name": "WK - Ingredients",
-  "settings": []
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "What's inside, and why" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Every active, named and dosed" },
+    { "type": "textarea", "id": "subhead", "label": "Subheading", "default": "No proprietary blends, no fairy dust. Each ingredient is standardised and dosed at the level the research actually used — and you can read every milligram on the panel." },
+    { "type": "text", "id": "supp_button_label", "label": "Supplement-facts button", "default": "See full supplement facts" },
+    { "type": "image_picker", "id": "supp_facts_image", "label": "Supplement facts panel", "info": "Defaults to wk-supplement-facts.jpg" },
+    { "type": "header", "content": "Ingredient 1" },
+    { "type": "image_picker", "id": "ing1_image", "label": "Image" },
+    { "type": "text", "id": "ing1_name", "label": "Name", "default": "Ashwagandha root" },
+    { "type": "text", "id": "ing1_dose", "label": "Dose", "default": "200 mg" },
+    { "type": "textarea", "id": "ing1_desc", "label": "Description", "default": "A standardised adaptogen for the stress response — supporting steadier mood and calmer days through the transition.*" },
+    { "type": "header", "content": "Ingredient 2" },
+    { "type": "image_picker", "id": "ing2_image", "label": "Image" },
+    { "type": "text", "id": "ing2_name", "label": "Name", "default": "Black cohosh" },
+    { "type": "text", "id": "ing2_dose", "label": "Dose", "default": "100 mg" },
+    { "type": "textarea", "id": "ing2_desc", "label": "Description", "default": "Standardised to 5% triterpene glycosides — the botanical most studied for hot flashes and night sweats.*" },
+    { "type": "header", "content": "Ingredient 3" },
+    { "type": "image_picker", "id": "ing3_image", "label": "Image" },
+    { "type": "text", "id": "ing3_name", "label": "Name", "default": "Red clover" },
+    { "type": "text", "id": "ing3_dose", "label": "Dose", "default": "100 mg" },
+    { "type": "textarea", "id": "ing3_desc", "label": "Description", "default": "40% isoflavones — plant compounds that gently support hormonal balance as estrogen shifts.*" },
+    { "type": "header", "content": "Ingredient 4" },
+    { "type": "image_picker", "id": "ing4_image", "label": "Image" },
+    { "type": "text", "id": "ing4_name", "label": "Name", "default": "Chasteberry" },
+    { "type": "text", "id": "ing4_dose", "label": "Dose", "default": "100 mg" },
+    { "type": "textarea", "id": "ing4_desc", "label": "Description", "default": "Also known as Vitex — traditionally used to support hormonal rhythm and the month-to-month patterns that shift in perimenopause.*" },
+    { "type": "header", "content": "Ingredient 5" },
+    { "type": "image_picker", "id": "ing5_image", "label": "Image" },
+    { "type": "text", "id": "ing5_name", "label": "Name", "default": "Dong quai" },
+    { "type": "text", "id": "ing5_dose", "label": "Dose", "default": "100 mg" },
+    { "type": "textarea", "id": "ing5_desc", "label": "Description", "default": "Standardised to 1% ligustilide — a traditional women's botanical, properly dosed rather than sprinkled in.*" },
+    { "type": "header", "content": "Ingredient 6" },
+    { "type": "image_picker", "id": "ing6_image", "label": "Image" },
+    { "type": "text", "id": "ing6_name", "label": "Name", "default": "Cranberry extract" },
+    { "type": "text", "id": "ing6_dose", "label": "Dose", "default": "100 mg" },
+    { "type": "textarea", "id": "ing6_desc", "label": "Description", "default": "Supports urinary and everyday comfort — one of the quieter changes estrogen brings.*" },
+    { "type": "header", "content": "Ingredient 7" },
+    { "type": "image_picker", "id": "ing7_image", "label": "Image" },
+    { "type": "text", "id": "ing7_name", "label": "Name", "default": "Vitamins B6, D3 & E" },
+    { "type": "text", "id": "ing7_dose", "label": "Dose", "default": "2 mg · 20 mcg · 15 mg" },
+    { "type": "textarea", "id": "ing7_desc", "label": "Description", "default": "Foundational support for mood, bone, and cellular defense — with D3 sourced from lichen, not sheep's wool.*" },
+    { "type": "header", "content": "Ingredient 8" },
+    { "type": "image_picker", "id": "ing8_image", "label": "Image" },
+    { "type": "text", "id": "ing8_name", "label": "Name", "default": "Probiotic blend" },
+    { "type": "text", "id": "ing8_dose", "label": "Dose", "default": "10B CFU" },
+    { "type": "textarea", "id": "ing8_desc", "label": "Description", "default": "A 6-strain Lacto/Bifido blend that feeds the estrobolome — the gut bacteria that metabolise estrogen.*" }
+  ]
 }
 {% endschema %}

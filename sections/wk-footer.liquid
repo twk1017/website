@@ -3,41 +3,41 @@
     <div style="max-width:1180px;margin:0 auto;">
       <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(245,230,216,0.2);">
         <div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:38px;line-height:1;margin-bottom:8px;">womankind</div>
-          <div style="font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:rgba(245,230,216,0.78);">for perimenopause &amp; beyond</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:38px;line-height:1;margin-bottom:8px;">{{ section.settings.brand_name }}</div>
+          <div style="font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:rgba(245,230,216,0.78);">{{ section.settings.tagline }}</div>
         </div>
         <div>
-          <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:16px;">Shop</div>
+          <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:16px;">{{ section.settings.col1_title }}</div>
           <div style="display:flex;flex-direction:column;gap:11px;font-size:13.5px;color:rgba(245,230,216,0.82);">
-            <span style="cursor:pointer;">Hormonal support gummies</span>
-            <span style="cursor:pointer;">Deep sleep magnesium</span>
-            <span style="cursor:pointer;">Daily omega-3</span>
-            <span style="cursor:pointer;">The transition trio</span>
+            <span style="cursor:pointer;">{{ section.settings.col1_l1 }}</span>
+            <span style="cursor:pointer;">{{ section.settings.col1_l2 }}</span>
+            <span style="cursor:pointer;">{{ section.settings.col1_l3 }}</span>
+            <span style="cursor:pointer;">{{ section.settings.col1_l4 }}</span>
           </div>
         </div>
         <div>
-          <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:16px;">Learn</div>
+          <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:16px;">{{ section.settings.col2_title }}</div>
           <div style="display:flex;flex-direction:column;gap:11px;font-size:13.5px;color:rgba(245,230,216,0.82);">
-            <span style="cursor:pointer;">The science</span>
-            <span style="cursor:pointer;">The estrobolome</span>
-            <span style="cursor:pointer;">Journal</span>
-            <span style="cursor:pointer;">Our story</span>
+            <span style="cursor:pointer;">{{ section.settings.col2_l1 }}</span>
+            <span style="cursor:pointer;">{{ section.settings.col2_l2 }}</span>
+            <span style="cursor:pointer;">{{ section.settings.col2_l3 }}</span>
+            <span style="cursor:pointer;">{{ section.settings.col2_l4 }}</span>
           </div>
         </div>
         <div>
-          <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:16px;">Support</div>
+          <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:16px;">{{ section.settings.col3_title }}</div>
           <div style="display:flex;flex-direction:column;gap:11px;font-size:13.5px;color:rgba(245,230,216,0.82);">
-            <span style="cursor:pointer;">Account &amp; orders</span>
-            <span style="cursor:pointer;">Manage subscription</span>
-            <span style="cursor:pointer;">Shipping &amp; returns</span>
-            <span style="cursor:pointer;">Contact</span>
+            <span style="cursor:pointer;">{{ section.settings.col3_l1 }}</span>
+            <span style="cursor:pointer;">{{ section.settings.col3_l2 }}</span>
+            <span style="cursor:pointer;">{{ section.settings.col3_l3 }}</span>
+            <span style="cursor:pointer;">{{ section.settings.col3_l4 }}</span>
           </div>
         </div>
       </div>
-      <p style="font-size:11.5px;line-height:1.6;color:rgba(245,230,216,0.6);margin:28px 0 0;max-width:90ch;">*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Consult your healthcare provider before beginning any supplement, particularly if you are pregnant, nursing, or taking medication.</p>
+      <p style="font-size:11.5px;line-height:1.6;color:rgba(245,230,216,0.6);margin:28px 0 0;max-width:90ch;">{{ section.settings.disclaimer }}</p>
       <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px;font-size:12px;color:rgba(245,230,216,0.6);">
-        <span>© 2026 Womankind. All rights reserved.</span>
-        <span style="display:flex;gap:20px;"><span style="cursor:pointer;">Privacy</span><span style="cursor:pointer;">Terms</span><span style="cursor:pointer;">Accessibility</span></span>
+        <span>{{ section.settings.copyright }}</span>
+        <span style="display:flex;gap:20px;"><span style="cursor:pointer;">{{ section.settings.legal_1 }}</span><span style="cursor:pointer;">{{ section.settings.legal_2 }}</span><span style="cursor:pointer;">{{ section.settings.legal_3 }}</span></span>
       </div>
     </div>
   </footer>
@@ -45,6 +45,33 @@
 {% schema %}
 {
   "name": "WK - Footer",
-  "settings": []
+  "settings": [
+    { "type": "text", "id": "brand_name", "label": "Brand name", "default": "womankind" },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "for perimenopause & beyond" },
+    { "type": "header", "content": "Column 1" },
+    { "type": "text", "id": "col1_title", "label": "Title", "default": "Shop" },
+    { "type": "text", "id": "col1_l1", "label": "Link 1", "default": "Hormonal support gummies" },
+    { "type": "text", "id": "col1_l2", "label": "Link 2", "default": "Deep sleep magnesium" },
+    { "type": "text", "id": "col1_l3", "label": "Link 3", "default": "Daily omega-3" },
+    { "type": "text", "id": "col1_l4", "label": "Link 4", "default": "The transition trio" },
+    { "type": "header", "content": "Column 2" },
+    { "type": "text", "id": "col2_title", "label": "Title", "default": "Learn" },
+    { "type": "text", "id": "col2_l1", "label": "Link 1", "default": "The science" },
+    { "type": "text", "id": "col2_l2", "label": "Link 2", "default": "The estrobolome" },
+    { "type": "text", "id": "col2_l3", "label": "Link 3", "default": "Journal" },
+    { "type": "text", "id": "col2_l4", "label": "Link 4", "default": "Our story" },
+    { "type": "header", "content": "Column 3" },
+    { "type": "text", "id": "col3_title", "label": "Title", "default": "Support" },
+    { "type": "text", "id": "col3_l1", "label": "Link 1", "default": "Account & orders" },
+    { "type": "text", "id": "col3_l2", "label": "Link 2", "default": "Manage subscription" },
+    { "type": "text", "id": "col3_l3", "label": "Link 3", "default": "Shipping & returns" },
+    { "type": "text", "id": "col3_l4", "label": "Link 4", "default": "Contact" },
+    { "type": "header", "content": "Legal" },
+    { "type": "textarea", "id": "disclaimer", "label": "Disclaimer", "default": "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Consult your healthcare provider before beginning any supplement, particularly if you are pregnant, nursing, or taking medication." },
+    { "type": "text", "id": "copyright", "label": "Copyright", "default": "© 2026 Womankind. All rights reserved." },
+    { "type": "text", "id": "legal_1", "label": "Legal link 1", "default": "Privacy" },
+    { "type": "text", "id": "legal_2", "label": "Legal link 2", "default": "Terms" },
+    { "type": "text", "id": "legal_3", "label": "Legal link 3", "default": "Accessibility" }
+  ]
 }
 {% endschema %}

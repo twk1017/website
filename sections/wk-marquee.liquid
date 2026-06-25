@@ -1,24 +1,25 @@
   <!-- MARQUEE -->
+  {%- capture wk_marquee_items -%}
+    <span style="font-size:12.5px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;padding:0 26px;">{{ section.settings.item_1 }}</span><span style="opacity:0.6;">✦</span>
+    <span style="font-size:12.5px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;padding:0 26px;">{{ section.settings.item_2 }}</span><span style="opacity:0.6;">✦</span>
+    <span style="font-size:12.5px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;padding:0 26px;">{{ section.settings.item_3 }}</span><span style="opacity:0.6;">✦</span>
+    <span style="font-size:12.5px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;padding:0 26px;">{{ section.settings.item_4 }}</span><span style="opacity:0.6;">✦</span>
+  {%- endcapture -%}
   <div style="background:#C9653F;color:#F5E6D8;padding:15px 0;overflow:hidden;white-space:nowrap;">
     <div style="display:inline-flex;gap:0;animation:wk-marquee 28s linear infinite;will-change:transform;">
-      <span style="display:inline-flex;align-items:center;">
-        <span style="font-size:12.5px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;padding:0 26px;">Save 33% with a 3-month supply</span><span style="opacity:0.6;">✦</span>
-        <span style="font-size:12.5px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;padding:0 26px;">Free carbon-neutral shipping</span><span style="opacity:0.6;">✦</span>
-        <span style="font-size:12.5px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;padding:0 26px;">Pause or cancel anytime</span><span style="opacity:0.6;">✦</span>
-        <span style="font-size:12.5px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;padding:0 26px;">Made with clinically-backed ingredients</span><span style="opacity:0.6;">✦</span>
-      </span>
-      <span style="display:inline-flex;align-items:center;" aria-hidden="true">
-        <span style="font-size:12.5px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;padding:0 26px;">Save 33% with a 3-month supply</span><span style="opacity:0.6;">✦</span>
-        <span style="font-size:12.5px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;padding:0 26px;">Free carbon-neutral shipping</span><span style="opacity:0.6;">✦</span>
-        <span style="font-size:12.5px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;padding:0 26px;">Pause or cancel anytime</span><span style="opacity:0.6;">✦</span>
-        <span style="font-size:12.5px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;padding:0 26px;">Made with clinically-backed ingredients</span><span style="opacity:0.6;">✦</span>
-      </span>
+      <span style="display:inline-flex;align-items:center;">{{ wk_marquee_items }}</span>
+      <span style="display:inline-flex;align-items:center;" aria-hidden="true">{{ wk_marquee_items }}</span>
     </div>
   </div>
 
 {% schema %}
 {
   "name": "WK - Marquee",
-  "settings": []
+  "settings": [
+    { "type": "text", "id": "item_1", "label": "Item 1", "default": "Save 33% with a 3-month supply" },
+    { "type": "text", "id": "item_2", "label": "Item 2", "default": "Free carbon-neutral shipping" },
+    { "type": "text", "id": "item_3", "label": "Item 3", "default": "Pause or cancel anytime" },
+    { "type": "text", "id": "item_4", "label": "Item 4", "default": "Made with clinically-backed ingredients" }
+  ]
 }
 {% endschema %}

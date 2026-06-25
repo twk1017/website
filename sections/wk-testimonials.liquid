@@ -2,109 +2,39 @@
   <section style="background:#6B3D42;color:#F5E6D8;padding:84px 28px;overflow:hidden;">
     <div style="max-width:1140px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:46px;">
-        <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:16px;">In their own words</div>
-        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:40px;line-height:1.08;margin:0 auto 14px;max-width:22ch;">The change women 40+ <span style="font-style:italic;color:#E2A24C;">actually feel</span></h2>
-        <p style="font-size:14.5px;line-height:1.6;color:rgba(245,230,216,0.82);max-width:52ch;margin:0 auto;">Trusted by women who wanted a real answer — not another thing that quietly didn't work.</p>
+        <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:16px;">{{ section.settings.eyebrow }}</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:40px;line-height:1.08;margin:0 auto 14px;max-width:22ch;">{{ section.settings.heading_lead }} <span style="font-style:italic;color:#E2A24C;">{{ section.settings.heading_emph }}</span></h2>
+        <p style="font-size:14.5px;line-height:1.6;color:rgba(245,230,216,0.82);max-width:52ch;margin:0 auto;">{{ section.settings.subhead }}</p>
       </div>
 
       <div data-wk-track style="display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px;margin:-4px;">
-
-        <article data-wk-card style="flex:0 0 calc((100% - 44px) / 3);scroll-snap-align:start;background:rgba(245,230,216,0.06);border:1px solid rgba(245,230,216,0.16);border-radius:16px;padding:30px 28px;display:flex;flex-direction:column;">
-          <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;">
-            <span style="color:#E2A24C;font-size:15px;letter-spacing:2px;">★★★★★</span>
-          </div>
-          <p style="font-size:14.5px;line-height:1.62;color:rgba(245,230,216,0.9);margin:0 0 24px;flex:1;">"I didn't expect much after years of things that did nothing. Three weeks in, the 2am wake-ups eased and I finally feel steady in my own body again."</p>
-          <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;">
-            <img src="{{ 'wk-testimonial-1.jpg' | asset_url }}" alt="Margaret R." width="38" height="38" loading="lazy" style="width:38px;height:38px;border-radius:50%;object-fit:cover;flex:0 0 auto;">
-            <span style="font-size:14px;font-weight:600;color:#F5E6D8;">Margaret R., 48</span>
-            <span style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#E2A24C;font-weight:600;flex:0 0 auto;"><span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:#E2A24C;color:#6B3D42;font-size:10px;font-weight:700;">✓</span>Verified buyer</span>
-          </div>
-          <div style="display:flex;gap:9px;flex-wrap:wrap;">
-            <span style="border:1px solid rgba(245,230,216,0.32);border-radius:8px;padding:7px 13px;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#F5E6D8;font-weight:600;">Better sleep</span>
-            <span style="border:1px solid rgba(245,230,216,0.32);border-radius:8px;padding:7px 13px;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#F5E6D8;font-weight:600;">Mood balance</span>
-          </div>
-        </article>
-
-        <article data-wk-card style="flex:0 0 calc((100% - 44px) / 3);scroll-snap-align:start;background:rgba(245,230,216,0.06);border:1px solid rgba(245,230,216,0.16);border-radius:16px;padding:30px 28px;display:flex;flex-direction:column;">
-          <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;">
-            <span style="color:#E2A24C;font-size:15px;letter-spacing:2px;">★★★★★</span>
-          </div>
-          <p style="font-size:14.5px;line-height:1.62;color:rgba(245,230,216,0.9);margin:0 0 24px;flex:1;">"By the end of the first month the bloating I'd carried for a year had calmed, and my mornings stopped feeling like a fog I had to push through."</p>
-          <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;">
-            <img src="{{ 'wk-testimonial-2.jpg' | asset_url }}" alt="Elena V." width="38" height="38" loading="lazy" style="width:38px;height:38px;border-radius:50%;object-fit:cover;flex:0 0 auto;">
-            <span style="font-size:14px;font-weight:600;color:#F5E6D8;">Elena V., 45</span>
-            <span style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#E2A24C;font-weight:600;flex:0 0 auto;"><span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:#E2A24C;color:#6B3D42;font-size:10px;font-weight:700;">✓</span>Verified buyer</span>
-          </div>
-          <div style="display:flex;gap:9px;flex-wrap:wrap;">
-            <span style="border:1px solid rgba(245,230,216,0.32);border-radius:8px;padding:7px 13px;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#F5E6D8;font-weight:600;">Gut &amp; bloating</span>
-            <span style="border:1px solid rgba(245,230,216,0.32);border-radius:8px;padding:7px 13px;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#F5E6D8;font-weight:600;">Clearer focus</span>
-          </div>
-        </article>
-
-        <article data-wk-card style="flex:0 0 calc((100% - 44px) / 3);scroll-snap-align:start;background:rgba(245,230,216,0.06);border:1px solid rgba(245,230,216,0.16);border-radius:16px;padding:30px 28px;display:flex;flex-direction:column;">
-          <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;">
-            <span style="color:#E2A24C;font-size:15px;letter-spacing:2px;">★★★★★</span>
-          </div>
-          <p style="font-size:14.5px;line-height:1.62;color:rgba(245,230,216,0.9);margin:0 0 24px;flex:1;">"I'm a sceptic — I've wasted money on a lot of these. This is the first one where I can actually feel the difference. Cooler nights, fewer flushes."</p>
-          <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;">
-            <img src="{{ 'wk-testimonial-3.jpg' | asset_url }}" alt="Grace L." width="38" height="38" loading="lazy" style="width:38px;height:38px;border-radius:50%;object-fit:cover;flex:0 0 auto;">
-            <span style="font-size:14px;font-weight:600;color:#F5E6D8;">Grace L., 47</span>
-            <span style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#E2A24C;font-weight:600;flex:0 0 auto;"><span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:#E2A24C;color:#6B3D42;font-size:10px;font-weight:700;">✓</span>Verified buyer</span>
-          </div>
-          <div style="display:flex;gap:9px;flex-wrap:wrap;">
-            <span style="border:1px solid rgba(245,230,216,0.32);border-radius:8px;padding:7px 13px;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#F5E6D8;font-weight:600;">Hot flashes</span>
-            <span style="border:1px solid rgba(245,230,216,0.32);border-radius:8px;padding:7px 13px;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#F5E6D8;font-weight:600;">Night sweats</span>
-          </div>
-        </article>
-
-        <article data-wk-card style="flex:0 0 calc((100% - 44px) / 3);scroll-snap-align:start;background:rgba(245,230,216,0.06);border:1px solid rgba(245,230,216,0.16);border-radius:16px;padding:30px 28px;display:flex;flex-direction:column;">
-          <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;">
-            <span style="color:#E2A24C;font-size:15px;letter-spacing:2px;">★★★★★</span>
-          </div>
-          <p style="font-size:14.5px;line-height:1.62;color:rgba(245,230,216,0.9);margin:0 0 24px;flex:1;">"A doctor told me my labs were normal and it was probably stress. This is the first thing that took the early changes seriously. I feel more like me."</p>
-          <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;">
-            <img src="{{ 'wk-testimonial-4.jpg' | asset_url }}" alt="Renée J." width="38" height="38" loading="lazy" style="width:38px;height:38px;border-radius:50%;object-fit:cover;flex:0 0 auto;">
-            <span style="font-size:14px;font-weight:600;color:#F5E6D8;">Renée J., 50</span>
-            <span style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#E2A24C;font-weight:600;flex:0 0 auto;"><span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:#E2A24C;color:#6B3D42;font-size:10px;font-weight:700;">✓</span>Verified buyer</span>
-          </div>
-          <div style="display:flex;gap:9px;flex-wrap:wrap;">
-            <span style="border:1px solid rgba(245,230,216,0.32);border-radius:8px;padding:7px 13px;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#F5E6D8;font-weight:600;">Hormonal balance</span>
-            <span style="border:1px solid rgba(245,230,216,0.32);border-radius:8px;padding:7px 13px;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#F5E6D8;font-weight:600;">Steady energy</span>
-          </div>
-        </article>
-
-        <article data-wk-card style="flex:0 0 calc((100% - 44px) / 3);scroll-snap-align:start;background:rgba(245,230,216,0.06);border:1px solid rgba(245,230,216,0.16);border-radius:16px;padding:30px 28px;display:flex;flex-direction:column;">
-          <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;">
-            <span style="color:#E2A24C;font-size:15px;letter-spacing:2px;">★★★★★</span>
-          </div>
-          <p style="font-size:14.5px;line-height:1.62;color:rgba(245,230,216,0.9);margin:0 0 24px;flex:1;">"The little things stay little now. My family noticed I was more even before I said a word about taking anything."</p>
-          <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;">
-            <img src="{{ 'wk-testimonial-5.jpg' | asset_url }}" alt="Gabriela R." width="38" height="38" loading="lazy" style="width:38px;height:38px;border-radius:50%;object-fit:cover;flex:0 0 auto;">
-            <span style="font-size:14px;font-weight:600;color:#F5E6D8;">Gabriela R., 43</span>
-            <span style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#E2A24C;font-weight:600;flex:0 0 auto;"><span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:#E2A24C;color:#6B3D42;font-size:10px;font-weight:700;">✓</span>Verified buyer</span>
-          </div>
-          <div style="display:flex;gap:9px;flex-wrap:wrap;">
-            <span style="border:1px solid rgba(245,230,216,0.32);border-radius:8px;padding:7px 13px;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#F5E6D8;font-weight:600;">Mood balance</span>
-            <span style="border:1px solid rgba(245,230,216,0.32);border-radius:8px;padding:7px 13px;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#F5E6D8;font-weight:600;">Stress response</span>
-          </div>
-        </article>
-
-        <article data-wk-card style="flex:0 0 calc((100% - 44px) / 3);scroll-snap-align:start;background:rgba(245,230,216,0.06);border:1px solid rgba(245,230,216,0.16);border-radius:16px;padding:30px 28px;display:flex;flex-direction:column;">
-          <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;">
-            <span style="color:#E2A24C;font-size:15px;letter-spacing:2px;">★★★★★</span>
-          </div>
-          <p style="font-size:14.5px;line-height:1.62;color:rgba(245,230,216,0.9);margin:0 0 24px;flex:1;">"I love that every ingredient is on the label — no mystery blend. And the afternoon slump I'd accepted as normal has genuinely lifted."</p>
-          <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;">
-            <img src="{{ 'wk-testimonial-6.jpg' | asset_url }}" alt="Cass M." width="38" height="38" loading="lazy" style="width:38px;height:38px;border-radius:50%;object-fit:cover;flex:0 0 auto;">
-            <span style="font-size:14px;font-weight:600;color:#F5E6D8;">Cass M., 49</span>
-            <span style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#E2A24C;font-weight:600;flex:0 0 auto;"><span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:#E2A24C;color:#6B3D42;font-size:10px;font-weight:700;">✓</span>Verified buyer</span>
-          </div>
-          <div style="display:flex;gap:9px;flex-wrap:wrap;">
-            <span style="border:1px solid rgba(245,230,216,0.32);border-radius:8px;padding:7px 13px;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#F5E6D8;font-weight:600;">Daily energy</span>
-            <span style="border:1px solid rgba(245,230,216,0.32);border-radius:8px;padding:7px 13px;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#F5E6D8;font-weight:600;">Clearer focus</span>
-          </div>
-        </article>
-
+        {%- for i in (1..6) -%}
+          {%- assign qk = 'card' | append: i | append: '_quote' -%}
+          {%- assign quote = section.settings[qk] -%}
+          {%- if quote != blank -%}
+            {%- assign ik = 'card' | append: i | append: '_image' -%}
+            {%- assign nk = 'card' | append: i | append: '_name' -%}
+            {%- assign t1k = 'card' | append: i | append: '_tag1' -%}
+            {%- assign t2k = 'card' | append: i | append: '_tag2' -%}
+            {%- assign name = section.settings[nk] -%}
+            {%- assign img = section.settings[ik] -%}
+            {%- if img -%}{%- assign src = img | image_url: width: 80 -%}{%- else -%}{%- assign fname = 'wk-testimonial-' | append: i | append: '.jpg' -%}{%- assign src = fname | asset_url -%}{%- endif -%}
+            <article data-wk-card style="flex:0 0 calc((100% - 44px) / 3);scroll-snap-align:start;background:rgba(245,230,216,0.06);border:1px solid rgba(245,230,216,0.16);border-radius:16px;padding:30px 28px;display:flex;flex-direction:column;">
+              <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;"><span style="color:#E2A24C;font-size:15px;letter-spacing:2px;">★★★★★</span></div>
+              <p style="font-size:14.5px;line-height:1.62;color:rgba(245,230,216,0.9);margin:0 0 24px;flex:1;">{{ quote }}</p>
+              <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;">
+                <img src="{{ src }}" alt="{{ name }}" width="38" height="38" loading="lazy" style="width:38px;height:38px;border-radius:50%;object-fit:cover;flex:0 0 auto;">
+                <span style="font-size:14px;font-weight:600;color:#F5E6D8;">{{ name }}</span>
+                <span style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#E2A24C;font-weight:600;flex:0 0 auto;"><span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:#E2A24C;color:#6B3D42;font-size:10px;font-weight:700;">✓</span>{{ section.settings.verified_label }}</span>
+              </div>
+              <div style="display:flex;gap:9px;flex-wrap:wrap;">
+                {%- assign tag1 = section.settings[t1k] -%}{%- assign tag2 = section.settings[t2k] -%}
+                {%- if tag1 != blank -%}<span style="border:1px solid rgba(245,230,216,0.32);border-radius:8px;padding:7px 13px;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#F5E6D8;font-weight:600;">{{ tag1 }}</span>{%- endif -%}
+                {%- if tag2 != blank -%}<span style="border:1px solid rgba(245,230,216,0.32);border-radius:8px;padding:7px 13px;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#F5E6D8;font-weight:600;">{{ tag2 }}</span>{%- endif -%}
+              </div>
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
       </div>
 
       <!-- carousel controls -->
@@ -119,6 +49,48 @@
 {% schema %}
 {
   "name": "WK - Testimonials",
-  "settings": []
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "In their own words" },
+    { "type": "text", "id": "heading_lead", "label": "Heading (lead)", "default": "The change women 40+" },
+    { "type": "text", "id": "heading_emph", "label": "Heading (emphasis)", "default": "actually feel" },
+    { "type": "textarea", "id": "subhead", "label": "Subheading", "default": "Trusted by women who wanted a real answer — not another thing that quietly didn't work." },
+    { "type": "text", "id": "verified_label", "label": "Verified badge text", "default": "Verified buyer" },
+    { "type": "header", "content": "Card 1" },
+    { "type": "image_picker", "id": "card1_image", "label": "Avatar", "info": "Defaults to wk-testimonial-1.jpg" },
+    { "type": "textarea", "id": "card1_quote", "label": "Quote", "default": "\"I didn't expect much after years of things that did nothing. Three weeks in, the 2am wake-ups eased and I finally feel steady in my own body again.\"" },
+    { "type": "text", "id": "card1_name", "label": "Name", "default": "Margaret R., 48" },
+    { "type": "text", "id": "card1_tag1", "label": "Tag 1", "default": "Better sleep" },
+    { "type": "text", "id": "card1_tag2", "label": "Tag 2", "default": "Mood balance" },
+    { "type": "header", "content": "Card 2" },
+    { "type": "image_picker", "id": "card2_image", "label": "Avatar", "info": "Defaults to wk-testimonial-2.jpg" },
+    { "type": "textarea", "id": "card2_quote", "label": "Quote", "default": "\"By the end of the first month the bloating I'd carried for a year had calmed, and my mornings stopped feeling like a fog I had to push through.\"" },
+    { "type": "text", "id": "card2_name", "label": "Name", "default": "Elena V., 45" },
+    { "type": "text", "id": "card2_tag1", "label": "Tag 1", "default": "Gut & bloating" },
+    { "type": "text", "id": "card2_tag2", "label": "Tag 2", "default": "Clearer focus" },
+    { "type": "header", "content": "Card 3" },
+    { "type": "image_picker", "id": "card3_image", "label": "Avatar", "info": "Defaults to wk-testimonial-3.jpg" },
+    { "type": "textarea", "id": "card3_quote", "label": "Quote", "default": "\"I'm a sceptic — I've wasted money on a lot of these. This is the first one where I can actually feel the difference. Cooler nights, fewer flushes.\"" },
+    { "type": "text", "id": "card3_name", "label": "Name", "default": "Grace L., 47" },
+    { "type": "text", "id": "card3_tag1", "label": "Tag 1", "default": "Hot flashes" },
+    { "type": "text", "id": "card3_tag2", "label": "Tag 2", "default": "Night sweats" },
+    { "type": "header", "content": "Card 4" },
+    { "type": "image_picker", "id": "card4_image", "label": "Avatar", "info": "Defaults to wk-testimonial-4.jpg" },
+    { "type": "textarea", "id": "card4_quote", "label": "Quote", "default": "\"A doctor told me my labs were normal and it was probably stress. This is the first thing that took the early changes seriously. I feel more like me.\"" },
+    { "type": "text", "id": "card4_name", "label": "Name", "default": "Renée J., 50" },
+    { "type": "text", "id": "card4_tag1", "label": "Tag 1", "default": "Hormonal balance" },
+    { "type": "text", "id": "card4_tag2", "label": "Tag 2", "default": "Steady energy" },
+    { "type": "header", "content": "Card 5" },
+    { "type": "image_picker", "id": "card5_image", "label": "Avatar", "info": "Defaults to wk-testimonial-5.jpg" },
+    { "type": "textarea", "id": "card5_quote", "label": "Quote", "default": "\"The little things stay little now. My family noticed I was more even before I said a word about taking anything.\"" },
+    { "type": "text", "id": "card5_name", "label": "Name", "default": "Gabriela R., 43" },
+    { "type": "text", "id": "card5_tag1", "label": "Tag 1", "default": "Mood balance" },
+    { "type": "text", "id": "card5_tag2", "label": "Tag 2", "default": "Stress response" },
+    { "type": "header", "content": "Card 6" },
+    { "type": "image_picker", "id": "card6_image", "label": "Avatar", "info": "Defaults to wk-testimonial-6.jpg" },
+    { "type": "textarea", "id": "card6_quote", "label": "Quote", "default": "\"I love that every ingredient is on the label — no mystery blend. And the afternoon slump I'd accepted as normal has genuinely lifted.\"" },
+    { "type": "text", "id": "card6_name", "label": "Name", "default": "Cass M., 49" },
+    { "type": "text", "id": "card6_tag1", "label": "Tag 1", "default": "Daily energy" },
+    { "type": "text", "id": "card6_tag2", "label": "Tag 2", "default": "Clearer focus" }
+  ]
 }
 {% endschema %}

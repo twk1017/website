@@ -1,36 +1,37 @@
   <!-- EXPERT BLOCK 1 — CO-FOUNDER -->
+  {%- if section.settings.image -%}{%- assign wk_cf_src = section.settings.image | image_url: width: 800 -%}{%- else -%}{%- assign wk_cf_src = 'wk-cofounder-katie.jpg' | asset_url -%}{%- endif -%}
   <section style="background:#F5E6D8;padding:84px 28px;">
     <div style="max-width:1100px;margin:0 auto;">
-      <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:32px;">Meet our co-founder</div>
+      <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:32px;">{{ section.settings.eyebrow }}</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;margin-bottom:48px;">
         <div>
-          <img class="wk-cofounder-img" src="{{ 'wk-cofounder-katie.jpg' | asset_url }}" alt="Dr. Katie Chen, Co-founder & Medical Director, in her practice" width="800" height="800" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:center top;border-radius:14px;display:block;">
+          <img class="wk-cofounder-img" src="{{ wk_cf_src }}" alt="{{ section.settings.image.alt | default: section.settings.name_badge }}" width="800" height="800" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:center top;border-radius:14px;display:block;">
         </div>
         <div>
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
-            <span style="font-size:11.5px;letter-spacing:0.2em;text-transform:uppercase;color:#A07E81;font-weight:600;">Dr. Katie Chen, MD, MSCP</span>
-            <span style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6B3D42;font-weight:700;border:1.5px solid #6B3D42;border-radius:999px;padding:3px 10px;">Co-founder &amp; Medical Director</span>
+            <span style="font-size:11.5px;letter-spacing:0.2em;text-transform:uppercase;color:#A07E81;font-weight:600;">{{ section.settings.name_badge }}</span>
+            <span style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6B3D42;font-weight:700;border:1.5px solid #6B3D42;border-radius:999px;padding:3px 10px;">{{ section.settings.role_badge }}</span>
           </div>
-          <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:31px;line-height:1.12;margin:0 0 20px;color:#6B3D42;max-width:26ch;">I co-founded Womankind to build the formula I wanted for my own patients</h2>
-          <p style="font-size:15.5px;line-height:1.68;color:#4a3a30;margin:0 0 22px;font-family:'Fraunces',serif;font-style:italic;">"For years I watched women arrive in my office at forty-three — dismissed, confused, and told their labs were normal — with nothing on the shelf I could honestly recommend. So I helped build it. Every active is named and dosed, nothing I couldn't stand behind in a consult. This is the formula I wanted for my patients, and for myself."</p>
+          <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:31px;line-height:1.12;margin:0 0 20px;color:#6B3D42;max-width:26ch;">{{ section.settings.heading }}</h2>
+          <p style="font-size:15.5px;line-height:1.68;color:#4a3a30;margin:0 0 22px;font-family:'Fraunces',serif;font-style:italic;">{{ section.settings.quote }}</p>
           <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
-            <span style="font-family:'Fraunces',serif;font-style:italic;font-size:22px;color:#6B3D42;">Dr. Katie Chen</span>
-            <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#A07E81;font-weight:600;">Board-certified OB/GYN · Menopause Society Certified Practitioner (MSCP)</span>
+            <span style="font-family:'Fraunces',serif;font-style:italic;font-size:22px;color:#6B3D42;">{{ section.settings.signature }}</span>
+            <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#A07E81;font-weight:600;">{{ section.settings.credentials }}</span>
           </div>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:30px;">
         <div style="border-top:2px solid #C9653F;padding-top:18px;">
-          <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:18px;margin:0 0 9px;color:#6B3D42;">Standardised botanicals</h3>
-          <p style="font-size:14px;line-height:1.6;color:#4a3a30;margin:0;">Black cohosh and red clover at the doses used in the research — for hot flashes and night sweats specifically.*</p>
+          <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:18px;margin:0 0 9px;color:#6B3D42;">{{ section.settings.card1_title }}</h3>
+          <p style="font-size:14px;line-height:1.6;color:#4a3a30;margin:0;">{{ section.settings.card1_body }}</p>
         </div>
         <div style="border-top:2px solid #C9653F;padding-top:18px;">
-          <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:18px;margin:0 0 9px;color:#6B3D42;">The gut connection</h3>
-          <p style="font-size:14px;line-height:1.6;color:#4a3a30;margin:0;">A probiotic blend for the estrobolome means we're supporting how the body actually handles estrogen.*</p>
+          <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:18px;margin:0 0 9px;color:#6B3D42;">{{ section.settings.card2_title }}</h3>
+          <p style="font-size:14px;line-height:1.6;color:#4a3a30;margin:0;">{{ section.settings.card2_body }}</p>
         </div>
         <div style="border-top:2px solid #C9653F;padding-top:18px;">
-          <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:18px;margin:0 0 9px;color:#6B3D42;">No hormones, no sugar</h3>
-          <p style="font-size:14px;line-height:1.6;color:#4a3a30;margin:0;">A daily she can take for years without trade-offs — clean, transparent, and built for the long transition.*</p>
+          <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:18px;margin:0 0 9px;color:#6B3D42;">{{ section.settings.card3_title }}</h3>
+          <p style="font-size:14px;line-height:1.6;color:#4a3a30;margin:0;">{{ section.settings.card3_body }}</p>
         </div>
       </div>
     </div>
@@ -39,6 +40,22 @@
 {% schema %}
 {
   "name": "WK - Co-founder",
-  "settings": []
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Meet our co-founder" },
+    { "type": "image_picker", "id": "image", "label": "Portrait", "info": "Defaults to wk-cofounder-katie.jpg if empty." },
+    { "type": "text", "id": "name_badge", "label": "Name", "default": "Dr. Katie Chen, MD, MSCP" },
+    { "type": "text", "id": "role_badge", "label": "Role badge", "default": "Co-founder & Medical Director" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "I co-founded Womankind to build the formula I wanted for my own patients" },
+    { "type": "inline_richtext", "id": "quote", "label": "Quote", "default": "\"For years I watched women arrive in my office at forty-three — dismissed, confused, and told their labs were normal — with nothing on the shelf I could honestly recommend. So I helped build it. Every active is named and dosed, nothing I couldn't stand behind in a consult. This is the formula I wanted for my patients, and for myself.\"" },
+    { "type": "text", "id": "signature", "label": "Signature", "default": "Dr. Katie Chen" },
+    { "type": "text", "id": "credentials", "label": "Credentials", "default": "Board-certified OB/GYN · Menopause Society Certified Practitioner (MSCP)" },
+    { "type": "header", "content": "Three points" },
+    { "type": "text", "id": "card1_title", "label": "Point 1 title", "default": "Standardised botanicals" },
+    { "type": "inline_richtext", "id": "card1_body", "label": "Point 1 body", "default": "Black cohosh and red clover at the doses used in the research — for hot flashes and night sweats specifically.*" },
+    { "type": "text", "id": "card2_title", "label": "Point 2 title", "default": "The gut connection" },
+    { "type": "inline_richtext", "id": "card2_body", "label": "Point 2 body", "default": "A probiotic blend for the estrobolome means we're supporting how the body actually handles estrogen.*" },
+    { "type": "text", "id": "card3_title", "label": "Point 3 title", "default": "No hormones, no sugar" },
+    { "type": "inline_richtext", "id": "card3_body", "label": "Point 3 body", "default": "A daily she can take for years without trade-offs — clean, transparent, and built for the long transition.*" }
+  ]
 }
 {% endschema %}
