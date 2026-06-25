@@ -1,0 +1,39 @@
+{%- assign wk_product = section.settings.product -%}
+{%- if wk_product != blank -%}{%- assign wk_variant = wk_product.selected_or_first_available_variant -%}{%- assign wk_selling_plan = wk_product.selling_plan_groups.first.selling_plans.first -%}{%- endif -%}
+
+  <!-- STICKY BUY BAR (optional via tweak) -->
+  {% if section.settings.enabled %}
+  <div style="position:sticky;bottom:0;z-index:50;background:#3A2A20;color:#F5E6D8;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;box-shadow:0 -6px 24px rgba(58,42,32,0.28);">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div style="width:44px;height:44px;background:#C9A89F;border-radius:8px;flex:0 0 auto;"></div>
+      <div><div style="font-family:'Fraunces',serif;font-size:16px;">hormonal support gummies</div><div style="font-size:12px;color:rgba(245,230,216,0.7);">3-month supply · $22.05/mo</div></div>
+    </div>
+    {%- if wk_product != blank -%}
+      <form method="post" action="{{ routes.cart_add_url }}" accept-charset="UTF-8" enctype="multipart/form-data" style="flex:0 0 auto;" data-wk-form>
+        <input type="hidden" name="form_type" value="product">
+        <input type="hidden" name="utf8" value="✓">
+        <input type="hidden" name="id" value="{{ wk_variant.id }}">
+        <input type="hidden" name="quantity" value="3" data-wk-qty>
+        <input type="hidden" name="selling_plan" value="{{ wk_selling_plan.id }}" data-wk-selling-plan disabled>
+        <button type="submit"{% unless wk_variant.available %} disabled{% endunless %} style="cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:13px 32px;font-size:12.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;flex:0 0 auto;{% unless wk_variant.available %}opacity:0.55;cursor:not-allowed;{% endunless %}">
+          {%- if wk_variant.available -%}
+            Add to bag — <span data-wk-atc-total>{{ wk_variant.price | times: 3 | money }}</span>
+          {%- else -%}
+            Sold out
+          {%- endif -%}
+        </button>
+      </form>
+    {%- else -%}
+      <button style="cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:13px 32px;font-size:12.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;flex:0 0 auto;">Select a product</button>
+    {%- endif -%}
+  </div>
+  {% endif %}
+{% schema %}
+{
+  "name": "WK - Sticky bar",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show sticky buy bar", "default": false },
+    { "type": "product", "id": "product", "label": "Product", "info": "Select the gummies product." }
+  ]
+}
+{% endschema %}
