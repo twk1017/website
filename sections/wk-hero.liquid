@@ -81,7 +81,7 @@
 
         <button data-wk="supply" data-wk-val="1" style="position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
           <span data-wk-ring="supply:1" style="box-shadow:0 0 0 0 transparent;position:absolute;inset:-1.5px;border-radius:12px;pointer-events:none;"></span>
-          <span><span style="display:block;font-size:15.5px;font-weight:600;color:#6B3D42;">{{ section.settings.tier1_name }}</span><span style="display:block;font-size:12.5px;color:#7a6258;margin-top:2px;">{{ section.settings.tier1_sub }}</span></span>
+          <span><span style="display:block;font-size:15.5px;font-weight:600;color:#6B3D42;">{{ section.settings.tier1_name }}</span><span style="display:block;font-size:12.5px;color:#7a6258;margin-top:2px;">{{ section.settings.tier1_sub }}<span data-wk-ship1> · free shipping</span></span></span>
           <span style="text-align:right;flex:0 0 auto;"><span style="display:flex;align-items:baseline;justify-content:flex-end;gap:7px;"><span data-wk-compare="1" style="font-size:11px;text-decoration:line-through;color:#A07E81;">$42</span><span data-wk-total="1" style="font-size:19px;font-weight:700;color:#C9653F;">$31.50</span></span><span data-wk-permo-line="1" style="display:block;font-size:12.5px;color:#7a6258;font-weight:600;margin-top:1px;"><span data-wk-permo="1">$31.50</span><span data-wk-mo style="font-size:11px;font-weight:500;">/mo</span></span><span data-wk-save="1" style="display:block;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-top:2px;">Save 25%</span></span>
         </button>
       </div>
@@ -169,6 +169,8 @@
       root.querySelectorAll('[data-wk-save="'+k+'"]').forEach(function(e){ e.textContent = 'Save ' + q.save + '%'; e.style.visibility = q.save > 0 ? 'visible' : 'hidden'; });
     });
     root.querySelectorAll('[data-wk-atc-total]').forEach(function(e){ e.textContent = wkMoney(wkQuote(state.supply, on).total); });
+    // 1-month supply only gets free shipping with a subscription (3 & 6 month are always free)
+    root.querySelectorAll('[data-wk-ship1]').forEach(function(e){ e.style.display = on ? '' : 'none'; });
   }
 
   // sync cart quantity + attach the subscription selling plan only when refills are on (and one exists)
@@ -396,7 +398,7 @@
     { "type": "text", "id": "tier3_name", "label": "3-tier name", "default": "3-month supply" },
     { "type": "text", "id": "tier3_sub", "label": "3-tier sub", "default": "3 bottles · 90 servings · free shipping" },
     { "type": "text", "id": "tier1_name", "label": "1-tier name", "default": "1-month supply" },
-    { "type": "text", "id": "tier1_sub", "label": "1-tier sub", "default": "1 bottle · 30 servings · free shipping" },
+    { "type": "text", "id": "tier1_sub", "label": "1-tier sub", "default": "1 bottle · 30 servings", "info": "'· free shipping' is appended automatically only when refills are on." },
     { "type": "header", "content": "Auto-refill + checkout" },
     { "type": "text", "id": "refill_title", "label": "Refill title", "default": "Save 25% with automatic refills" },
     { "type": "text", "id": "refill_subtitle", "label": "Refill subtitle", "default": "Zero commitment — pause, skip, or cancel anytime" },
