@@ -123,6 +123,7 @@
 <script>
 
 (function(){
+  function wkInit(){
   var root = document.querySelector('.wk-root');
   if (!root || root.dataset.wkInit) return;
   root.dataset.wkInit = '1';
@@ -349,6 +350,8 @@
       });
     });
   }
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', wkInit); } else { wkInit(); }
 })();
 </script>
 
