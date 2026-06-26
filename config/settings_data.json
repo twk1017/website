@@ -177,7 +177,7 @@
       "wk-hero": {
         "type": "wk-hero",
         "settings": {
-          "product": "",
+          "product": "hormonal-support-gummies",
           "thumb_1_label": "Front",
           "thumb_2_label": "Detail",
           "thumb_3_label": "Formula",
@@ -221,7 +221,7 @@
           "c1_title": "Settling in",
           "c1_b1": "A gentler, more even daily energy",
           "c1_b2": "Easier wind-down as evening comes",
-          "c1_b3": "A morning ritual you look forward to",
+          "c1_b3": "A ritual you look forward to",
           "c2_eyebrow": "Month 1",
           "c2_title": "Finding your rhythm",
           "c2_b1": "Fewer 2am wake-ups, deeper sleep*",
@@ -284,13 +284,7 @@
           "heading": "I co-founded Womankind to build the formula I wanted for my own patients",
           "quote": "\"For years I watched women arrive in my office at forty-three — dismissed, confused, and told their labs were normal — with nothing on the shelf I could honestly recommend. So I helped build it. Every active is named and dosed, nothing I couldn't stand behind in a consult. This is the formula I wanted for my patients, and for myself.\"",
           "signature": "Dr. Katie Chen",
-          "credentials": "Board-certified OB/GYN · Menopause Society Certified Practitioner (MSCP)",
-          "card1_title": "Standardised botanicals",
-          "card1_body": "Black cohosh and red clover at the doses used in the research — for hot flashes and night sweats specifically.*",
-          "card2_title": "The gut connection",
-          "card2_body": "A probiotic blend for the estrobolome means we're supporting how the body actually handles estrogen.*",
-          "card3_title": "No hormones, no sugar",
-          "card3_body": "A daily she can take for years without trade-offs — clean, transparent, and built for the long transition.*"
+          "credentials": "Board-certified OB/GYN · Menopause Society Certified Practitioner (MSCP)"
         }
       },
       "wk-experts": {
