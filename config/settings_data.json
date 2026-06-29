@@ -208,12 +208,7 @@
           "atc_label": "Add to bag",
           "guarantee_badge": "90",
           "guarantee_text": "Try it for a full 90 days — love it or your money back",
-          "fineprint": "Pause, skip, or cancel anytime"
-        }
-      },
-      "wk-tabs": {
-        "type": "wk-tabs",
-        "settings": {
+          "fineprint": "Pause, skip, or cancel anytime",
           "tab1_label": "What to expect",
           "tab2_label": "How to use",
           "tab3_label": "Shipping",
@@ -231,37 +226,7 @@
           "c3_title": "Feeling like yourself",
           "c3_b1": "Cooler nights, fewer hot flashes*",
           "c3_b2": "More balanced hormonal support*",
-          "c3_b3": "Like yourself again, in your own body",
-          "c4_eyebrow": "Daily",
-          "c4_title": "Two gummies",
-          "c4_b1": "Take 2 gummies each morning",
-          "c4_b2": "With or without food",
-          "c4_b3": "Pick a time you'll remember",
-          "c5_eyebrow": "Consistency",
-          "c5_title": "Make it a habit",
-          "c5_b1": "Works best taken every day",
-          "c5_b2": "Give it a full transition cycle",
-          "c5_b3": "Pair it with your morning coffee",
-          "c6_eyebrow": "The gummy",
-          "c6_title": "What you're taking",
-          "c6_b1": "No added sugar or sugar alcohols",
-          "c6_b2": "Deep-red cranberry, lightly tart",
-          "c6_b3": "Every active named and dosed",
-          "c7_eyebrow": "Delivery",
-          "c7_title": "Free & carbon-neutral",
-          "c7_b1": "Free shipping on every subscription",
-          "c7_b2": "Carbon-neutral delivery",
-          "c7_b3": "Dispatched within 48 hours",
-          "c8_eyebrow": "Subscription",
-          "c8_title": "On your terms",
-          "c8_b1": "Pause, skip, or cancel anytime",
-          "c8_b2": "Choose your own cadence",
-          "c8_b3": "No emails, no hoops",
-          "c9_eyebrow": "Guarantee",
-          "c9_title": "90-day promise",
-          "c9_b1": "Take the full three months",
-          "c9_b2": "Not right for you? Full refund",
-          "c9_b3": "No need to return the bottles"
+          "c3_b3": "Like yourself again, in your own body"
         }
       },
       "wk-team": {
