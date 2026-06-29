@@ -1,9 +1,15 @@
+{%- assign wk_product = section.settings.product -%}
+{%- if wk_product != blank -%}{%- assign wk_variant = wk_product.selected_or_first_available_variant -%}{%- assign wk_sp = wk_product.selling_plan_groups.first.selling_plans.first -%}{%- endif -%}
+{%- assign db = section.settings.default_bundle | default: 2 -%}
+{%- assign supplies = '1,3,6' | split: ',' -%}
+{%- assign dbi = db | minus: 1 -%}
+{%- assign def_supply = supplies[dbi] -%}
+
   <!-- BUY BOX -->
   <style>
     #wk-{{ section.id }}-buy .wk-ring { box-shadow:0 0 0 0 transparent; position:absolute; inset:-1.5px; border-radius:12px; pointer-events:none; transition:box-shadow .15s ease; }
-    #wk-{{ section.id }}-buy .wk-bundle.is-sel .wk-ring { box-shadow:0 0 0 2px #6B3D42; }
   </style>
-  <section id="wk-{{ section.id }}-buy" style="background:#F5E6D8;padding:80px 28px;">
+  <section id="wk-{{ section.id }}-buy" data-wk-default="{{ def_supply }}" style="background:#F5E6D8;padding:80px 28px;">
     <div style="max-width:1140px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:46px;">
         <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:38px;margin:0 0 10px;color:#6B3D42;">{{ section.settings.heading_lead }} <span style="font-style:italic;color:#C9653F;">{{ section.settings.heading_emph }}</span></h2>
@@ -53,29 +59,39 @@
               {%- assign name = section.settings[nk] -%}
               {%- if name != blank -%}
               {%- assign sk = 'bundle' | append: i | append: '_sub' -%}
-              {%- assign pk = 'bundle' | append: i | append: '_price' -%}
-              {%- assign ck2 = 'bundle' | append: i | append: '_compare' -%}
-              {%- assign vk = 'bundle' | append: i | append: '_save' -%}
               {%- assign bk = 'bundle' | append: i | append: '_badge' -%}
               {%- assign badge = section.settings[bk] -%}
-              {%- assign price = section.settings[pk] -%}
-              <button type="button" class="wk-bundle{% if i == section.settings.default_bundle %} is-sel{% endif %}" data-wk-bundle data-price="{{ price }}" style="position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
-                <span class="wk-ring"></span>
+              {%- assign ii = i | minus: 1 -%}
+              {%- assign sup = supplies[ii] -%}
+              <button type="button" data-wk="supply" data-wk-val="{{ sup }}" style="position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
+                <span class="wk-ring" data-wk-ring="supply:{{ sup }}"{% if i == db %} style="box-shadow:0 0 0 2px #6B3D42;position:absolute;inset:-1.5px;border-radius:12px;pointer-events:none;"{% endif %}></span>
                 {%- if badge != blank -%}<span style="position:absolute;top:-10px;left:18px;background:{% if i == 2 %}#C9653F{% else %}#6B3D42{% endif %};color:#F5E6D8;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;padding:3px 10px;border-radius:999px;">{{ badge }}</span>{%- endif -%}
                 <span style="display:flex;align-items:center;gap:14px;"><span style="width:42px;height:42px;background:#C9A89F;border-radius:8px;flex:0 0 auto;"></span><span><span style="display:block;font-size:15px;font-weight:600;color:#6B3D42;">{{ name }}</span><span style="display:block;font-size:12px;color:#7a6258;">{{ section.settings[sk] }}</span></span></span>
-                <span style="text-align:right;flex:0 0 auto;"><span style="display:block;font-size:18px;font-weight:700;color:#C9653F;">{{ price }}</span>{%- if section.settings[ck2] != blank -%}<span style="display:block;font-size:11px;text-decoration:line-through;color:#A07E81;">{{ section.settings[ck2] }}</span>{%- endif -%}{%- if section.settings[vk] != blank -%}<span style="display:block;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6B3D42;font-weight:600;">{{ section.settings[vk] }}</span>{%- endif -%}</span>
+                <span style="text-align:right;flex:0 0 auto;"><span style="display:block;font-size:18px;font-weight:700;color:#C9653F;" data-wk-total="{{ sup }}">—</span><span style="display:block;font-size:11px;text-decoration:line-through;color:#A07E81;" data-wk-compare="{{ sup }}"></span><span style="display:block;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6B3D42;font-weight:600;" data-wk-save="{{ sup }}"></span></span>
               </button>
               {%- endif -%}
             {%- endfor -%}
           </div>
 
-          <label style="display:flex;align-items:center;gap:10px;background:#FBF1E6;border:1px solid rgba(107,61,66,0.16);border-radius:10px;padding:13px 16px;margin-bottom:18px;cursor:pointer;">
-            <span style="width:18px;height:18px;border-radius:5px;background:#6B3D42;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;color:#E2A24C;font-size:11px;">✓</span>
+          <div data-wk-refill role="checkbox" aria-checked="true" tabindex="0" style="display:flex;align-items:center;gap:10px;background:#FBF1E6;border:1px solid rgba(107,61,66,0.16);border-radius:10px;padding:13px 16px;margin-bottom:18px;cursor:pointer;">
+            <span data-wk-refill-box style="width:18px;height:18px;border-radius:5px;background:#6B3D42;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;color:#E2A24C;font-size:11px;"><span data-wk-refill-check>✓</span></span>
             <span style="font-size:13px;color:#3A2A20;">{{ section.settings.sub_text }}</span>
-          </label>
+          </div>
 
-          {%- assign atc_url = section.settings.atc_url | default: '#' -%}
-          <a href="{{ atc_url }}" style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;text-decoration:none;">{{ section.settings.atc_label }} <span style="opacity:0.85;">— <span data-wk-atc-price>{{ section.settings.bundle2_price }}</span></span></a>
+          {%- if wk_product != blank -%}
+            <form method="post" action="{{ routes.cart_add_url }}" accept-charset="UTF-8" enctype="multipart/form-data">
+              <input type="hidden" name="form_type" value="product">
+              <input type="hidden" name="utf8" value="✓">
+              <input type="hidden" name="id" value="{{ wk_variant.id }}">
+              <input type="hidden" name="quantity" value="{{ def_supply }}" data-wk-qty>
+              <input type="hidden" name="selling_plan" value="{{ wk_sp.id }}" data-wk-selling-plan disabled>
+              <button type="submit"{% unless wk_variant.available %} disabled{% endunless %} style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;{% unless wk_variant.available %}opacity:0.55;cursor:not-allowed;{% endunless %}">
+                {%- if wk_variant.available -%}{{ section.settings.atc_label }} <span style="opacity:0.85;">— <span data-wk-atc-total>—</span></span>{%- else -%}Sold out{%- endif -%}
+              </button>
+            </form>
+          {%- else -%}
+            <button type="button" style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;">Select a product</button>
+          {%- endif -%}
           <div style="display:flex;align-items:center;justify-content:center;gap:22px;margin-top:14px;font-size:12px;color:#7a6258;">
             <span style="display:inline-flex;align-items:center;gap:7px;">⌁ {{ section.settings.note1 }}</span>
             <span style="display:inline-flex;align-items:center;gap:7px;">♡ {{ section.settings.note2 }}</span>
@@ -88,16 +104,65 @@
   <script>
     (function(){
       var root = document.getElementById('wk-{{ section.id }}-buy');
-      if (!root) return;
-      var bundles = root.querySelectorAll('[data-wk-bundle]');
-      var priceEl = root.querySelector('[data-wk-atc-price]');
-      bundles.forEach(function(b){
-        b.addEventListener('click', function(){
-          bundles.forEach(function(x){ x.classList.remove('is-sel'); });
-          b.classList.add('is-sel');
-          if (priceEl) priceEl.textContent = b.getAttribute('data-price') || '';
+      if (!root || root.dataset.wkInit) return;
+      root.dataset.wkInit = '1';
+      var RING = '0 0 0 2px #6B3D42', NONE = '0 0 0 0 transparent';
+      var BOTTLE = {{ wk_variant.price | default: 4200 }};
+      var SELLING_PLAN = {{ wk_sp.id | default: 'null' }};
+      var TIERS = { '1': { m:1, off:0 }, '3': { m:3, off:0.30 }, '6': { m:6, off:0.40 } };
+      var SUB_OFF = 0.25;
+      var state = { supply: root.getAttribute('data-wk-default') || '3' };
+      var refillEl = root.querySelector('[data-wk-refill]');
+
+      function money(c){ return '$' + (c/100).toFixed(2).replace(/\.00$/, ''); }
+      function refillOn(){ return !!(refillEl && refillEl.getAttribute('aria-checked') === 'true'); }
+      function quote(tier, on){
+        var t = TIERS[tier], full = BOTTLE * t.m;
+        var afterTier = Math.round(full * (1 - t.off));
+        var total = on ? Math.round(afterTier * (1 - SUB_OFF)) : afterTier;
+        return { full: full, total: total, save: Math.round((1 - total/full) * 100) };
+      }
+      function applyRing(){
+        root.querySelectorAll('[data-wk-ring]').forEach(function(el){
+          var v = el.getAttribute('data-wk-ring').split(':')[1];
+          el.style.cssText = 'position:absolute;inset:-1.5px;border-radius:12px;pointer-events:none;transition:box-shadow .15s ease;box-shadow:' + (v === state.supply ? RING : NONE) + ';';
         });
+      }
+      function applyPricing(){
+        var on = refillOn();
+        ['1','3','6'].forEach(function(k){
+          var q = quote(k, on);
+          root.querySelectorAll('[data-wk-total="'+k+'"]').forEach(function(e){ e.textContent = money(q.total); });
+          root.querySelectorAll('[data-wk-compare="'+k+'"]').forEach(function(e){ e.textContent = money(q.full); e.style.visibility = q.save > 0 ? 'visible' : 'hidden'; });
+          root.querySelectorAll('[data-wk-save="'+k+'"]').forEach(function(e){ e.textContent = 'Save ' + q.save + '%'; e.style.visibility = q.save > 0 ? 'visible' : 'hidden'; });
+        });
+        root.querySelectorAll('[data-wk-atc-total]').forEach(function(e){ e.textContent = money(quote(state.supply, on).total); });
+      }
+      function applyCart(){
+        var sub = refillOn() && SELLING_PLAN;
+        root.querySelectorAll('[data-wk-qty]').forEach(function(i){ i.value = state.supply; });
+        root.querySelectorAll('[data-wk-selling-plan]').forEach(function(i){ i.disabled = !sub; });
+      }
+      function applyAll(){ applyRing(); applyCart(); applyPricing(); }
+
+      root.querySelectorAll('[data-wk="supply"]').forEach(function(el){
+        el.addEventListener('click', function(){ state.supply = el.getAttribute('data-wk-val'); applyAll(); });
       });
+      if (refillEl){
+        function toggle(){
+          var on = !refillOn();
+          refillEl.setAttribute('aria-checked', on ? 'true' : 'false');
+          var box = refillEl.querySelector('[data-wk-refill-box]');
+          var check = refillEl.querySelector('[data-wk-refill-check]');
+          if (box) box.style.background = on ? '#6B3D42' : 'transparent';
+          if (box) box.style.border = on ? 'none' : '1.5px solid #6B3D42';
+          if (check) check.style.visibility = on ? 'visible' : 'hidden';
+          applyCart(); applyPricing();
+        }
+        refillEl.addEventListener('click', toggle);
+        refillEl.addEventListener('keydown', function(e){ if (e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); toggle(); } });
+      }
+      applyAll();
     })();
   </script>
 
@@ -105,6 +170,7 @@
 {
   "name": "Home · Buy box",
   "settings": [
+    { "type": "product", "id": "product", "label": "Product", "info": "Set this to the gummies product to enable real add-to-cart + live pricing." },
     { "type": "text", "id": "heading_lead", "label": "Heading", "default": "Your balance" },
     { "type": "text", "id": "heading_emph", "label": "Heading (italic)", "default": "starts here" },
     { "type": "text", "id": "subheading", "label": "Subheading", "default": "Choose the package that fits your goals and save on every bottle." },
@@ -117,31 +183,21 @@
     { "type": "text", "id": "check2", "label": "Check 2", "default": "Eases hot flashes" },
     { "type": "text", "id": "check3", "label": "Check 3", "default": "Gut–hormone support" },
     { "type": "text", "id": "check4", "label": "Check 4", "default": "Hormone & sugar-free" },
-    { "type": "header", "content": "Bundles" },
+    { "type": "header", "content": "Bundles", "info": "Prices are computed live from the product's variant price (6-month = 40% off, 3-month = 30% off, subscribe = extra 25%), matching the PDP. 1 / 3 / 6 = bottle quantity added to cart." },
     { "type": "text", "id": "bundle_eyebrow", "label": "Eyebrow", "default": "Bundle & save" },
     { "type": "range", "id": "default_bundle", "label": "Default selected", "min": 1, "max": 3, "step": 1, "default": 2 },
     { "type": "text", "id": "bundle1_name", "label": "B1 name", "default": "1-month supply" },
     { "type": "text", "id": "bundle1_sub", "label": "B1 sub", "default": "1 bottle · 30 servings" },
-    { "type": "text", "id": "bundle1_price", "label": "B1 price", "default": "$45" },
-    { "type": "text", "id": "bundle1_compare", "label": "B1 compare", "default": "$52" },
-    { "type": "text", "id": "bundle1_save", "label": "B1 save" },
     { "type": "text", "id": "bundle1_badge", "label": "B1 badge" },
     { "type": "text", "id": "bundle2_name", "label": "B2 name", "default": "3-month supply" },
     { "type": "text", "id": "bundle2_sub", "label": "B2 sub", "default": "3 bottles · backed by 90-day guarantee" },
-    { "type": "text", "id": "bundle2_price", "label": "B2 price", "default": "$105" },
-    { "type": "text", "id": "bundle2_compare", "label": "B2 compare", "default": "$156" },
-    { "type": "text", "id": "bundle2_save", "label": "B2 save", "default": "Save 33%" },
     { "type": "text", "id": "bundle2_badge", "label": "B2 badge", "default": "Most popular" },
     { "type": "text", "id": "bundle3_name", "label": "B3 name", "default": "6-month supply" },
     { "type": "text", "id": "bundle3_sub", "label": "B3 sub", "default": "6 bottles · free shipping" },
-    { "type": "text", "id": "bundle3_price", "label": "B3 price", "default": "$186" },
-    { "type": "text", "id": "bundle3_compare", "label": "B3 compare", "default": "$312" },
-    { "type": "text", "id": "bundle3_save", "label": "B3 save", "default": "Save 40%" },
     { "type": "text", "id": "bundle3_badge", "label": "B3 badge", "default": "Best value" },
     { "type": "header", "content": "Checkout" },
     { "type": "text", "id": "sub_text", "label": "Subscribe text", "default": "Subscribe & save 25% — pause, skip or cancel anytime" },
     { "type": "text", "id": "atc_label", "label": "Button label", "default": "Add to bag" },
-    { "type": "url", "id": "atc_url", "label": "Button URL (link to PDP)" },
     { "type": "text", "id": "note1", "label": "Note 1", "default": "Free shipping" },
     { "type": "text", "id": "note2", "label": "Note 2", "default": "90-day guarantee" }
   ]
