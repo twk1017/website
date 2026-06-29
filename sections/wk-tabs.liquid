@@ -8,9 +8,20 @@
     #wk-{{ section.id }}-tabs .wk-xt-simple li::before { content:'•'; position:absolute; left:0; color:#C9653F; }
     #wk-{{ section.id }}-tabs .wk-xt-simple p { margin:0 0 14px; font-size:15px; line-height:1.6; color:rgba(245,230,216,0.9); }
     @media (max-width:749px){ #wk-{{ section.id }}-tabs .wk-xt-simple ul { grid-template-columns:1fr; } }
+    #wk-{{ section.id }}-tabs .wk-xt-outer { padding:40px 28px 80px; }
+    #wk-{{ section.id }}-tabs .wk-xt { max-width:1180px; margin:0 auto; }
+    /* desktop: narrow the component to the buy-box column and tuck it under the ATC */
+    @media (min-width:750px){
+      #wk-{{ section.id }}-tabs .wk-xt-outer { max-width:1240px; margin:0 auto; padding:6px 28px 86px; display:grid; grid-template-columns:1.02fr 0.98fr; gap:54px; align-items:start; }
+      #wk-{{ section.id }}-tabs .wk-xt { grid-column:2; max-width:none; margin:0; }
+      #wk-{{ section.id }}-tabs .wk-xpanel.is-active { grid-template-columns:1fr; gap:30px; }
+      #wk-{{ section.id }}-tabs .wk-xt-simple { max-width:none; }
+      #wk-{{ section.id }}-tabs .wk-xt-simple ul { grid-template-columns:1fr; gap:14px; }
+    }
   </style>
-  <section id="wk-{{ section.id }}-tabs" style="background:#F5E6D8;padding:80px 28px;">
-    <div class="wk-xt" style="max-width:1180px;margin:0 auto;">
+  <section id="wk-{{ section.id }}-tabs" style="background:#F5E6D8;">
+    <div class="wk-xt-outer">
+    <div class="wk-xt">
       <div class="wk-xt-tabs" role="tablist">
         <button class="wk-xtab is-active" data-wk-xtab="expect" role="tab" aria-selected="true" type="button">{{ section.settings.tab1_label }}</button>
         <button class="wk-xtab" data-wk-xtab="use" role="tab" aria-selected="false" type="button">{{ section.settings.tab2_label }}</button>
@@ -50,6 +61,7 @@
         </div>
 
       </div>
+    </div>
     </div>
   </section>
 
