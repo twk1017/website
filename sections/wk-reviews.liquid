@@ -1,17 +1,18 @@
   <!-- CUSTOMER REVIEWS · THE DATA -->
   <style>
-    #wk-{{ section.id }}-rev .wk-stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:46px 56px; max-width:860px; margin:0 auto; }
+    #wk-{{ section.id }}-rev .wk-stat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:52px 40px; max-width:1000px; margin:0 auto; }
     #wk-{{ section.id }}-rev .wk-stat { text-align:center; }
-    #wk-{{ section.id }}-rev .wk-stat-num { font-family:'Fraunces',serif; font-weight:500; font-size:64px; line-height:1; color:#6B3D42; }
+    #wk-{{ section.id }}-rev .wk-stat-num { font-family:'Fraunces',serif; font-weight:500; font-size:60px; line-height:1; color:#6B3D42; }
     #wk-{{ section.id }}-rev .wk-stat-rule { width:54px; height:2px; background:#C9653F; border-radius:999px; margin:18px auto 16px; }
     #wk-{{ section.id }}-rev .wk-stat-title { font-family:'Fraunces',serif; font-weight:500; font-size:23px; line-height:1.15; color:#6B3D42; margin:0 0 8px; }
     #wk-{{ section.id }}-rev .wk-stat-desc { font-size:15px; line-height:1.55; color:#7a6258; margin:0; max-width:300px; margin-left:auto; margin-right:auto; }
-    @media (max-width:600px){
-      #wk-{{ section.id }}-rev .wk-stat-title { font-size:20px; }
+    @media (max-width:900px){
+      #wk-{{ section.id }}-rev .wk-stat-grid { grid-template-columns:1fr 1fr; }
     }
-    @media (max-width:600px){
-      #wk-{{ section.id }}-rev .wk-stat-grid { gap:38px 28px; }
+    @media (max-width:560px){
+      #wk-{{ section.id }}-rev .wk-stat-grid { grid-template-columns:1fr; gap:38px 28px; }
       #wk-{{ section.id }}-rev .wk-stat-num { font-size:52px; }
+      #wk-{{ section.id }}-rev .wk-stat-title { font-size:20px; }
     }
   </style>
   <section id="wk-{{ section.id }}-rev" style="background:#F5E6D8;padding:84px 28px;">
@@ -29,9 +30,9 @@
         </div>
       </div>
 
-      <!-- big-stat 2x2 grid, count-up on scroll -->
+      <!-- big-stat grid, count-up on scroll -->
       <div class="wk-stat-grid">
-        {%- for i in (1..4) -%}
+        {%- for i in (1..6) -%}
           {%- assign tk = 'attr' | append: i | append: '_title' -%}
           {%- assign pk = 'attr' | append: i | append: '_pct' -%}
           {%- assign dk = 'attr' | append: i | append: '_desc' -%}
@@ -128,6 +129,14 @@
     { "type": "text", "id": "attr4_title", "label": "Title", "default": "Clearer focus" },
     { "type": "number", "id": "attr4_pct", "label": "Percent", "default": 52 },
     { "type": "text", "id": "attr4_desc", "label": "Description", "default": "Reviewers report the afternoon fog easing within weeks." },
+    { "type": "header", "content": "Stat 5" },
+    { "type": "text", "id": "attr5_title", "label": "Title", "default": "Fewer hot flashes" },
+    { "type": "number", "id": "attr5_pct", "label": "Percent", "default": 49 },
+    { "type": "text", "id": "attr5_desc", "label": "Description", "default": "Cooler nights and fewer daytime flashes, often by month two." },
+    { "type": "header", "content": "Stat 6" },
+    { "type": "text", "id": "attr6_title", "label": "Title", "default": "Easy daily habit" },
+    { "type": "number", "id": "attr6_pct", "label": "Percent", "default": 88 },
+    { "type": "text", "id": "attr6_desc", "label": "Description", "default": "A gummy they actually look forward to — and remember to take." },
     { "type": "header", "content": "Featured quote 1" },
     { "type": "inline_richtext", "id": "quote1", "label": "Quote", "default": "\"I started a month ago and I can genuinely feel the difference in my sleep and recovery. I love that I can see every dose on the label.\"" },
     { "type": "text", "id": "cite1", "label": "Attribution", "default": "Jill K. · 55–64 · Verified, 1–3 months" },
