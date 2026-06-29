@@ -510,6 +510,297 @@
           "subtitle": "3-month supply · $22.05/mo",
           "atc_label": "Add to bag"
         }
+      },
+      "wk-home-announcement": {
+        "type": "wk-home-announcement",
+        "settings": {
+          "text": "Save up to 25% on a 6-month supply",
+          "link_label": "Shop now",
+          "link_url": ""
+        }
+      },
+      "wk-home-header": {
+        "type": "wk-home-header",
+        "settings": {
+          "wordmark": "womankind",
+          "logo_url": "",
+          "nav1_label": "Shop",
+          "nav1_url": "",
+          "nav2_label": "The science",
+          "nav2_url": "",
+          "nav3_label": "Our story",
+          "nav3_url": "",
+          "account_label": "Account",
+          "bag_label": "Bag"
+        }
+      },
+      "wk-home-hero": {
+        "type": "wk-home-hero",
+        "settings": {
+          "rating_text": "Trusted by 12,000+ women",
+          "heading_lead": "The balance women 40+",
+          "heading_emph": "actually feel",
+          "check1": "Clinically-backed ingredients",
+          "check2": "8-in-1 daily formula",
+          "check3": "Gut–hormone support",
+          "check4": "Hormone-free & sugar-free",
+          "cta_label": "Shop Womankind",
+          "cta_url": "",
+          "guarantee_text": "90-day money-back guarantee"
+        }
+      },
+      "wk-home-trust": {
+        "type": "wk-home-trust",
+        "settings": {
+          "item1": "Gut–hormone delivery",
+          "item2": "Third-party tested",
+          "item3": "GMP & non-GMO",
+          "item4": "No fillers or sugar"
+        }
+      },
+      "wk-home-testimonials": {
+        "type": "wk-home-testimonials",
+        "settings": {
+          "heading_lead": "The shift women 40+",
+          "heading_emph": "actually notice",
+          "subheading": "Trusted by women who wanted to be taken seriously, not managed.",
+          "t1_quote": "\"I honestly didn't expect much, but the 2am wake-ups eased within weeks. I feel steadier, calmer, more like myself again.\"",
+          "t1_score": "4.9/5.0",
+          "t1_name": "Margaret R., 47",
+          "t1_tag1": "Better sleep",
+          "t1_tag2": "Calm",
+          "t2_quote": "\"By the end of the first month the bloating had calmed and my mood felt even. Finally something that takes the early signs seriously.\"",
+          "t2_score": "5.0/5.0",
+          "t2_name": "Dana M., 51",
+          "t2_tag1": "Less bloat",
+          "t2_tag2": "Steady mood",
+          "t3_quote": "\"I'd wasted money on a lot of supplements, so I was skeptical. This is the first one where I can feel the difference — steadier energy, clearer days.\"",
+          "t3_score": "4.8/5.0",
+          "t3_name": "Elena S., 46",
+          "t3_tag1": "Steady energy",
+          "t3_tag2": "Clear focus"
+        }
+      },
+      "wk-home-reasons": {
+        "type": "wk-home-reasons",
+        "settings": {
+          "heading_lead": "The formula women",
+          "heading_emph": "believe in",
+          "subheading": "Designed for real absorption, real quality, and results you can actually feel.",
+          "r1_title": "Clinical strength, not guesswork",
+          "r2_title": "Absorption that actually works",
+          "r3_title": "Built for women's real needs",
+          "r4_title": "Clean formula, zero fillers",
+          "r5_title": "Proven results you can feel",
+          "cta_label": "Shop Womankind",
+          "cta_url": "",
+          "cta_note": "90-day money-back guarantee"
+        }
+      },
+      "wk-home-why-trust": {
+        "type": "wk-home-why-trust",
+        "settings": {
+          "heading": "Why women trust Womankind",
+          "check1": "No hidden fillers",
+          "check2": "Made in the USA",
+          "check3": "Third-party tested",
+          "check4": "Non-GMO certified",
+          "check_highlight": "Science-backed formula, women's-health reviewed",
+          "badge1": "Clinically-backed formula",
+          "badge2": "GMP-certified facility",
+          "badge3": "Gut–hormone delivery",
+          "badge4": "Women's-health focused"
+        }
+      },
+      "wk-home-chart": {
+        "type": "wk-home-chart",
+        "settings": {
+          "heading": "A silent shift every woman faces",
+          "body1": "Hormonal balance can begin shifting in your early forties — and disrupted sleep and stress make the everyday symptoms feel even louder.",
+          "body2": "Left unsupported, that shift can mean broken sleep, mood swings, bloating, and the fog so many women are told to simply live with.",
+          "body3": "<strong>The good news:</strong> Womankind supports your body's own systems — for steadier mood, calmer digestion, and renewed balance through the transition.*",
+          "tag1": "Mood",
+          "tag2": "Sleep",
+          "tag3": "Digestion",
+          "tag4": "Balance",
+          "cta_label": "Shop Womankind",
+          "cta_url": ""
+        }
+      },
+      "wk-home-benefits": {
+        "type": "wk-home-benefits",
+        "settings": {
+          "heading_lead": "The balance your body's",
+          "heading_emph": "been missing",
+          "subheading": "One daily ritual that supports mood, sleep, digestion and balance — together.",
+          "b1_title": "Steady energy",
+          "b1_body": "Supports smoother, more consistent energy through the day — without the crash.*",
+          "b2_title": "Steady mood",
+          "b2_body": "Ashwagandha supports a calmer stress response, so the little things stay little.*",
+          "b3_title": "Calm digestion",
+          "b3_body": "A probiotic blend supports the estrobolome — the gut bacteria that metabolise estrogen.*",
+          "b4_title": "Deeper sleep",
+          "b4_body": "Fewer 2am wake-ups and cooler nights as the actives reach steady state.*",
+          "b5_title": "Hormonal balance",
+          "b5_body": "Standardised botanicals ease hot flashes and support balance through the whole transition.*"
+        }
+      },
+      "wk-home-before-after": {
+        "type": "wk-home-before-after",
+        "settings": {
+          "heading_lead": "When your body finds its",
+          "heading_emph": "rhythm again",
+          "subheading": "When balance returns, everything from sleep to mindset improves.",
+          "tab1_label": "Energy",
+          "tab2_label": "Mood & calm",
+          "tab3_label": "Daily balance",
+          "c1_quote": "\"A week in, the afternoon crashes were gone. I'm powering through my days without reaching for a third coffee.\"",
+          "c1_name": "Lucy M.",
+          "c1_score": "4.9/5.0",
+          "c2_quote": "\"I didn't realise how much I'd been white-knuckling it. The bloating eased and my mood feels even now.\"",
+          "c2_name": "Jess R.",
+          "c2_score": "4.9/5.0",
+          "c3_quote": "\"I feel more motivated, more steady. My sleep is deeper and I finally feel like myself again.\"",
+          "c3_name": "Daniela M.",
+          "c3_score": "4.9/5.0",
+          "cta_label": "Shop Womankind",
+          "cta_url": "",
+          "cta_note": "90-day money-back guarantee"
+        }
+      },
+      "wk-home-comparison": {
+        "type": "wk-home-comparison",
+        "settings": {
+          "heading_lead": "What makes Womankind",
+          "heading_emph": "stand above the rest",
+          "subheading": "The difference is in the science, the quality, and the results women feel.",
+          "us_label": "womankind",
+          "pro1": "Clinically-backed, named ingredients",
+          "pro2": "8-in-1 women's formula",
+          "pro3": "Third-party tested for purity",
+          "pro4": "No fillers, no cheap additives",
+          "pro5": "Made in a GMP-certified facility",
+          "pro6": "Non-GMO, hormone-free, sugar-free",
+          "them_label": "Other brands",
+          "con1": "Weak, under-dosed actives",
+          "con2": "Generic, trend-based blends",
+          "con3": "No verified testing",
+          "con4": "Fillers, additives & flavorings",
+          "con5": "Low-quality manufacturing",
+          "con6": "Added sugar & binders"
+        }
+      },
+      "wk-home-stats": {
+        "type": "wk-home-stats",
+        "settings": {
+          "heading_lead": "The data behind Womankind's",
+          "heading_emph": "impact",
+          "subheading": "Self-reported improvements from women who made Womankind part of their daily routine.",
+          "s1_pct": 92,
+          "s1_label": "reported steadier days within the first month",
+          "s2_pct": 89,
+          "s2_label": "felt improved mood and emotional balance",
+          "s3_pct": 94,
+          "s3_label": "experienced calmer, less disrupted sleep",
+          "s4_pct": 88,
+          "s4_label": "reported less bloating and calmer digestion"
+        }
+      },
+      "wk-home-buybox": {
+        "type": "wk-home-buybox",
+        "settings": {
+          "product": "hormonal-support-gummies",
+          "heading_lead": "Your balance",
+          "heading_emph": "starts here",
+          "subheading": "Choose the package that fits your goals and save on every bottle.",
+          "badge": "Top-rated women's formula",
+          "rating_text": "Rated 4.8 \"Excellent\" · 1,200+ reviews",
+          "product_title": "hormonal support gummies",
+          "product_desc": "Daily multi-symptom support for perimenopause and beyond — for steadier mood, calmer digestion, and renewed balance.*",
+          "check1": "Mood & calm support",
+          "check2": "Eases hot flashes",
+          "check3": "Gut–hormone support",
+          "check4": "Hormone & sugar-free",
+          "bundle_eyebrow": "Bundle & save",
+          "default_bundle": 2,
+          "bundle1_name": "1-month supply",
+          "bundle1_sub": "1 bottle · 30 servings",
+          "bundle1_badge": "",
+          "bundle2_name": "3-month supply",
+          "bundle2_sub": "3 bottles · backed by 90-day guarantee",
+          "bundle2_badge": "Most popular",
+          "bundle3_name": "6-month supply",
+          "bundle3_sub": "6 bottles · free shipping",
+          "bundle3_badge": "Best value",
+          "sub_text": "Subscribe & save 25% — pause, skip or cancel anytime",
+          "atc_label": "Add to bag",
+          "note1": "Free shipping",
+          "note2": "90-day guarantee"
+        }
+      },
+      "wk-home-guarantee": {
+        "type": "wk-home-guarantee",
+        "settings": {
+          "badge_number": "90",
+          "badge_line1": "Day promise",
+          "badge_line2": "Money back",
+          "heading_lead": "Try Womankind 100%",
+          "heading_emph": "risk-free for 90 days",
+          "body": "The formula needs a full transition cycle to show what it can do. Take the whole three months — and if it isn't right for you, reach out for a full refund. No need to return the bottles.",
+          "cta_label": "Start risk-free",
+          "cta_url": ""
+        }
+      },
+      "wk-home-faq": {
+        "type": "wk-home-faq",
+        "settings": {
+          "heading": "Frequently asked questions",
+          "q1": "How soon will I feel results?",
+          "a1": "Many women report steadier sleep and a calmer stress response within two to three weeks, with the fuller picture by week eight as the actives reach steady state.*",
+          "q2": "Will this help with bloating?",
+          "a2": "The probiotic blend supports the estrobolome and everyday digestion, which many women find eases bloating by around week three to four.*",
+          "q3": "Does it contain hormones?",
+          "a3": "No. There's no estrogen, progesterone, or any hormone — it works through named botanicals, vitamins, and a probiotic blend that support your body's own systems.*",
+          "q4": "Is Womankind safe for long-term use?",
+          "a4": "It's formulated as a clean daily for the long transition — hormone-free and sugar-free. As with any supplement, check with your healthcare provider for your situation.",
+          "q5": "I'm not sure I'm in perimenopause yet — is this for me?",
+          "a5": "Most likely, yes. Perimenopause can begin in your early forties — often before the word menopause feels like it belongs to you. If you're noticing changes in sleep, mood, or bloating, it was built for that window.*",
+          "q6": "Can I take it with other supplements?",
+          "a6": "Because every ingredient and dose is on the label, you and your clinician can review it in full. Some botanicals can interact with certain medications, so please check before starting.",
+          "q7": "What if it doesn't work for me?",
+          "a7": "Every order is backed by our 90-day money-back guarantee. Take the full three months, and if it isn't right for you, reach out for a full refund — no need to return the bottles.",
+          "q8": "How does the subscription work?",
+          "a8": "Your subscription ships free on your chosen cadence, and you can pause, skip, or cancel anytime from your account — no emails, no hoops."
+        }
+      },
+      "wk-home-footer": {
+        "type": "wk-home-footer",
+        "settings": {
+          "wordmark": "womankind",
+          "tagline": "for perimenopause & beyond",
+          "news_heading": "Let's stay connected",
+          "news_text": "Be first to know about new products and special savings.",
+          "news_placeholder": "Your email",
+          "news_button": "Sign up",
+          "col2_heading": "Policies",
+          "policy1_label": "Privacy policy",
+          "policy1_url": "",
+          "policy2_label": "Refund policy",
+          "policy2_url": "",
+          "policy3_label": "Terms of service",
+          "policy3_url": "",
+          "policy4_label": "Manage subscription",
+          "policy4_url": "",
+          "col3_heading": "Contact us",
+          "contact1": "support@womankind.shop",
+          "contact2": "Copenhagen, Denmark",
+          "contact3": "+45 00 00 00 00",
+          "disclaimer": "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Consult your healthcare provider before beginning any supplement, particularly if you are pregnant, nursing, or taking medication.",
+          "copyright": "© 2026 Womankind. All rights reserved.",
+          "bottom1": "Privacy",
+          "bottom2": "Terms",
+          "bottom3": "Accessibility"
+        }
       }
     },
     "content_for_index": [],
