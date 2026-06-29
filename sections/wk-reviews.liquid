@@ -4,7 +4,11 @@
     #wk-{{ section.id }}-rev .wk-stat { text-align:center; }
     #wk-{{ section.id }}-rev .wk-stat-num { font-family:'Fraunces',serif; font-weight:500; font-size:64px; line-height:1; color:#6B3D42; }
     #wk-{{ section.id }}-rev .wk-stat-rule { width:54px; height:2px; background:#C9653F; border-radius:999px; margin:18px auto 16px; }
+    #wk-{{ section.id }}-rev .wk-stat-title { font-family:'Fraunces',serif; font-weight:500; font-size:23px; line-height:1.15; color:#6B3D42; margin:0 0 8px; }
     #wk-{{ section.id }}-rev .wk-stat-desc { font-size:15px; line-height:1.55; color:#7a6258; margin:0; max-width:300px; margin-left:auto; margin-right:auto; }
+    @media (max-width:600px){
+      #wk-{{ section.id }}-rev .wk-stat-title { font-size:20px; }
+    }
     @media (max-width:600px){
       #wk-{{ section.id }}-rev .wk-stat-grid { gap:38px 28px; }
       #wk-{{ section.id }}-rev .wk-stat-num { font-size:52px; }
@@ -37,7 +41,8 @@
           <div class="wk-stat">
             <div class="wk-stat-num" data-wk-count data-target="{{ p }}">{{ p }}%</div>
             <div class="wk-stat-rule"></div>
-            <p class="wk-stat-desc"><strong style="color:#6B3D42;font-weight:600;">{{ t }}.</strong> {{ section.settings[dk] }}</p>
+            <h3 class="wk-stat-title">{{ t }}</h3>
+            <p class="wk-stat-desc">{{ section.settings[dk] }}</p>
           </div>
           {%- endif -%}
         {%- endfor -%}
