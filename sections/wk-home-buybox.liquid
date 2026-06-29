@@ -1,0 +1,149 @@
+  <!-- BUY BOX -->
+  <style>
+    #wk-{{ section.id }}-buy .wk-ring { box-shadow:0 0 0 0 transparent; position:absolute; inset:-1.5px; border-radius:12px; pointer-events:none; transition:box-shadow .15s ease; }
+    #wk-{{ section.id }}-buy .wk-bundle.is-sel .wk-ring { box-shadow:0 0 0 2px #6B3D42; }
+  </style>
+  <section id="wk-{{ section.id }}-buy" style="background:#F5E6D8;padding:80px 28px;">
+    <div style="max-width:1140px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:46px;">
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:38px;margin:0 0 10px;color:#6B3D42;">{{ section.settings.heading_lead }} <span style="font-style:italic;color:#C9653F;">{{ section.settings.heading_emph }}</span></h2>
+        <p style="font-size:14.5px;color:#5a4636;margin:0;">{{ section.settings.subheading }}</p>
+      </div>
+      <div style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:44px;align-items:start;">
+        <!-- gallery -->
+        <div>
+          {%- if section.settings.image -%}
+            {%- assign gsrc = section.settings.image | image_url: width: 900 -%}
+            <div style="position:relative;border-radius:16px;overflow:hidden;">
+              <img src="{{ gsrc }}" alt="{{ section.settings.image.alt | default: 'Womankind' }}" width="900" height="900" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;display:block;">
+              <span style="position:absolute;top:18px;left:18px;background:#6B3D42;color:#F5E6D8;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;padding:6px 13px;border-radius:999px;">{{ section.settings.badge }}</span>
+            </div>
+          {%- else -%}
+            <div style="aspect-ratio:1/1;background:radial-gradient(circle at 50% 45%,#D8C2BA,#C9A89F);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#6B3D42;position:relative;">
+              <span style="position:absolute;top:18px;left:18px;background:#6B3D42;color:#F5E6D8;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;padding:6px 13px;border-radius:999px;">{{ section.settings.badge }}</span>
+              <span style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;">Product · hero</span>
+              <span style="font-size:11px;opacity:0.72;">bottle render</span>
+              <span style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;opacity:0.55;">900 × 900</span>
+            </div>
+          {%- endif -%}
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px;">
+            <div style="aspect-ratio:1/1;background:#D8C2BA;border-radius:8px;border:2px solid #6B3D42;"></div>
+            <div style="aspect-ratio:1/1;background:#D8C2BA;border-radius:8px;"></div>
+            <div style="aspect-ratio:1/1;background:#D8C2BA;border-radius:8px;"></div>
+            <div style="aspect-ratio:1/1;background:#D8C2BA;border-radius:8px;"></div>
+          </div>
+        </div>
+        <!-- buy -->
+        <div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><span style="color:#C9653F;font-size:14px;letter-spacing:2px;">★★★★★</span><span style="font-size:13px;color:#3A2A20;">{{ section.settings.rating_text }}</span></div>
+          <h3 style="font-family:'Fraunces',serif;font-weight:400;font-size:34px;line-height:1.05;margin:0 0 14px;color:#6B3D42;">{{ section.settings.product_title }}</h3>
+          <p style="font-size:14.5px;line-height:1.6;color:#4a3a30;margin:0 0 18px;max-width:46ch;">{{ section.settings.product_desc }}</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;margin-bottom:26px;max-width:420px;">
+            {%- for i in (1..4) -%}
+              {%- assign ck = 'check' | append: i -%}
+              {%- assign cv = section.settings[ck] -%}
+              {%- if cv != blank -%}<div style="display:flex;align-items:center;gap:9px;font-size:13.5px;color:#3A2A20;"><span style="color:#C9653F;font-weight:700;">✓</span>{{ cv }}</div>{%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          <div style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:12px;">{{ section.settings.bundle_eyebrow }}</div>
+          <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:22px;">
+            {%- for i in (1..3) -%}
+              {%- assign nk = 'bundle' | append: i | append: '_name' -%}
+              {%- assign name = section.settings[nk] -%}
+              {%- if name != blank -%}
+              {%- assign sk = 'bundle' | append: i | append: '_sub' -%}
+              {%- assign pk = 'bundle' | append: i | append: '_price' -%}
+              {%- assign ck2 = 'bundle' | append: i | append: '_compare' -%}
+              {%- assign vk = 'bundle' | append: i | append: '_save' -%}
+              {%- assign bk = 'bundle' | append: i | append: '_badge' -%}
+              {%- assign badge = section.settings[bk] -%}
+              {%- assign price = section.settings[pk] -%}
+              <button type="button" class="wk-bundle{% if i == section.settings.default_bundle %} is-sel{% endif %}" data-wk-bundle data-price="{{ price }}" style="position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
+                <span class="wk-ring"></span>
+                {%- if badge != blank -%}<span style="position:absolute;top:-10px;left:18px;background:{% if i == 2 %}#C9653F{% else %}#6B3D42{% endif %};color:#F5E6D8;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;padding:3px 10px;border-radius:999px;">{{ badge }}</span>{%- endif -%}
+                <span style="display:flex;align-items:center;gap:14px;"><span style="width:42px;height:42px;background:#C9A89F;border-radius:8px;flex:0 0 auto;"></span><span><span style="display:block;font-size:15px;font-weight:600;color:#6B3D42;">{{ name }}</span><span style="display:block;font-size:12px;color:#7a6258;">{{ section.settings[sk] }}</span></span></span>
+                <span style="text-align:right;flex:0 0 auto;"><span style="display:block;font-size:18px;font-weight:700;color:#C9653F;">{{ price }}</span>{%- if section.settings[ck2] != blank -%}<span style="display:block;font-size:11px;text-decoration:line-through;color:#A07E81;">{{ section.settings[ck2] }}</span>{%- endif -%}{%- if section.settings[vk] != blank -%}<span style="display:block;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6B3D42;font-weight:600;">{{ section.settings[vk] }}</span>{%- endif -%}</span>
+              </button>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          <label style="display:flex;align-items:center;gap:10px;background:#FBF1E6;border:1px solid rgba(107,61,66,0.16);border-radius:10px;padding:13px 16px;margin-bottom:18px;cursor:pointer;">
+            <span style="width:18px;height:18px;border-radius:5px;background:#6B3D42;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;color:#E2A24C;font-size:11px;">✓</span>
+            <span style="font-size:13px;color:#3A2A20;">{{ section.settings.sub_text }}</span>
+          </label>
+
+          {%- assign atc_url = section.settings.atc_url | default: '#' -%}
+          <a href="{{ atc_url }}" style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;text-decoration:none;">{{ section.settings.atc_label }} <span style="opacity:0.85;">— <span data-wk-atc-price>{{ section.settings.bundle2_price }}</span></span></a>
+          <div style="display:flex;align-items:center;justify-content:center;gap:22px;margin-top:14px;font-size:12px;color:#7a6258;">
+            <span style="display:inline-flex;align-items:center;gap:7px;">⌁ {{ section.settings.note1 }}</span>
+            <span style="display:inline-flex;align-items:center;gap:7px;">♡ {{ section.settings.note2 }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function(){
+      var root = document.getElementById('wk-{{ section.id }}-buy');
+      if (!root) return;
+      var bundles = root.querySelectorAll('[data-wk-bundle]');
+      var priceEl = root.querySelector('[data-wk-atc-price]');
+      bundles.forEach(function(b){
+        b.addEventListener('click', function(){
+          bundles.forEach(function(x){ x.classList.remove('is-sel'); });
+          b.classList.add('is-sel');
+          if (priceEl) priceEl.textContent = b.getAttribute('data-price') || '';
+        });
+      });
+    })();
+  </script>
+
+{% schema %}
+{
+  "name": "Home · Buy box",
+  "settings": [
+    { "type": "text", "id": "heading_lead", "label": "Heading", "default": "Your balance" },
+    { "type": "text", "id": "heading_emph", "label": "Heading (italic)", "default": "starts here" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Choose the package that fits your goals and save on every bottle." },
+    { "type": "image_picker", "id": "image", "label": "Product image" },
+    { "type": "text", "id": "badge", "label": "Image badge", "default": "Top-rated women's formula" },
+    { "type": "text", "id": "rating_text", "label": "Rating text", "default": "Rated 4.8 \"Excellent\" · 1,200+ reviews" },
+    { "type": "text", "id": "product_title", "label": "Product title", "default": "hormonal support gummies" },
+    { "type": "textarea", "id": "product_desc", "label": "Product description", "default": "Daily multi-symptom support for perimenopause and beyond — for steadier mood, calmer digestion, and renewed balance.*" },
+    { "type": "text", "id": "check1", "label": "Check 1", "default": "Mood & calm support" },
+    { "type": "text", "id": "check2", "label": "Check 2", "default": "Eases hot flashes" },
+    { "type": "text", "id": "check3", "label": "Check 3", "default": "Gut–hormone support" },
+    { "type": "text", "id": "check4", "label": "Check 4", "default": "Hormone & sugar-free" },
+    { "type": "header", "content": "Bundles" },
+    { "type": "text", "id": "bundle_eyebrow", "label": "Eyebrow", "default": "Bundle & save" },
+    { "type": "range", "id": "default_bundle", "label": "Default selected", "min": 1, "max": 3, "step": 1, "default": 2 },
+    { "type": "text", "id": "bundle1_name", "label": "B1 name", "default": "1-month supply" },
+    { "type": "text", "id": "bundle1_sub", "label": "B1 sub", "default": "1 bottle · 30 servings" },
+    { "type": "text", "id": "bundle1_price", "label": "B1 price", "default": "$45" },
+    { "type": "text", "id": "bundle1_compare", "label": "B1 compare", "default": "$52" },
+    { "type": "text", "id": "bundle1_save", "label": "B1 save" },
+    { "type": "text", "id": "bundle1_badge", "label": "B1 badge" },
+    { "type": "text", "id": "bundle2_name", "label": "B2 name", "default": "3-month supply" },
+    { "type": "text", "id": "bundle2_sub", "label": "B2 sub", "default": "3 bottles · backed by 90-day guarantee" },
+    { "type": "text", "id": "bundle2_price", "label": "B2 price", "default": "$105" },
+    { "type": "text", "id": "bundle2_compare", "label": "B2 compare", "default": "$156" },
+    { "type": "text", "id": "bundle2_save", "label": "B2 save", "default": "Save 33%" },
+    { "type": "text", "id": "bundle2_badge", "label": "B2 badge", "default": "Most popular" },
+    { "type": "text", "id": "bundle3_name", "label": "B3 name", "default": "6-month supply" },
+    { "type": "text", "id": "bundle3_sub", "label": "B3 sub", "default": "6 bottles · free shipping" },
+    { "type": "text", "id": "bundle3_price", "label": "B3 price", "default": "$186" },
+    { "type": "text", "id": "bundle3_compare", "label": "B3 compare", "default": "$312" },
+    { "type": "text", "id": "bundle3_save", "label": "B3 save", "default": "Save 40%" },
+    { "type": "text", "id": "bundle3_badge", "label": "B3 badge", "default": "Best value" },
+    { "type": "header", "content": "Checkout" },
+    { "type": "text", "id": "sub_text", "label": "Subscribe text", "default": "Subscribe & save 25% — pause, skip or cancel anytime" },
+    { "type": "text", "id": "atc_label", "label": "Button label", "default": "Add to bag" },
+    { "type": "url", "id": "atc_url", "label": "Button URL (link to PDP)" },
+    { "type": "text", "id": "note1", "label": "Note 1", "default": "Free shipping" },
+    { "type": "text", "id": "note2", "label": "Note 2", "default": "90-day guarantee" }
+  ]
+}
+{% endschema %}

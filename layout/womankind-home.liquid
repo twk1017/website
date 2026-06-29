@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#6B3D42">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <title>{{ page_title }}</title>
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+    {{ content_for_header }}
+    <style>
+      html, body { margin: 0; padding: 0; }
+      body { background: #F5E6D8; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    </style>
+    {% render 'wk-fonts' %}
+    <style>
+      .wk-home *, .wk-home *::before, .wk-home *::after { box-sizing: border-box; }
+      .wk-home ::selection { background:#C9653F; color:#F5E6D8; }
+      .wk-home button { font-family: inherit; }
+      /* pragmatic mobile layer — desktop is left pixel-faithful */
+      @media (max-width:749px) {
+        .wk-home [style*="grid-template-columns:1.05fr 0.95fr"],
+        .wk-home [style*="grid-template-columns:repeat(3,1fr)"],
+        .wk-home [style*="grid-template-columns:1.1fr 0.9fr"],
+        .wk-home [style*="grid-template-columns:0.9fr 1.1fr"],
+        .wk-home [style*="grid-template-columns:1fr 0.8fr"],
+        .wk-home [style*="grid-template-columns:1fr 0.9fr"],
+        .wk-home [style*="grid-template-columns:200px 1fr"],
+        .wk-home [style*="grid-template-columns:1.3fr 1fr 1fr"],
+        .wk-home [style*="grid-template-columns:1fr 1fr"] { grid-template-columns:1fr !important; }
+        .wk-home [style*="grid-template-columns:repeat(4,1fr)"],
+        .wk-home [style*="grid-template-columns:repeat(5,1fr)"] { grid-template-columns:1fr 1fr !important; }
+        .wk-home header nav { display:none !important; }
+        .wk-home h1 { font-size:36px !important; }
+      }
+    </style>
+  </head>
+  <body class="womankind-home-layout">
+    <div class="wk-home" style="background:#F5E6D8;color:#3A2A20;font-family:'Hanken Grotesk',sans-serif;min-height:100vh;overflow-x:clip;">
+    {{ content_for_layout }}
+    </div>
+  </body>
+</html>

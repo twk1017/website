@@ -1,0 +1,81 @@
+  <!-- FAQ -->
+  <style>
+    #wk-{{ section.id }}-faq .wk-faq-a { display:none; }
+    #wk-{{ section.id }}-faq .wk-faq.is-open .wk-faq-a { display:block; }
+    #wk-{{ section.id }}-faq .wk-faq-ico { transition:transform .2s ease; }
+    #wk-{{ section.id }}-faq .wk-faq.is-open .wk-faq-ico { transform:rotate(45deg); }
+  </style>
+  <section id="wk-{{ section.id }}-faq" style="background:#F5E6D8;padding:80px 28px;">
+    <div style="max-width:1080px;margin:0 auto;">
+      <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:38px;text-align:center;margin:0 0 48px;color:#6B3D42;">{{ section.settings.heading }}</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 48px;">
+        {%- for col in (0..1) -%}
+        <div>
+          {%- assign start = col | times: 4 | plus: 1 -%}
+          {%- assign last = start | plus: 3 -%}
+          {%- for i in (start..last) -%}
+            {%- assign qk = 'q' | append: i -%}
+            {%- assign ak = 'a' | append: i -%}
+            {%- assign q = section.settings[qk] -%}
+            {%- if q != blank -%}
+            <div class="wk-faq{% if i == 1 %} is-open{% endif %}" data-wk-faq style="border-top:1px solid rgba(107,61,66,0.2);">
+              <button type="button" data-wk-faq-q style="width:100%;cursor:pointer;font-family:inherit;background:none;border:none;text-align:left;padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;"><span style="font-family:'Fraunces',serif;font-size:18px;color:#6B3D42;line-height:1.3;">{{ q }}</span><span class="wk-faq-ico" style="font-size:22px;color:#C9653F;font-weight:300;flex:0 0 auto;">+</span></button>
+              <div class="wk-faq-a"><p style="font-size:14px;line-height:1.6;color:#4a3a30;margin:0 0 22px;">{{ section.settings[ak] }}</p></div>
+            </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function(){
+      var root = document.getElementById('wk-{{ section.id }}-faq');
+      if (!root) return;
+      var items = root.querySelectorAll('[data-wk-faq]');
+      items.forEach(function(item){
+        var btn = item.querySelector('[data-wk-faq-q]');
+        if (!btn) return;
+        btn.addEventListener('click', function(){
+          var open = item.classList.contains('is-open');
+          items.forEach(function(x){ x.classList.remove('is-open'); });
+          if (!open) item.classList.add('is-open');
+        });
+      });
+    })();
+  </script>
+
+{% schema %}
+{
+  "name": "Home · FAQ",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Frequently asked questions" },
+    { "type": "header", "content": "Q1" },
+    { "type": "text", "id": "q1", "label": "Question", "default": "How soon will I feel results?" },
+    { "type": "textarea", "id": "a1", "label": "Answer", "default": "Many women report steadier sleep and a calmer stress response within two to three weeks, with the fuller picture by week eight as the actives reach steady state.*" },
+    { "type": "header", "content": "Q2" },
+    { "type": "text", "id": "q2", "label": "Question", "default": "Will this help with bloating?" },
+    { "type": "textarea", "id": "a2", "label": "Answer", "default": "The probiotic blend supports the estrobolome and everyday digestion, which many women find eases bloating by around week three to four.*" },
+    { "type": "header", "content": "Q3" },
+    { "type": "text", "id": "q3", "label": "Question", "default": "Does it contain hormones?" },
+    { "type": "textarea", "id": "a3", "label": "Answer", "default": "No. There's no estrogen, progesterone, or any hormone — it works through named botanicals, vitamins, and a probiotic blend that support your body's own systems.*" },
+    { "type": "header", "content": "Q4" },
+    { "type": "text", "id": "q4", "label": "Question", "default": "Is Womankind safe for long-term use?" },
+    { "type": "textarea", "id": "a4", "label": "Answer", "default": "It's formulated as a clean daily for the long transition — hormone-free and sugar-free. As with any supplement, check with your healthcare provider for your situation." },
+    { "type": "header", "content": "Q5" },
+    { "type": "text", "id": "q5", "label": "Question", "default": "I'm not sure I'm in perimenopause yet — is this for me?" },
+    { "type": "textarea", "id": "a5", "label": "Answer", "default": "Most likely, yes. Perimenopause can begin in your early forties — often before the word menopause feels like it belongs to you. If you're noticing changes in sleep, mood, or bloating, it was built for that window.*" },
+    { "type": "header", "content": "Q6" },
+    { "type": "text", "id": "q6", "label": "Question", "default": "Can I take it with other supplements?" },
+    { "type": "textarea", "id": "a6", "label": "Answer", "default": "Because every ingredient and dose is on the label, you and your clinician can review it in full. Some botanicals can interact with certain medications, so please check before starting." },
+    { "type": "header", "content": "Q7" },
+    { "type": "text", "id": "q7", "label": "Question", "default": "What if it doesn't work for me?" },
+    { "type": "textarea", "id": "a7", "label": "Answer", "default": "Every order is backed by our 90-day money-back guarantee. Take the full three months, and if it isn't right for you, reach out for a full refund — no need to return the bottles." },
+    { "type": "header", "content": "Q8" },
+    { "type": "text", "id": "q8", "label": "Question", "default": "How does the subscription work?" },
+    { "type": "textarea", "id": "a8", "label": "Answer", "default": "Your subscription ships free on your chosen cadence, and you can pause, skip, or cancel anytime from your account — no emails, no hoops." }
+  ]
+}
+{% endschema %}

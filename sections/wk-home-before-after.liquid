@@ -1,0 +1,86 @@
+  <!-- BEFORE / AFTER TABS -->
+  <style>
+    #wk-{{ section.id }}-ba .wk-ba-pill { cursor:pointer; font-family:inherit; border:none; border-radius:999px; padding:10px 22px; font-size:12.5px; font-weight:600; letter-spacing:0.06em; background:transparent; color:rgba(245,230,216,0.7); transition:background .2s ease, color .2s ease; }
+    #wk-{{ section.id }}-ba .wk-ba-pill.is-active { background:#6B3D42; color:#F5E6D8; }
+  </style>
+  <section id="wk-{{ section.id }}-ba" style="background:#3A2A20;color:#F5E6D8;padding:80px 28px;">
+    <div style="max-width:1140px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:34px;">
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:38px;margin:0 0 12px;">{{ section.settings.heading_lead }} <span style="font-style:italic;color:#E2A24C;">{{ section.settings.heading_emph }}</span></h2>
+        <p style="font-size:14.5px;color:rgba(245,230,216,0.78);margin:0;">{{ section.settings.subheading }}</p>
+      </div>
+      <div style="display:flex;justify-content:center;gap:0;margin-bottom:40px;">
+        <div style="display:inline-flex;background:rgba(245,230,216,0.1);border-radius:999px;padding:4px;">
+          {%- for i in (1..3) -%}
+            {%- assign lk = 'tab' | append: i | append: '_label' -%}
+            {%- assign lv = section.settings[lk] -%}
+            {%- if lv != blank -%}<button type="button" class="wk-ba-pill{% if forloop.first %} is-active{% endif %}" data-wk-ba>{{ lv }}</button>{%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;">
+        {%- for i in (1..3) -%}
+          {%- assign qk = 'c' | append: i | append: '_quote' -%}
+          {%- assign quote = section.settings[qk] -%}
+          {%- if quote != blank -%}
+          {%- assign nk = 'c' | append: i | append: '_name' -%}
+          {%- assign sk = 'c' | append: i | append: '_score' -%}
+          <div style="background:rgba(245,230,216,0.06);border:1px solid rgba(245,230,216,0.14);border-radius:14px;padding:18px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;"><div style="aspect-ratio:1/1;background:#5a4636;border-radius:9px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;color:#C9A89F;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;">Before</div><div style="aspect-ratio:1/1;background:#5a4636;border-radius:9px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;color:#E2A24C;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;">After</div></div>
+            <span style="color:#E2A24C;font-size:12px;letter-spacing:2px;">★★★★★ <span style="color:rgba(245,230,216,0.65);letter-spacing:0;font-size:11px;">{{ section.settings[sk] }}</span></span>
+            <p style="font-size:13px;line-height:1.55;color:rgba(245,230,216,0.85);margin:12px 0 14px;">{{ quote }}</p>
+            <span style="font-family:'Fraunces',serif;font-size:14px;">{{ section.settings[nk] }} · <span style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#E2A24C;">Verified</span></span>
+          </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div style="text-align:center;margin-top:40px;">
+        <a href="{{ section.settings.cta_url | default: '#' }}" style="display:inline-block;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:16px 42px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.cta_label }}</a>
+        <p style="font-size:12px;color:rgba(245,230,216,0.6);margin:14px 0 0;">{{ section.settings.cta_note }}</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function(){
+      var root = document.getElementById('wk-{{ section.id }}-ba');
+      if (!root) return;
+      var pills = root.querySelectorAll('[data-wk-ba]');
+      pills.forEach(function(p){
+        p.addEventListener('click', function(){
+          pills.forEach(function(x){ x.classList.remove('is-active'); });
+          p.classList.add('is-active');
+        });
+      });
+    })();
+  </script>
+
+{% schema %}
+{
+  "name": "Home · Before / after",
+  "settings": [
+    { "type": "text", "id": "heading_lead", "label": "Heading", "default": "When your body finds its" },
+    { "type": "text", "id": "heading_emph", "label": "Heading (italic)", "default": "rhythm again" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "When balance returns, everything from sleep to mindset improves." },
+    { "type": "text", "id": "tab1_label", "label": "Tab 1", "default": "Energy" },
+    { "type": "text", "id": "tab2_label", "label": "Tab 2", "default": "Mood & calm" },
+    { "type": "text", "id": "tab3_label", "label": "Tab 3", "default": "Daily balance" },
+    { "type": "header", "content": "Card 1" },
+    { "type": "textarea", "id": "c1_quote", "label": "Quote", "default": "\"A week in, the afternoon crashes were gone. I'm powering through my days without reaching for a third coffee.\"" },
+    { "type": "text", "id": "c1_name", "label": "Name", "default": "Lucy M." },
+    { "type": "text", "id": "c1_score", "label": "Score", "default": "4.9/5.0" },
+    { "type": "header", "content": "Card 2" },
+    { "type": "textarea", "id": "c2_quote", "label": "Quote", "default": "\"I didn't realise how much I'd been white-knuckling it. The bloating eased and my mood feels even now.\"" },
+    { "type": "text", "id": "c2_name", "label": "Name", "default": "Jess R." },
+    { "type": "text", "id": "c2_score", "label": "Score", "default": "4.9/5.0" },
+    { "type": "header", "content": "Card 3" },
+    { "type": "textarea", "id": "c3_quote", "label": "Quote", "default": "\"I feel more motivated, more steady. My sleep is deeper and I finally feel like myself again.\"" },
+    { "type": "text", "id": "c3_name", "label": "Name", "default": "Daniela M." },
+    { "type": "text", "id": "c3_score", "label": "Score", "default": "4.9/5.0" },
+    { "type": "header", "content": "Call to action" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Shop Womankind" },
+    { "type": "url", "id": "cta_url", "label": "CTA URL" },
+    { "type": "text", "id": "cta_note", "label": "CTA note", "default": "90-day money-back guarantee" }
+  ]
+}
+{% endschema %}

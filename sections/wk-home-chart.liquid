@@ -1,0 +1,55 @@
+  <!-- SILENT SHIFT / CHART -->
+  <section style="background:#F5E6D8;padding:80px 28px;">
+    <div style="max-width:1080px;margin:0 auto;">
+      <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:38px;text-align:center;margin:0 0 46px;color:#6B3D42;">{{ section.settings.heading }}</h2>
+      <div style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:center;">
+        <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:16px;padding:30px 28px;">
+          <svg viewBox="0 0 460 280" style="width:100%;height:auto;display:block;">
+            <line x1="50" y1="20" x2="50" y2="240" stroke="rgba(107,61,66,0.25)" stroke-width="1.5"></line>
+            <line x1="50" y1="240" x2="440" y2="240" stroke="rgba(107,61,66,0.25)" stroke-width="1.5"></line>
+            <text x="20" y="44" font-family="Hanken Grotesk" font-size="11" fill="#7a6258">High</text>
+            <text x="20" y="238" font-family="Hanken Grotesk" font-size="11" fill="#7a6258">Low</text>
+            <text x="56" y="258" font-family="Hanken Grotesk" font-size="11" fill="#7a6258">38</text>
+            <text x="180" y="258" font-family="Hanken Grotesk" font-size="11" fill="#7a6258">45</text>
+            <text x="300" y="258" font-family="Hanken Grotesk" font-size="11" fill="#7a6258">52</text>
+            <text x="415" y="258" font-family="Hanken Grotesk" font-size="11" fill="#7a6258">60</text>
+            <polyline points="60,90 150,70 240,62 330,58 430,55" fill="none" stroke="#6B3D42" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+            <polyline points="60,92 150,120 240,165 330,205 430,225" fill="none" stroke="#C9653F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 7"></polyline>
+            <text x="250" y="48" font-family="Fraunces" font-size="13" fill="#6B3D42" font-style="italic">With Womankind</text>
+            <text x="250" y="200" font-family="Fraunces" font-size="13" fill="#C9653F" font-style="italic">Natural decline</text>
+          </svg>
+        </div>
+        <div>
+          <p style="font-size:14.5px;line-height:1.65;color:#4a3a30;margin:0 0 16px;">{{ section.settings.body1 }}</p>
+          <p style="font-size:14.5px;line-height:1.65;color:#4a3a30;margin:0 0 16px;">{{ section.settings.body2 }}</p>
+          <p style="font-size:14.5px;line-height:1.65;color:#4a3a30;margin:0 0 22px;">{{ section.settings.body3 }}</p>
+          <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:26px;">
+            {%- for i in (1..4) -%}
+              {%- assign gk = 'tag' | append: i -%}
+              {%- assign gv = section.settings[gk] -%}
+              {%- if gv != blank -%}<span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#6B3D42;border:1px solid rgba(107,61,66,0.3);border-radius:999px;padding:7px 15px;">{{ gv }}</span>{%- endif -%}
+            {%- endfor -%}
+          </div>
+          <a href="{{ section.settings.cta_url | default: '#' }}" style="display:inline-block;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:15px 38px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.cta_label }}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% schema %}
+{
+  "name": "Home · Chart",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A silent shift every woman faces" },
+    { "type": "textarea", "id": "body1", "label": "Paragraph 1", "default": "Hormonal balance can begin shifting in your early forties — and disrupted sleep and stress make the everyday symptoms feel even louder." },
+    { "type": "textarea", "id": "body2", "label": "Paragraph 2", "default": "Left unsupported, that shift can mean broken sleep, mood swings, bloating, and the fog so many women are told to simply live with." },
+    { "type": "inline_richtext", "id": "body3", "label": "Paragraph 3", "default": "<strong>The good news:</strong> Womankind supports your body's own systems — for steadier mood, calmer digestion, and renewed balance through the transition.*" },
+    { "type": "text", "id": "tag1", "label": "Tag 1", "default": "Mood" },
+    { "type": "text", "id": "tag2", "label": "Tag 2", "default": "Sleep" },
+    { "type": "text", "id": "tag3", "label": "Tag 3", "default": "Digestion" },
+    { "type": "text", "id": "tag4", "label": "Tag 4", "default": "Balance" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Shop Womankind" },
+    { "type": "url", "id": "cta_url", "label": "CTA URL" }
+  ]
+}
+{% endschema %}

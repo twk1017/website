@@ -1,0 +1,31 @@
+  <!-- GUARANTEE -->
+  <section style="background:#6B3D42;color:#F5E6D8;padding:72px 28px;">
+    <div style="max-width:920px;margin:0 auto;display:grid;grid-template-columns:200px 1fr;gap:44px;align-items:center;">
+      <div style="aspect-ratio:1/1;border:2px solid #E2A24C;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px;color:#E2A24C;">
+        <span style="font-family:'Fraunces',serif;font-size:38px;line-height:1;">{{ section.settings.badge_number }}</span>
+        <span style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;">{{ section.settings.badge_line1 }}</span>
+        <span style="font-size:9px;letter-spacing:0.16em;text-transform:uppercase;opacity:0.75;">{{ section.settings.badge_line2 }}</span>
+      </div>
+      <div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:34px;line-height:1.1;margin:0 0 14px;">{{ section.settings.heading_lead }} <span style="font-style:italic;color:#E2A24C;">{{ section.settings.heading_emph }}</span></h2>
+        <p style="font-size:15px;line-height:1.65;color:rgba(245,230,216,0.85);margin:0 0 24px;max-width:54ch;">{{ section.settings.body }}</p>
+        <a href="{{ section.settings.cta_url | default: '#' }}" style="display:inline-block;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:15px 38px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.cta_label }}</a>
+      </div>
+    </div>
+  </section>
+
+{% schema %}
+{
+  "name": "Home · Guarantee",
+  "settings": [
+    { "type": "text", "id": "badge_number", "label": "Badge number", "default": "90" },
+    { "type": "text", "id": "badge_line1", "label": "Badge line 1", "default": "Day promise" },
+    { "type": "text", "id": "badge_line2", "label": "Badge line 2", "default": "Money back" },
+    { "type": "text", "id": "heading_lead", "label": "Heading", "default": "Try Womankind 100%" },
+    { "type": "text", "id": "heading_emph", "label": "Heading (italic)", "default": "risk-free for 90 days" },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "The formula needs a full transition cycle to show what it can do. Take the whole three months — and if it isn't right for you, reach out for a full refund. No need to return the bottles." },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Start risk-free" },
+    { "type": "url", "id": "cta_url", "label": "CTA URL" }
+  ]
+}
+{% endschema %}

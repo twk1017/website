@@ -1,0 +1,58 @@
+  <!-- COMPARISON -->
+  <section style="background:#F5E6D8;padding:80px 28px;">
+    <div style="max-width:1080px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:46px;">
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:38px;margin:0 0 12px;color:#6B3D42;">{{ section.settings.heading_lead }} <span style="font-style:italic;color:#C9653F;">{{ section.settings.heading_emph }}</span></h2>
+        <p style="font-size:14.5px;color:#5a4636;margin:0;">{{ section.settings.subheading }}</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;">
+        <div style="background:#6B3D42;color:#F5E6D8;border-radius:16px;padding:34px 30px;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:30px;margin-bottom:22px;">{{ section.settings.us_label }}</div>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            {%- for i in (1..6) -%}
+              {%- assign pk = 'pro' | append: i -%}
+              {%- assign pv = section.settings[pk] -%}
+              {%- if pv != blank -%}<div style="display:flex;align-items:center;gap:12px;font-size:14px;"><span style="color:#E2A24C;flex:0 0 auto;">✓</span>{{ pv }}</div>{%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+        <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.16);border-radius:16px;padding:34px 30px;">
+          <div style="font-size:13px;letter-spacing:0.16em;text-transform:uppercase;color:#A07E81;font-weight:600;margin-bottom:24px;">{{ section.settings.them_label }}</div>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            {%- for i in (1..6) -%}
+              {%- assign ck = 'con' | append: i -%}
+              {%- assign cv = section.settings[ck] -%}
+              {%- if cv != blank -%}<div style="display:flex;align-items:center;gap:12px;font-size:14px;color:#7a6258;"><span style="color:#C0928a;flex:0 0 auto;">✕</span>{{ cv }}</div>{%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% schema %}
+{
+  "name": "Home · Comparison",
+  "settings": [
+    { "type": "text", "id": "heading_lead", "label": "Heading", "default": "What makes Womankind" },
+    { "type": "text", "id": "heading_emph", "label": "Heading (italic)", "default": "stand above the rest" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "The difference is in the science, the quality, and the results women feel." },
+    { "type": "header", "content": "Womankind column" },
+    { "type": "text", "id": "us_label", "label": "Label", "default": "womankind" },
+    { "type": "text", "id": "pro1", "label": "Pro 1", "default": "Clinically-backed, named ingredients" },
+    { "type": "text", "id": "pro2", "label": "Pro 2", "default": "8-in-1 women's formula" },
+    { "type": "text", "id": "pro3", "label": "Pro 3", "default": "Third-party tested for purity" },
+    { "type": "text", "id": "pro4", "label": "Pro 4", "default": "No fillers, no cheap additives" },
+    { "type": "text", "id": "pro5", "label": "Pro 5", "default": "Made in a GMP-certified facility" },
+    { "type": "text", "id": "pro6", "label": "Pro 6", "default": "Non-GMO, hormone-free, sugar-free" },
+    { "type": "header", "content": "Other brands column" },
+    { "type": "text", "id": "them_label", "label": "Label", "default": "Other brands" },
+    { "type": "text", "id": "con1", "label": "Con 1", "default": "Weak, under-dosed actives" },
+    { "type": "text", "id": "con2", "label": "Con 2", "default": "Generic, trend-based blends" },
+    { "type": "text", "id": "con3", "label": "Con 3", "default": "No verified testing" },
+    { "type": "text", "id": "con4", "label": "Con 4", "default": "Fillers, additives & flavorings" },
+    { "type": "text", "id": "con5", "label": "Con 5", "default": "Low-quality manufacturing" },
+    { "type": "text", "id": "con6", "label": "Con 6", "default": "Added sugar & binders" }
+  ]
+}
+{% endschema %}

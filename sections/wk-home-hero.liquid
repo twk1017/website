@@ -1,0 +1,47 @@
+  <!-- HERO -->
+  <section style="background:linear-gradient(160deg,#6B3D42 0%,#572f34 60%,#3A2A20 100%);color:#F5E6D8;padding:0;overflow:hidden;">
+    <div style="max-width:1240px;margin:0 auto;padding:64px 28px 70px;display:grid;grid-template-columns:1.05fr 0.95fr;gap:40px;align-items:center;">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:22px;"><span style="color:#E2A24C;font-size:15px;letter-spacing:2px;">★★★★★</span><span style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,230,216,0.8);font-weight:500;">{{ section.settings.rating_text }}</span></div>
+        <h1 style="font-family:'Fraunces',serif;font-weight:400;font-size:54px;line-height:1.02;margin:0 0 26px;letter-spacing:-0.01em;">{{ section.settings.heading_lead }} <span style="font-style:italic;color:#E2A24C;">{{ section.settings.heading_emph }}</span></h1>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px 26px;max-width:480px;margin-bottom:32px;">
+          {%- for i in (1..4) -%}
+            {%- assign ck = 'check' | append: i -%}
+            {%- assign cv = section.settings[ck] -%}
+            {%- if cv != blank -%}<div style="display:flex;align-items:center;gap:10px;font-size:14.5px;"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span>{{ cv }}</div>{%- endif -%}
+          {%- endfor -%}
+        </div>
+        <a href="{{ section.settings.cta_url | default: '#' }}" style="display:inline-block;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:18px 48px;font-size:14px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.cta_label }}</a>
+        <div style="display:flex;align-items:center;gap:9px;margin-top:18px;font-size:12.5px;color:rgba(245,230,216,0.78);"><span style="color:#E2A24C;">♡</span>{{ section.settings.guarantee_text }}</div>
+      </div>
+      {%- if section.settings.image -%}
+        {%- assign hero_src = section.settings.image | image_url: width: 1100 -%}
+        <img src="{{ hero_src }}" alt="{{ section.settings.image.alt | default: 'Womankind' }}" width="1100" height="1100" loading="eager" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:14px;display:block;">
+      {%- else -%}
+        <div style="aspect-ratio:1/1;background:radial-gradient(circle at 50% 45%,rgba(201,168,159,0.35),transparent 65%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#E2A24C;border:1px dashed rgba(245,230,216,0.25);border-radius:14px;">
+          <span style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;">Product · hero</span>
+          <span style="font-size:12px;color:rgba(245,230,216,0.7);">three bottles · hero render</span>
+          <span style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,230,216,0.5);">1100 × 1100</span>
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+
+{% schema %}
+{
+  "name": "Home · Hero",
+  "settings": [
+    { "type": "text", "id": "rating_text", "label": "Rating text", "default": "Trusted by 12,000+ women" },
+    { "type": "text", "id": "heading_lead", "label": "Heading", "default": "The balance women 40+" },
+    { "type": "text", "id": "heading_emph", "label": "Heading (italic emphasis)", "default": "actually feel" },
+    { "type": "image_picker", "id": "image", "label": "Hero image" },
+    { "type": "text", "id": "check1", "label": "Check 1", "default": "Clinically-backed ingredients" },
+    { "type": "text", "id": "check2", "label": "Check 2", "default": "8-in-1 daily formula" },
+    { "type": "text", "id": "check3", "label": "Check 3", "default": "Gut–hormone support" },
+    { "type": "text", "id": "check4", "label": "Check 4", "default": "Hormone-free & sugar-free" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Shop Womankind" },
+    { "type": "url", "id": "cta_url", "label": "CTA URL" },
+    { "type": "text", "id": "guarantee_text", "label": "Guarantee text", "default": "90-day money-back guarantee" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,62 @@
+  <!-- 5 REASONS IMAGE CARDS -->
+  <section style="background:#F5E6D8;padding:80px 28px;">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:48px;">
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:38px;margin:0 0 12px;color:#6B3D42;">{{ section.settings.heading_lead }} <span style="font-style:italic;color:#C9653F;">{{ section.settings.heading_emph }}</span></h2>
+        <p style="font-size:14.5px;color:#5a4636;margin:0;">{{ section.settings.subheading }}</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;">
+        {%- for i in (1..5) -%}
+          {%- assign tk = 'r' | append: i | append: '_title' -%}
+          {%- assign title = section.settings[tk] -%}
+          {%- if title != blank -%}
+          {%- assign ik = 'r' | append: i | append: '_image' -%}
+          {%- assign img = section.settings[ik] -%}
+          <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;overflow:hidden;">
+            {%- if img -%}
+              {%- assign rsrc = img | image_url: width: 400 -%}
+              <img src="{{ rsrc }}" alt="{{ title }}" width="400" height="400" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;display:block;">
+            {%- else -%}
+              <div style="aspect-ratio:1/1;background:#C9A89F;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#6B3D42;"><span style="font-size:9px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;">Image</span><span style="font-size:9px;opacity:0.7;">editorial</span></div>
+            {%- endif -%}
+            <div style="padding:18px 16px;"><div style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#C9653F;font-weight:700;margin-bottom:7px;">Reason {{ i }}</div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:15.5px;line-height:1.25;margin:0;color:#6B3D42;">{{ title }}</h3></div>
+          </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div style="text-align:center;margin-top:44px;">
+        <a href="{{ section.settings.cta_url | default: '#' }}" style="display:inline-block;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:16px 42px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.cta_label }}</a>
+        <p style="font-size:12px;color:#7a6258;margin:14px 0 0;">{{ section.settings.cta_note }}</p>
+      </div>
+    </div>
+  </section>
+
+{% schema %}
+{
+  "name": "Home · Reasons",
+  "settings": [
+    { "type": "text", "id": "heading_lead", "label": "Heading", "default": "The formula women" },
+    { "type": "text", "id": "heading_emph", "label": "Heading (italic)", "default": "believe in" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Designed for real absorption, real quality, and results you can actually feel." },
+    { "type": "header", "content": "Reason 1" },
+    { "type": "image_picker", "id": "r1_image", "label": "Image" },
+    { "type": "text", "id": "r1_title", "label": "Title", "default": "Clinical strength, not guesswork" },
+    { "type": "header", "content": "Reason 2" },
+    { "type": "image_picker", "id": "r2_image", "label": "Image" },
+    { "type": "text", "id": "r2_title", "label": "Title", "default": "Absorption that actually works" },
+    { "type": "header", "content": "Reason 3" },
+    { "type": "image_picker", "id": "r3_image", "label": "Image" },
+    { "type": "text", "id": "r3_title", "label": "Title", "default": "Built for women's real needs" },
+    { "type": "header", "content": "Reason 4" },
+    { "type": "image_picker", "id": "r4_image", "label": "Image" },
+    { "type": "text", "id": "r4_title", "label": "Title", "default": "Clean formula, zero fillers" },
+    { "type": "header", "content": "Reason 5" },
+    { "type": "image_picker", "id": "r5_image", "label": "Image" },
+    { "type": "text", "id": "r5_title", "label": "Title", "default": "Proven results you can feel" },
+    { "type": "header", "content": "Call to action" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Shop Womankind" },
+    { "type": "url", "id": "cta_url", "label": "CTA URL" },
+    { "type": "text", "id": "cta_note", "label": "CTA note", "default": "90-day money-back guarantee" }
+  ]
+}
+{% endschema %}

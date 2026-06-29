@@ -1,0 +1,24 @@
+  <!-- TRUST STRIP -->
+  <section style="background:#3A2A20;color:#F5E6D8;">
+    <div style="max-width:1140px;margin:0 auto;padding:22px 28px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;">
+      {%- for i in (1..4) -%}
+        {%- assign tk = 'item' | append: i -%}
+        {%- assign tv = section.settings[tk] -%}
+        {%- if tv != blank -%}
+        <div style="display:flex;align-items:center;justify-content:center;gap:11px;font-size:13px;letter-spacing:0.04em;"><span style="width:30px;height:30px;border-radius:50%;border:1.5px solid #E2A24C;display:inline-flex;align-items:center;justify-content:center;color:#E2A24C;flex:0 0 auto;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>{{ tv }}</div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </section>
+
+{% schema %}
+{
+  "name": "Home · Trust strip",
+  "settings": [
+    { "type": "text", "id": "item1", "label": "Item 1", "default": "Gut–hormone delivery" },
+    { "type": "text", "id": "item2", "label": "Item 2", "default": "Third-party tested" },
+    { "type": "text", "id": "item3", "label": "Item 3", "default": "GMP & non-GMO" },
+    { "type": "text", "id": "item4", "label": "Item 4", "default": "No fillers or sugar" }
+  ]
+}
+{% endschema %}
