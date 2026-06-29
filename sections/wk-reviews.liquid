@@ -7,12 +7,14 @@
     #wk-{{ section.id }}-rev .wk-stat-title { font-family:'Fraunces',serif; font-weight:500; font-size:23px; line-height:1.15; color:#6B3D42; margin:0 0 8px; }
     #wk-{{ section.id }}-rev .wk-stat-desc { font-size:15px; line-height:1.55; color:#7a6258; margin:0; max-width:300px; margin-left:auto; margin-right:auto; }
     @media (max-width:900px){
-      #wk-{{ section.id }}-rev .wk-stat-grid { grid-template-columns:1fr 1fr; }
+      #wk-{{ section.id }}-rev .wk-stat-grid { grid-template-columns:1fr 1fr; gap:40px 26px; }
+      #wk-{{ section.id }}-rev .wk-stat-num { font-size:46px; }
+      #wk-{{ section.id }}-rev .wk-stat-title { font-size:21px; }
     }
     @media (max-width:560px){
-      #wk-{{ section.id }}-rev .wk-stat-grid { grid-template-columns:1fr; gap:38px 28px; }
-      #wk-{{ section.id }}-rev .wk-stat-num { font-size:52px; }
-      #wk-{{ section.id }}-rev .wk-stat-title { font-size:20px; }
+      #wk-{{ section.id }}-rev .wk-stat-grid { gap:34px 22px; }
+      #wk-{{ section.id }}-rev .wk-stat-num { font-size:42px; }
+      #wk-{{ section.id }}-rev .wk-stat-title { font-size:19px; }
     }
   </style>
   <section id="wk-{{ section.id }}-rev" style="background:#F5E6D8;padding:84px 28px;">
