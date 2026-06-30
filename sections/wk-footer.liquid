@@ -1,44 +1,54 @@
   <!-- FOOTER -->
   {% render 'wk-fonts' %}
-  <footer style="background:#6B3D42;color:#F5E6D8;font-family:'Hanken Grotesk',sans-serif;-webkit-font-smoothing:antialiased;padding:72px 28px 40px;">
+  <footer style="background:#6B3D42;color:#F5E6D8;font-family:'Hanken Grotesk',sans-serif;-webkit-font-smoothing:antialiased;padding:64px 28px 36px;">
     <div style="max-width:1180px;margin:0 auto;">
-      <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(245,230,216,0.2);">
+      <div style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:46px;line-height:1;margin-bottom:8px;">{{ section.settings.wordmark }}</div>
+      <div style="text-align:center;font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:rgba(245,230,216,0.7);margin-bottom:48px;">{{ section.settings.tagline }}</div>
+      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(245,230,216,0.16);">
         <div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:38px;line-height:1;margin-bottom:8px;">{{ section.settings.brand_name }}</div>
-          <div style="font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:rgba(245,230,216,0.78);">{{ section.settings.tagline }}</div>
+          <div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:14px;">{{ section.settings.news_heading }}</div>
+          <p style="font-size:13px;color:rgba(245,230,216,0.75);margin:0 0 16px;line-height:1.5;">{{ section.settings.news_text }}</p>
+          {%- form 'customer' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div style="display:flex;gap:10px;max-width:340px;">
+              <input type="email" name="contact[email]" required placeholder="{{ section.settings.news_placeholder }}" style="flex:1;font-family:inherit;border:1px solid rgba(245,230,216,0.3);background:rgba(245,230,216,0.06);border-radius:999px;padding:12px 18px;font-size:13px;color:#F5E6D8;">
+              <button type="submit" style="cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:12px 22px;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;flex:0 0 auto;">{{ section.settings.news_button }}</button>
+            </div>
+            {%- if form.posted_successfully? -%}<p style="font-size:12px;color:#E2A24C;margin:10px 0 0;">Thanks — you're on the list.</p>{%- endif -%}
+          {%- endform -%}
         </div>
         <div>
-          <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:16px;">{{ section.settings.col1_title }}</div>
-          <div style="display:flex;flex-direction:column;gap:11px;font-size:13.5px;color:rgba(245,230,216,0.82);">
-            <span style="cursor:pointer;">{{ section.settings.col1_l1 }}</span>
-            <span style="cursor:pointer;">{{ section.settings.col1_l2 }}</span>
-            <span style="cursor:pointer;">{{ section.settings.col1_l3 }}</span>
-            <span style="cursor:pointer;">{{ section.settings.col1_l4 }}</span>
+          <div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:16px;">{{ section.settings.col2_heading }}</div>
+          <div style="display:flex;flex-direction:column;gap:11px;font-size:13px;color:rgba(245,230,216,0.8);">
+            {%- for i in (1..4) -%}
+              {%- assign lk = 'policy' | append: i | append: '_label' -%}
+              {%- assign uk = 'policy' | append: i | append: '_url' -%}
+              {%- assign lv = section.settings[lk] -%}
+              {%- if lv != blank -%}<a href="{{ section.settings[uk] | default: '#' }}" style="color:rgba(245,230,216,0.8);text-decoration:none;">{{ lv }}</a>{%- endif -%}
+            {%- endfor -%}
           </div>
         </div>
         <div>
-          <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:16px;">{{ section.settings.col2_title }}</div>
-          <div style="display:flex;flex-direction:column;gap:11px;font-size:13.5px;color:rgba(245,230,216,0.82);">
-            <span style="cursor:pointer;">{{ section.settings.col2_l1 }}</span>
-            <span style="cursor:pointer;">{{ section.settings.col2_l2 }}</span>
-            <span style="cursor:pointer;">{{ section.settings.col2_l3 }}</span>
-            <span style="cursor:pointer;">{{ section.settings.col2_l4 }}</span>
-          </div>
-        </div>
-        <div>
-          <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:16px;">{{ section.settings.col3_title }}</div>
-          <div style="display:flex;flex-direction:column;gap:11px;font-size:13.5px;color:rgba(245,230,216,0.82);">
-            <span style="cursor:pointer;">{{ section.settings.col3_l1 }}</span>
-            <span style="cursor:pointer;">{{ section.settings.col3_l2 }}</span>
-            <span style="cursor:pointer;">{{ section.settings.col3_l3 }}</span>
-            <span style="cursor:pointer;">{{ section.settings.col3_l4 }}</span>
+          <div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:16px;">{{ section.settings.col3_heading }}</div>
+          <div style="display:flex;flex-direction:column;gap:11px;font-size:13px;color:rgba(245,230,216,0.8);">
+            {%- for i in (1..3) -%}
+              {%- assign ck = 'contact' | append: i -%}
+              {%- assign cv = section.settings[ck] -%}
+              {%- if cv != blank -%}<span>{{ cv }}</span>{%- endif -%}
+            {%- endfor -%}
           </div>
         </div>
       </div>
-      <p style="font-size:11.5px;line-height:1.6;color:rgba(245,230,216,0.6);margin:28px 0 0;max-width:90ch;">{{ section.settings.disclaimer }}</p>
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px;font-size:12px;color:rgba(245,230,216,0.6);">
+      <p style="font-size:11px;line-height:1.6;color:rgba(245,230,216,0.55);margin:24px 0 0;max-width:90ch;">{{ section.settings.disclaimer }}</p>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:20px;font-size:12px;color:rgba(245,230,216,0.55);">
         <span>{{ section.settings.copyright }}</span>
-        <span style="display:flex;gap:20px;"><span style="cursor:pointer;">{{ section.settings.legal_1 }}</span><span style="cursor:pointer;">{{ section.settings.legal_2 }}</span><span style="cursor:pointer;">{{ section.settings.legal_3 }}</span></span>
+        <span style="display:flex;gap:20px;">
+          {%- for i in (1..3) -%}
+            {%- assign bk = 'bottom' | append: i -%}
+            {%- assign bv = section.settings[bk] -%}
+            {%- if bv != blank -%}<span style="cursor:pointer;">{{ bv }}</span>{%- endif -%}
+          {%- endfor -%}
+        </span>
       </div>
     </div>
   </footer>
@@ -47,32 +57,34 @@
 {
   "name": "WK - Footer",
   "settings": [
-    { "type": "text", "id": "brand_name", "label": "Brand name", "default": "womankind" },
+    { "type": "text", "id": "wordmark", "label": "Wordmark", "default": "womankind" },
     { "type": "text", "id": "tagline", "label": "Tagline", "default": "for perimenopause & beyond" },
-    { "type": "header", "content": "Column 1" },
-    { "type": "text", "id": "col1_title", "label": "Title", "default": "Shop" },
-    { "type": "text", "id": "col1_l1", "label": "Link 1", "default": "Hormonal support gummies" },
-    { "type": "text", "id": "col1_l2", "label": "Link 2", "default": "Deep sleep magnesium" },
-    { "type": "text", "id": "col1_l3", "label": "Link 3", "default": "Daily omega-3" },
-    { "type": "text", "id": "col1_l4", "label": "Link 4", "default": "The transition trio" },
-    { "type": "header", "content": "Column 2" },
-    { "type": "text", "id": "col2_title", "label": "Title", "default": "Learn" },
-    { "type": "text", "id": "col2_l1", "label": "Link 1", "default": "The science" },
-    { "type": "text", "id": "col2_l2", "label": "Link 2", "default": "The estrobolome" },
-    { "type": "text", "id": "col2_l3", "label": "Link 3", "default": "Journal" },
-    { "type": "text", "id": "col2_l4", "label": "Link 4", "default": "Our story" },
-    { "type": "header", "content": "Column 3" },
-    { "type": "text", "id": "col3_title", "label": "Title", "default": "Support" },
-    { "type": "text", "id": "col3_l1", "label": "Link 1", "default": "Account & orders" },
-    { "type": "text", "id": "col3_l2", "label": "Link 2", "default": "Manage subscription" },
-    { "type": "text", "id": "col3_l3", "label": "Link 3", "default": "Shipping & returns" },
-    { "type": "text", "id": "col3_l4", "label": "Link 4", "default": "Contact" },
+    { "type": "header", "content": "Newsletter" },
+    { "type": "text", "id": "news_heading", "label": "Heading", "default": "Let's stay connected" },
+    { "type": "text", "id": "news_text", "label": "Text", "default": "Be first to know about new products and special savings." },
+    { "type": "text", "id": "news_placeholder", "label": "Placeholder", "default": "Your email" },
+    { "type": "text", "id": "news_button", "label": "Button", "default": "Sign up" },
+    { "type": "header", "content": "Policies column" },
+    { "type": "text", "id": "col2_heading", "label": "Heading", "default": "Policies" },
+    { "type": "text", "id": "policy1_label", "label": "Link 1", "default": "Privacy policy" },
+    { "type": "url", "id": "policy1_url", "label": "Link 1 URL" },
+    { "type": "text", "id": "policy2_label", "label": "Link 2", "default": "Refund policy" },
+    { "type": "url", "id": "policy2_url", "label": "Link 2 URL" },
+    { "type": "text", "id": "policy3_label", "label": "Link 3", "default": "Terms of service" },
+    { "type": "url", "id": "policy3_url", "label": "Link 3 URL" },
+    { "type": "text", "id": "policy4_label", "label": "Link 4", "default": "Manage subscription" },
+    { "type": "url", "id": "policy4_url", "label": "Link 4 URL" },
+    { "type": "header", "content": "Contact column" },
+    { "type": "text", "id": "col3_heading", "label": "Heading", "default": "Contact us" },
+    { "type": "text", "id": "contact1", "label": "Line 1", "default": "support@womankind.shop" },
+    { "type": "text", "id": "contact2", "label": "Line 2", "default": "Copenhagen, Denmark" },
+    { "type": "text", "id": "contact3", "label": "Line 3", "default": "+45 00 00 00 00" },
     { "type": "header", "content": "Legal" },
     { "type": "textarea", "id": "disclaimer", "label": "Disclaimer", "default": "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Consult your healthcare provider before beginning any supplement, particularly if you are pregnant, nursing, or taking medication." },
     { "type": "text", "id": "copyright", "label": "Copyright", "default": "© 2026 Womankind. All rights reserved." },
-    { "type": "text", "id": "legal_1", "label": "Legal link 1", "default": "Privacy" },
-    { "type": "text", "id": "legal_2", "label": "Legal link 2", "default": "Terms" },
-    { "type": "text", "id": "legal_3", "label": "Legal link 3", "default": "Accessibility" }
+    { "type": "text", "id": "bottom1", "label": "Bottom link 1", "default": "Privacy" },
+    { "type": "text", "id": "bottom2", "label": "Bottom link 2", "default": "Terms" },
+    { "type": "text", "id": "bottom3", "label": "Bottom link 3", "default": "Accessibility" }
   ]
 }
 {% endschema %}

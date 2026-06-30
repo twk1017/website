@@ -476,30 +476,7 @@
       },
       "wk-footer": {
         "type": "wk-footer",
-        "settings": {
-          "brand_name": "womankind",
-          "tagline": "for perimenopause & beyond",
-          "col1_title": "Shop",
-          "col1_l1": "Hormonal support gummies",
-          "col1_l2": "Deep sleep magnesium",
-          "col1_l3": "Daily omega-3",
-          "col1_l4": "The transition trio",
-          "col2_title": "Learn",
-          "col2_l1": "The science",
-          "col2_l2": "The estrobolome",
-          "col2_l3": "Journal",
-          "col2_l4": "Our story",
-          "col3_title": "Support",
-          "col3_l1": "Account & orders",
-          "col3_l2": "Manage subscription",
-          "col3_l3": "Shipping & returns",
-          "col3_l4": "Contact",
-          "disclaimer": "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Consult your healthcare provider before beginning any supplement, particularly if you are pregnant, nursing, or taking medication.",
-          "copyright": "© 2026 Womankind. All rights reserved.",
-          "legal_1": "Privacy",
-          "legal_2": "Terms",
-          "legal_3": "Accessibility"
-        }
+        "settings": {}
       },
       "wk-sticky-bar": {
         "type": "wk-sticky-bar",
