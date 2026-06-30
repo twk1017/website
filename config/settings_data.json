@@ -347,8 +347,8 @@
         "type": "wk-testimonials",
         "settings": {
           "eyebrow": "In their own words",
-          "heading_lead": "The change women 40+",
-          "heading_emph": "actually feel",
+          "heading_lead": "Women who feel like",
+          "heading_emph": "themselves again",
           "subhead": "Trusted by women who wanted a real answer — not another thing that quietly didn't work.",
           "verified_label": "Verified buyer",
           "card1_quote": "\"I didn't expect much after years of things that did nothing. Three weeks in, the 2am wake-ups eased and I finally feel steady in my own body again.\"",
@@ -506,8 +506,8 @@
         "type": "wk-home-hero",
         "settings": {
           "rating_text": "Trusted by 12,000+ women",
-          "heading_lead": "The balance women 40+",
-          "heading_emph": "actually feel",
+          "heading_lead": "Feel like",
+          "heading_emph": "yourself again",
           "check1": "Clinically-backed ingredients",
           "check2": "8-in-1 daily formula",
           "check3": "Gut–hormone support",
@@ -529,8 +529,8 @@
       "wk-home-testimonials": {
         "type": "wk-home-testimonials",
         "settings": {
-          "heading_lead": "The shift women 40+",
-          "heading_emph": "actually notice",
+          "heading_lead": "Women who feel like",
+          "heading_emph": "themselves again",
           "subheading": "Trusted by women who wanted to be taken seriously, not managed.",
           "t1_quote": "\"I honestly didn't expect much, but the 2am wake-ups eased within weeks. I feel steadier, calmer, more like myself again.\"",
           "t1_score": "4.9/5.0",
