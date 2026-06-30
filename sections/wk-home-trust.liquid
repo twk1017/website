@@ -1,12 +1,26 @@
-  <!-- TRUST STRIP -->
-  <section style="background:#3A2A20;color:#F5E6D8;">
-    <div style="max-width:1140px;margin:0 auto;padding:22px 28px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;">
-      {%- for i in (1..4) -%}
-        {%- assign tk = 'item' | append: i -%}
-        {%- assign tv = section.settings[tk] -%}
-        {%- if tv != blank -%}
-        <div style="display:flex;align-items:center;justify-content:center;gap:11px;font-size:13px;letter-spacing:0.04em;"><span style="width:30px;height:30px;border-radius:50%;border:1.5px solid #E2A24C;display:inline-flex;align-items:center;justify-content:center;color:#E2A24C;flex:0 0 auto;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>{{ tv }}</div>
-        {%- endif -%}
+  <!-- TRUST STRIP — infinite right-to-left rolling banner -->
+  <style>
+    #wk-{{ section.id }}-trust { background:#3A2A20; color:#F5E6D8; overflow:hidden; padding:20px 0; }
+    #wk-{{ section.id }}-trust .wk-trust-track { display:flex; width:max-content; animation:wk-trust-marquee 30s linear infinite; }
+    #wk-{{ section.id }}-trust:hover .wk-trust-track { animation-play-state:paused; }
+    #wk-{{ section.id }}-trust .wk-trust-item { flex:0 0 auto; display:inline-flex; align-items:center; gap:11px; margin-right:60px; font-size:13px; letter-spacing:0.04em; white-space:nowrap; }
+    #wk-{{ section.id }}-trust .wk-trust-ico { width:30px; height:30px; border-radius:50%; border:1.5px solid #E2A24C; display:inline-flex; align-items:center; justify-content:center; color:#E2A24C; flex:0 0 auto; }
+    @keyframes wk-trust-marquee { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce){ #wk-{{ section.id }}-trust .wk-trust-track { animation:none; } }
+  </style>
+  <section id="wk-{{ section.id }}-trust">
+    <div class="wk-trust-track" style="animation-duration:{{ section.settings.speed | default: 30 }}s;">
+      {%- comment -%} two identical halves (for the -50% loop), each repeated enough to exceed any viewport width {%- endcomment -%}
+      {%- for pass in (1..2) -%}
+        {%- for rep in (1..4) -%}
+          {%- for i in (1..4) -%}
+            {%- assign tk = 'item' | append: i -%}
+            {%- assign tv = section.settings[tk] -%}
+            {%- if tv != blank -%}
+            <span class="wk-trust-item"{% unless pass == 1 and rep == 1 %} aria-hidden="true"{% endunless %}><span class="wk-trust-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>{{ tv }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
       {%- endfor -%}
     </div>
   </section>
@@ -15,6 +29,7 @@
 {
   "name": "Home · Trust strip",
   "settings": [
+    { "type": "range", "id": "speed", "label": "Scroll speed (seconds per loop)", "min": 10, "max": 60, "step": 2, "default": 30, "info": "Higher = slower." },
     { "type": "text", "id": "item1", "label": "Item 1", "default": "Gut–hormone delivery" },
     { "type": "text", "id": "item2", "label": "Item 2", "default": "Third-party tested" },
     { "type": "text", "id": "item3", "label": "Item 3", "default": "GMP & non-GMO" },
