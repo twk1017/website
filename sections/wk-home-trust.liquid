@@ -9,10 +9,10 @@
     @media (prefers-reduced-motion: reduce){ #wk-{{ section.id }}-trust .wk-trust-track { animation:none; } }
   </style>
   <section id="wk-{{ section.id }}-trust">
-    <div class="wk-trust-track" style="animation-duration:{{ section.settings.speed | default: 48 }}s;">
+    <div class="wk-trust-track" style="animation-duration:{{ section.settings.speed | default: 56 }}s;">
       {%- comment -%} two identical halves (for the -50% loop), each repeated enough to exceed any viewport width {%- endcomment -%}
       {%- for pass in (1..2) -%}
-        {%- for rep in (1..4) -%}
+        {%- for rep in (1..2) -%}
           {%- for i in (1..7) -%}
             {%- assign tk = 'item' | append: i -%}
             {%- assign tv = section.settings[tk] -%}
@@ -29,7 +29,7 @@
 {
   "name": "Home · Trust strip",
   "settings": [
-    { "type": "range", "id": "speed", "label": "Scroll speed (seconds per loop)", "min": 10, "max": 80, "step": 2, "default": 48, "info": "Higher = slower." },
+    { "type": "range", "id": "speed", "label": "Scroll speed (seconds per loop)", "min": 10, "max": 80, "step": 2, "default": 56, "info": "Higher = slower. 56s matches the PDP marquee pace." },
     { "type": "text", "id": "item1", "label": "Item 1", "default": "Gut–hormone delivery" },
     { "type": "text", "id": "item2", "label": "Item 2", "default": "Third-party tested" },
     { "type": "text", "id": "item3", "label": "Item 3", "default": "GMP & non-GMO" },
