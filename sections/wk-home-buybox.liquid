@@ -29,7 +29,7 @@
             <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;opacity:0.7;">1200 × 1200</span>
           </div>
           {%- endif -%}
-          {%- if section.settings.badge != blank -%}<span style="position:absolute;top:18px;left:18px;z-index:2;background:#6B3D42;color:#F5E6D8;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;padding:6px 13px;border-radius:999px;">{{ section.settings.badge }}</span>{%- endif -%}
+          {% render 'wk-clinicians-badge', text: section.settings.badge, image: section.settings.badge_image %}
         </div>
         <div style="display:flex;align-items:center;gap:10px;margin-top:14px;">
           <button type="button" class="wk-thumb-arrow" data-wk-thumb-prev aria-label="Previous image">&lsaquo;</button>
@@ -215,7 +215,8 @@
     { "type": "product", "id": "product", "label": "Product", "info": "Select the gummies product. Required for add-to-cart and pricing." },
     { "type": "header", "content": "Gallery" },
     { "type": "image_picker", "id": "hero_image", "label": "Main image", "info": "Shows a placeholder if empty." },
-    { "type": "text", "id": "badge", "label": "Image badge", "default": "Top-rated women's formula", "info": "Pill overlaid on the top-left of the main image. Leave blank to hide." },
+    { "type": "text", "id": "badge", "label": "Badge label", "default": "Clinicians' Choice", "info": "Laurel emblem overlaid on the top-left of the main image. Leave blank to hide." },
+    { "type": "image_picker", "id": "badge_image", "label": "Badge image (optional)", "info": "Upload your Clinicians' Choice award graphic to replace the built-in laurel emblem." },
     { "type": "image_picker", "id": "thumb_1_image", "label": "Thumbnail 1 image" },
     { "type": "text", "id": "thumb_1_label", "label": "Thumbnail 1 label", "default": "Front" },
     { "type": "image_picker", "id": "thumb_2_image", "label": "Thumbnail 2 image" },

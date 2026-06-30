@@ -1,0 +1,30 @@
+{%- comment -%}
+  Clinicians' Choice badge overlay for the buy-box hero image.
+  Params: text (label), image (image_picker object — overrides the inline emblem).
+{%- endcomment -%}
+{%- if image -%}
+  {%- assign wk_badge_src = image | image_url: width: 420 -%}
+  <img src="{{ wk_badge_src }}" alt="{{ text | default: 'Clinicians Choice' }}" width="{{ image.width }}" height="{{ image.height }}" loading="lazy" style="position:absolute;top:16px;left:16px;z-index:2;width:auto;max-width:55%;height:auto;display:block;">
+{%- elsif text != blank -%}
+  <span style="position:absolute;top:16px;left:16px;z-index:2;display:inline-flex;align-items:center;gap:7px;background:#F5E6D8;border:1px solid rgba(107,61,66,0.22);color:#6B3D42;padding:6px 12px;border-radius:11px;box-shadow:0 5px 16px rgba(58,42,32,0.2);">
+    <svg width="14" height="26" viewBox="0 0 16 32" fill="#6B3D42" aria-hidden="true" style="flex:0 0 auto;">
+      <path d="M13.5 1 C7 6 4 14 6.5 31" fill="none" stroke="#6B3D42" stroke-width="1.1" stroke-linecap="round"/>
+      <ellipse cx="11.5" cy="5" rx="2.6" ry="1.15" transform="rotate(38 11.5 5)"/>
+      <ellipse cx="9.2" cy="9.5" rx="2.8" ry="1.2" transform="rotate(22 9.2 9.5)"/>
+      <ellipse cx="7.8" cy="14.5" rx="2.9" ry="1.25" transform="rotate(8 7.8 14.5)"/>
+      <ellipse cx="7.3" cy="19.5" rx="2.9" ry="1.25" transform="rotate(-8 7.3 19.5)"/>
+      <ellipse cx="7.6" cy="24.5" rx="2.7" ry="1.2" transform="rotate(-24 7.6 24.5)"/>
+      <ellipse cx="8.6" cy="29" rx="2.4" ry="1.1" transform="rotate(-40 8.6 29)"/>
+    </svg>
+    <span style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;letter-spacing:0.01em;line-height:1;white-space:nowrap;">{{ text }}</span>
+    <svg width="14" height="26" viewBox="0 0 16 32" fill="#6B3D42" aria-hidden="true" style="flex:0 0 auto;transform:scaleX(-1);">
+      <path d="M13.5 1 C7 6 4 14 6.5 31" fill="none" stroke="#6B3D42" stroke-width="1.1" stroke-linecap="round"/>
+      <ellipse cx="11.5" cy="5" rx="2.6" ry="1.15" transform="rotate(38 11.5 5)"/>
+      <ellipse cx="9.2" cy="9.5" rx="2.8" ry="1.2" transform="rotate(22 9.2 9.5)"/>
+      <ellipse cx="7.8" cy="14.5" rx="2.9" ry="1.25" transform="rotate(8 7.8 14.5)"/>
+      <ellipse cx="7.3" cy="19.5" rx="2.9" ry="1.25" transform="rotate(-8 7.3 19.5)"/>
+      <ellipse cx="7.6" cy="24.5" rx="2.7" ry="1.2" transform="rotate(-24 7.6 24.5)"/>
+      <ellipse cx="8.6" cy="29" rx="2.4" ry="1.1" transform="rotate(-40 8.6 29)"/>
+    </svg>
+  </span>
+{%- endif -%}
