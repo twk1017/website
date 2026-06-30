@@ -596,24 +596,6 @@
           "cta_url": ""
         }
       },
-      "wk-home-benefits": {
-        "type": "wk-home-benefits",
-        "settings": {
-          "heading_lead": "The balance your body's",
-          "heading_emph": "been missing",
-          "subheading": "One daily ritual that supports mood, sleep, digestion and balance — together.",
-          "b1_title": "Steady energy",
-          "b1_body": "Supports smoother, more consistent energy through the day — without the crash.*",
-          "b2_title": "Steady mood",
-          "b2_body": "Ashwagandha supports a calmer stress response, so the little things stay little.*",
-          "b3_title": "Calm digestion",
-          "b3_body": "A probiotic blend supports the estrobolome — the gut bacteria that metabolise estrogen.*",
-          "b4_title": "Deeper sleep",
-          "b4_body": "Fewer 2am wake-ups and cooler nights as the actives reach steady state.*",
-          "b5_title": "Hormonal balance",
-          "b5_body": "Standardised botanicals ease hot flashes and support balance through the whole transition.*"
-        }
-      },
       "wk-home-comparison": {
         "type": "wk-home-comparison",
         "settings": {
