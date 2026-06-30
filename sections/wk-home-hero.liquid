@@ -55,7 +55,7 @@
       <div class="wk-h-media">
         <div class="wk-h-glow" aria-hidden="true"></div>
         {%- if section.settings.image -%}{%- assign hero_src = section.settings.image | image_url: width: 1100 -%}{%- assign hero_alt = section.settings.image.alt | default: 'Womankind' -%}
-        {%- else -%}{%- assign hero_src = 'wk-buybox-1.jpg' | asset_url -%}{%- assign hero_alt = 'Womankind' -%}{%- endif -%}
+        {%- else -%}{%- assign hero_src = 'wk-home-hero.jpg' | asset_url -%}{%- assign hero_alt = 'Womankind' -%}{%- endif -%}
         <img src="{{ hero_src }}" alt="{{ hero_alt }}" width="1100" height="1100" loading="eager">
       </div>
     </div>
