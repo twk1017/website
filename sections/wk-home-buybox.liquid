@@ -5,12 +5,12 @@
   <style>
     #wk-{{ section.id }}-buy .wk-thumbs { flex:1; display:flex; gap:10px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; }
     #wk-{{ section.id }}-buy .wk-thumbs::-webkit-scrollbar { display:none; }
-    #wk-{{ section.id }}-buy .wk-thumbs > div { flex:0 0 calc((100% - 30px) / 4); scroll-snap-align:start; }
+    #wk-{{ section.id }}-buy .wk-thumbs > button { flex:0 0 calc((100% - 30px) / 4); scroll-snap-align:start; }
     #wk-{{ section.id }}-buy .wk-thumb-arrow { flex:0 0 auto; cursor:pointer; font-family:inherit; width:26px; height:26px; border-radius:50%; border:none; background:#6B3D42; color:#F5E6D8; font-size:13px; line-height:1; display:inline-flex; align-items:center; justify-content:center; }
     @media (max-width:749px){
       #wk-{{ section.id }}-buy .wk-buy-grid { grid-template-columns:1fr !important; gap:30px !important; padding:36px 22px !important; }
       #wk-{{ section.id }}-buy .wk-gallery { position:static !important; top:auto !important; }
-      #wk-{{ section.id }}-buy .wk-thumbs > div { flex:0 0 calc((100% - 27px) / 3.5) !important; }
+      #wk-{{ section.id }}-buy .wk-thumbs > button { flex:0 0 calc((100% - 27px) / 3.5) !important; }
       #wk-{{ section.id }}-buy .wk-buy-title { font-size:34px !important; }
     }
   </style>
@@ -19,29 +19,30 @@
 
       <!-- GALLERY -->
       <div class="wk-gallery" style="position:sticky;top:96px;">
-        {%- if section.settings.hero_image -%}{%- assign wk_hero_src = section.settings.hero_image | image_url: width: 1200 -%}{%- endif -%}
+        {%- comment -%} Build the gallery: image_picker override if set, else fall back to assets/wk-buybox-N.jpg {%- endcomment -%}
+        {%- assign wk_first_full = '' -%}{%- assign wk_first_alt = '' -%}
+        {%- for i in (1..8) -%}
+          {%- assign gik = 'gallery_' | append: i | append: '_image' -%}
+          {%- assign gimg = section.settings[gik] -%}
+          {%- if gimg -%}{%- assign wk_full = gimg | image_url: width: 1200 -%}{%- assign wk_galt = gimg.alt | default: 'Womankind Hormonal Support Gummies' -%}
+          {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- assign wk_full = gfname | asset_url -%}{%- assign wk_galt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
+          {%- if forloop.first -%}{%- assign wk_first_full = wk_full -%}{%- assign wk_first_alt = wk_galt -%}{%- endif -%}
+        {%- endfor -%}
         <div class="wk-hero-img" style="position:relative;aspect-ratio:1/1;border-radius:18px;overflow:hidden;background:radial-gradient(120% 92% at 50% 16%, #ECDBCC 0%, #D8BFB4 52%, #C2A099 100%);">
-          {%- if section.settings.hero_image -%}
-          <img src="{{ wk_hero_src }}" alt="{{ section.settings.hero_image.alt | default: 'Womankind Hormonal Support Gummies' }}" width="1200" height="1200" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
-          {%- else -%}
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:rgba(107,61,66,0.62);text-align:center;padding:0 28px;">
-            <span style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;">Product · hero</span>
-            <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;opacity:0.7;">1200 × 1200</span>
-          </div>
-          {%- endif -%}
+          <img data-wk-hero-img src="{{ wk_first_full }}" alt="{{ wk_first_alt }}" width="1200" height="1200" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
           {% render 'wk-clinicians-badge', text: section.settings.badge, image: section.settings.badge_image %}
         </div>
         <div style="display:flex;align-items:center;gap:10px;margin-top:14px;">
           <button type="button" class="wk-thumb-arrow" data-wk-thumb-prev aria-label="Previous image">&lsaquo;</button>
           <div class="wk-thumbs" data-wk-thumb-track>
-            {%- for i in (1..5) -%}
-              {%- assign tlk = 'thumb_' | append: i | append: '_label' -%}
-              {%- assign tik = 'thumb_' | append: i | append: '_image' -%}
-              {%- assign tlabel = section.settings[tlk] -%}
-              {%- assign timg = section.settings[tik] -%}
-              {%- if timg or tlabel != blank -%}
-              <div style="aspect-ratio:1/1;background:#D8C2BA;border-radius:9px;overflow:hidden;{% if forloop.first %}border:2px solid #6B3D42;{% endif %}display:flex;align-items:center;justify-content:center;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#6B3D42;text-align:center;font-weight:600;">{%- if timg -%}{%- assign tsrc = timg | image_url: width: 240 -%}<img src="{{ tsrc }}" alt="{{ tlabel }}" width="240" height="240" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">{%- else -%}{{ tlabel }}{%- endif -%}</div>
-              {%- endif -%}
+            {%- for i in (1..8) -%}
+              {%- assign gik = 'gallery_' | append: i | append: '_image' -%}
+              {%- assign gimg = section.settings[gik] -%}
+              {%- if gimg -%}{%- assign tsrc = gimg | image_url: width: 240 -%}{%- assign tfull = gimg | image_url: width: 1200 -%}{%- assign talt = gimg.alt | default: 'Womankind Hormonal Support Gummies' -%}
+              {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- assign tsrc = gfname | asset_img_url: '240x240' -%}{%- assign tfull = gfname | asset_url -%}{%- assign talt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
+              <button type="button" data-wk-thumb data-wk-full="{{ tfull }}" aria-label="View image {{ i }}" style="cursor:pointer;padding:0;aspect-ratio:1/1;background:#D8C2BA;border-radius:9px;overflow:hidden;{% if forloop.first %}border:2px solid #6B3D42;{% else %}border:2px solid transparent;{% endif %}display:flex;align-items:center;justify-content:center;">
+                <img src="{{ tsrc }}" alt="{{ talt }}" width="240" height="240" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+              </button>
             {%- endfor -%}
           </div>
           <button type="button" class="wk-thumb-arrow" data-wk-thumb-next aria-label="Next image">&rsaquo;</button>
@@ -199,10 +200,20 @@
         var thumbTrack = root.querySelector('[data-wk-thumb-track]');
         if (thumbTrack){
           var tp = root.querySelector('[data-wk-thumb-prev]'), tn = root.querySelector('[data-wk-thumb-next]');
-          function tstep(){ var c = thumbTrack.querySelector('div'); return c ? c.getBoundingClientRect().width + 10 : thumbTrack.clientWidth; }
+          function tstep(){ var c = thumbTrack.querySelector('button'); return c ? c.getBoundingClientRect().width + 10 : thumbTrack.clientWidth; }
           if (tp) tp.addEventListener('click', function(){ thumbTrack.scrollBy({ left: -tstep()*2, behavior:'smooth' }); });
           if (tn) tn.addEventListener('click', function(){ thumbTrack.scrollBy({ left: tstep()*2, behavior:'smooth' }); });
         }
+        var heroImg = root.querySelector('[data-wk-hero-img]');
+        var thumbs = root.querySelectorAll('[data-wk-thumb]');
+        thumbs.forEach(function(btn){
+          btn.addEventListener('click', function(){
+            var full = btn.getAttribute('data-wk-full');
+            if (heroImg && full){ heroImg.src = full; }
+            thumbs.forEach(function(b){ b.style.borderColor = 'transparent'; });
+            btn.style.borderColor = '#6B3D42';
+          });
+        });
       }
       if (document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', init); } else { init(); }
     })();
@@ -213,20 +224,17 @@
   "name": "Home · Buy box",
   "settings": [
     { "type": "product", "id": "product", "label": "Product", "info": "Select the gummies product. Required for add-to-cart and pricing." },
-    { "type": "header", "content": "Gallery" },
-    { "type": "image_picker", "id": "hero_image", "label": "Main image", "info": "Shows a placeholder if empty." },
+    { "type": "header", "content": "Gallery", "info": "8 images. Defaults to assets/wk-buybox-1…8.jpg. Image 1 is the main view; all 8 show as clickable thumbnails." },
     { "type": "text", "id": "badge", "label": "Badge label", "default": "Clinicians' Choice", "info": "Laurel emblem overlaid on the top-left of the main image. Leave blank to hide." },
     { "type": "image_picker", "id": "badge_image", "label": "Badge image (optional)", "info": "Upload your Clinicians' Choice award graphic to replace the built-in laurel emblem." },
-    { "type": "image_picker", "id": "thumb_1_image", "label": "Thumbnail 1 image" },
-    { "type": "text", "id": "thumb_1_label", "label": "Thumbnail 1 label", "default": "Front" },
-    { "type": "image_picker", "id": "thumb_2_image", "label": "Thumbnail 2 image" },
-    { "type": "text", "id": "thumb_2_label", "label": "Thumbnail 2 label", "default": "Detail" },
-    { "type": "image_picker", "id": "thumb_3_image", "label": "Thumbnail 3 image" },
-    { "type": "text", "id": "thumb_3_label", "label": "Thumbnail 3 label", "default": "Formula" },
-    { "type": "image_picker", "id": "thumb_4_image", "label": "Thumbnail 4 image" },
-    { "type": "text", "id": "thumb_4_label", "label": "Thumbnail 4 label", "default": "In hand" },
-    { "type": "image_picker", "id": "thumb_5_image", "label": "Thumbnail 5 image" },
-    { "type": "text", "id": "thumb_5_label", "label": "Thumbnail 5 label", "default": "Video" },
+    { "type": "image_picker", "id": "gallery_1_image", "label": "Image 1 (main)" },
+    { "type": "image_picker", "id": "gallery_2_image", "label": "Image 2" },
+    { "type": "image_picker", "id": "gallery_3_image", "label": "Image 3" },
+    { "type": "image_picker", "id": "gallery_4_image", "label": "Image 4" },
+    { "type": "image_picker", "id": "gallery_5_image", "label": "Image 5" },
+    { "type": "image_picker", "id": "gallery_6_image", "label": "Image 6" },
+    { "type": "image_picker", "id": "gallery_7_image", "label": "Image 7" },
+    { "type": "image_picker", "id": "gallery_8_image", "label": "Image 8" },
     { "type": "header", "content": "Heading" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Daily · for perimenopause & beyond" },
     { "type": "text", "id": "heading", "label": "Title", "default": "hormonal support gummies" },
