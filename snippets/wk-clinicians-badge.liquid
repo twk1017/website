@@ -5,8 +5,8 @@
 {%- endcomment -%}
 {%- if image -%}
   {%- assign wk_badge_src = image | image_url: width: 480 -%}
-  <img src="{{ wk_badge_src }}" alt="{{ text | default: 'Clinicians Choice' }}" width="{{ image.width }}" height="{{ image.height }}" loading="lazy" style="position:absolute;top:15px;left:15px;z-index:2;width:auto;max-width:42%;max-width:min(42%,210px);height:auto;display:block;">
+  <img src="{{ wk_badge_src }}" alt="{{ text | default: 'Clinicians Choice' }}" width="{{ image.width }}" height="{{ image.height }}" loading="lazy" style="position:absolute;top:15px;left:15px;z-index:2;width:auto;max-width:52%;max-width:min(52%,280px);height:auto;display:block;">
 {%- elsif text != blank -%}
   {%- assign wk_badge_src = 'wk-clinicians-badge.png' | asset_url -%}
-  <img src="{{ wk_badge_src }}" alt="Clinicians' Choice — hundreds of clinicians shared this with their patients without compensation" width="480" height="114" loading="lazy" style="position:absolute;top:15px;left:15px;z-index:2;width:auto;max-width:42%;max-width:min(42%,210px);height:auto;display:block;">
+  <img src="{{ wk_badge_src }}" alt="Clinicians' Choice — hundreds of clinicians shared this with their patients without compensation" width="480" height="114" loading="lazy" style="position:absolute;top:15px;left:15px;z-index:2;width:auto;max-width:52%;max-width:min(52%,280px);height:auto;display:block;">
 {%- endif -%}
