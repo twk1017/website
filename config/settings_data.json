@@ -581,37 +581,6 @@
           "t3_tag2": "Clear focus"
         }
       },
-      "wk-home-reasons": {
-        "type": "wk-home-reasons",
-        "settings": {
-          "heading_lead": "The formula women",
-          "heading_emph": "believe in",
-          "subheading": "Designed for real absorption, real quality, and results you can actually feel.",
-          "r1_title": "Clinical strength, not guesswork",
-          "r2_title": "Absorption that actually works",
-          "r3_title": "Built for women's real needs",
-          "r4_title": "Clean formula, zero fillers",
-          "r5_title": "Proven results you can feel",
-          "cta_label": "Shop Womankind",
-          "cta_url": "",
-          "cta_note": "90-day money-back guarantee"
-        }
-      },
-      "wk-home-why-trust": {
-        "type": "wk-home-why-trust",
-        "settings": {
-          "heading": "Why women trust Womankind",
-          "check1": "No hidden fillers",
-          "check2": "Made in the USA",
-          "check3": "Third-party tested",
-          "check4": "Non-GMO certified",
-          "check_highlight": "Science-backed formula, women's-health reviewed",
-          "badge1": "Clinically-backed formula",
-          "badge2": "GMP-certified facility",
-          "badge3": "Gut–hormone delivery",
-          "badge4": "Women's-health focused"
-        }
-      },
       "wk-home-chart": {
         "type": "wk-home-chart",
         "settings": {
@@ -643,29 +612,6 @@
           "b4_body": "Fewer 2am wake-ups and cooler nights as the actives reach steady state.*",
           "b5_title": "Hormonal balance",
           "b5_body": "Standardised botanicals ease hot flashes and support balance through the whole transition.*"
-        }
-      },
-      "wk-home-before-after": {
-        "type": "wk-home-before-after",
-        "settings": {
-          "heading_lead": "When your body finds its",
-          "heading_emph": "rhythm again",
-          "subheading": "When balance returns, everything from sleep to mindset improves.",
-          "tab1_label": "Energy",
-          "tab2_label": "Mood & calm",
-          "tab3_label": "Daily balance",
-          "c1_quote": "\"A week in, the afternoon crashes were gone. I'm powering through my days without reaching for a third coffee.\"",
-          "c1_name": "Lucy M.",
-          "c1_score": "4.9/5.0",
-          "c2_quote": "\"I didn't realise how much I'd been white-knuckling it. The bloating eased and my mood feels even now.\"",
-          "c2_name": "Jess R.",
-          "c2_score": "4.9/5.0",
-          "c3_quote": "\"I feel more motivated, more steady. My sleep is deeper and I finally feel like myself again.\"",
-          "c3_name": "Daniela M.",
-          "c3_score": "4.9/5.0",
-          "cta_label": "Shop Womankind",
-          "cta_url": "",
-          "cta_note": "90-day money-back guarantee"
         }
       },
       "wk-home-comparison": {
