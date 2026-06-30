@@ -337,10 +337,13 @@
       "wk-marquee": {
         "type": "wk-marquee",
         "settings": {
-          "item_1": "Save 33% with a 3-month supply",
-          "item_2": "Free carbon-neutral shipping",
-          "item_3": "Pause or cancel anytime",
-          "item_4": "Made with clinically-backed ingredients"
+          "item_1": "Gut–hormone delivery",
+          "item_2": "Third-party tested",
+          "item_3": "GMP & non-GMO",
+          "item_4": "No fillers or sugar",
+          "item_5": "Save 33% with a 3-month supply",
+          "item_6": "Clinically-backed ingredients",
+          "item_7": "Free carbon-neutral shipping on all subscriptions"
         }
       },
       "wk-testimonials": {
