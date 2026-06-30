@@ -33,9 +33,9 @@
           <p style="font-size:11px;line-height:1.5;color:#9a8576;margin:12px 4px 0;font-style:italic;">{{ section.settings.illustrative_note }}</p>
         </div>
         <div>
-          <p style="font-size:14.5px;line-height:1.65;color:#4a3a30;margin:0 0 16px;">{{ section.settings.body1 }}</p>
-          <p style="font-size:14.5px;line-height:1.65;color:#4a3a30;margin:0 0 16px;">{{ section.settings.body2 }}</p>
-          <p style="font-size:14.5px;line-height:1.65;color:#4a3a30;margin:0 0 22px;">{{ section.settings.body3 }}</p>
+          {%- if section.settings.body1 != blank -%}<p style="font-size:14.5px;line-height:1.65;color:#4a3a30;margin:0 0 16px;">{{ section.settings.body1 }}</p>{%- endif -%}
+          {%- if section.settings.body2 != blank -%}<p style="font-size:14.5px;line-height:1.65;color:#4a3a30;margin:0 0 22px;">{{ section.settings.body2 }}</p>{%- endif -%}
+          {%- if section.settings.body3 != blank -%}<p style="font-size:14.5px;line-height:1.65;color:#4a3a30;margin:0 0 22px;">{{ section.settings.body3 }}</p>{%- endif -%}
           <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:26px;">
             {%- for i in (1..4) -%}
               {%- assign gk = 'tag' | append: i -%}
@@ -54,9 +54,9 @@
   "name": "Home · Chart",
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "How balanced support can feel over time" },
-    { "type": "textarea", "id": "body1", "label": "Paragraph 1", "default": "Perimenopause rarely arrives all at once. Sleep, mood, and digestion can wobble for years — often before the word menopause feels like it belongs to you." },
-    { "type": "textarea", "id": "body2", "label": "Paragraph 2", "default": "Womankind won't pause that transition — nothing does. What a consistent daily ritual can do is support your body's own systems, so more of your days feel steady." },
-    { "type": "inline_richtext", "id": "body3", "label": "Paragraph 3", "default": "<strong>What most women tell us:</strong> calmer sleep and a steadier stress response within 2–3 weeks, with the fuller picture — mood, bloating, steadier days — by weeks 6–8 as the actives reach steady state.*" },
+    { "type": "textarea", "id": "body1", "label": "Paragraph 1", "default": "Perimenopause doesn't arrive all at once — sleep, mood, bloating and hot flashes wobble for years before menopause itself." },
+    { "type": "inline_richtext", "id": "body2", "label": "Paragraph 2", "default": "<strong>Womankind smooths out the day-to-day</strong> — easing the symptoms that pull you off balance, so you feel more like yourself through the whole transition. Most women notice within 2–3 weeks.*" },
+    { "type": "inline_richtext", "id": "body3", "label": "Paragraph 3", "default": "" },
     { "type": "textarea", "id": "illustrative_note", "label": "Chart disclaimer", "default": "Illustrative — based on customer-reported experience over a typical routine, not a clinical measurement. Individual results vary.*" },
     { "type": "text", "id": "tag1", "label": "Tag 1", "default": "Sleep" },
     { "type": "text", "id": "tag2", "label": "Tag 2", "default": "Mood" },
