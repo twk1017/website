@@ -1,29 +1,47 @@
-  <!-- HERO -->
-  <section style="background:linear-gradient(160deg,#6B3D42 0%,#572f34 60%,#3A2A20 100%);color:#F5E6D8;padding:0;overflow:hidden;">
-    <div style="max-width:1240px;margin:0 auto;padding:64px 28px 70px;display:grid;grid-template-columns:1.05fr 0.95fr;gap:40px;align-items:center;">
-      <div>
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:22px;"><span style="color:#E2A24C;font-size:15px;letter-spacing:2px;">★★★★★</span><span style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,230,216,0.8);font-weight:500;">{{ section.settings.rating_text }}</span></div>
-        <h1 style="font-family:'Fraunces',serif;font-weight:400;font-size:54px;line-height:1.02;margin:0 0 26px;letter-spacing:-0.01em;">{{ section.settings.heading_lead }} <span style="font-style:italic;color:#E2A24C;">{{ section.settings.heading_emph }}</span></h1>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px 26px;max-width:480px;margin-bottom:32px;">
-          {%- for i in (1..4) -%}
-            {%- assign ck = 'check' | append: i -%}
-            {%- assign cv = section.settings[ck] -%}
-            {%- if cv != blank -%}<div style="display:flex;align-items:center;gap:10px;font-size:14.5px;"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span>{{ cv }}</div>{%- endif -%}
-          {%- endfor -%}
-        </div>
-        <a href="{{ section.settings.cta_url | default: '#' }}" style="display:inline-block;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:18px 48px;font-size:14px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.cta_label }}</a>
-        <div style="display:flex;align-items:center;gap:9px;margin-top:18px;font-size:12.5px;color:rgba(245,230,216,0.78);"><span style="color:#E2A24C;">♡</span>{{ section.settings.guarantee_text }}</div>
+  <!-- HERO (centered, merged — headline + USP + product + CTA together, above the fold) -->
+  <style>
+    #wk-{{ section.id }}-hero .wk-h-title { font-size:50px; }
+    #wk-{{ section.id }}-hero .wk-h-media { max-height:380px; }
+    @media (max-width:749px){
+      #wk-{{ section.id }}-hero { padding:30px 22px 44px !important; }
+      #wk-{{ section.id }}-hero .wk-h-title { font-size:34px !important; }
+      #wk-{{ section.id }}-hero .wk-h-media { max-height:300px !important; }
+      #wk-{{ section.id }}-hero .wk-h-cta { width:100%; }
+    }
+  </style>
+  <section id="wk-{{ section.id }}-hero" style="background:linear-gradient(160deg,#6B3D42 0%,#572f34 60%,#3A2A20 100%);color:#F5E6D8;padding:44px 28px 60px;overflow:hidden;text-align:center;">
+    <div style="max-width:760px;margin:0 auto;">
+
+      <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;"><span style="color:#E2A24C;font-size:15px;letter-spacing:2px;">★★★★★</span><span style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,230,216,0.8);font-weight:500;">{{ section.settings.rating_text }}</span></div>
+
+      <h1 class="wk-h-title" style="font-family:'Fraunces',serif;font-weight:400;line-height:1.04;letter-spacing:-0.01em;margin:0 auto 18px;max-width:16ch;color:#F5E6D8;">{{ section.settings.heading_lead }} <span style="font-style:italic;color:#E2A24C;">{{ section.settings.heading_emph }}</span></h1>
+
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:9px 22px;max-width:560px;margin:0 auto 6px;">
+        {%- for i in (1..4) -%}
+          {%- assign ck = 'check' | append: i -%}
+          {%- assign cv = section.settings[ck] -%}
+          {%- if cv != blank -%}<span style="display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:rgba(245,230,216,0.92);"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span>{{ cv }}</span>{%- endif -%}
+        {%- endfor -%}
       </div>
-      {%- if section.settings.image -%}
-        {%- assign hero_src = section.settings.image | image_url: width: 1100 -%}
-        <img src="{{ hero_src }}" alt="{{ section.settings.image.alt | default: 'Womankind' }}" width="1100" height="1100" loading="eager" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:14px;display:block;">
-      {%- else -%}
-        <div style="aspect-ratio:1/1;background:radial-gradient(circle at 50% 45%,rgba(201,168,159,0.35),transparent 65%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#E2A24C;border:1px dashed rgba(245,230,216,0.25);border-radius:14px;">
-          <span style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;">Product · hero</span>
-          <span style="font-size:12px;color:rgba(245,230,216,0.7);">three bottles · hero render</span>
-          <span style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,230,216,0.5);">1100 × 1100</span>
-        </div>
-      {%- endif -%}
+
+      <div style="position:relative;max-width:430px;margin:18px auto 24px;">
+        <div aria-hidden="true" style="position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:120%;height:120%;background:radial-gradient(circle at 50% 45%,rgba(226,162,76,0.22),transparent 62%);pointer-events:none;"></div>
+        {%- if section.settings.image -%}
+          {%- assign hero_src = section.settings.image | image_url: width: 900 -%}
+          <img class="wk-h-media" src="{{ hero_src }}" alt="{{ section.settings.image.alt | default: 'Womankind' }}" width="900" height="900" loading="eager" style="position:relative;z-index:1;width:100%;height:auto;object-fit:contain;display:block;margin:0 auto;filter:drop-shadow(0 22px 40px rgba(0,0,0,0.32));">
+        {%- else -%}
+          <div class="wk-h-media" style="position:relative;z-index:1;aspect-ratio:1/1;max-width:330px;margin:0 auto;background:radial-gradient(circle at 50% 45%,rgba(201,168,159,0.28),transparent 68%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#E2A24C;border:1px dashed rgba(245,230,216,0.25);border-radius:14px;">
+            <span style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;">Product · hero</span>
+            <span style="font-size:11px;color:rgba(245,230,216,0.7);">three bottles · hero render</span>
+            <span style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,230,216,0.5);">1100 × 1100</span>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <a href="{{ section.settings.cta_url | default: '#' }}" class="wk-h-cta" style="display:inline-flex;align-items:center;justify-content:center;gap:12px;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:18px 46px;font-size:14px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;box-shadow:0 14px 30px rgba(58,42,32,0.4);">{{ section.settings.cta_label }} <span style="font-size:16px;line-height:1;">&rarr;</span></a>
+
+      <div style="display:flex;align-items:center;justify-content:center;gap:9px;margin-top:16px;font-size:12.5px;color:rgba(245,230,216,0.78);"><span style="color:#E2A24C;">♡</span>{{ section.settings.guarantee_text }}</div>
+
     </div>
   </section>
 
@@ -34,7 +52,7 @@
     { "type": "text", "id": "rating_text", "label": "Rating text", "default": "Trusted by 12,000+ women" },
     { "type": "text", "id": "heading_lead", "label": "Heading", "default": "The balance women 40+" },
     { "type": "text", "id": "heading_emph", "label": "Heading (italic emphasis)", "default": "actually feel" },
-    { "type": "image_picker", "id": "image", "label": "Hero image" },
+    { "type": "image_picker", "id": "image", "label": "Product image", "info": "A bottle/product render (ideally on a transparent or matching background) works best in the centered layout." },
     { "type": "text", "id": "check1", "label": "Check 1", "default": "Clinically-backed ingredients" },
     { "type": "text", "id": "check2", "label": "Check 2", "default": "8-in-1 daily formula" },
     { "type": "text", "id": "check3", "label": "Check 3", "default": "Gut–hormone support" },
