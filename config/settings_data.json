@@ -465,15 +465,6 @@
           "cta_link": ""
         }
       },
-      "wk-newsletter": {
-        "type": "wk-newsletter",
-        "settings": {
-          "heading": "The words, the science, the products",
-          "body": "Join the letter. What's actually happening in your body, explained clearly and respectfully — no confetti.",
-          "placeholder": "Your email",
-          "button_label": "Join"
-        }
-      },
       "wk-footer": {
         "type": "wk-footer",
         "settings": {}
