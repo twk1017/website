@@ -640,33 +640,7 @@
       "wk-home-buybox": {
         "type": "wk-home-buybox",
         "settings": {
-          "product": "hormonal-support-gummies",
-          "heading_lead": "Your balance",
-          "heading_emph": "starts here",
-          "subheading": "Choose the package that fits your goals and save on every bottle.",
-          "badge": "Top-rated women's formula",
-          "rating_text": "Rated 4.8 \"Excellent\" · 1,200+ reviews",
-          "product_title": "hormonal support gummies",
-          "product_desc": "Daily multi-symptom support for perimenopause and beyond — for steadier mood, calmer digestion, and renewed balance.*",
-          "check1": "Mood & calm support",
-          "check2": "Eases hot flashes",
-          "check3": "Gut–hormone support",
-          "check4": "Hormone & sugar-free",
-          "bundle_eyebrow": "Bundle & save",
-          "default_bundle": 2,
-          "bundle1_name": "1-month supply",
-          "bundle1_sub": "1 bottle · 30 servings",
-          "bundle1_badge": "",
-          "bundle2_name": "3-month supply",
-          "bundle2_sub": "3 bottles · backed by 90-day guarantee",
-          "bundle2_badge": "Most popular",
-          "bundle3_name": "6-month supply",
-          "bundle3_sub": "6 bottles · free shipping",
-          "bundle3_badge": "Best value",
-          "sub_text": "Subscribe & save 25% — pause, skip or cancel anytime",
-          "atc_label": "Add to bag",
-          "note1": "Free shipping",
-          "note2": "90-day guarantee"
+          "product": "hormonal-support-gummies"
         }
       },
       "wk-home-guarantee": {

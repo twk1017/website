@@ -1,168 +1,215 @@
 {%- assign wk_product = section.settings.product -%}
-{%- if wk_product != blank -%}{%- assign wk_variant = wk_product.selected_or_first_available_variant -%}{%- assign wk_sp = wk_product.selling_plan_groups.first.selling_plans.first -%}{%- endif -%}
-{%- assign db = section.settings.default_bundle | default: 2 -%}
-{%- assign supplies = '1,3,6' | split: ',' -%}
-{%- assign dbi = db | minus: 1 -%}
-{%- assign def_supply = supplies[dbi] -%}
+{%- if wk_product != blank -%}{%- assign wk_variant = wk_product.selected_or_first_available_variant -%}{%- assign wk_selling_plan = wk_product.selling_plan_groups.first.selling_plans.first -%}{%- endif -%}
 
-  <!-- BUY BOX -->
+  <!-- BUY BOX — exact duplicate of the PDP wk-hero buy-box -->
   <style>
-    #wk-{{ section.id }}-buy .wk-ring { box-shadow:0 0 0 0 transparent; position:absolute; inset:-1.5px; border-radius:12px; pointer-events:none; transition:box-shadow .15s ease; }
+    #wk-{{ section.id }}-buy .wk-thumbs { flex:1; display:flex; gap:10px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; }
+    #wk-{{ section.id }}-buy .wk-thumbs::-webkit-scrollbar { display:none; }
+    #wk-{{ section.id }}-buy .wk-thumbs > div { flex:0 0 calc((100% - 30px) / 4); scroll-snap-align:start; }
+    #wk-{{ section.id }}-buy .wk-thumb-arrow { flex:0 0 auto; cursor:pointer; font-family:inherit; width:26px; height:26px; border-radius:50%; border:none; background:#6B3D42; color:#F5E6D8; font-size:13px; line-height:1; display:inline-flex; align-items:center; justify-content:center; }
+    @media (max-width:749px){
+      #wk-{{ section.id }}-buy .wk-buy-grid { grid-template-columns:1fr !important; gap:30px !important; padding:36px 22px !important; }
+      #wk-{{ section.id }}-buy .wk-gallery { position:static !important; top:auto !important; }
+      #wk-{{ section.id }}-buy .wk-thumbs > div { flex:0 0 calc((100% - 27px) / 3.5) !important; }
+      #wk-{{ section.id }}-buy .wk-buy-title { font-size:34px !important; }
+    }
   </style>
-  <section id="wk-{{ section.id }}-buy" data-wk-default="{{ def_supply }}" style="background:#F5E6D8;padding:80px 28px;">
-    <div style="max-width:1140px;margin:0 auto;">
-      <div style="text-align:center;margin-bottom:46px;">
-        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:38px;margin:0 0 10px;color:#6B3D42;">{{ section.settings.heading_lead }} <span style="font-style:italic;color:#C9653F;">{{ section.settings.heading_emph }}</span></h2>
-        <p style="font-size:14.5px;color:#5a4636;margin:0;">{{ section.settings.subheading }}</p>
-      </div>
-      <div style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:44px;align-items:start;">
-        <!-- gallery -->
-        <div>
-          {%- if section.settings.image -%}
-            {%- assign gsrc = section.settings.image | image_url: width: 900 -%}
-            <div style="position:relative;border-radius:16px;overflow:hidden;">
-              <img src="{{ gsrc }}" alt="{{ section.settings.image.alt | default: 'Womankind' }}" width="900" height="900" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;display:block;">
-              <span style="position:absolute;top:18px;left:18px;background:#6B3D42;color:#F5E6D8;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;padding:6px 13px;border-radius:999px;">{{ section.settings.badge }}</span>
-            </div>
-          {%- else -%}
-            <div style="aspect-ratio:1/1;background:radial-gradient(circle at 50% 45%,#D8C2BA,#C9A89F);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#6B3D42;position:relative;">
-              <span style="position:absolute;top:18px;left:18px;background:#6B3D42;color:#F5E6D8;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;padding:6px 13px;border-radius:999px;">{{ section.settings.badge }}</span>
-              <span style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;">Product · hero</span>
-              <span style="font-size:11px;opacity:0.72;">bottle render</span>
-              <span style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;opacity:0.55;">900 × 900</span>
-            </div>
-          {%- endif -%}
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px;">
-            <div style="aspect-ratio:1/1;background:#D8C2BA;border-radius:8px;border:2px solid #6B3D42;"></div>
-            <div style="aspect-ratio:1/1;background:#D8C2BA;border-radius:8px;"></div>
-            <div style="aspect-ratio:1/1;background:#D8C2BA;border-radius:8px;"></div>
-            <div style="aspect-ratio:1/1;background:#D8C2BA;border-radius:8px;"></div>
-          </div>
-        </div>
-        <!-- buy -->
-        <div>
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><span style="color:#C9653F;font-size:14px;letter-spacing:2px;">★★★★★</span><span style="font-size:13px;color:#3A2A20;">{{ section.settings.rating_text }}</span></div>
-          <h3 style="font-family:'Fraunces',serif;font-weight:400;font-size:34px;line-height:1.05;margin:0 0 14px;color:#6B3D42;">{{ section.settings.product_title }}</h3>
-          <p style="font-size:14.5px;line-height:1.6;color:#4a3a30;margin:0 0 18px;max-width:46ch;">{{ section.settings.product_desc }}</p>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;margin-bottom:26px;max-width:420px;">
-            {%- for i in (1..4) -%}
-              {%- assign ck = 'check' | append: i -%}
-              {%- assign cv = section.settings[ck] -%}
-              {%- if cv != blank -%}<div style="display:flex;align-items:center;gap:9px;font-size:13.5px;color:#3A2A20;"><span style="color:#C9653F;font-weight:700;">✓</span>{{ cv }}</div>{%- endif -%}
-            {%- endfor -%}
-          </div>
+  <section id="wk-{{ section.id }}-buy" style="background:#F5E6D8;">
+    <div class="wk-buy-grid" style="max-width:1240px;margin:0 auto;padding:64px 28px;display:grid;grid-template-columns:1.02fr 0.98fr;gap:54px;align-items:start;">
 
-          <div style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:12px;">{{ section.settings.bundle_eyebrow }}</div>
-          <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:22px;">
-            {%- for i in (1..3) -%}
-              {%- assign nk = 'bundle' | append: i | append: '_name' -%}
-              {%- assign name = section.settings[nk] -%}
-              {%- if name != blank -%}
-              {%- assign sk = 'bundle' | append: i | append: '_sub' -%}
-              {%- assign bk = 'bundle' | append: i | append: '_badge' -%}
-              {%- assign badge = section.settings[bk] -%}
-              {%- assign ii = i | minus: 1 -%}
-              {%- assign sup = supplies[ii] -%}
-              <button type="button" data-wk="supply" data-wk-val="{{ sup }}" style="position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
-                <span class="wk-ring" data-wk-ring="supply:{{ sup }}"{% if i == db %} style="box-shadow:0 0 0 2px #6B3D42;position:absolute;inset:-1.5px;border-radius:12px;pointer-events:none;"{% endif %}></span>
-                {%- if badge != blank -%}<span style="position:absolute;top:-10px;left:18px;background:{% if i == 2 %}#C9653F{% else %}#6B3D42{% endif %};color:#F5E6D8;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;padding:3px 10px;border-radius:999px;">{{ badge }}</span>{%- endif -%}
-                <span style="display:flex;align-items:center;gap:14px;"><span style="width:42px;height:42px;background:#C9A89F;border-radius:8px;flex:0 0 auto;"></span><span><span style="display:block;font-size:15px;font-weight:600;color:#6B3D42;">{{ name }}</span><span style="display:block;font-size:12px;color:#7a6258;">{{ section.settings[sk] }}</span></span></span>
-                <span style="text-align:right;flex:0 0 auto;"><span style="display:block;font-size:18px;font-weight:700;color:#C9653F;" data-wk-total="{{ sup }}">—</span><span style="display:block;font-size:11px;text-decoration:line-through;color:#A07E81;" data-wk-compare="{{ sup }}"></span><span style="display:block;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6B3D42;font-weight:600;" data-wk-save="{{ sup }}"></span></span>
-              </button>
+      <!-- GALLERY -->
+      <div class="wk-gallery" style="position:sticky;top:96px;">
+        {%- if section.settings.hero_image -%}{%- assign wk_hero_src = section.settings.hero_image | image_url: width: 1200 -%}{%- endif -%}
+        <div class="wk-hero-img" style="position:relative;aspect-ratio:1/1;border-radius:18px;overflow:hidden;background:radial-gradient(120% 92% at 50% 16%, #ECDBCC 0%, #D8BFB4 52%, #C2A099 100%);">
+          {%- if section.settings.hero_image -%}
+          <img src="{{ wk_hero_src }}" alt="{{ section.settings.hero_image.alt | default: 'Womankind Hormonal Support Gummies' }}" width="1200" height="1200" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+          {%- else -%}
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:rgba(107,61,66,0.62);text-align:center;padding:0 28px;">
+            <span style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;">Product · hero</span>
+            <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;opacity:0.7;">1200 × 1200</span>
+          </div>
+          {%- endif -%}
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:14px;">
+          <button type="button" class="wk-thumb-arrow" data-wk-thumb-prev aria-label="Previous image">&lsaquo;</button>
+          <div class="wk-thumbs" data-wk-thumb-track>
+            {%- for i in (1..5) -%}
+              {%- assign tlk = 'thumb_' | append: i | append: '_label' -%}
+              {%- assign tik = 'thumb_' | append: i | append: '_image' -%}
+              {%- assign tlabel = section.settings[tlk] -%}
+              {%- assign timg = section.settings[tik] -%}
+              {%- if timg or tlabel != blank -%}
+              <div style="aspect-ratio:1/1;background:#D8C2BA;border-radius:9px;overflow:hidden;{% if forloop.first %}border:2px solid #6B3D42;{% endif %}display:flex;align-items:center;justify-content:center;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#6B3D42;text-align:center;font-weight:600;">{%- if timg -%}{%- assign tsrc = timg | image_url: width: 240 -%}<img src="{{ tsrc }}" alt="{{ tlabel }}" width="240" height="240" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">{%- else -%}{{ tlabel }}{%- endif -%}</div>
               {%- endif -%}
             {%- endfor -%}
           </div>
-
-          <div data-wk-refill role="checkbox" aria-checked="true" tabindex="0" style="display:flex;align-items:center;gap:10px;background:#FBF1E6;border:1px solid rgba(107,61,66,0.16);border-radius:10px;padding:13px 16px;margin-bottom:18px;cursor:pointer;">
-            <span data-wk-refill-box style="width:18px;height:18px;border-radius:5px;background:#6B3D42;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;color:#E2A24C;font-size:11px;"><span data-wk-refill-check>✓</span></span>
-            <span style="font-size:13px;color:#3A2A20;">{{ section.settings.sub_text }}</span>
-          </div>
-
-          {%- if wk_product != blank -%}
-            <form method="post" action="{{ routes.cart_add_url }}" accept-charset="UTF-8" enctype="multipart/form-data">
-              <input type="hidden" name="form_type" value="product">
-              <input type="hidden" name="utf8" value="✓">
-              <input type="hidden" name="id" value="{{ wk_variant.id }}">
-              <input type="hidden" name="quantity" value="{{ def_supply }}" data-wk-qty>
-              <input type="hidden" name="selling_plan" value="{{ wk_sp.id }}" data-wk-selling-plan disabled>
-              <button type="submit"{% unless wk_variant.available %} disabled{% endunless %} style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;{% unless wk_variant.available %}opacity:0.55;cursor:not-allowed;{% endunless %}">
-                {%- if wk_variant.available -%}{{ section.settings.atc_label }} <span style="opacity:0.85;">— <span data-wk-atc-total>—</span></span>{%- else -%}Sold out{%- endif -%}
-              </button>
-            </form>
-          {%- else -%}
-            <button type="button" style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;">Select a product</button>
-          {%- endif -%}
-          <div style="display:flex;align-items:center;justify-content:center;gap:22px;margin-top:14px;font-size:12px;color:#7a6258;">
-            <span style="display:inline-flex;align-items:center;gap:7px;">⌁ {{ section.settings.note1 }}</span>
-            <span style="display:inline-flex;align-items:center;gap:7px;">♡ {{ section.settings.note2 }}</span>
-          </div>
+          <button type="button" class="wk-thumb-arrow" data-wk-thumb-next aria-label="Next image">&rsaquo;</button>
         </div>
+      </div>
+
+      <!-- BUY BOX -->
+      <div>
+        <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:14px;">{{ section.settings.eyebrow }}</div>
+        <h2 class="wk-buy-title" style="font-family:'Fraunces',serif;font-weight:400;font-size:48px;line-height:1.02;margin:0 0 14px;color:#6B3D42;letter-spacing:-0.01em;">{{ section.settings.heading }}</h2>
+
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <span style="color:#C9653F;font-size:17px;letter-spacing:2px;">★★★★★</span>
+          <span style="font-size:13.5px;color:#3A2A20;">{{ section.settings.rating_text }}</span>
+        </div>
+
+        <p style="font-size:15px;line-height:1.6;color:#4a3a30;margin:0 0 18px;max-width:30em;">{{ section.settings.description }}</p>
+
+        <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:22px;">
+          {%- for i in (1..4) -%}{%- assign bk = 'benefit_' | append: i -%}{%- assign bt = section.settings[bk] -%}{%- if bt != blank -%}<div style="display:flex;align-items:flex-start;gap:11px;font-size:14.5px;color:#3A2A20;"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span><span>{{ bt }}</span></div>{%- endif -%}{%- endfor -%}
+        </div>
+
+        <blockquote style="border-left:2px solid #C9653F;margin:0 0 24px;padding:4px 0 4px 18px;">
+          <p style="font-family:'Fraunces',serif;font-style:italic;font-size:17px;line-height:1.45;color:#6B3D42;margin:0 0 8px;">{{ section.settings.quote }}</p>
+          <cite style="font-style:normal;font-size:11.5px;letter-spacing:0.16em;text-transform:uppercase;color:#A07E81;font-weight:600;">{{ section.settings.quote_cite }}</cite>
+        </blockquote>
+
+        <!-- FLAVOR -->
+        <div style="font-size:11.5px;letter-spacing:0.22em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:10px;">{{ section.settings.flavor_label }}</div>
+        <div style="display:flex;gap:10px;margin-bottom:26px;flex-wrap:wrap;">
+          <button type="button" data-wk="flavor" data-wk-val="cranberry" style="position:relative;cursor:pointer;font-family:inherit;background:#F5E6D8;border:1.5px solid #6B3D42;color:#6B3D42;border-radius:999px;padding:9px 18px;font-size:13px;letter-spacing:0.04em;">{{ section.settings.flavor_pill }}<span data-wk-ring="flavor:cranberry" style="box-shadow:0 0 0 2px #6B3D42;position:absolute;inset:-1.5px;border-radius:999px;pointer-events:none;"></span></button>
+        </div>
+
+        <!-- SUPPLY TIERS -->
+        <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:22px;">
+          <button type="button" data-wk="supply" data-wk-val="6" style="position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
+            <span data-wk-ring="supply:6" style="box-shadow:0 0 0 0 transparent;position:absolute;inset:-1.5px;border-radius:12px;pointer-events:none;"></span>
+            <span style="position:absolute;top:-10px;left:18px;background:#6B3D42;color:#F5E6D8;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;padding:3px 10px;border-radius:999px;">{{ section.settings.tier6_badge }}</span>
+            <span><span style="display:block;font-size:15.5px;font-weight:600;color:#6B3D42;">{{ section.settings.tier6_name }}</span><span style="display:block;font-size:12.5px;color:#7a6258;margin-top:2px;">{{ section.settings.tier6_sub }}</span></span>
+            <span style="text-align:right;flex:0 0 auto;"><span style="display:flex;align-items:baseline;justify-content:flex-end;gap:7px;"><span data-wk-compare="6" style="font-size:11px;text-decoration:line-through;color:#A07E81;">$252</span><span data-wk-total="6" style="font-size:19px;font-weight:700;color:#C9653F;">$113.40</span></span><span data-wk-permo-line="6" style="display:block;font-size:12.5px;color:#7a6258;font-weight:600;margin-top:1px;"><span data-wk-permo="6">$18.90</span><span data-wk-mo style="font-size:11px;font-weight:500;">/mo</span></span><span data-wk-save="6" style="display:block;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-top:2px;">Save 55%</span></span>
+          </button>
+
+          <button type="button" data-wk="supply" data-wk-val="3" style="position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
+            <span data-wk-ring="supply:3" style="box-shadow:0 0 0 2px #6B3D42;position:absolute;inset:-1.5px;border-radius:12px;pointer-events:none;"></span>
+            <span style="position:absolute;top:-10px;left:18px;background:#C9653F;color:#F5E6D8;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;padding:3px 10px;border-radius:999px;">{{ section.settings.tier3_badge }}</span>
+            <span><span style="display:block;font-size:15.5px;font-weight:600;color:#6B3D42;">{{ section.settings.tier3_name }}</span><span style="display:block;font-size:12.5px;color:#7a6258;margin-top:2px;">{{ section.settings.tier3_sub }}</span></span>
+            <span style="text-align:right;flex:0 0 auto;"><span style="display:flex;align-items:baseline;justify-content:flex-end;gap:7px;"><span data-wk-compare="3" style="font-size:11px;text-decoration:line-through;color:#A07E81;">$126</span><span data-wk-total="3" style="font-size:19px;font-weight:700;color:#C9653F;">$66.15</span></span><span data-wk-permo-line="3" style="display:block;font-size:12.5px;color:#7a6258;font-weight:600;margin-top:1px;"><span data-wk-permo="3">$22.05</span><span data-wk-mo style="font-size:11px;font-weight:500;">/mo</span></span><span data-wk-save="3" style="display:block;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-top:2px;">Save 48%</span></span>
+          </button>
+
+          <button type="button" data-wk="supply" data-wk-val="1" style="position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
+            <span data-wk-ring="supply:1" style="box-shadow:0 0 0 0 transparent;position:absolute;inset:-1.5px;border-radius:12px;pointer-events:none;"></span>
+            <span><span style="display:block;font-size:15.5px;font-weight:600;color:#6B3D42;">{{ section.settings.tier1_name }}</span><span style="display:block;font-size:12.5px;color:#7a6258;margin-top:2px;">{{ section.settings.tier1_sub }}<span data-wk-ship1> · free shipping</span></span></span>
+            <span style="text-align:right;flex:0 0 auto;"><span style="display:flex;align-items:baseline;justify-content:flex-end;gap:7px;"><span data-wk-compare="1" style="font-size:11px;text-decoration:line-through;color:#A07E81;">$42</span><span data-wk-total="1" style="font-size:19px;font-weight:700;color:#C9653F;">$31.50</span></span><span data-wk-permo-line="1" style="display:block;font-size:12.5px;color:#7a6258;font-weight:600;margin-top:1px;"><span data-wk-permo="1">$31.50</span><span data-wk-mo style="font-size:11px;font-weight:500;">/mo</span></span><span data-wk-save="1" style="display:block;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-top:2px;">Save 25%</span></span>
+          </button>
+        </div>
+
+        <!-- AUTO REFILLS -->
+        <div data-wk-refill role="checkbox" aria-checked="true" tabindex="0" style="display:flex;align-items:center;gap:14px;border:1.5px dashed rgba(107,61,66,0.45);border-radius:12px;padding:16px 18px;cursor:pointer;margin-bottom:14px;">
+          <span data-wk-refill-box style="width:24px;height:24px;flex:0 0 auto;border:1.5px solid #6B3D42;border-radius:6px;display:flex;align-items:center;justify-content:center;background:#6B3D42;"><span data-wk-refill-check style="color:#F5E6D8;font-size:14px;font-weight:700;line-height:1;display:block;">&check;</span></span>
+          <span style="flex:1;"><span style="display:block;font-size:15px;font-weight:700;color:#6B3D42;">{{ section.settings.refill_title }}</span><span style="display:block;font-size:12.5px;color:#7a6258;margin-top:2px;">{{ section.settings.refill_subtitle }}</span></span>
+        </div>
+
+        <!-- ADD TO CART -->
+        {%- if wk_product != blank -%}
+          <form method="post" action="{{ routes.cart_add_url }}" accept-charset="UTF-8" enctype="multipart/form-data" data-wk-form>
+            <input type="hidden" name="form_type" value="product">
+            <input type="hidden" name="utf8" value="✓">
+            <input type="hidden" name="id" value="{{ wk_variant.id }}">
+            <input type="hidden" name="quantity" value="3" data-wk-qty>
+            <input type="hidden" name="selling_plan" value="{{ wk_selling_plan.id }}" data-wk-selling-plan disabled>
+            <button type="submit"{% unless wk_variant.available %} disabled{% endunless %} style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;{% unless wk_variant.available %}opacity:0.55;cursor:not-allowed;{% endunless %}">
+              {%- if wk_variant.available -%}
+                {{ section.settings.atc_label }} <span style="opacity:0.85;">— <span data-wk-atc-total>{{ wk_variant.price | times: 3 | money }}</span></span>
+              {%- else -%}
+                Sold out
+              {%- endif -%}
+            </button>
+          </form>
+        {%- else -%}
+          <button type="button" style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;">Select a product</button>
+        {%- endif -%}
+        <div style="display:flex;align-items:center;justify-content:center;gap:11px;margin:16px 0 0;">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:1.5px solid #C9653F;color:#C9653F;font-size:11px;font-weight:700;flex:0 0 auto;line-height:1;">{{ section.settings.guarantee_badge }}</span>
+          <span style="font-size:12.5px;color:#6B3D42;font-weight:600;letter-spacing:0.02em;">{{ section.settings.guarantee_text }}</span>
+        </div>
+        <p style="text-align:center;font-size:12px;color:#7a6258;margin:11px 0 0;letter-spacing:0.04em;">{{ section.settings.fineprint }}</p>
       </div>
     </div>
   </section>
 
   <script>
     (function(){
-      var root = document.getElementById('wk-{{ section.id }}-buy');
-      if (!root || root.dataset.wkInit) return;
-      root.dataset.wkInit = '1';
-      var RING = '0 0 0 2px #6B3D42', NONE = '0 0 0 0 transparent';
-      var BOTTLE = {{ wk_variant.price | default: 4200 }};
-      var SELLING_PLAN = {{ wk_sp.id | default: 'null' }};
-      var TIERS = { '1': { m:1, off:0 }, '3': { m:3, off:0.30 }, '6': { m:6, off:0.40 } };
-      var SUB_OFF = 0.25;
-      var state = { supply: root.getAttribute('data-wk-default') || '3' };
-      var refillEl = root.querySelector('[data-wk-refill]');
-
-      function money(c){ return '$' + (c/100).toFixed(2).replace(/\.00$/, ''); }
-      function refillOn(){ return !!(refillEl && refillEl.getAttribute('aria-checked') === 'true'); }
-      function quote(tier, on){
-        var t = TIERS[tier], full = BOTTLE * t.m;
-        var afterTier = Math.round(full * (1 - t.off));
-        var total = on ? Math.round(afterTier * (1 - SUB_OFF)) : afterTier;
-        return { full: full, total: total, save: Math.round((1 - total/full) * 100) };
-      }
-      function applyRing(){
-        root.querySelectorAll('[data-wk-ring]').forEach(function(el){
-          var v = el.getAttribute('data-wk-ring').split(':')[1];
-          el.style.cssText = 'position:absolute;inset:-1.5px;border-radius:12px;pointer-events:none;transition:box-shadow .15s ease;box-shadow:' + (v === state.supply ? RING : NONE) + ';';
-        });
-      }
-      function applyPricing(){
-        var on = refillOn();
-        ['1','3','6'].forEach(function(k){
-          var q = quote(k, on);
-          root.querySelectorAll('[data-wk-total="'+k+'"]').forEach(function(e){ e.textContent = money(q.total); });
-          root.querySelectorAll('[data-wk-compare="'+k+'"]').forEach(function(e){ e.textContent = money(q.full); e.style.visibility = q.save > 0 ? 'visible' : 'hidden'; });
-          root.querySelectorAll('[data-wk-save="'+k+'"]').forEach(function(e){ e.textContent = 'Save ' + q.save + '%'; e.style.visibility = q.save > 0 ? 'visible' : 'hidden'; });
-        });
-        root.querySelectorAll('[data-wk-atc-total]').forEach(function(e){ e.textContent = money(quote(state.supply, on).total); });
-      }
-      function applyCart(){
-        var sub = refillOn() && SELLING_PLAN;
-        root.querySelectorAll('[data-wk-qty]').forEach(function(i){ i.value = state.supply; });
-        root.querySelectorAll('[data-wk-selling-plan]').forEach(function(i){ i.disabled = !sub; });
-      }
-      function applyAll(){ applyRing(); applyCart(); applyPricing(); }
-
-      root.querySelectorAll('[data-wk="supply"]').forEach(function(el){
-        el.addEventListener('click', function(){ state.supply = el.getAttribute('data-wk-val'); applyAll(); });
-      });
-      if (refillEl){
-        function toggle(){
-          var on = !refillOn();
-          refillEl.setAttribute('aria-checked', on ? 'true' : 'false');
-          var box = refillEl.querySelector('[data-wk-refill-box]');
-          var check = refillEl.querySelector('[data-wk-refill-check]');
-          if (box) box.style.background = on ? '#6B3D42' : 'transparent';
-          if (box) box.style.border = on ? 'none' : '1.5px solid #6B3D42';
-          if (check) check.style.visibility = on ? 'visible' : 'hidden';
-          applyCart(); applyPricing();
+      function init(){
+        var root = document.getElementById('wk-{{ section.id }}-buy');
+        if (!root || root.dataset.wkBuyInit) return;
+        root.dataset.wkBuyInit = '1';
+        var RING = '0 0 0 2px #6B3D42', NONE = '0 0 0 0 transparent';
+        var state = { flavor:'cranberry', supply:'3' };
+        function applySelection(group){
+          var val = state[group];
+          root.querySelectorAll('[data-wk-ring]').forEach(function(el){
+            var parts = el.getAttribute('data-wk-ring').split(':');
+            if (parts[0] !== group) return;
+            el.style.boxShadow = (parts[1] === val) ? RING : NONE;
+          });
         }
-        refillEl.addEventListener('click', toggle);
-        refillEl.addEventListener('keydown', function(e){ if (e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); toggle(); } });
+        var BOTTLE = {{ wk_variant.price | default: 4200 }};
+        var SELLING_PLAN = {{ wk_selling_plan.id | default: 'null' }};
+        var TIERS = { '1': { m:1, off:0 }, '3': { m:3, off:0.30 }, '6': { m:6, off:0.40 } };
+        var SUB_OFF = 0.25;
+        var wkRefillEl = root.querySelector('[data-wk-refill]');
+        function wkMoney(c){ return '$' + (c/100).toFixed(2).replace(/\.00$/, ''); }
+        function refillIsOn(){ return !!(wkRefillEl && wkRefillEl.getAttribute('aria-checked') === 'true'); }
+        function wkQuote(tier, on){
+          var t = TIERS[tier], full = BOTTLE * t.m;
+          var afterTier = Math.round(full * (1 - t.off));
+          var total = on ? Math.round(afterTier * (1 - SUB_OFF)) : afterTier;
+          return { full: full, total: total, perMo: Math.round(total / t.m), save: Math.round((1 - total/full) * 100) };
+        }
+        function applyPricing(){
+          var on = refillIsOn();
+          ['1','3','6'].forEach(function(k){
+            var q = wkQuote(k, on);
+            root.querySelectorAll('[data-wk-total="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.total); });
+            root.querySelectorAll('[data-wk-permo="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.perMo); });
+            root.querySelectorAll('[data-wk-permo-line="'+k+'"]').forEach(function(e){ e.style.display = on ? '' : 'none'; });
+            root.querySelectorAll('[data-wk-compare="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.full); e.style.visibility = q.save > 0 ? 'visible' : 'hidden'; });
+            root.querySelectorAll('[data-wk-save="'+k+'"]').forEach(function(e){ e.textContent = 'Save ' + q.save + '%'; e.style.visibility = q.save > 0 ? 'visible' : 'hidden'; });
+          });
+          root.querySelectorAll('[data-wk-atc-total]').forEach(function(e){ e.textContent = wkMoney(wkQuote(state.supply, on).total); });
+          root.querySelectorAll('[data-wk-ship1]').forEach(function(e){ e.style.display = on ? '' : 'none'; });
+        }
+        function applyCart(){
+          var sub = refillIsOn() && SELLING_PLAN;
+          root.querySelectorAll('[data-wk-qty]').forEach(function(i){ i.value = state.supply; });
+          root.querySelectorAll('[data-wk-selling-plan]').forEach(function(i){ i.disabled = !sub; });
+        }
+        function applySupply(){ applyCart(); applyPricing(); }
+        root.querySelectorAll('[data-wk]').forEach(function(el){
+          el.addEventListener('click', function(){
+            var g = el.getAttribute('data-wk');
+            state[g] = el.getAttribute('data-wk-val');
+            applySelection(g);
+            if (g === 'supply') applySupply();
+          });
+        });
+        applySelection('flavor'); applySelection('supply'); applySupply();
+        if (wkRefillEl){
+          var box = wkRefillEl.querySelector('[data-wk-refill-box]');
+          var chk = wkRefillEl.querySelector('[data-wk-refill-check]');
+          function toggleRefill(){
+            var on = wkRefillEl.getAttribute('aria-checked') === 'true';
+            wkRefillEl.setAttribute('aria-checked', on ? 'false' : 'true');
+            if (box) box.style.background = on ? 'transparent' : '#6B3D42';
+            if (chk) chk.style.display = on ? 'none' : 'block';
+            applyPricing(); applyCart();
+          }
+          wkRefillEl.addEventListener('click', toggleRefill);
+          wkRefillEl.addEventListener('keydown', function(e){ if (e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); toggleRefill(); } });
+        }
+        var thumbTrack = root.querySelector('[data-wk-thumb-track]');
+        if (thumbTrack){
+          var tp = root.querySelector('[data-wk-thumb-prev]'), tn = root.querySelector('[data-wk-thumb-next]');
+          function tstep(){ var c = thumbTrack.querySelector('div'); return c ? c.getBoundingClientRect().width + 10 : thumbTrack.clientWidth; }
+          if (tp) tp.addEventListener('click', function(){ thumbTrack.scrollBy({ left: -tstep()*2, behavior:'smooth' }); });
+          if (tn) tn.addEventListener('click', function(){ thumbTrack.scrollBy({ left: tstep()*2, behavior:'smooth' }); });
+        }
       }
-      applyAll();
+      if (document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', init); } else { init(); }
     })();
   </script>
 
@@ -170,36 +217,51 @@
 {
   "name": "Home · Buy box",
   "settings": [
-    { "type": "product", "id": "product", "label": "Product", "info": "Set this to the gummies product to enable real add-to-cart + live pricing." },
-    { "type": "text", "id": "heading_lead", "label": "Heading", "default": "Your balance" },
-    { "type": "text", "id": "heading_emph", "label": "Heading (italic)", "default": "starts here" },
-    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Choose the package that fits your goals and save on every bottle." },
-    { "type": "image_picker", "id": "image", "label": "Product image" },
-    { "type": "text", "id": "badge", "label": "Image badge", "default": "Top-rated women's formula" },
-    { "type": "text", "id": "rating_text", "label": "Rating text", "default": "Rated 4.8 \"Excellent\" · 1,200+ reviews" },
-    { "type": "text", "id": "product_title", "label": "Product title", "default": "hormonal support gummies" },
-    { "type": "textarea", "id": "product_desc", "label": "Product description", "default": "Daily multi-symptom support for perimenopause and beyond — for steadier mood, calmer digestion, and renewed balance.*" },
-    { "type": "text", "id": "check1", "label": "Check 1", "default": "Mood & calm support" },
-    { "type": "text", "id": "check2", "label": "Check 2", "default": "Eases hot flashes" },
-    { "type": "text", "id": "check3", "label": "Check 3", "default": "Gut–hormone support" },
-    { "type": "text", "id": "check4", "label": "Check 4", "default": "Hormone & sugar-free" },
-    { "type": "header", "content": "Bundles", "info": "Prices are computed live from the product's variant price (6-month = 40% off, 3-month = 30% off, subscribe = extra 25%), matching the PDP. 1 / 3 / 6 = bottle quantity added to cart." },
-    { "type": "text", "id": "bundle_eyebrow", "label": "Eyebrow", "default": "Bundle & save" },
-    { "type": "range", "id": "default_bundle", "label": "Default selected", "min": 1, "max": 3, "step": 1, "default": 2 },
-    { "type": "text", "id": "bundle1_name", "label": "B1 name", "default": "1-month supply" },
-    { "type": "text", "id": "bundle1_sub", "label": "B1 sub", "default": "1 bottle · 30 servings" },
-    { "type": "text", "id": "bundle1_badge", "label": "B1 badge" },
-    { "type": "text", "id": "bundle2_name", "label": "B2 name", "default": "3-month supply" },
-    { "type": "text", "id": "bundle2_sub", "label": "B2 sub", "default": "3 bottles · backed by 90-day guarantee" },
-    { "type": "text", "id": "bundle2_badge", "label": "B2 badge", "default": "Most popular" },
-    { "type": "text", "id": "bundle3_name", "label": "B3 name", "default": "6-month supply" },
-    { "type": "text", "id": "bundle3_sub", "label": "B3 sub", "default": "6 bottles · free shipping" },
-    { "type": "text", "id": "bundle3_badge", "label": "B3 badge", "default": "Best value" },
-    { "type": "header", "content": "Checkout" },
-    { "type": "text", "id": "sub_text", "label": "Subscribe text", "default": "Subscribe & save 25% — pause, skip or cancel anytime" },
-    { "type": "text", "id": "atc_label", "label": "Button label", "default": "Add to bag" },
-    { "type": "text", "id": "note1", "label": "Note 1", "default": "Free shipping" },
-    { "type": "text", "id": "note2", "label": "Note 2", "default": "90-day guarantee" }
+    { "type": "product", "id": "product", "label": "Product", "info": "Select the gummies product. Required for add-to-cart and pricing." },
+    { "type": "header", "content": "Gallery" },
+    { "type": "image_picker", "id": "hero_image", "label": "Main image", "info": "Shows a placeholder if empty." },
+    { "type": "image_picker", "id": "thumb_1_image", "label": "Thumbnail 1 image" },
+    { "type": "text", "id": "thumb_1_label", "label": "Thumbnail 1 label", "default": "Front" },
+    { "type": "image_picker", "id": "thumb_2_image", "label": "Thumbnail 2 image" },
+    { "type": "text", "id": "thumb_2_label", "label": "Thumbnail 2 label", "default": "Detail" },
+    { "type": "image_picker", "id": "thumb_3_image", "label": "Thumbnail 3 image" },
+    { "type": "text", "id": "thumb_3_label", "label": "Thumbnail 3 label", "default": "Formula" },
+    { "type": "image_picker", "id": "thumb_4_image", "label": "Thumbnail 4 image" },
+    { "type": "text", "id": "thumb_4_label", "label": "Thumbnail 4 label", "default": "In hand" },
+    { "type": "image_picker", "id": "thumb_5_image", "label": "Thumbnail 5 image" },
+    { "type": "text", "id": "thumb_5_label", "label": "Thumbnail 5 label", "default": "Video" },
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Daily · for perimenopause & beyond" },
+    { "type": "text", "id": "heading", "label": "Title", "default": "hormonal support gummies" },
+    { "type": "text", "id": "rating_text", "label": "Rating text", "default": "4.8 · 1,200+ reviews" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "A daily multi-symptom gummy for the four things that shift first — made with clinically-backed ingredients and a probiotic blend for the estrobolome. No hormones, no sugar." },
+    { "type": "header", "content": "Benefit checklist" },
+    { "type": "inline_richtext", "id": "benefit_1", "label": "Benefit 1", "default": "Eases hot flashes & night sweats*" },
+    { "type": "inline_richtext", "id": "benefit_2", "label": "Benefit 2", "default": "Steadies mood & the stress response*" },
+    { "type": "inline_richtext", "id": "benefit_3", "label": "Benefit 3", "default": "Calms bloating & supports the gut*" },
+    { "type": "inline_richtext", "id": "benefit_4", "label": "Benefit 4", "default": "Supports hormonal balance through the transition*" },
+    { "type": "header", "content": "Pull quote" },
+    { "type": "inline_richtext", "id": "quote", "label": "Quote", "default": "\"Three weeks in and the 2am wake-ups have eased. I finally feel like myself in my own body again.\"" },
+    { "type": "text", "id": "quote_cite", "label": "Attribution", "default": "— Margaret R., 47 · Verified, 3+ months" },
+    { "type": "header", "content": "Flavor" },
+    { "type": "text", "id": "flavor_label", "label": "Section label", "default": "Flavor" },
+    { "type": "text", "id": "flavor_pill", "label": "Flavor pill", "default": "Deep-red cranberry" },
+    { "type": "header", "content": "Supply tiers (prices are auto-calculated)" },
+    { "type": "text", "id": "tier6_badge", "label": "6-tier badge", "default": "Best value" },
+    { "type": "text", "id": "tier6_name", "label": "6-tier name", "default": "6-month supply" },
+    { "type": "text", "id": "tier6_sub", "label": "6-tier sub", "default": "6 bottles · 180 servings · free shipping" },
+    { "type": "text", "id": "tier3_badge", "label": "3-tier badge", "default": "Most popular" },
+    { "type": "text", "id": "tier3_name", "label": "3-tier name", "default": "3-month supply" },
+    { "type": "text", "id": "tier3_sub", "label": "3-tier sub", "default": "3 bottles · 90 servings · free shipping" },
+    { "type": "text", "id": "tier1_name", "label": "1-tier name", "default": "1-month supply" },
+    { "type": "text", "id": "tier1_sub", "label": "1-tier sub", "default": "1 bottle · 30 servings", "info": "'· free shipping' is appended automatically only when refills are on." },
+    { "type": "header", "content": "Auto-refill + checkout" },
+    { "type": "text", "id": "refill_title", "label": "Refill title", "default": "Save 25% with automatic refills" },
+    { "type": "text", "id": "refill_subtitle", "label": "Refill subtitle", "default": "Zero commitment — pause, skip, or cancel anytime" },
+    { "type": "text", "id": "atc_label", "label": "Add-to-bag label", "default": "Add to bag" },
+    { "type": "text", "id": "guarantee_badge", "label": "Guarantee badge", "default": "90" },
+    { "type": "text", "id": "guarantee_text", "label": "Guarantee text", "default": "Try it for a full 90 days — love it or your money back" },
+    { "type": "text", "id": "fineprint", "label": "Fine print", "default": "Pause, skip, or cancel anytime" }
   ]
 }
 {% endschema %}
