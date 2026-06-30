@@ -30,7 +30,7 @@
         {%- endfor -%}
         <div class="wk-hero-img" style="position:relative;aspect-ratio:1/1;border-radius:18px;overflow:hidden;background:radial-gradient(120% 92% at 50% 16%, #ECDBCC 0%, #D8BFB4 52%, #C2A099 100%);">
           <img data-wk-hero-img src="{{ wk_first_full }}" alt="{{ wk_first_alt }}" width="1200" height="1200" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
-          {% render 'wk-clinicians-badge', text: section.settings.badge, image: section.settings.badge_image %}
+          <span data-wk-badge>{% render 'wk-clinicians-badge', text: section.settings.badge, image: section.settings.badge_image %}</span>
         </div>
         <div style="display:flex;align-items:center;gap:10px;margin-top:14px;">
           <button type="button" class="wk-thumb-arrow" data-wk-thumb-prev aria-label="Previous image">&lsaquo;</button>
@@ -205,13 +205,15 @@
           if (tn) tn.addEventListener('click', function(){ thumbTrack.scrollBy({ left: tstep()*2, behavior:'smooth' }); });
         }
         var heroImg = root.querySelector('[data-wk-hero-img]');
+        var badge = root.querySelector('[data-wk-badge]');
         var thumbs = root.querySelectorAll('[data-wk-thumb]');
-        thumbs.forEach(function(btn){
+        thumbs.forEach(function(btn, idx){
           btn.addEventListener('click', function(){
             var full = btn.getAttribute('data-wk-full');
             if (heroImg && full){ heroImg.src = full; }
             thumbs.forEach(function(b){ b.style.borderColor = 'transparent'; });
             btn.style.borderColor = '#6B3D42';
+            if (badge){ badge.style.display = (idx === 0) ? '' : 'none'; }
           });
         });
       }
