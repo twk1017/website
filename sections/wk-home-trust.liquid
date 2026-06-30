@@ -9,11 +9,11 @@
     @media (prefers-reduced-motion: reduce){ #wk-{{ section.id }}-trust .wk-trust-track { animation:none; } }
   </style>
   <section id="wk-{{ section.id }}-trust">
-    <div class="wk-trust-track" style="animation-duration:{{ section.settings.speed | default: 30 }}s;">
+    <div class="wk-trust-track" style="animation-duration:{{ section.settings.speed | default: 48 }}s;">
       {%- comment -%} two identical halves (for the -50% loop), each repeated enough to exceed any viewport width {%- endcomment -%}
       {%- for pass in (1..2) -%}
         {%- for rep in (1..4) -%}
-          {%- for i in (1..4) -%}
+          {%- for i in (1..7) -%}
             {%- assign tk = 'item' | append: i -%}
             {%- assign tv = section.settings[tk] -%}
             {%- if tv != blank -%}
@@ -29,11 +29,14 @@
 {
   "name": "Home · Trust strip",
   "settings": [
-    { "type": "range", "id": "speed", "label": "Scroll speed (seconds per loop)", "min": 10, "max": 60, "step": 2, "default": 30, "info": "Higher = slower." },
+    { "type": "range", "id": "speed", "label": "Scroll speed (seconds per loop)", "min": 10, "max": 80, "step": 2, "default": 48, "info": "Higher = slower." },
     { "type": "text", "id": "item1", "label": "Item 1", "default": "Gut–hormone delivery" },
     { "type": "text", "id": "item2", "label": "Item 2", "default": "Third-party tested" },
     { "type": "text", "id": "item3", "label": "Item 3", "default": "GMP & non-GMO" },
-    { "type": "text", "id": "item4", "label": "Item 4", "default": "No fillers or sugar" }
+    { "type": "text", "id": "item4", "label": "Item 4", "default": "No fillers or sugar" },
+    { "type": "text", "id": "item5", "label": "Item 5", "default": "Save 33% with a 3-month supply" },
+    { "type": "text", "id": "item6", "label": "Item 6", "default": "Clinically-backed ingredients" },
+    { "type": "text", "id": "item7", "label": "Item 7", "default": "Free carbon-neutral shipping on all subscriptions" }
   ]
 }
 {% endschema %}
