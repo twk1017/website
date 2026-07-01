@@ -26,11 +26,6 @@
           {%- endif -%}
         {%- endfor -%}
       </div>
-
-      <div style="text-align:center;margin-top:44px;">
-        <p style="font-size:14px;color:#7a6258;margin:0 0 20px;">{{ section.settings.footer_text }}</p>
-        <a href="{{ section.settings.cta_link | default: '#' }}" style="display:inline-block;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:15px 36px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.cta_label }}</a>
-      </div>
     </div>
   </section>
 
@@ -67,11 +62,7 @@
     { "type": "inline_richtext", "id": "a8", "label": "Answer", "default": "It's the community of gut bacteria that helps metabolise estrogen. When it falls out of balance — as it often does in the transition — recirculating estrogen can swing, feeding bloating, mood shifts, and disrupted sleep. Our probiotic blend supports that gut–hormone conversation, so the rest of the formula has steadier ground to work on.*" },
     { "type": "header", "content": "Q9" },
     { "type": "text", "id": "q9", "label": "Question", "default": "How does the subscription work, and what if it's not for me?" },
-    { "type": "inline_richtext", "id": "a9", "label": "Answer", "default": "Your subscription ships free on your chosen cadence, and you can pause, skip, or cancel anytime from your account — no emails, no hoops. And because the formula needs a full transition cycle to show what it can do, every order is backed by our 90-day money-back guarantee: take the whole three months, and if it isn't right for you, reach out for a full refund — no need to return the bottles." },
-    { "type": "header", "content": "Footer" },
-    { "type": "text", "id": "footer_text", "label": "Footer text", "default": "Still wondering about something?" },
-    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Ask our team" },
-    { "type": "url", "id": "cta_link", "label": "Button link" }
+    { "type": "inline_richtext", "id": "a9", "label": "Answer", "default": "Your subscription ships free on your chosen cadence, and you can pause, skip, or cancel anytime from your account — no emails, no hoops. And because the formula needs a full transition cycle to show what it can do, every order is backed by our 90-day money-back guarantee: take the whole three months, and if it isn't right for you, reach out for a full refund — no need to return the bottles." }
   ]
 }
 {% endschema %}
