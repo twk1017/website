@@ -1,0 +1,740 @@
+{%- comment -%}
+  Womankind — long-form advertorial page (focus: hot flashes & night sweats).
+  Ported from the Claude Design standalone export; copy rewritten as a hot-flash advertorial.
+  All narrative copy is theme-editable via schema settings (defaults preserve the written copy).
+  Self-contained: brand fonts via wk-fonts, scoped reset under #wk-{{ section.id }}, minimal
+  'womankind' layout. The offer buy-box is a real add-to-cart form wired to the Product setting.
+{%- endcomment -%}
+{%- assign wk_product = section.settings.product -%}
+{%- if wk_product != blank -%}{%- assign wk_variant = wk_product.selected_or_first_available_variant -%}{%- assign wk_selling_plan = wk_product.selling_plan_groups.first.selling_plans.first -%}{%- endif -%}
+{%- assign wk_star = '<span style="color:#C9653F;">*</span>' -%}
+
+{% render 'wk-fonts' %}
+
+<style>
+  #wk-{{ section.id }} * { box-sizing:border-box; }
+  #wk-{{ section.id }} { background:#F5E6D8; color:#3A2A20; font-family:'Hanken Grotesk',sans-serif; overflow-x:clip; }
+  #wk-{{ section.id }} ::selection { background:#C9653F; color:#F5E6D8; }
+  #wk-{{ section.id }} img { max-width:100%; display:block; }
+  #wk-{{ section.id }} .adv-ph { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:#6B3D42; text-align:center; }
+  #wk-{{ section.id }} [data-adv-faq-panel] { display:none; }
+  #wk-{{ section.id }} [data-adv-faq-panel].is-open { display:block; }
+
+  @media (max-width:749px){
+    #wk-{{ section.id }} .adv-h1 { font-size:33px !important; }
+    #wk-{{ section.id }} .adv-h2 { font-size:29px !important; }
+    #wk-{{ section.id }} .adv-grid3 { grid-template-columns:1fr !important; }
+    #wk-{{ section.id }} .adv-grid4 { grid-template-columns:1fr 1fr !important; }
+    #wk-{{ section.id }} .adv-prob { grid-template-columns:1fr !important; }
+    #wk-{{ section.id }} .adv-prob .adv-prob-img { min-height:200px !important; }
+    #wk-{{ section.id }} .adv-offer { grid-template-columns:1fr !important; }
+    #wk-{{ section.id }} .adv-sec { padding-left:20px !important; padding-right:20px !important; }
+    #wk-{{ section.id }} .adv-lede { font-size:17px !important; }
+  }
+</style>
+
+<div id="wk-{{ section.id }}">
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div style="background:#3A2A20;color:#F5E6D8;text-align:center;padding:9px 16px;font-size:12.5px;letter-spacing:0.06em;font-weight:500;display:flex;align-items:center;justify-content:center;gap:26px;flex-wrap:wrap;">
+    <span>{{ section.settings.bar_1 }}</span>
+    <span style="opacity:0.4;">·</span>
+    <span>{{ section.settings.bar_2 }}</span>
+    <span style="opacity:0.4;">·</span>
+    <span>{{ section.settings.bar_3 }}</span>
+  </div>
+
+  <!-- HEADER -->
+  <header style="position:sticky;top:0;z-index:40;background:#6B3D42;color:#F5E6D8;">
+    <div style="max-width:1240px;margin:0 auto;padding:0 28px;height:70px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <span style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,230,216,0.7);font-weight:600;flex:1;">{{ section.settings.kicker }}</span>
+      <a href="#offer" style="font-family:'Cormorant Garamond',serif;font-size:33px;line-height:1;color:#F5E6D8;text-decoration:none;letter-spacing:0.01em;flex:0 0 auto;">womankind</a>
+      <div style="flex:1;display:flex;justify-content:flex-end;">
+        <a href="#offer" style="background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:11px 26px;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.header_cta }}</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ARTICLE HERO -->
+  <article style="background:#F5E6D8;">
+    <div class="adv-sec" style="max-width:760px;margin:0 auto;padding:56px 28px 0;">
+      <div style="font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9653F;font-weight:700;margin-bottom:18px;">{{ section.settings.hero_eyebrow }}</div>
+      <h1 class="adv-h1" style="font-family:'Fraunces',serif;font-weight:400;font-size:46px;line-height:1.08;letter-spacing:-0.01em;margin:0 0 24px;color:#6B3D42;">{{ section.settings.hero_h1_lead }} <span style="font-style:italic;color:#C9653F;">{{ section.settings.hero_h1_accent }}</span> {{ section.settings.hero_h1_tail }}</h1>
+
+      <!-- byline -->
+      <div style="display:flex;align-items:center;gap:16px;padding:20px 0;border-top:1px solid rgba(107,61,66,0.18);border-bottom:1px solid rgba(107,61,66,0.18);">
+        <div style="width:52px;height:52px;border-radius:50%;overflow:hidden;background:#C9A89F;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:8px;letter-spacing:0.1em;text-transform:uppercase;color:#6B3D42;">{%- if section.settings.byline_image -%}<img src="{{ section.settings.byline_image | image_url: width: 120 }}" alt="{{ section.settings.byline_name }}" width="52" height="52" style="width:100%;height:100%;object-fit:cover;">{%- else -%}photo{%- endif -%}</div>
+        <div style="flex:1;">
+          <div style="font-family:'Fraunces',serif;font-size:16px;color:#6B3D42;">{{ section.settings.byline_name }}</div>
+          <div style="font-size:12.5px;color:#7a6258;">{{ section.settings.byline_sub }}</div>
+        </div>
+        <div style="font-size:12.5px;color:#7a6258;letter-spacing:0.04em;flex:0 0 auto;">{{ section.settings.read_time }}</div>
+      </div>
+    </div>
+
+    <!-- hero image -->
+    <div class="adv-sec" style="max-width:1000px;margin:34px auto 0;padding:0 28px;">
+      <div style="aspect-ratio:16/9;background:linear-gradient(150deg,#D8C2BA,#C9A89F);border-radius:16px;overflow:hidden;">
+        {%- if section.settings.hero_image -%}
+          <img src="{{ section.settings.hero_image | image_url: width: 1600 }}" alt="{{ section.settings.hero_image.alt | default: 'Womankind' }}" width="1600" height="900" loading="eager" style="width:100%;height:100%;object-fit:cover;">
+        {%- else -%}
+          <div class="adv-ph" style="height:100%;"><span style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;">Editorial · lead image</span><span style="font-size:11px;opacity:0.72;">woman, mid-40s · cool morning light</span><span style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;opacity:0.55;">1600 × 900</span></div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <!-- LEDE -->
+    <div class="adv-sec" style="max-width:720px;margin:0 auto;padding:44px 28px 0;">
+      <p class="adv-lede" style="font-size:19px;line-height:1.7;color:#3A2A20;margin:0 0 22px;font-weight:500;">{{ section.settings.hero_p1 }}</p>
+      <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.hero_p2 }}</p>
+      <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 28px;">{{ section.settings.hero_p3 }}{{ wk_star }}</p>
+      <a href="#offer" style="display:inline-flex;align-items:center;gap:10px;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:16px 38px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.hero_cta }}</a>
+    </div>
+  </article>
+
+  <!-- WHY IT FAILED -->
+  <section class="adv-sec" style="background:#EFDFD0;padding:74px 28px;margin-top:64px;">
+    <div style="max-width:900px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:12px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9653F;font-weight:700;">{{ section.settings.fail_eyebrow }}</div>
+      <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:36px;text-align:center;margin:0 auto 18px;color:#6B3D42;max-width:16ch;">{{ section.settings.fail_heading }}</h2>
+      <p style="max-width:640px;margin:0 auto 52px;text-align:center;font-size:16px;line-height:1.7;color:#5a4636;">{{ section.settings.fail_intro }}</p>
+
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        {%- for i in (1..4) -%}
+          {%- assign pe = 'prob' | append: i | append: '_eyebrow' -%}
+          {%- assign pt = 'prob' | append: i | append: '_title' -%}
+          {%- assign pb = 'prob' | append: i | append: '_body' -%}
+          {%- assign pim = 'prob' | append: i | append: '_image' -%}
+          {%- assign pbh = 'prob' | append: i | append: '_hint' -%}
+          {%- assign p_img = section.settings[pim] -%}
+          {%- assign img_left = false -%}{%- if i == 1 or i == 3 -%}{%- assign img_left = true -%}{%- endif -%}
+          {%- if img_left -%}{%- assign cols = '0.9fr 1.1fr' -%}{%- else -%}{%- assign cols = '1.1fr 0.9fr' -%}{%- endif -%}
+          {%- capture img_cell -%}<div class="adv-prob-img" style="background:#C9A89F;min-height:230px;overflow:hidden;">{%- if p_img -%}<img src="{{ p_img | image_url: width: 700 }}" alt="" width="700" height="500" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- else -%}<div class="adv-ph" style="height:100%;min-height:230px;"><span style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;">Image</span><span style="font-size:10px;opacity:0.7;">{{ section.settings[pbh] }}</span></div>{%- endif -%}</div>{%- endcapture -%}
+          {%- capture txt_cell -%}<div style="padding:34px;"><div style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#C9653F;font-weight:700;margin-bottom:10px;">{{ section.settings[pe] }}</div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:22px;line-height:1.2;margin:0 0 12px;color:#6B3D42;">{{ section.settings[pt] }}</h3><p style="font-size:15px;line-height:1.65;color:#4a3a30;margin:0;">{{ section.settings[pb] }}</p></div>{%- endcapture -%}
+          <div class="adv-prob" style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:16px;overflow:hidden;display:grid;grid-template-columns:{{ cols }};">
+            {%- if img_left -%}{{ img_cell }}{{ txt_cell }}{%- else -%}{{ txt_cell }}{{ img_cell }}{%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section class="adv-sec" style="background:#F5E6D8;padding:74px 28px;">
+    <div style="max-width:1140px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:12px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9653F;font-weight:700;">{{ section.settings.comp_eyebrow }}</div>
+      <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:36px;text-align:center;margin:0 auto 16px;color:#6B3D42;max-width:22ch;">{{ section.settings.comp_heading }}</h2>
+      <p style="max-width:620px;margin:0 auto 48px;text-align:center;font-size:16px;line-height:1.7;color:#5a4636;">{{ section.settings.comp_intro }}</p>
+
+      <div style="overflow-x:auto;">
+        <div style="min-width:820px;display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr 1.1fr;background:#FBF1E6;border:1px solid rgba(107,61,66,0.16);border-radius:16px;overflow:hidden;">
+          <div style="background:#3A2A20;color:rgba(245,230,216,0.65);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;padding:18px;"></div>
+          <div style="background:#3A2A20;color:#F5E6D8;font-family:'Fraunces',serif;font-size:15px;padding:18px;border-left:1px solid rgba(245,230,216,0.12);">{{ section.settings.comp_col1 }}</div>
+          <div style="background:#3A2A20;color:#F5E6D8;font-family:'Fraunces',serif;font-size:15px;padding:18px;border-left:1px solid rgba(245,230,216,0.12);">{{ section.settings.comp_col2 }}</div>
+          <div style="background:#3A2A20;color:#F5E6D8;font-family:'Fraunces',serif;font-size:15px;padding:18px;border-left:1px solid rgba(245,230,216,0.12);">{{ section.settings.comp_col3 }}</div>
+          <div style="background:#6B3D42;color:#E2A24C;font-family:'Cormorant Garamond',serif;font-size:24px;padding:16px 18px;border-left:1px solid rgba(245,230,216,0.12);display:flex;align-items:center;">womankind</div>
+
+          {%- for r in (1..4) -%}
+            {%- assign lblk = 'comp_row' | append: r | append: '_label' -%}
+            {%- assign c1k = 'comp_row' | append: r | append: '_c1' -%}
+            {%- assign c2k = 'comp_row' | append: r | append: '_c2' -%}
+            {%- assign c3k = 'comp_row' | append: r | append: '_c3' -%}
+            {%- assign wink = 'comp_row' | append: r | append: '_win' -%}
+            {%- if forloop.last -%}{%- assign tick = '<span style="color:#C9653F;font-weight:700;">✓</span> ' -%}{%- else -%}{%- assign tick = '' -%}{%- endif -%}
+            <div style="padding:18px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A07E81;font-weight:600;border-top:1px solid rgba(107,61,66,0.12);">{{ section.settings[lblk] }}</div>
+            <div style="padding:18px;font-size:13.5px;line-height:1.5;color:#7a6258;border-top:1px solid rgba(107,61,66,0.12);border-left:1px solid rgba(107,61,66,0.12);">{{ tick }}{{ section.settings[c1k] }}</div>
+            <div style="padding:18px;font-size:13.5px;line-height:1.5;color:#7a6258;border-top:1px solid rgba(107,61,66,0.12);border-left:1px solid rgba(107,61,66,0.12);">{{ tick }}{{ section.settings[c2k] }}</div>
+            <div style="padding:18px;font-size:13.5px;line-height:1.5;color:#7a6258;border-top:1px solid rgba(107,61,66,0.12);border-left:1px solid rgba(107,61,66,0.12);">{{ tick }}{{ section.settings[c3k] }}</div>
+            <div style="padding:18px;font-size:13.5px;line-height:1.5;color:#3A2A20;background:rgba(107,61,66,0.05);border-top:1px solid rgba(107,61,66,0.12);border-left:1px solid rgba(107,61,66,0.12);">{{ section.settings[wink] }}</div>
+          {%- endfor -%}
+        </div>
+      </div>
+      <p style="font-size:12px;color:#9a8578;margin:16px 0 0;text-align:center;">{{ section.settings.comp_note }}</p>
+    </div>
+  </section>
+
+  <!-- DISCOVERY STORY -->
+  <section class="adv-sec" style="background:#EFDFD0;padding:74px 28px;">
+    <div style="max-width:900px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:12px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9653F;font-weight:700;">{{ section.settings.disc_eyebrow }}</div>
+      <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:36px;text-align:center;margin:0 auto 40px;color:#6B3D42;max-width:20ch;">{{ section.settings.disc_heading }}</h2>
+      <div style="aspect-ratio:16/8;background:linear-gradient(150deg,#D8C2BA,#C9A89F);border-radius:16px;overflow:hidden;margin-bottom:40px;">{%- if section.settings.discovery_image -%}<img src="{{ section.settings.discovery_image | image_url: width: 1440 }}" alt="" width="1440" height="720" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- else -%}<div class="adv-ph" style="height:100%;"><span style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;">Image · botanicals</span><span style="font-size:10px;opacity:0.7;">ingredients flat-lay</span></div>{%- endif -%}</div>
+      <div style="max-width:700px;margin:0 auto;">
+        <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.disc_p1 }}</p>
+        <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.disc_p2 }}</p>
+        <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.disc_p3 }}{{ wk_star }}</p>
+        <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0;">{{ section.settings.disc_p4 }}{{ wk_star }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY DIFFERENT — 3 PILLARS -->
+  <section class="adv-sec" style="background:#F5E6D8;padding:74px 28px;">
+    <div style="max-width:1140px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:12px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9653F;font-weight:700;">{{ section.settings.pillars_eyebrow }}</div>
+      <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:36px;text-align:center;margin:0 auto 16px;color:#6B3D42;max-width:20ch;">{{ section.settings.pillars_heading }}</h2>
+      <p style="max-width:620px;margin:0 auto 50px;text-align:center;font-size:16px;line-height:1.7;color:#5a4636;">{{ section.settings.pillars_intro }}</p>
+      <div class="adv-grid3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+        {%- for i in (1..3) -%}
+          {%- assign pk = 'pillar' | append: i | append: '_image' -%}
+          {%- assign pe = 'pillar' | append: i | append: '_eyebrow' -%}
+          {%- assign pt = 'pillar' | append: i | append: '_title' -%}
+          {%- assign pb = 'pillar' | append: i | append: '_body' -%}
+          {%- assign pl1 = 'pillar' | append: i | append: '_line1' -%}
+          {%- assign pl2 = 'pillar' | append: i | append: '_line2' -%}
+          {%- assign pimg = section.settings[pk] -%}
+          <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;">
+            <div style="aspect-ratio:4/3;background:#C9A89F;overflow:hidden;">{%- if pimg -%}<img src="{{ pimg | image_url: width: 600 }}" alt="" width="600" height="450" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- else -%}<div class="adv-ph" style="height:100%;"><span style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;">Image</span></div>{%- endif -%}</div>
+            <div style="padding:26px 24px;">
+              <div style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#C9653F;font-weight:700;margin-bottom:8px;">{{ section.settings[pe] }}</div>
+              <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;line-height:1.2;margin:0 0 10px;color:#6B3D42;">{{ section.settings[pt] }}</h3>
+              <p style="font-size:14px;line-height:1.6;color:#4a3a30;margin:0 0 18px;">{{ section.settings[pb] }}{{ wk_star }}</p>
+              <div style="display:flex;flex-direction:column;gap:9px;">
+                <div style="display:flex;gap:9px;font-size:13px;color:#4a3a30;"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span>{{ section.settings[pl1] }}</div>
+                <div style="display:flex;gap:9px;font-size:13px;color:#4a3a30;"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span>{{ section.settings[pl2] }}</div>
+                <div style="display:flex;gap:9px;font-size:13px;color:#4a3a30;"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span>{{ section.settings.pillars_line3 }}</div>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM LINE BAND -->
+  <section class="adv-sec" style="background:#3A2A20;color:#F5E6D8;padding:64px 28px;">
+    <div style="max-width:760px;margin:0 auto;text-align:center;">
+      <div style="font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#E2A24C;font-weight:700;margin-bottom:16px;">{{ section.settings.band1_eyebrow }}</div>
+      <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:32px;line-height:1.15;margin:0 0 18px;">{{ section.settings.band1_heading }}</h2>
+      <p style="font-size:16px;line-height:1.7;color:rgba(245,230,216,0.82);margin:0 0 30px;">{{ section.settings.band1_body }}</p>
+      <a href="#offer" style="display:inline-block;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:16px 42px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.band1_cta }}</a>
+    </div>
+  </section>
+
+  <!-- 30 DAY TRANSFORMATION -->
+  <section class="adv-sec" style="background:#EFDFD0;padding:74px 28px;">
+    <div style="max-width:1080px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:12px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9653F;font-weight:700;">{{ section.settings.tl_eyebrow }}</div>
+      <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:36px;text-align:center;margin:0 auto 16px;color:#6B3D42;">{{ section.settings.tl_heading }}</h2>
+      <p style="max-width:620px;margin:0 auto 50px;text-align:center;font-size:16px;line-height:1.7;color:#5a4636;">{{ section.settings.tl_intro }}{{ wk_star }}</p>
+      <div class="adv-grid4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;">
+        {%- for i in (1..4) -%}
+          {%- assign tll = 'tl' | append: i | append: '_label' -%}
+          {%- assign tlb = 'tl' | append: i | append: '_body' -%}
+          {%- if forloop.last -%}
+            <div style="background:#6B3D42;color:#F5E6D8;border-radius:14px;padding:26px 22px;">
+              <div style="font-family:'Fraunces',serif;font-size:15px;color:#E2A24C;margin-bottom:8px;">{{ section.settings[tll] }}</div>
+              <div style="width:36px;height:2px;background:rgba(226,162,76,0.5);margin-bottom:16px;"></div>
+              <p style="font-size:14px;line-height:1.6;color:rgba(245,230,216,0.9);margin:0;">{{ section.settings[tlb] }}<span style="color:#E2A24C;">*</span></p>
+            </div>
+          {%- else -%}
+            <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:26px 22px;">
+              <div style="font-family:'Fraunces',serif;font-size:15px;color:#C9653F;margin-bottom:8px;">{{ section.settings[tll] }}</div>
+              <div style="width:36px;height:2px;background:rgba(201,101,63,0.4);margin-bottom:16px;"></div>
+              <p style="font-size:14px;line-height:1.6;color:#4a3a30;margin:0;">{{ section.settings[tlb] }}{%- unless forloop.first -%}{{ wk_star }}{%- endunless -%}</p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <p style="font-size:12px;color:#9a8578;margin:22px 0 0;text-align:center;">{{ section.settings.tl_disclaimer }}</p>
+    </div>
+  </section>
+
+  <!-- VERIFIED BY SCIENCE -->
+  <section class="adv-sec" style="background:#F5E6D8;padding:74px 28px;">
+    <div style="max-width:1080px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:12px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9653F;font-weight:700;">{{ section.settings.proof_eyebrow }}</div>
+      <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:36px;text-align:center;margin:0 auto 46px;color:#6B3D42;max-width:22ch;">{{ section.settings.proof_heading }}</h2>
+      <div class="adv-grid3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:52px;">
+        {%- for i in (1..3) -%}
+          {%- assign sn = 'stat' | append: i | append: '_num' -%}
+          {%- assign sl = 'stat' | append: i | append: '_label' -%}
+          <div style="text-align:center;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:34px 22px;">
+            <div style="font-family:'Fraunces',serif;font-size:52px;color:#C9653F;line-height:1;">{{ section.settings[sn] }}</div>
+            <p style="font-size:13px;line-height:1.5;color:#4a3a30;margin:12px 0 0;">{{ section.settings[sl] }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="adv-grid3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+        {%- for i in (1..3) -%}
+          {%- assign tq = 'testi' | append: i | append: '_quote' -%}
+          {%- assign tn = 'testi' | append: i | append: '_name' -%}
+          <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:26px 24px;">
+            <span style="color:#C9653F;font-size:13px;letter-spacing:2px;">★★★★★</span>
+            <p style="font-size:14px;line-height:1.6;color:#3A2A20;margin:12px 0 18px;">{{ section.settings[tq] }}</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(107,61,66,0.14);padding-top:14px;"><span style="font-family:'Fraunces',serif;font-size:14px;color:#6B3D42;">{{ section.settings[tn] }}</span><span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#C9653F;font-weight:600;">✓ Verified</span></div>
+          </div>
+        {%- endfor -%}
+      </div>
+      <p style="font-size:12px;color:#9a8578;margin:22px 0 0;text-align:center;">{{ section.settings.proof_disclaimer }}</p>
+    </div>
+  </section>
+
+  <!-- OFFER / BUY BOX -->
+  <section class="adv-sec" id="offer" style="background:#EFDFD0;padding:74px 28px;scroll-margin-top:80px;">
+    <div style="max-width:1140px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:12px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9653F;font-weight:700;">{{ section.settings.offer_eyebrow }}</div>
+      <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:38px;text-align:center;margin:0 0 12px;color:#6B3D42;">{{ section.settings.offer_h2_lead }} <span style="font-style:italic;color:#C9653F;">{{ section.settings.offer_h2_accent }}</span></h2>
+      <p style="max-width:600px;margin:0 auto 46px;text-align:center;font-size:16px;line-height:1.7;color:#5a4636;">{{ section.settings.offer_intro }}</p>
+      <div class="adv-offer" style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:44px;align-items:start;">
+        <!-- gallery -->
+        <div>
+          {%- assign adv_hero = section.settings.gallery_1_image -%}
+          {%- if adv_hero -%}{%- assign adv_hero_src = adv_hero | image_url: width: 1000 -%}{%- else -%}{%- assign adv_hero_src = 'wk-buybox-1.jpg' | asset_url -%}{%- endif -%}
+          <div style="aspect-ratio:1/1;background:radial-gradient(circle at 50% 45%,#D8C2BA,#C9A89F);border-radius:16px;overflow:hidden;position:relative;">
+            <img data-adv-hero-img src="{{ adv_hero_src }}" alt="Womankind Hormonal Support Gummies" width="1000" height="1000" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+            <span style="position:absolute;top:18px;left:18px;background:#6B3D42;color:#F5E6D8;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;padding:6px 13px;border-radius:999px;z-index:2;">{{ section.settings.offer_badge }}</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px;">
+            {%- for i in (1..4) -%}
+              {%- assign gk = 'gallery_' | append: i | append: '_image' -%}
+              {%- assign gimg = section.settings[gk] -%}
+              {%- if gimg -%}{%- assign gsrc = gimg | image_url: width: 240 -%}{%- assign gfull = gimg | image_url: width: 1000 -%}{%- else -%}{%- assign gfile = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- assign gsrc = gfile | asset_img_url: '240x240' -%}{%- assign gfull = gfile | asset_url -%}{%- endif -%}
+              <button type="button" data-adv-thumb data-adv-full="{{ gfull }}" aria-label="View image {{ i }}" style="cursor:pointer;padding:0;aspect-ratio:1/1;background:#D8C2BA;border-radius:8px;overflow:hidden;{% if forloop.first %}border:2px solid #6B3D42;{% else %}border:2px solid transparent;{% endif %}"><img src="{{ gsrc }}" alt="" width="240" height="240" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></button>
+            {%- endfor -%}
+          </div>
+        </div>
+        <!-- buy -->
+        <div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><span style="color:#C9653F;font-size:14px;letter-spacing:2px;">★★★★★</span><span style="font-size:13px;color:#3A2A20;">{{ section.settings.offer_rating }}</span></div>
+          <h3 style="font-family:'Fraunces',serif;font-weight:400;font-size:32px;line-height:1.05;margin:0 0 14px;color:#6B3D42;">{{ section.settings.offer_title }}</h3>
+          <p style="font-size:14.5px;line-height:1.6;color:#4a3a30;margin:0 0 22px;max-width:46ch;">{{ section.settings.offer_desc }}{{ wk_star }}</p>
+
+          <div style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:12px;">{{ section.settings.offer_tiers_label }}</div>
+          <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:22px;">
+            <!-- 1 month -->
+            <button type="button" data-adv="supply" data-adv-val="1" style="position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
+              <span data-adv-ring="1" style="box-shadow:0 0 0 0 transparent;position:absolute;inset:-1.5px;border-radius:12px;pointer-events:none;"></span>
+              <span style="display:flex;align-items:center;gap:14px;"><span style="width:42px;height:42px;background:#C9A89F;border-radius:8px;flex:0 0 auto;"></span><span><span style="display:block;font-size:15px;font-weight:600;color:#6B3D42;">{{ section.settings.tier1_name }}</span><span style="display:block;font-size:12px;color:#7a6258;">{{ section.settings.tier1_sub }}</span></span></span>
+              <span style="text-align:right;flex:0 0 auto;"><span data-adv-total="1" style="display:block;font-size:18px;font-weight:700;color:#C9653F;">$45</span><span data-adv-compare="1" style="display:block;font-size:11px;text-decoration:line-through;color:#A07E81;">$52</span></span>
+            </button>
+            <!-- 3 month -->
+            <button type="button" data-adv="supply" data-adv-val="3" style="position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
+              <span data-adv-ring="3" style="box-shadow:0 0 0 2px #6B3D42;position:absolute;inset:-1.5px;border-radius:12px;pointer-events:none;"></span>
+              <span style="position:absolute;top:-10px;left:18px;background:#C9653F;color:#F5E6D8;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;padding:3px 10px;border-radius:999px;">{{ section.settings.tier3_badge }}</span>
+              <span style="display:flex;align-items:center;gap:14px;"><span style="width:42px;height:42px;background:#C9A89F;border-radius:8px;flex:0 0 auto;"></span><span><span style="display:block;font-size:15px;font-weight:600;color:#6B3D42;">{{ section.settings.tier3_name }}</span><span style="display:block;font-size:12px;color:#7a6258;">{{ section.settings.tier3_sub }}</span></span></span>
+              <span style="text-align:right;flex:0 0 auto;"><span data-adv-total="3" style="display:block;font-size:18px;font-weight:700;color:#C9653F;">$105</span><span data-adv-compare="3" style="display:block;font-size:11px;text-decoration:line-through;color:#A07E81;">$156</span><span data-adv-save="3" style="display:block;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6B3D42;font-weight:600;">Save 33%</span></span>
+            </button>
+            <!-- 6 month -->
+            <button type="button" data-adv="supply" data-adv-val="6" style="position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
+              <span data-adv-ring="6" style="box-shadow:0 0 0 0 transparent;position:absolute;inset:-1.5px;border-radius:12px;pointer-events:none;"></span>
+              <span style="position:absolute;top:-10px;left:18px;background:#6B3D42;color:#F5E6D8;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;padding:3px 10px;border-radius:999px;">{{ section.settings.tier6_badge }}</span>
+              <span style="display:flex;align-items:center;gap:14px;"><span style="width:42px;height:42px;background:#C9A89F;border-radius:8px;flex:0 0 auto;"></span><span><span style="display:block;font-size:15px;font-weight:600;color:#6B3D42;">{{ section.settings.tier6_name }}</span><span style="display:block;font-size:12px;color:#7a6258;">{{ section.settings.tier6_sub }}</span></span></span>
+              <span style="text-align:right;flex:0 0 auto;"><span data-adv-total="6" style="display:block;font-size:18px;font-weight:700;color:#C9653F;">$186</span><span data-adv-compare="6" style="display:block;font-size:11px;text-decoration:line-through;color:#A07E81;">$312</span><span data-adv-save="6" style="display:block;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6B3D42;font-weight:600;">Save 40%</span></span>
+            </button>
+          </div>
+
+          <div data-adv-refill role="checkbox" aria-checked="true" tabindex="0" style="display:flex;align-items:center;gap:10px;background:#FBF1E6;border:1px solid rgba(107,61,66,0.16);border-radius:10px;padding:13px 16px;margin-bottom:18px;cursor:pointer;">
+            <span data-adv-refill-box style="width:18px;height:18px;border-radius:5px;background:#6B3D42;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;color:#E2A24C;font-size:11px;"><span data-adv-refill-check>✓</span></span>
+            <span style="font-size:13px;color:#3A2A20;"><strong style="color:#6B3D42;">{{ section.settings.offer_sub_title }}</strong> {{ section.settings.offer_sub_body }}</span>
+          </div>
+
+          {%- if wk_product != blank -%}
+            <form method="post" action="{{ routes.cart_add_url }}" accept-charset="UTF-8" enctype="multipart/form-data" data-adv-form>
+              <input type="hidden" name="form_type" value="product">
+              <input type="hidden" name="utf8" value="✓">
+              <input type="hidden" name="id" value="{{ wk_variant.id }}">
+              <input type="hidden" name="quantity" value="3" data-adv-qty>
+              <input type="hidden" name="selling_plan" value="{{ wk_selling_plan.id }}" data-adv-selling-plan disabled>
+              <button type="submit"{% unless wk_variant.available %} disabled{% endunless %} style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;{% unless wk_variant.available %}opacity:0.55;cursor:not-allowed;{% endunless %}">
+                {%- if wk_variant.available -%}{{ section.settings.offer_atc_label }} <span style="opacity:0.85;">— <span data-adv-atc-total>{{ wk_variant.price | times: 3 | money }}</span></span>{%- else -%}Sold out{%- endif -%}
+              </button>
+            </form>
+          {%- else -%}
+            <a href="{{ section.settings.offer_fallback_url | default: '#' }}" style="width:100%;box-sizing:border-box;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;text-decoration:none;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;">{{ section.settings.offer_atc_label }} <span style="opacity:0.85;">— {{ section.settings.offer_static_price }}</span></a>
+          {%- endif -%}
+
+          <div style="display:flex;align-items:center;justify-content:center;gap:22px;margin-top:14px;font-size:12px;color:#7a6258;flex-wrap:wrap;">
+            <span>⌁ {{ section.settings.offer_trust1 }}</span>
+            <span>♡ {{ section.settings.offer_trust2 }}</span>
+            <span>↻ {{ section.settings.offer_trust3 }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COST OF DOING NOTHING -->
+  <section class="adv-sec" style="background:#6B3D42;color:#F5E6D8;padding:66px 28px;">
+    <div style="max-width:720px;margin:0 auto;text-align:center;">
+      <div style="font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#E2A24C;font-weight:700;margin-bottom:16px;">{{ section.settings.band2_eyebrow }}</div>
+      <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:30px;line-height:1.2;margin:0 0 18px;">{{ section.settings.band2_heading }}</h2>
+      <p style="font-size:16px;line-height:1.7;color:rgba(245,230,216,0.85);margin:0 0 28px;">{{ section.settings.band2_body }}</p>
+      <a href="#offer" style="display:inline-block;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:16px 42px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.band2_cta }}</a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="adv-sec" style="background:#F5E6D8;padding:74px 28px;">
+    <div style="max-width:820px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:12px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9653F;font-weight:700;">{{ section.settings.faq_eyebrow }}</div>
+      <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:36px;text-align:center;margin:0 0 44px;color:#6B3D42;">{{ section.settings.faq_heading }}</h2>
+      <div>
+        {%- for i in (1..7) -%}
+          {%- assign qk = 'faq' | append: i | append: '_q' -%}
+          {%- assign ak = 'faq' | append: i | append: '_a' -%}
+          {%- assign qv = section.settings[qk] -%}
+          {%- if qv != blank -%}
+          <div style="border-top:1px solid rgba(107,61,66,0.2);{% if forloop.last %}border-bottom:1px solid rgba(107,61,66,0.2);{% endif %}">
+            <button type="button" data-adv-faq="{{ i }}" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" style="width:100%;cursor:pointer;font-family:inherit;background:none;border:none;text-align:left;padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+              <span style="font-family:'Fraunces',serif;font-size:18px;color:#6B3D42;line-height:1.3;">{{ qv }}</span>
+              <span data-adv-faq-icon style="font-size:22px;color:#C9653F;font-weight:300;flex:0 0 auto;">{% if forloop.first %}–{% else %}+{% endif %}</span>
+            </button>
+            <div data-adv-faq-panel="{{ i }}" class="{% if forloop.first %}is-open{% endif %}"><p style="font-size:15px;line-height:1.65;color:#4a3a30;margin:0 0 22px;">{{ section.settings[ak] }}</p></div>
+          </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL BOTTOM LINE -->
+  <section class="adv-sec" style="background:#EFDFD0;padding:74px 28px;">
+    <div style="max-width:820px;margin:0 auto;text-align:center;">
+      <div style="font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9653F;font-weight:700;margin-bottom:16px;">{{ section.settings.final_eyebrow }}</div>
+      <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:34px;line-height:1.15;margin:0 auto 20px;color:#6B3D42;max-width:22ch;">{{ section.settings.final_heading }}</h2>
+      <p style="font-size:16px;line-height:1.7;color:#5a4636;margin:0 auto 30px;max-width:60ch;">{{ section.settings.final_body }}{{ wk_star }}</p>
+      <div style="aspect-ratio:16/7;max-width:600px;margin:0 auto 30px;background:linear-gradient(150deg,#D8C2BA,#C9A89F);border-radius:16px;overflow:hidden;">{%- if section.settings.final_image -%}<img src="{{ section.settings.final_image | image_url: width: 1200 }}" alt="" width="1200" height="525" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- else -%}<div class="adv-ph" style="height:100%;"><span style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;">Product · lifestyle</span></div>{%- endif -%}</div>
+      <a href="#offer" style="display:inline-block;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:17px 46px;font-size:14px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.final_cta }}</a>
+      <div style="display:flex;align-items:center;justify-content:center;gap:24px;margin-top:18px;font-size:12px;color:#7a6258;flex-wrap:wrap;"><span>{{ section.settings.final_trust1 }}</span><span>{{ section.settings.final_trust2 }}</span><span>{{ section.settings.final_trust3 }}</span></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#3A2A20;color:#F5E6D8;padding:60px 28px 36px;">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:44px;line-height:1;margin-bottom:6px;">womankind</div>
+      <div style="text-align:center;font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:rgba(245,230,216,0.7);margin-bottom:40px;">{{ section.settings.foot_tagline }}</div>
+      <div style="display:flex;justify-content:center;gap:28px;flex-wrap:wrap;font-size:13px;color:rgba(245,230,216,0.8);padding-bottom:34px;border-bottom:1px solid rgba(245,230,216,0.16);">
+        {%- for i in (1..5) -%}
+          {%- assign flk = 'foot_link' | append: i -%}
+          {%- assign flv = section.settings[flk] -%}
+          {%- if flv != blank -%}<span style="cursor:pointer;">{{ flv }}</span>{%- endif -%}
+        {%- endfor -%}
+      </div>
+      <p style="font-size:11px;line-height:1.6;color:rgba(245,230,216,0.55);margin:24px 0 0;max-width:90ch;">{{ section.settings.foot_disclaimer }}</p>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:20px;font-size:12px;color:rgba(245,230,216,0.55);">
+        <span>{{ section.settings.foot_copyright }}</span>
+        <span>{{ section.settings.foot_adnote }}</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    function init(){
+      var root = document.getElementById('wk-{{ section.id }}');
+      if (!root || root.dataset.advInit) return;
+      root.dataset.advInit = '1';
+
+      // ---- Offer buy-box: tier + subscription pricing (mirrors the store buy-box) ----
+      var RING = '0 0 0 2px #6B3D42', NONE = '0 0 0 0 transparent';
+      var state = { supply: '3' };
+      var BOTTLE = {{ wk_variant.price | default: 4200 }};
+      var SELLING_PLAN = {{ wk_selling_plan.id | default: 'null' }};
+      var TIERS = { '1': { m:1, off:0 }, '3': { m:3, off:0.30 }, '6': { m:6, off:0.40 } };
+      var SUB_OFF = 0.25;
+      var refillEl = root.querySelector('[data-adv-refill]');
+      function money(c){ return '$' + (c/100).toFixed(2).replace(/\.00$/, ''); }
+      function refillOn(){ return !!(refillEl && refillEl.getAttribute('aria-checked') === 'true'); }
+      function quote(tier, on){
+        var t = TIERS[tier], full = BOTTLE * t.m;
+        var afterTier = Math.round(full * (1 - t.off));
+        var total = on ? Math.round(afterTier * (1 - SUB_OFF)) : afterTier;
+        return { full: full, total: total, save: Math.round((1 - total/full) * 100) };
+      }
+      function applyRings(){
+        root.querySelectorAll('[data-adv-ring]').forEach(function(el){
+          el.style.boxShadow = (el.getAttribute('data-adv-ring') === state.supply) ? RING : NONE;
+        });
+      }
+      function applyPricing(){
+        var on = refillOn();
+        ['1','3','6'].forEach(function(k){
+          var q = quote(k, on);
+          root.querySelectorAll('[data-adv-total="'+k+'"]').forEach(function(e){ e.textContent = money(q.total); });
+          root.querySelectorAll('[data-adv-compare="'+k+'"]').forEach(function(e){ e.textContent = money(q.full); e.style.visibility = q.save > 0 ? 'visible' : 'hidden'; });
+          root.querySelectorAll('[data-adv-save="'+k+'"]').forEach(function(e){ e.textContent = 'Save ' + q.save + '%'; e.style.visibility = q.save > 0 ? 'visible' : 'hidden'; });
+        });
+        root.querySelectorAll('[data-adv-atc-total]').forEach(function(e){ e.textContent = money(quote(state.supply, on).total); });
+      }
+      function applyCart(){
+        var sub = refillOn() && SELLING_PLAN;
+        root.querySelectorAll('[data-adv-qty]').forEach(function(i){ i.value = state.supply; });
+        root.querySelectorAll('[data-adv-selling-plan]').forEach(function(i){ i.disabled = !sub; });
+      }
+      root.querySelectorAll('[data-adv="supply"]').forEach(function(el){
+        el.addEventListener('click', function(){ state.supply = el.getAttribute('data-adv-val'); applyRings(); applyCart(); applyPricing(); });
+      });
+      if (refillEl){
+        var box = refillEl.querySelector('[data-adv-refill-box]');
+        var chk = refillEl.querySelector('[data-adv-refill-check]');
+        function toggleRefill(){
+          var on = refillEl.getAttribute('aria-checked') === 'true';
+          refillEl.setAttribute('aria-checked', on ? 'false' : 'true');
+          if (box) box.style.background = on ? 'transparent' : '#6B3D42';
+          if (chk) chk.style.display = on ? 'none' : 'block';
+          applyPricing(); applyCart();
+        }
+        refillEl.addEventListener('click', toggleRefill);
+        refillEl.addEventListener('keydown', function(e){ if (e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); toggleRefill(); } });
+      }
+      applyRings(); applyCart(); applyPricing();
+
+      // ---- Offer gallery: thumbnail swaps main image ----
+      var heroImg = root.querySelector('[data-adv-hero-img]');
+      var thumbs = root.querySelectorAll('[data-adv-thumb]');
+      thumbs.forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var full = btn.getAttribute('data-adv-full');
+          if (heroImg && full) heroImg.src = full;
+          thumbs.forEach(function(b){ b.style.borderColor = 'transparent'; });
+          btn.style.borderColor = '#6B3D42';
+        });
+      });
+
+      // ---- FAQ accordion (single open) ----
+      var faqBtns = root.querySelectorAll('[data-adv-faq]');
+      faqBtns.forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var id = btn.getAttribute('data-adv-faq');
+          var panel = root.querySelector('[data-adv-faq-panel="'+id+'"]');
+          var isOpen = panel && panel.classList.contains('is-open');
+          root.querySelectorAll('[data-adv-faq-panel]').forEach(function(p){ p.classList.remove('is-open'); });
+          faqBtns.forEach(function(b){
+            b.setAttribute('aria-expanded','false');
+            var ic = b.querySelector('[data-adv-faq-icon]'); if (ic) ic.textContent = '+';
+          });
+          if (!isOpen && panel){
+            panel.classList.add('is-open');
+            btn.setAttribute('aria-expanded','true');
+            var ic = btn.querySelector('[data-adv-faq-icon]'); if (ic) ic.textContent = '–';
+          }
+        });
+      });
+    }
+    if (document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', init); } else { init(); }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Womankind advertorial",
+  "settings": [
+    { "type": "header", "content": "Buy box" },
+    { "type": "product", "id": "product", "label": "Product", "info": "Powers the offer add-to-cart and pricing (tiers + subscription)." },
+    { "type": "url", "id": "offer_fallback_url", "label": "Fallback button link", "info": "Used only when no product is selected." },
+    { "type": "text", "id": "offer_static_price", "label": "Fallback button price", "default": "$105" },
+    { "type": "header", "content": "Announcement + header" },
+    { "type": "text", "id": "bar_1", "label": "Bar item 1", "default": "Free shipping on all orders" },
+    { "type": "text", "id": "bar_2", "label": "Bar item 2", "default": "90-day money-back guarantee" },
+    { "type": "text", "id": "bar_3", "label": "Bar item 3", "default": "Pause or cancel anytime" },
+    { "type": "text", "id": "kicker", "label": "Header kicker", "default": "Advertorial" },
+    { "type": "text", "id": "header_cta", "label": "Header button", "default": "Shop now" },
+    { "type": "header", "content": "Article hero" },
+    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow", "default": "The honest explanation · Hot flashes & night sweats" },
+    { "type": "text", "id": "hero_h1_lead", "label": "Headline — lead", "default": "A hot flash was never a" },
+    { "type": "text", "id": "hero_h1_accent", "label": "Headline — italic accent", "default": "heat problem" },
+    { "type": "text", "id": "hero_h1_tail", "label": "Headline — tail", "default": "— here's the real reason yours keep coming back" },
+    { "type": "image_picker", "id": "hero_image", "label": "Lead image (16:9)" },
+    { "type": "image_picker", "id": "byline_image", "label": "Byline photo" },
+    { "type": "text", "id": "byline_name", "label": "Byline name", "default": "Dr. Helena Voss, MD" },
+    { "type": "text", "id": "byline_sub", "label": "Byline subtitle", "default": "Reviewed by independent women's-health clinicians" },
+    { "type": "text", "id": "read_time", "label": "Read time", "default": "9 min read" },
+    { "type": "textarea", "id": "hero_p1", "label": "Lede paragraph 1", "default": "It's 2am. The sheets are damp, your heart is pounding, and the wave of heat has already passed — but now you're wide awake. Again. On the nightstand: a black cohosh bottle that did nothing. In your bag: a little fan you're quietly embarrassed to pull out in meetings." },
+    { "type": "textarea", "id": "hero_p2", "label": "Lede paragraph 2", "default": "And you already know tomorrow's flush will arrive at the worst possible moment — mid-sentence, in front of people, with no warning. If that's you, your scepticism is completely justified. You weren't doing it wrong. Every remedy you tried treats a hot flash as a temperature problem to be cooled. It isn't one." },
+    { "type": "textarea", "id": "hero_p3", "label": "Lede paragraph 3", "default": "Here's what the supplement aisle won't tell you about why hot flashes actually happen — and the one system almost every product ignores." },
+    { "type": "text", "id": "hero_cta", "label": "Lede button", "default": "Meet Womankind →" },
+    { "type": "header", "content": "Why it failed" },
+    { "type": "text", "id": "fail_eyebrow", "label": "Eyebrow", "default": "The honest explanation" },
+    { "type": "text", "id": "fail_heading", "label": "Heading", "default": "Why your hot flashes never really stopped" },
+    { "type": "textarea", "id": "fail_intro", "label": "Intro", "default": "The remedies aren't all useless. Black cohosh works. Cooling helps. The problem is that most products fight the flush itself and ignore the system that sets your internal thermostat swinging in the first place." },
+    { "type": "text", "id": "prob1_eyebrow", "label": "Problem 1 — eyebrow", "default": "The sugar problem" },
+    { "type": "text", "id": "prob1_title", "label": "Problem 1 — title", "default": "The gummy that quietly made the flashes worse" },
+    { "type": "textarea", "id": "prob1_body", "label": "Problem 1 — body", "default": "Most wellness gummies carry 2–4g of sugar per serving. Sugar disrupts the very gut bacteria that keep your estrogen steady — and unsteady estrogen is what tips your thermostat into a flush. You were buying the fix and the trigger in the same gummy." },
+    { "type": "image_picker", "id": "prob1_image", "label": "Problem 1 — image" },
+    { "type": "text", "id": "prob1_hint", "label": "Problem 1 — placeholder hint", "default": "candy gummies" },
+    { "type": "text", "id": "prob2_eyebrow", "label": "Problem 2 — eyebrow", "default": "The under-dosing problem" },
+    { "type": "text", "id": "prob2_title", "label": "Problem 2 — title", "default": "A token pinch of black cohosh" },
+    { "type": "textarea", "id": "prob2_body", "label": "Problem 2 — body", "default": "Generic menopause pills list the right vasomotor botanicals — then include a fraction of the dose used in the research. A quarter-dose can't calm a hot flash, which is why the bottle sat on your counter for three weeks. You weren't broken. The dose was." },
+    { "type": "image_picker", "id": "prob2_image", "label": "Problem 2 — image" },
+    { "type": "text", "id": "prob2_hint", "label": "Problem 2 — placeholder hint", "default": "pill bottle" },
+    { "type": "text", "id": "prob3_eyebrow", "label": "Problem 3 — eyebrow", "default": "The surface-only problem" },
+    { "type": "text", "id": "prob3_title", "label": "Problem 3 — title", "default": "It chased the heat, not the cause" },
+    { "type": "textarea", "id": "prob3_body", "label": "Problem 3 — body", "default": "A fan cools the flush for a minute. It does nothing about why your brain's thermostat is misfiring. Hot flashes begin with fluctuating estrogen and the gut-hormone axis that regulates it — the layer almost every product leaves untouched." },
+    { "type": "image_picker", "id": "prob3_image", "label": "Problem 3 — image" },
+    { "type": "text", "id": "prob3_hint", "label": "Problem 3 — placeholder hint", "default": "handheld fan" },
+    { "type": "text", "id": "prob4_eyebrow", "label": "Problem 4 — eyebrow", "default": "The \"just live with it\" problem" },
+    { "type": "text", "id": "prob4_title", "label": "Problem 4 — title", "default": "Told to dress in layers and wait it out" },
+    { "type": "textarea", "id": "prob4_body", "label": "Problem 4 — body", "default": "The hardest part was being handed a fan and told this is just your age now. You didn't want to be managed around your hot flashes — planning outfits and seating around them. You wanted them to stop." },
+    { "type": "image_picker", "id": "prob4_image", "label": "Problem 4 — image" },
+    { "type": "text", "id": "prob4_hint", "label": "Problem 4 — placeholder hint", "default": "portrait" },
+    { "type": "header", "content": "Comparison table" },
+    { "type": "text", "id": "comp_eyebrow", "label": "Eyebrow", "default": "The honest comparison" },
+    { "type": "text", "id": "comp_heading", "label": "Heading", "default": "What you tried for the flashes, why it fell short, and what Womankind fixed" },
+    { "type": "textarea", "id": "comp_intro", "label": "Intro", "default": "Not a generic chart — a specific breakdown of why each thing you tried never cooled the flashes for good." },
+    { "type": "text", "id": "comp_col1", "label": "Column 1", "default": "Sugar wellness gummies" },
+    { "type": "text", "id": "comp_col2", "label": "Column 2", "default": "Generic menopause pills" },
+    { "type": "text", "id": "comp_col3", "label": "Column 3", "default": "Fans & cooling sprays" },
+    { "type": "text", "id": "comp_row1_label", "label": "Row 1 — label", "default": "What you expected" },
+    { "type": "text", "id": "comp_row1_c1", "label": "Row 1 — col 1", "default": "A healthy daily that eased the flashes" },
+    { "type": "text", "id": "comp_row1_c2", "label": "Row 1 — col 2", "default": "Fewer, milder hot flashes" },
+    { "type": "text", "id": "comp_row1_c3", "label": "Row 1 — col 3", "default": "Fast relief the moment a flush hits" },
+    { "type": "text", "id": "comp_row1_win", "label": "Row 1 — Womankind", "default": "Fewer flashes, steadied from the inside" },
+    { "type": "text", "id": "comp_row2_label", "label": "Row 2 — label", "default": "What happened" },
+    { "type": "text", "id": "comp_row2_c1", "label": "Row 2 — col 1", "default": "Sugar fed the imbalance behind the flush" },
+    { "type": "text", "id": "comp_row2_c2", "label": "Row 2 — col 2", "default": "You felt nothing. The bottle sat unused." },
+    { "type": "text", "id": "comp_row2_c3", "label": "Row 2 — col 3", "default": "A minute of relief; the flush came back" },
+    { "type": "text", "id": "comp_row2_win", "label": "Row 2 — Womankind", "default": "Cooler days, drier nights, steadier mood" },
+    { "type": "text", "id": "comp_row3_label", "label": "Row 3 — label", "default": "The root problem" },
+    { "type": "text", "id": "comp_row3_c1", "label": "Row 3 — col 1", "default": "Hidden sugar destabilising your estrogen" },
+    { "type": "text", "id": "comp_row3_c2", "label": "Row 3 — col 2", "default": "Under-dosed — below the researched amount" },
+    { "type": "text", "id": "comp_row3_c3", "label": "Row 3 — col 3", "default": "Surface-only — never touched the cause" },
+    { "type": "text", "id": "comp_row3_win", "label": "Row 3 — Womankind", "default": "None. Built to steady the thermostat, not mask it." },
+    { "type": "text", "id": "comp_row4_label", "label": "Row 4 — label", "default": "What Womankind fixed" },
+    { "type": "text", "id": "comp_row4_c1", "label": "Row 4 — fix 1", "default": "Zero sugar — nothing feeding the swing" },
+    { "type": "text", "id": "comp_row4_c2", "label": "Row 4 — fix 2", "default": "Clinically-relevant, named vasomotor doses" },
+    { "type": "text", "id": "comp_row4_c3", "label": "Row 4 — fix 3", "default": "Gut-hormone support at the root of the flush" },
+    { "type": "text", "id": "comp_row4_win", "label": "Row 4 — Womankind", "default": "The complete reset. Clinical doses, gut-hormone support, zero sugar." },
+    { "type": "text", "id": "comp_note", "label": "Scroll note", "default": "← Scroll to compare on smaller screens →" },
+    { "type": "header", "content": "Discovery / mechanism" },
+    { "type": "text", "id": "disc_eyebrow", "label": "Eyebrow", "default": "The discovery" },
+    { "type": "text", "id": "disc_heading", "label": "Heading", "default": "The real reason hot flashes happen — and why that's good news" },
+    { "type": "image_picker", "id": "discovery_image", "label": "Image (16:8)" },
+    { "type": "textarea", "id": "disc_p1", "label": "Paragraph 1", "default": "A hot flash isn't a heat problem. It starts in the hypothalamus — your brain's thermostat — which becomes hypersensitive as estrogen swings through perimenopause. A small change in temperature it used to shrug off now trips a full flush: the heat, the sweat, the racing heart, the 2am wake-up." },
+    { "type": "inline_richtext", "id": "disc_p2", "label": "Paragraph 2", "default": "So the real question was never \"how do I cool down faster?\" It's \"how do I stop estrogen from swinging so hard in the first place?\" <strong>And that answer turned out to live somewhere almost no one was looking: the gut.</strong>" },
+    { "type": "inline_richtext", "id": "disc_p3", "label": "Paragraph 3", "default": "The science on gut health advanced enormously in the last decade. We now know the <em>estrobolome</em> — the gut bacteria that metabolise estrogen — helps decide how steady your estrogen stays day to day. When it's out of balance, estrogen recirculates erratically and the thermostat misfires more often. Sugar feeds the bacteria that make it worse, which is exactly why a sugary \"menopause gummy\" can quietly work against you." },
+    { "type": "textarea", "id": "disc_p4", "label": "Paragraph 4", "default": "Womankind was built around that link: standardised botanicals at researched doses to support the vasomotor response, a gut-hormone probiotic blend to steady the estrobolome, and essential vitamins — with zero sugar, so nothing in the formula feeds the swing." },
+    { "type": "header", "content": "Three pillars" },
+    { "type": "text", "id": "pillars_eyebrow", "label": "Eyebrow", "default": "Why Womankind is different" },
+    { "type": "text", "id": "pillars_heading", "label": "Heading", "default": "Three layers of hot-flash support in one daily gummy" },
+    { "type": "textarea", "id": "pillars_intro", "label": "Intro", "default": "Most remedies work on one layer. Womankind works on the flush, the night, and the gut-hormone root that drives them both." },
+    { "type": "text", "id": "pillars_line3", "label": "Shared 3rd bullet", "default": "Zero sugar · vegan · non-GMO" },
+    { "type": "image_picker", "id": "pillar1_image", "label": "Pillar 1 — image" },
+    { "type": "text", "id": "pillar1_eyebrow", "label": "Pillar 1 — eyebrow", "default": "The flash" },
+    { "type": "text", "id": "pillar1_title", "label": "Pillar 1 — title", "default": "Cooler days, fewer flushes" },
+    { "type": "textarea", "id": "pillar1_body", "label": "Pillar 1 — body", "default": "Standardised vasomotor botanicals support your body's own temperature regulation, so the flush hits less often — and less hard." },
+    { "type": "text", "id": "pillar1_line1", "label": "Pillar 1 — bullet 1", "default": "Standardised black cohosh, researched dose" },
+    { "type": "text", "id": "pillar1_line2", "label": "Pillar 1 — bullet 2", "default": "Red clover isoflavones" },
+    { "type": "image_picker", "id": "pillar2_image", "label": "Pillar 2 — image" },
+    { "type": "text", "id": "pillar2_eyebrow", "label": "Pillar 2 — eyebrow", "default": "The nights" },
+    { "type": "text", "id": "pillar2_title", "label": "Pillar 2 — title", "default": "Fewer 2am, drenched wake-ups" },
+    { "type": "textarea", "id": "pillar2_body", "label": "Pillar 2 — body", "default": "Calming botanicals and magnesium support cooler, steadier nights, so night sweats stop stealing your sleep." },
+    { "type": "text", "id": "pillar2_line1", "label": "Pillar 2 — bullet 1", "default": "Magnesium for restful sleep" },
+    { "type": "text", "id": "pillar2_line2", "label": "Pillar 2 — bullet 2", "default": "Ashwagandha for a calmer stress response" },
+    { "type": "image_picker", "id": "pillar3_image", "label": "Pillar 3 — image" },
+    { "type": "text", "id": "pillar3_eyebrow", "label": "Pillar 3 — eyebrow", "default": "The root" },
+    { "type": "text", "id": "pillar3_title", "label": "Pillar 3 — title", "default": "Where the flashes begin" },
+    { "type": "textarea", "id": "pillar3_body", "label": "Pillar 3 — body", "default": "A probiotic blend supports the estrobolome — the gut bacteria that keep estrogen steady — to calm the swings behind the flush." },
+    { "type": "text", "id": "pillar3_line1", "label": "Pillar 3 — bullet 1", "default": "Spore-forming probiotic strains" },
+    { "type": "text", "id": "pillar3_line2", "label": "Pillar 3 — bullet 2", "default": "Prebiotic fibre to feed them" },
+    { "type": "header", "content": "Zero-sugar band" },
+    { "type": "text", "id": "band1_eyebrow", "label": "Eyebrow", "default": "The bottom line" },
+    { "type": "text", "id": "band1_heading", "label": "Heading", "default": "Zero sugar — because sugar is quietly fuelling your hot flashes." },
+    { "type": "textarea", "id": "band1_body", "label": "Body", "default": "Every other gummy hides 2–4g of sugar per serving — feeding the gut imbalance that keeps your estrogen, and your thermostat, swinging. Womankind is sweetened without it. It tastes like a treat and works like a clinical formula." },
+    { "type": "text", "id": "band1_cta", "label": "Button", "default": "Shop Womankind" },
+    { "type": "header", "content": "30-day timeline" },
+    { "type": "text", "id": "tl_eyebrow", "label": "Eyebrow", "default": "The transformation" },
+    { "type": "text", "id": "tl_heading", "label": "Heading", "default": "What 30 days actually looks like" },
+    { "type": "textarea", "id": "tl_intro", "label": "Intro", "default": "Not an overnight miracle — a gradual cooling. Most women describe it the same way." },
+    { "type": "text", "id": "tl1_label", "label": "Week 1 — label", "default": "Week 1" },
+    { "type": "textarea", "id": "tl1_body", "label": "Week 1 — body", "default": "The ritual is easy — no sugar, no pills to dread. You take it without thinking, and for once you actually look forward to it." },
+    { "type": "text", "id": "tl2_label", "label": "Week 2 — label", "default": "Week 2" },
+    { "type": "textarea", "id": "tl2_body", "label": "Week 2 — body", "default": "The first shift. The afternoon flush isn't the event it used to be, and you wind down a little easier at night." },
+    { "type": "text", "id": "tl3_label", "label": "Week 3 — label", "default": "Week 3" },
+    { "type": "textarea", "id": "tl3_body", "label": "Week 3 — body", "default": "Nights get cooler. You're waking up dry more often, sleeping through, and the daytime flushes are spacing out." },
+    { "type": "text", "id": "tl4_label", "label": "Week 4 — label", "default": "Week 4" },
+    { "type": "textarea", "id": "tl4_body", "label": "Week 4 — body", "default": "The flashes have loosened their grip. You get through a whole meeting without one — and realise you haven't reached for the fan in days. That's the week you tell a friend." },
+    { "type": "text", "id": "tl_disclaimer", "label": "Disclaimer", "default": "*Results may vary. These statements have not been evaluated by a medical authority." },
+    { "type": "header", "content": "Proof — stats & testimonials" },
+    { "type": "text", "id": "proof_eyebrow", "label": "Eyebrow", "default": "Verified by science & real women" },
+    { "type": "text", "id": "proof_heading", "label": "Heading", "default": "Don't take our word for it" },
+    { "type": "text", "id": "stat1_num", "label": "Stat 1 — number", "default": "120+" },
+    { "type": "textarea", "id": "stat1_label", "label": "Stat 1 — label", "default": "Independent clinicians who reviewed the formula without compensation" },
+    { "type": "text", "id": "stat2_num", "label": "Stat 2 — number", "default": "24+" },
+    { "type": "textarea", "id": "stat2_label", "label": "Stat 2 — label", "default": "Peer-reviewed human trials behind the standardised botanicals in the formula" },
+    { "type": "text", "id": "stat3_num", "label": "Stat 3 — number", "default": "12,000+" },
+    { "type": "textarea", "id": "stat3_label", "label": "Stat 3 — label", "default": "Women 40+ who made Womankind part of their daily routine" },
+    { "type": "textarea", "id": "testi1_quote", "label": "Testimonial 1 — quote", "default": "\"The night sweats eased within a few weeks. I'm sleeping through and waking up dry — I'd forgotten what that felt like.\"" },
+    { "type": "text", "id": "testi1_name", "label": "Testimonial 1 — name", "default": "Margaret R., 47" },
+    { "type": "textarea", "id": "testi2_quote", "label": "Testimonial 2 — quote", "default": "\"By the end of the first month the flushes had calmed right down. It's the first thing that's touched them without hormones.\"" },
+    { "type": "text", "id": "testi2_name", "label": "Testimonial 2 — name", "default": "Dana M., 51" },
+    { "type": "textarea", "id": "testi3_quote", "label": "Testimonial 3 — quote", "default": "\"I used to flush in every meeting. Now it's rare enough that I notice when it happens. This is the first thing that worked.\"" },
+    { "type": "text", "id": "testi3_name", "label": "Testimonial 3 — name", "default": "Elena S., 46" },
+    { "type": "text", "id": "proof_disclaimer", "label": "Disclaimer", "default": "*Results may vary. Individual experiences differ." },
+    { "type": "header", "content": "Offer section" },
+    { "type": "text", "id": "offer_eyebrow", "label": "Eyebrow", "default": "The complete reset" },
+    { "type": "text", "id": "offer_h2_lead", "label": "Heading — lead", "default": "Cool the flashes" },
+    { "type": "text", "id": "offer_h2_accent", "label": "Heading — italic accent", "default": "at the source" },
+    { "type": "textarea", "id": "offer_intro", "label": "Intro", "default": "One daily ritual. Zero sugar. Choose the supply that fits your goals and save on every bottle." },
+    { "type": "text", "id": "offer_badge", "label": "Gallery badge", "default": "Top-rated women's formula" },
+    { "type": "text", "id": "offer_rating", "label": "Rating text", "default": "Rated 4.8 \"Excellent\" · 1,200+ reviews" },
+    { "type": "text", "id": "offer_title", "label": "Product title", "default": "hormonal support gummies" },
+    { "type": "textarea", "id": "offer_desc", "label": "Product description", "default": "Daily support for perimenopause hot flashes and night sweats — cooler days, drier nights, and steadier mood, from the gut-hormone root up." },
+    { "type": "text", "id": "offer_tiers_label", "label": "Tiers label", "default": "Bundle & save" },
+    { "type": "text", "id": "tier1_name", "label": "Tier 1 — name", "default": "1-month supply" },
+    { "type": "text", "id": "tier1_sub", "label": "Tier 1 — subtitle", "default": "1 bottle · 30 servings" },
+    { "type": "text", "id": "tier3_badge", "label": "Tier 3 — badge", "default": "Most popular" },
+    { "type": "text", "id": "tier3_name", "label": "Tier 3 — name", "default": "3-month supply" },
+    { "type": "text", "id": "tier3_sub", "label": "Tier 3 — subtitle", "default": "3 bottles · a full transition cycle" },
+    { "type": "text", "id": "tier6_badge", "label": "Tier 6 — badge", "default": "Best value" },
+    { "type": "text", "id": "tier6_name", "label": "Tier 6 — name", "default": "6-month supply" },
+    { "type": "text", "id": "tier6_sub", "label": "Tier 6 — subtitle", "default": "6 bottles · free shipping" },
+    { "type": "text", "id": "offer_sub_title", "label": "Subscribe — title", "default": "Subscribe & save 25%" },
+    { "type": "text", "id": "offer_sub_body", "label": "Subscribe — body", "default": "— pause, skip or cancel anytime" },
+    { "type": "text", "id": "offer_atc_label", "label": "Add-to-bag label", "default": "Add to bag" },
+    { "type": "text", "id": "offer_trust1", "label": "Trust 1", "default": "Free shipping" },
+    { "type": "text", "id": "offer_trust2", "label": "Trust 2", "default": "90-day guarantee" },
+    { "type": "text", "id": "offer_trust3", "label": "Trust 3", "default": "Cancel anytime" },
+    { "type": "header", "content": "Offer gallery", "info": "Falls back to assets/wk-buybox-1…4.jpg." },
+    { "type": "image_picker", "id": "gallery_1_image", "label": "Image 1 (main)" },
+    { "type": "image_picker", "id": "gallery_2_image", "label": "Image 2" },
+    { "type": "image_picker", "id": "gallery_3_image", "label": "Image 3" },
+    { "type": "image_picker", "id": "gallery_4_image", "label": "Image 4" },
+    { "type": "header", "content": "Cost-of-doing-nothing band" },
+    { "type": "text", "id": "band2_eyebrow", "label": "Eyebrow", "default": "The cost of doing nothing" },
+    { "type": "text", "id": "band2_heading", "label": "Heading", "default": "The only real risk is another season of this" },
+    { "type": "textarea", "id": "band2_body", "label": "Body", "default": "Another night bolting awake in damp sheets. Another flush at the worst possible moment. Another remedy that cools the surface and ignores the cause. Womankind is backed by a 90-day money-back guarantee — if your flashes haven't eased, reach out for a full refund. No need to return the bottles." },
+    { "type": "text", "id": "band2_cta", "label": "Button", "default": "Start risk-free" },
+    { "type": "header", "content": "FAQ" },
+    { "type": "text", "id": "faq_eyebrow", "label": "Eyebrow", "default": "Your questions, answered" },
+    { "type": "text", "id": "faq_heading", "label": "Heading", "default": "Frequently asked questions" },
+    { "type": "text", "id": "faq1_q", "label": "Q1", "default": "Will it actually reduce my hot flashes, or is it placebo?" },
+    { "type": "textarea", "id": "faq1_a", "label": "A1", "default": "Every active is included at a clinically-relevant level, named on the label — no proprietary blend hiding token doses. The vasomotor botanicals and gut-hormone blend are dosed to support the systems behind the flush, not just mask the heat.*" },
+    { "type": "text", "id": "faq2_q", "label": "Q2", "default": "Does it contain hormones?" },
+    { "type": "textarea", "id": "faq2_a", "label": "A2", "default": "No — there's no estrogen, progesterone or any hormone. It eases hot flashes by supporting your body's own temperature regulation and the gut-hormone axis behind it.*" },
+    { "type": "text", "id": "faq3_q", "label": "Q3", "default": "Is it really zero sugar?" },
+    { "type": "textarea", "id": "faq3_a", "label": "A3", "default": "Yes. It's sweetened without sugar, so nothing in the formula feeds the gut imbalance that worsens estrogen swings — and your flashes. It still tastes like a treat.*" },
+    { "type": "text", "id": "faq4_q", "label": "Q4", "default": "How long until my flashes ease?" },
+    { "type": "textarea", "id": "faq4_a", "label": "A4", "default": "Many women notice cooler nights and fewer daytime flushes within two to three weeks, with the fuller picture by around week eight as the actives reach steady state.*" },
+    { "type": "text", "id": "faq5_q", "label": "Q5", "default": "My flashes are still mild — is it too early to start?" },
+    { "type": "textarea", "id": "faq5_a", "label": "A5", "default": "Not at all — that's the ideal time. Hot flashes and night sweats often start early in the transition, in your early forties. Supporting the gut-hormone root early can keep them from escalating.*" },
+    { "type": "text", "id": "faq6_q", "label": "Q6", "default": "Can I really cancel the subscription anytime?" },
+    { "type": "textarea", "id": "faq6_a", "label": "A6", "default": "Yes — pause, skip or cancel anytime from your account, no emails and no hoops. Every order is also backed by the 90-day money-back guarantee." },
+    { "type": "text", "id": "faq7_q", "label": "Q7", "default": "Is it safe for long-term daily use?" },
+    { "type": "textarea", "id": "faq7_a", "label": "A7", "default": "It's formulated as a clean daily for the long transition — hormone-free and sugar-free. As with any supplement, check with your healthcare provider for your situation." },
+    { "type": "header", "content": "Final CTA" },
+    { "type": "text", "id": "final_eyebrow", "label": "Eyebrow", "default": "The bottom line" },
+    { "type": "text", "id": "final_heading", "label": "Heading", "default": "You finally know why the flashes kept coming. Here's what cools them." },
+    { "type": "textarea", "id": "final_body", "label": "Body", "default": "Your scepticism was earned. Every remedy that masked the heat, every sugary gummy that quietly fed the swing — those failures were real, and explainable. Womankind answers each one: clinically-dosed vasomotor botanicals, gut-hormone support, and zero sugar, in one daily ritual." },
+    { "type": "image_picker", "id": "final_image", "label": "Lifestyle image (16:7)" },
+    { "type": "text", "id": "final_cta", "label": "Button", "default": "Get Womankind" },
+    { "type": "text", "id": "final_trust1", "label": "Trust 1", "default": "Free shipping on all orders" },
+    { "type": "text", "id": "final_trust2", "label": "Trust 2", "default": "90-day money-back guarantee" },
+    { "type": "text", "id": "final_trust3", "label": "Trust 3", "default": "Cancel anytime" },
+    { "type": "header", "content": "Footer" },
+    { "type": "text", "id": "foot_tagline", "label": "Tagline", "default": "for perimenopause & beyond" },
+    { "type": "text", "id": "foot_link1", "label": "Link 1", "default": "Shop" },
+    { "type": "text", "id": "foot_link2", "label": "Link 2", "default": "The science" },
+    { "type": "text", "id": "foot_link3", "label": "Link 3", "default": "Our story" },
+    { "type": "text", "id": "foot_link4", "label": "Link 4", "default": "Refund policy" },
+    { "type": "text", "id": "foot_link5", "label": "Link 5", "default": "Contact" },
+    { "type": "textarea", "id": "foot_disclaimer", "label": "FDA disclaimer", "default": "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary. Consult your healthcare provider before beginning any supplement, particularly if you are pregnant, nursing, or taking medication." },
+    { "type": "text", "id": "foot_copyright", "label": "Copyright", "default": "© 2026 Womankind. All rights reserved." },
+    { "type": "text", "id": "foot_adnote", "label": "Ad note", "default": "This page is an advertisement." }
+  ],
+  "presets": [{ "name": "Womankind advertorial" }]
+}
+{% endschema %}
