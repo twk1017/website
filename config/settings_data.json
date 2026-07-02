@@ -229,11 +229,11 @@
       "wk-cofounder": {
         "type": "wk-cofounder",
         "settings": {
-          "eyebrow": "Meet our co-founder",
+          "eyebrow": "The doctor behind the formula",
           "name_badge": "Dr. Katie Chen, MD, MSCP",
           "role_badge": "Co-founder & Medical Director",
-          "heading": "I co-founded Womankind to build the formula I wanted for my own patients",
-          "quote": "\"For years I watched women arrive in my office at forty-three — dismissed, confused, and told their labs were normal — with nothing on the shelf I could honestly recommend. So I helped build it. Every active is named and dosed, nothing I couldn't stand behind in a consult. This is the formula I wanted for my patients, and for myself.\"",
+          "heading": "Your labs can be \"normal\" and your symptoms still real. That's why I built this.",
+          "quote": "\"For years I watched women arrive in my office at forty-three — flushed, exhausted, and told their labs were normal — with nothing on the shelf I could honestly recommend. So we built our own. Every active named and dosed at the researched level, nothing I couldn't stand behind in a consult. This is the formula I wanted for my patients, and for myself.\"",
           "signature": "Dr. Katie Chen",
           "credentials": "Board-certified OB/GYN · Menopause Society Certified Practitioner (MSCP)"
         }
