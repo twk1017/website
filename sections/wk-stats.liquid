@@ -1,0 +1,81 @@
+  <!-- DATA STATS — PDP (self-contained: scoped styles + mobile stacking) -->
+  <style>
+    #wk-{{ section.id }}-stats .wk-st-grid { max-width:1080px; margin:0 auto; display:grid; grid-template-columns:1fr 0.9fr; gap:48px; align-items:center; }
+    #wk-{{ section.id }}-stats .wk-st-nums { display:grid; grid-template-columns:1fr 1fr; gap:30px 40px; }
+    @media (max-width:749px){
+      #wk-{{ section.id }}-stats .wk-st-grid { grid-template-columns:1fr; gap:36px; }
+    }
+  </style>
+  <section id="wk-{{ section.id }}-stats" style="background:#EFDFD0;padding:80px 28px;">
+    <div class="wk-st-grid">
+      <div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:36px;margin:0 0 10px;color:#6B3D42;">{{ section.settings.heading_lead }} <span style="font-style:italic;color:#C9653F;">{{ section.settings.heading_emph }}</span></h2>
+        <p style="font-size:14px;color:#5a4636;margin:0 0 34px;">{{ section.settings.subheading }}</p>
+        <div class="wk-st-nums">
+          {%- for i in (1..4) -%}
+            {%- assign pk = 's' | append: i | append: '_pct' -%}
+            {%- assign lk = 's' | append: i | append: '_label' -%}
+            {%- assign lv = section.settings[lk] -%}
+            {%- if lv != blank -%}
+            {%- assign pv = section.settings[pk] -%}
+            <div><div class="wk-stat-num" data-wk-count data-target="{{ pv }}" style="font-family:'Fraunces',serif;font-size:46px;color:#C9653F;line-height:1;">{{ pv }}%</div><p style="font-size:12.5px;line-height:1.45;color:#4a3a30;margin:9px 0 0;">{{ lv }}</p></div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+      {%- if section.settings.image -%}
+        {%- assign isrc = section.settings.image | image_url: width: 760 -%}
+        <img src="{{ isrc }}" alt="{{ section.settings.image.alt | default: 'Womankind' }}" width="760" height="950" loading="lazy" style="width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:16px;display:block;">
+      {%- else -%}
+        <div style="aspect-ratio:4/5;background:radial-gradient(circle at 50% 40%,#D8C2BA,#C9A89F);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#6B3D42;"><span style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;">Lifestyle · image</span><span style="font-size:11px;opacity:0.72;">product flat-lay</span><span style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;opacity:0.55;">760 × 950</span></div>
+      {%- endif -%}
+    </div>
+  </section>
+
+  <script>
+    (function(){
+      var root = document.getElementById('wk-{{ section.id }}-stats');
+      if (!root) return;
+      var nums = root.querySelectorAll('[data-wk-count]');
+      if (!nums.length) return;
+      nums.forEach(function(el){ el.textContent = '0%'; });
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function run(el){
+        var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+        if (reduce){ el.textContent = target + '%'; return; }
+        var dur = 1500, start = null;
+        function step(ts){ if (start===null) start=ts; var p=Math.min((ts-start)/dur,1); el.textContent = Math.round((1-Math.pow(1-p,3))*target) + '%'; if (p<1) requestAnimationFrame(step); }
+        requestAnimationFrame(step);
+      }
+      if (!('IntersectionObserver' in window)){ nums.forEach(run); return; }
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if (e.isIntersecting){ nums.forEach(run); obs.disconnect(); } });
+      }, { threshold: 0.4 });
+      obs.observe(root);
+    })();
+  </script>
+
+{% schema %}
+{
+  "name": "WK - Data stats",
+  "settings": [
+    { "type": "text", "id": "heading_lead", "label": "Heading", "default": "The data behind Womankind's" },
+    { "type": "text", "id": "heading_emph", "label": "Heading (italic)", "default": "impact" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Self-reported improvements from women who made Womankind part of their daily routine." },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "header", "content": "Stat 1" },
+    { "type": "number", "id": "s1_pct", "label": "Percent", "default": 92 },
+    { "type": "text", "id": "s1_label", "label": "Label", "default": "reported steadier days within the first month" },
+    { "type": "header", "content": "Stat 2" },
+    { "type": "number", "id": "s2_pct", "label": "Percent", "default": 89 },
+    { "type": "text", "id": "s2_label", "label": "Label", "default": "felt improved mood and emotional balance" },
+    { "type": "header", "content": "Stat 3" },
+    { "type": "number", "id": "s3_pct", "label": "Percent", "default": 94 },
+    { "type": "text", "id": "s3_label", "label": "Label", "default": "experienced calmer, less disrupted sleep" },
+    { "type": "header", "content": "Stat 4" },
+    { "type": "number", "id": "s4_pct", "label": "Percent", "default": 88 },
+    { "type": "text", "id": "s4_label", "label": "Label", "default": "reported less bloating and calmer digestion" }
+  ],
+  "presets": [{ "name": "WK - Data stats" }]
+}
+{% endschema %}
