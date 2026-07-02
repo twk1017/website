@@ -393,38 +393,6 @@
           "card6_cite": "— Renée J., 45"
         }
       },
-      "wk-reviews": {
-        "type": "wk-reviews",
-        "settings": {
-          "eyebrow": "Customer reviews",
-          "heading": "What women are telling us",
-          "subheading": "Self-reported improvements from women who made Womankind part of their daily routine.",
-          "rating_number": "4.7",
-          "rating_count": "from 1,284 verified reviews",
-          "attr1_title": "Better sleep",
-          "attr1_pct": 86,
-          "attr1_desc": "Fewer night wakings, cooler nights, and easier mornings.",
-          "attr2_title": "Steadier mood",
-          "attr2_pct": 82,
-          "attr2_desc": "Many describe feeling more even, less reactive through the day.",
-          "attr3_title": "Less bloating",
-          "attr3_pct": 85,
-          "attr3_desc": "Less bloating and a flatter, more comfortable middle.",
-          "attr4_title": "Fewer hot flashes",
-          "attr4_pct": 90,
-          "attr4_desc": "Cooler nights and fewer daytime flashes, often by month two.",
-          "attr5_title": "Clearer focus",
-          "attr5_pct": 79,
-          "attr5_desc": "Reviewers report the afternoon fog easing within weeks.",
-          "attr6_title": "Easy daily habit",
-          "attr6_pct": 94,
-          "attr6_desc": "A gummy they actually look forward to — and remember to take.",
-          "quote1": "",
-          "cite1": "",
-          "quote2": "",
-          "cite2": ""
-        }
-      },
       "wk-faq": {
         "type": "wk-faq",
         "settings": {
