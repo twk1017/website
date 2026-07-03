@@ -4,6 +4,7 @@
     #wk-{{ section.id }}-stats .wk-st-nums { display:grid; grid-template-columns:1fr 1fr; gap:30px 40px; }
     @media (max-width:749px){
       #wk-{{ section.id }}-stats .wk-st-grid { grid-template-columns:1fr; gap:36px; }
+      #wk-{{ section.id }}-stats .wk-st-img { max-width:320px; margin:0 auto; }
     }
   </style>
   <section id="wk-{{ section.id }}-stats" style="background:#EFDFD0;padding:80px 28px;">
@@ -23,12 +24,8 @@
           {%- endfor -%}
         </div>
       </div>
-      {%- if section.settings.image -%}
-        {%- assign isrc = section.settings.image | image_url: width: 760 -%}
-        <img src="{{ isrc }}" alt="{{ section.settings.image.alt | default: 'Womankind' }}" width="760" height="950" loading="lazy" style="width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:16px;display:block;">
-      {%- else -%}
-        <div style="aspect-ratio:4/5;background:radial-gradient(circle at 50% 40%,#D8C2BA,#C9A89F);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#6B3D42;"><span style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;">Lifestyle · image</span><span style="font-size:11px;opacity:0.72;">product flat-lay</span><span style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;opacity:0.55;">760 × 950</span></div>
-      {%- endif -%}
+      {%- if section.settings.image -%}{%- assign isrc = section.settings.image | image_url: width: 760 -%}{%- else -%}{%- assign isrc = 'wk-stats-lifestyle.jpg' | asset_url -%}{%- endif -%}
+      <img class="wk-st-img" src="{{ isrc }}" alt="{{ section.settings.image.alt | default: 'Womankind' }}" width="760" height="760" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:16px;display:block;">
     </div>
   </section>
 
@@ -62,7 +59,7 @@
     { "type": "text", "id": "heading_lead", "label": "Heading", "default": "The data behind Womankind's" },
     { "type": "text", "id": "heading_emph", "label": "Heading (italic)", "default": "impact" },
     { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Self-reported improvements from women who made Womankind part of their daily routine." },
-    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Defaults to wk-stats-lifestyle.jpg if empty." },
     { "type": "header", "content": "Stat 1" },
     { "type": "number", "id": "s1_pct", "label": "Percent", "default": 92 },
     { "type": "text", "id": "s1_label", "label": "Label", "default": "reported fewer, milder hot flashes within the first month" },
