@@ -300,13 +300,6 @@
           <h3 style="font-family:'Fraunces',serif;font-weight:400;font-size:32px;line-height:1.05;margin:0 0 14px;color:#6B3D42;">{{ section.settings.offer_title }}</h3>
           <p style="font-size:14.5px;line-height:1.6;color:#4a3a30;margin:0 0 22px;max-width:46ch;">{{ section.settings.offer_desc }}{{ wk_star }}</p>
 
-          {%- if section.settings.offer_scarcity_on -%}
-          <div style="display:flex;align-items:flex-start;gap:11px;background:#6B3D42;color:#F5E6D8;border-radius:11px;padding:13px 16px;margin-bottom:20px;">
-            <span style="flex:0 0 auto;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;color:#3A2A20;background:#E2A24C;border-radius:999px;padding:4px 10px;margin-top:1px;">{{ section.settings.offer_scarcity_tag }}</span>
-            <span style="font-size:13px;line-height:1.5;">{{ section.settings.offer_scarcity_text }}</span>
-          </div>
-          {%- endif -%}
-
           <div style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:12px;">{{ section.settings.offer_tiers_label }}</div>
           <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:22px;">
             <!-- 1 month -->
@@ -360,6 +353,21 @@
       </div>
     </div>
   </section>
+
+  <!-- SCARCITY (summer sale) -->
+  {%- if section.settings.scar_on -%}
+  <section class="adv-sec" style="background:#F5E6D8;padding:14px 28px 70px;">
+    <div style="max-width:760px;margin:0 auto;">
+      <div style="background:#3A2A20;color:#F5E6D8;border:2px solid #E2A24C;border-radius:18px;padding:46px 38px;text-align:center;">
+        <span style="display:inline-block;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#3A2A20;background:#E2A24C;border-radius:999px;padding:6px 16px;margin-bottom:20px;">{{ section.settings.scar_tag }}</span>
+        <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:30px;line-height:1.18;margin:0 0 18px;color:#F5E6D8;">{{ section.settings.scar_heading }}</h2>
+        <p style="font-size:16px;line-height:1.7;color:rgba(245,230,216,0.85);margin:0 auto 14px;max-width:56ch;">{{ section.settings.scar_body }}</p>
+        <p style="font-size:14px;line-height:1.6;color:#E2A24C;margin:0 auto 30px;max-width:54ch;">{{ section.settings.scar_note }}</p>
+        <a href="#offer" style="display:inline-block;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:16px 42px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.scar_cta }}</a>
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
 
   <!-- COST OF DOING NOTHING -->
   <section class="adv-sec" style="background:#6B3D42;color:#F5E6D8;padding:66px 28px;">
@@ -714,9 +722,6 @@
     { "type": "text", "id": "offer_h2_lead", "label": "Heading — lead", "default": "Get your nights" },
     { "type": "text", "id": "offer_h2_accent", "label": "Heading — italic accent", "default": "back" },
     { "type": "textarea", "id": "offer_intro", "label": "Intro", "default": "Add up what I threw at this the wrong way — the gummies, the pills, the cooling pad, a specialist visit — and it was north of $500 before I found what actually worked. Womankind is one gummy a day, and it costs less than the sugary version that was making my nights worse." },
-    { "type": "checkbox", "id": "offer_scarcity_on", "label": "Show summer-sale scarcity banner", "default": true, "info": "Turn OFF when the sale ends." },
-    { "type": "text", "id": "offer_scarcity_tag", "label": "Scarcity — tag", "default": "Summer sale" },
-    { "type": "textarea", "id": "offer_scarcity_text", "label": "Scarcity — message", "default": "You're seeing our summer-sale pricing. When the sale ends, every bottle goes back to its regular price — so lock in the lower price while it's still on." },
     { "type": "text", "id": "offer_badge", "label": "Gallery badge", "default": "Top-rated women's formula" },
     { "type": "text", "id": "offer_rating", "label": "Rating text", "default": "Rated 4.8 \"Excellent\" · 1,200+ reviews" },
     { "type": "text", "id": "offer_title", "label": "Product title", "default": "hormonal support gummies" },
@@ -741,6 +746,13 @@
     { "type": "image_picker", "id": "gallery_2_image", "label": "Image 2" },
     { "type": "image_picker", "id": "gallery_3_image", "label": "Image 3" },
     { "type": "image_picker", "id": "gallery_4_image", "label": "Image 4" },
+    { "type": "header", "content": "Scarcity section (summer sale)" },
+    { "type": "checkbox", "id": "scar_on", "label": "Show scarcity section", "default": true, "info": "Turn OFF when the summer sale ends — the whole section disappears." },
+    { "type": "text", "id": "scar_tag", "label": "Tag", "default": "Summer sale — ending soon" },
+    { "type": "text", "id": "scar_heading", "label": "Heading", "default": "The price on this page is a summer-sale price" },
+    { "type": "textarea", "id": "scar_body", "label": "Body", "default": "Let me be straight with you, the way I wish more people in my field were: what you see today is our summer-sale pricing, and it isn't permanent. When the sale ends, every bottle goes back to its regular price. Same formula, same bottles — you'd just pay more for them later." },
+    { "type": "textarea", "id": "scar_note", "label": "Honest note", "default": "No countdown gimmicks, no fake \"almost gone.\" Just the honest heads-up: if your nights sound like mine, there's no reason to pay more for the same thing a month from now." },
+    { "type": "text", "id": "scar_cta", "label": "Button", "default": "Lock in the summer price" },
     { "type": "header", "content": "Cost-of-doing-nothing band" },
     { "type": "text", "id": "band2_eyebrow", "label": "Eyebrow", "default": "The real risk" },
     { "type": "text", "id": "band2_heading", "label": "Heading", "default": "The only real risk is another year of broken sleep" },
