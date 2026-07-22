@@ -26,8 +26,12 @@
     #wk-{{ section.id }} .adv-h2 { font-size:29px !important; }
     #wk-{{ section.id }} .adv-grid3 { grid-template-columns:1fr !important; }
     #wk-{{ section.id }} .adv-grid4 { grid-template-columns:1fr 1fr !important; }
+    #wk-{{ section.id }} .adv-prob-wrap { display:grid !important; grid-template-columns:1fr 1fr !important; gap:12px !important; align-items:stretch !important; }
     #wk-{{ section.id }} .adv-prob { grid-template-columns:1fr !important; }
-    #wk-{{ section.id }} .adv-prob .adv-prob-img { min-height:200px !important; }
+    #wk-{{ section.id }} .adv-prob .adv-prob-img { order:-1; min-height:120px !important; }
+    #wk-{{ section.id }} .adv-prob-txt { padding:16px 15px !important; }
+    #wk-{{ section.id }} .adv-prob-txt h3 { font-size:16px !important; margin-bottom:7px !important; }
+    #wk-{{ section.id }} .adv-prob-txt p { font-size:12.5px !important; line-height:1.5 !important; }
     #wk-{{ section.id }} .adv-offer { grid-template-columns:1fr !important; }
     #wk-{{ section.id }} .adv-sec { padding-left:20px !important; padding-right:20px !important; }
     #wk-{{ section.id }} .adv-lede { font-size:17px !important; }
@@ -80,7 +84,7 @@
       <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:36px;text-align:center;margin:0 auto 18px;color:#6B3D42;max-width:16ch;">{{ section.settings.fail_heading }}</h2>
       <p style="max-width:640px;margin:0 auto 52px;text-align:center;font-size:16px;line-height:1.7;color:#5a4636;">{{ section.settings.fail_intro }}</p>
 
-      <div style="display:flex;flex-direction:column;gap:24px;">
+      <div class="adv-prob-wrap" style="display:flex;flex-direction:column;gap:24px;">
         {%- for i in (1..4) -%}
           {%- assign pe = 'prob' | append: i | append: '_eyebrow' -%}
           {%- assign pt = 'prob' | append: i | append: '_title' -%}
@@ -90,7 +94,7 @@
           {%- assign img_left = false -%}{%- if i == 1 or i == 3 -%}{%- assign img_left = true -%}{%- endif -%}
           {%- if img_left -%}{%- assign cols = '0.9fr 1.1fr' -%}{%- else -%}{%- assign cols = '1.1fr 0.9fr' -%}{%- endif -%}
           {%- capture img_cell -%}<div class="adv-prob-img" style="background:#C9A89F;min-height:230px;overflow:hidden;">{%- if p_img -%}<img src="{{ p_img | image_url: width: 700 }}" alt="" width="700" height="500" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- else -%}<img src="{{ 'wk-adv2-prob' | append: i | append: '.jpg' | asset_url }}" alt="" width="700" height="500" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- endif -%}</div>{%- endcapture -%}
-          {%- capture txt_cell -%}<div style="padding:34px;"><div style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#C9653F;font-weight:700;margin-bottom:10px;">{{ section.settings[pe] }}</div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:22px;line-height:1.2;margin:0 0 12px;color:#6B3D42;">{{ section.settings[pt] }}</h3><p style="font-size:15px;line-height:1.65;color:#4a3a30;margin:0;">{{ section.settings[pb] }}</p></div>{%- endcapture -%}
+          {%- capture txt_cell -%}<div class="adv-prob-txt" style="padding:34px;"><div style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#C9653F;font-weight:700;margin-bottom:10px;">{{ section.settings[pe] }}</div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:22px;line-height:1.2;margin:0 0 12px;color:#6B3D42;">{{ section.settings[pt] }}</h3><p style="font-size:15px;line-height:1.65;color:#4a3a30;margin:0;">{{ section.settings[pb] }}</p></div>{%- endcapture -%}
           <div class="adv-prob" style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:16px;overflow:hidden;display:grid;grid-template-columns:{{ cols }};">
             {%- if img_left -%}{{ img_cell }}{{ txt_cell }}{%- else -%}{{ txt_cell }}{{ img_cell }}{%- endif -%}
           </div>
