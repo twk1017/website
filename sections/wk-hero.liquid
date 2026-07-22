@@ -43,10 +43,8 @@
       <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:14px;">{{ section.settings.eyebrow }}</div>
       <h1 style="font-family:'Fraunces',serif;font-weight:400;font-size:48px;line-height:1.02;margin:0 0 14px;color:#6B3D42;letter-spacing:-0.01em;">{{ section.settings.heading }}</h1>
 
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-        <span style="color:#C9653F;font-size:17px;letter-spacing:2px;">★★★★★</span>
-        <span style="font-size:13.5px;color:#3A2A20;">{{ section.settings.rating_text }}</span>
-      </div>
+      {%- assign oke_product = wk_product | default: all_products['hormonal-support-gummies'] -%}
+      <div data-oke-star-rating data-oke-reviews-product-id="shopify-{{ oke_product.id }}" style="margin-bottom:16px;">{{ oke_product.metafields.okendo.StarRatingSnippet }}</div>
 
       <p style="font-size:15px;line-height:1.6;color:#4a3a30;margin:0 0 18px;max-width:30em;">{{ section.settings.description }}</p>
 
