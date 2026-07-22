@@ -401,6 +401,31 @@
         <h2 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;color:#6B3D42;margin:0;">{{ section.settings.cm_heading }}</h2>
         <span style="font-size:13px;color:#7a6258;">{{ section.settings.cm_count }}</span>
       </div>
+      {%- if section.settings.cm_composer_on -%}
+      <div style="display:flex;gap:14px;padding:22px 0 20px;border-bottom:1px solid rgba(107,61,66,0.12);">
+        <div style="width:40px;height:40px;border-radius:50%;background:#C9A89F;color:#6B3D42;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:20px;line-height:1;">+</div>
+        <form data-adv-cmform onsubmit="return false;" style="flex:1;margin:0;">
+          <textarea id="adv2-cminput-{{ section.id }}" rows="2" placeholder="{{ section.settings.cm_composer_placeholder | escape }}" style="width:100%;box-sizing:border-box;resize:vertical;min-height:52px;border:1px solid rgba(107,61,66,0.28);border-radius:12px;background:#FBF1E6;padding:12px 14px;font-family:inherit;font-size:14.5px;line-height:1.5;color:#3A2A20;"></textarea>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;">
+            <span id="adv2-cmnote-{{ section.id }}" role="status" aria-live="polite" style="font-size:12.5px;color:#6B3D42;"></span>
+            <button type="button" id="adv2-cmpost-{{ section.id }}" style="background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:11px 26px;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;">{{ section.settings.cm_composer_button }}</button>
+          </div>
+        </form>
+      </div>
+      <script>
+        (function(){
+          var btn = document.getElementById('adv2-cmpost-{{ section.id }}');
+          if (!btn) return;
+          var input = document.getElementById('adv2-cminput-{{ section.id }}');
+          var note = document.getElementById('adv2-cmnote-{{ section.id }}');
+          btn.addEventListener('click', function(){
+            if (input && input.value.trim() === '') { if (note) note.textContent = 'Please write a comment first.'; return; }
+            if (input) input.value = '';
+            if (note) note.textContent = {{ section.settings.cm_composer_confirm | json }};
+          });
+        })();
+      </script>
+      {%- endif -%}
       {%- for i in (1..6) -%}
         {%- assign cn = 'cm' | append: i | append: '_name' -%}
         {%- assign cm = 'cm' | append: i | append: '_meta' -%}
@@ -766,6 +791,10 @@
     { "type": "header", "content": "Comments" },
     { "type": "text", "id": "cm_heading", "label": "Heading", "default": "Comments" },
     { "type": "text", "id": "cm_count", "label": "Count label", "default": "247 comments" },
+    { "type": "checkbox", "id": "cm_composer_on", "label": "Show comment box (dummy — never posts)", "default": true },
+    { "type": "text", "id": "cm_composer_placeholder", "label": "Comment box — placeholder", "default": "Add a comment…" },
+    { "type": "text", "id": "cm_composer_button", "label": "Comment box — button", "default": "Post comment" },
+    { "type": "text", "id": "cm_composer_confirm", "label": "Comment box — confirmation message", "default": "Thanks — your comment has been submitted and will appear once approved." },
     { "type": "text", "id": "cm1_name", "label": "Comment 1 — name", "default": "Susan T." },
     { "type": "text", "id": "cm1_meta", "label": "Comment 1 — meta", "default": "2 days ago" },
     { "type": "textarea", "id": "cm1_body", "label": "Comment 1 — body", "default": "Does anyone know if you can take this alongside an SSRI? My doctor has me on one for the mood side of all this and I don't want to make things worse." },
