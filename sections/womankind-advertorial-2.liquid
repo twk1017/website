@@ -20,6 +20,8 @@
   #wk-{{ section.id }} .adv-ph { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:#6B3D42; text-align:center; }
   #wk-{{ section.id }} [data-adv-faq-panel] { display:none; }
   #wk-{{ section.id }} [data-adv-faq-panel].is-open { display:block; }
+  #wk-{{ section.id }} .adv-scroll { scrollbar-width:none; -ms-overflow-style:none; }
+  #wk-{{ section.id }} .adv-scroll::-webkit-scrollbar { display:none; height:0; width:0; }
 
   @media (max-width:749px){
     #wk-{{ section.id }} .adv-h1 { font-size:33px !important; }
@@ -108,7 +110,7 @@
       <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:36px;text-align:center;margin:0 auto 16px;color:#6B3D42;max-width:22ch;">{{ section.settings.comp_heading }}</h2>
       <p style="max-width:620px;margin:0 auto 48px;text-align:center;font-size:16px;line-height:1.7;color:#5a4636;">{{ section.settings.comp_intro }}</p>
 
-      <div style="overflow-x:auto;">
+      <div class="adv-scroll" style="overflow-x:auto;">
         <div style="min-width:820px;display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr 1.1fr;background:#FBF1E6;border:1px solid rgba(107,61,66,0.16);border-radius:16px;overflow:hidden;">
           <div style="background:#3A2A20;color:rgba(245,230,216,0.65);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;padding:18px;"></div>
           <div style="background:#3A2A20;color:#F5E6D8;font-family:'Fraunces',serif;font-size:15px;padding:18px;border-left:1px solid rgba(245,230,216,0.12);">{{ section.settings.comp_col1 }}</div>
