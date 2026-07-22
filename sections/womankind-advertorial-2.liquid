@@ -405,6 +405,7 @@
       <div style="display:flex;gap:14px;padding:22px 0 20px;border-bottom:1px solid rgba(107,61,66,0.12);">
         <div style="width:40px;height:40px;border-radius:50%;background:#C9A89F;color:#6B3D42;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:20px;line-height:1;">+</div>
         <form data-adv-cmform onsubmit="return false;" style="flex:1;margin:0;">
+          <input id="adv2-cmname-{{ section.id }}" type="text" placeholder="{{ section.settings.cm_composer_name_placeholder | escape }}" style="width:100%;box-sizing:border-box;border:1px solid rgba(107,61,66,0.28);border-radius:12px;background:#FBF1E6;padding:11px 14px;font-family:inherit;font-size:14px;color:#3A2A20;margin-bottom:8px;">
           <textarea id="adv2-cminput-{{ section.id }}" rows="2" placeholder="{{ section.settings.cm_composer_placeholder | escape }}" style="width:100%;box-sizing:border-box;resize:vertical;min-height:52px;border:1px solid rgba(107,61,66,0.28);border-radius:12px;background:#FBF1E6;padding:12px 14px;font-family:inherit;font-size:14.5px;line-height:1.5;color:#3A2A20;"></textarea>
           <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;">
             <span id="adv2-cmnote-{{ section.id }}" role="status" aria-live="polite" style="font-size:12.5px;color:#6B3D42;"></span>
@@ -416,10 +417,13 @@
         (function(){
           var btn = document.getElementById('adv2-cmpost-{{ section.id }}');
           if (!btn) return;
+          var name = document.getElementById('adv2-cmname-{{ section.id }}');
           var input = document.getElementById('adv2-cminput-{{ section.id }}');
           var note = document.getElementById('adv2-cmnote-{{ section.id }}');
           btn.addEventListener('click', function(){
+            if (name && name.value.trim() === '') { if (note) note.textContent = 'Please add your name.'; return; }
             if (input && input.value.trim() === '') { if (note) note.textContent = 'Please write a comment first.'; return; }
+            if (name) name.value = '';
             if (input) input.value = '';
             if (note) note.textContent = {{ section.settings.cm_composer_confirm | json }};
           });
@@ -461,18 +465,9 @@
     <div style="max-width:1180px;margin:0 auto;">
       <div style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:44px;line-height:1;margin-bottom:6px;">womankind</div>
       <div style="text-align:center;font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:rgba(245,230,216,0.7);margin-bottom:40px;">{{ section.settings.foot_tagline }}</div>
-      <div style="display:flex;justify-content:center;gap:28px;flex-wrap:wrap;font-size:13px;color:rgba(245,230,216,0.8);padding-bottom:34px;border-bottom:1px solid rgba(245,230,216,0.16);">
-        {%- for i in (1..5) -%}
-          {%- assign flk = 'foot_link' | append: i -%}
-          {%- assign flv = section.settings[flk] -%}
-          {%- if flv != blank -%}<span style="cursor:pointer;">{{ flv }}</span>{%- endif -%}
-        {%- endfor -%}
-      </div>
-      <p style="font-size:11px;line-height:1.6;color:rgba(245,230,216,0.72);margin:24px 0 0;max-width:90ch;font-weight:600;">{{ section.settings.foot_dramatization }}</p>
-      <p style="font-size:11px;line-height:1.6;color:rgba(245,230,216,0.55);margin:12px 0 0;max-width:90ch;">{{ section.settings.foot_disclaimer }}</p>
+      <p style="font-size:11px;line-height:1.6;color:rgba(245,230,216,0.55);margin:0;max-width:90ch;">{{ section.settings.foot_disclaimer }}</p>
       <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:20px;font-size:12px;color:rgba(245,230,216,0.55);">
         <span>{{ section.settings.foot_copyright }}</span>
-        <span>{{ section.settings.foot_adnote }}</span>
       </div>
     </div>
   </footer>
@@ -792,6 +787,7 @@
     { "type": "text", "id": "cm_heading", "label": "Heading", "default": "Comments" },
     { "type": "text", "id": "cm_count", "label": "Count label", "default": "247 comments" },
     { "type": "checkbox", "id": "cm_composer_on", "label": "Show comment box (dummy — never posts)", "default": true },
+    { "type": "text", "id": "cm_composer_name_placeholder", "label": "Comment box — name placeholder", "default": "Your name" },
     { "type": "text", "id": "cm_composer_placeholder", "label": "Comment box — placeholder", "default": "Add a comment…" },
     { "type": "text", "id": "cm_composer_button", "label": "Comment box — button", "default": "Post comment" },
     { "type": "text", "id": "cm_composer_confirm", "label": "Comment box — confirmation message", "default": "Thanks — your comment has been submitted and will appear once approved." },
