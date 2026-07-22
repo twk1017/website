@@ -178,11 +178,6 @@
         "type": "wk-hero",
         "settings": {
           "product": "hormonal-support-gummies",
-          "thumb_1_label": "Front",
-          "thumb_2_label": "Detail",
-          "thumb_3_label": "Formula",
-          "thumb_4_label": "In hand",
-          "thumb_5_label": "Video",
           "eyebrow": "Daily · for perimenopause & beyond",
           "heading": "hormonal support gummies",
           "rating_text": "4.8 · 1,200+ reviews",
@@ -484,23 +479,7 @@
         "type": "wk-home-testimonials",
         "settings": {
           "heading_lead": "Women who feel like",
-          "heading_emph": "themselves again",
-          "subheading": "Trusted by women who wanted to be taken seriously, not managed.",
-          "t1_quote": "\"I honestly didn't expect much, but the 2am wake-ups eased within weeks. I feel steadier, calmer, more like myself again.\"",
-          "t1_score": "4.9/5.0",
-          "t1_name": "Margaret R., 47",
-          "t1_tag1": "Better sleep",
-          "t1_tag2": "Calm",
-          "t2_quote": "\"By the end of the first month the bloating had calmed and my mood felt even. Finally something that takes the early signs seriously.\"",
-          "t2_score": "5.0/5.0",
-          "t2_name": "Dana M., 51",
-          "t2_tag1": "Less bloat",
-          "t2_tag2": "Steady mood",
-          "t3_quote": "\"I'd wasted money on a lot of supplements, so I was skeptical. This is the first one where I can feel the difference — steadier energy, clearer days.\"",
-          "t3_score": "4.8/5.0",
-          "t3_name": "Elena S., 46",
-          "t3_tag1": "Steady energy",
-          "t3_tag2": "Clear focus"
+          "heading_emph": "themselves again"
         }
       },
       "wk-home-chart": {
@@ -628,6 +607,15 @@
       }
     },
     "content_for_index": [],
+    "blocks": {
+      "733389323033596483": {
+        "type": "shopify://apps/okendo/blocks/theme-settings/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+        "disabled": false,
+        "settings": {
+          "show_preview_data": true
+        }
+      }
+    },
     "color_schemes": {
       "scheme-1": {
         "settings": {
