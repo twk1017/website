@@ -249,83 +249,35 @@
     </div>
   </section>
 
-  <!-- OFFER / BUY BOX -->
+  <!-- OFFER → PDP CTA CARD -->
   <section class="adv-sec" id="offer" style="background:#EFDFD0;padding:74px 28px;scroll-margin-top:80px;">
-    <div style="max-width:1140px;margin:0 auto;">
-      <div style="text-align:center;margin-bottom:12px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9653F;font-weight:700;">{{ section.settings.offer_eyebrow }}</div>
-      <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:38px;text-align:center;margin:0 0 46px;color:#6B3D42;">{{ section.settings.offer_h2_lead }} <span style="font-style:italic;color:#C9653F;">{{ section.settings.offer_h2_accent }}</span></h2>
-      <div class="adv-offer" style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:44px;align-items:start;">
-        <!-- gallery -->
-        <div>
-          {%- assign adv_hero = section.settings.gallery_1_image -%}
-          {%- if adv_hero -%}{%- assign adv_hero_src = adv_hero | image_url: width: 1000 -%}{%- else -%}{%- assign adv_hero_src = 'wk-buybox-1.jpg' | asset_url -%}{%- endif -%}
-          <div style="aspect-ratio:1/1;background:radial-gradient(circle at 50% 45%,#D8C2BA,#C9A89F);border-radius:16px;overflow:hidden;position:relative;">
-            <img data-adv-hero-img src="{{ adv_hero_src }}" alt="Womankind Hormonal Support Gummies" width="1000" height="1000" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
-            <span style="position:absolute;top:18px;left:18px;background:#6B3D42;color:#F5E6D8;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;padding:6px 13px;border-radius:999px;z-index:2;">{{ section.settings.offer_badge }}</span>
+    <div style="max-width:1040px;margin:0 auto;position:relative;">
+      {%- assign cta_href = section.settings.cta_url | default: wk_product.url -%}
+      {%- if section.settings.cta_image -%}{%- assign cta_img_src = section.settings.cta_image | image_url: width: 1000 -%}{%- else -%}{%- assign cta_img_src = 'wk-buybox-2.jpg' | asset_url -%}{%- endif -%}
+      <span style="position:absolute;top:-19px;left:50%;transform:translateX(-50%);z-index:3;background:#C9653F;color:#F5E6D8;font-family:'Fraunces',serif;font-size:16px;padding:9px 26px;border-radius:999px;white-space:nowrap;">{{ section.settings.cta_badge }}</span>
+      <div style="border:1.6px dashed rgba(107,61,66,0.38);border-radius:22px;padding:14px;">
+        <div class="adv-offer" style="display:grid;grid-template-columns:0.92fr 1.08fr;background:#FBF1E6;border-radius:14px;overflow:hidden;align-items:stretch;">
+          <div style="background:#C9A89F;min-height:340px;overflow:hidden;">
+            <img src="{{ cta_img_src }}" alt="Womankind" width="900" height="900" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
           </div>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px;">
-            {%- for i in (1..4) -%}
-              {%- assign gk = 'gallery_' | append: i | append: '_image' -%}
-              {%- assign gimg = section.settings[gk] -%}
-              {%- if gimg -%}{%- assign gsrc = gimg | image_url: width: 240 -%}{%- assign gfull = gimg | image_url: width: 1000 -%}{%- else -%}{%- assign gfile = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- assign gsrc = gfile | asset_img_url: '240x240' -%}{%- assign gfull = gfile | asset_url -%}{%- endif -%}
-              <button type="button" data-adv-thumb data-adv-full="{{ gfull }}" aria-label="View image {{ i }}" style="cursor:pointer;padding:0;aspect-ratio:1/1;background:#D8C2BA;border-radius:8px;overflow:hidden;{% if forloop.first %}border:2px solid #6B3D42;{% else %}border:2px solid transparent;{% endif %}"><img src="{{ gsrc }}" alt="" width="240" height="240" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></button>
-            {%- endfor -%}
-          </div>
-        </div>
-        <!-- buy -->
-        <div>
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><span style="color:#C9653F;font-size:14px;letter-spacing:2px;">★★★★★</span><span style="font-size:13px;color:#3A2A20;">{{ section.settings.offer_rating }}</span></div>
-          <h3 style="font-family:'Fraunces',serif;font-weight:400;font-size:32px;line-height:1.05;margin:0 0 14px;color:#6B3D42;">{{ section.settings.offer_title }}</h3>
-          <p style="font-size:14.5px;line-height:1.6;color:#4a3a30;margin:0 0 22px;max-width:46ch;">{{ section.settings.offer_desc }}{{ wk_star }}</p>
-
-          <div style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:12px;">{{ section.settings.offer_tiers_label }}</div>
-          <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:22px;">
-            <!-- 1 month -->
-            <button type="button" data-adv="supply" data-adv-val="1" style="position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
-              <span data-adv-ring="1" style="box-shadow:0 0 0 0 transparent;position:absolute;inset:-1.5px;border-radius:12px;pointer-events:none;"></span>
-              <span style="display:flex;align-items:center;gap:14px;"><span style="width:42px;height:42px;background:#C9A89F;border-radius:8px;flex:0 0 auto;"></span><span><span style="display:block;font-size:15px;font-weight:600;color:#6B3D42;">{{ section.settings.tier1_name }}</span><span style="display:block;font-size:12px;color:#7a6258;">{{ section.settings.tier1_sub }}</span></span></span>
-              <span style="text-align:right;flex:0 0 auto;"><span data-adv-total="1" style="display:block;font-size:18px;font-weight:700;color:#C9653F;">$45</span><span data-adv-compare="1" style="display:block;font-size:11px;text-decoration:line-through;color:#A07E81;">$52</span></span>
-            </button>
-            <!-- 3 month -->
-            <button type="button" data-adv="supply" data-adv-val="3" style="position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
-              <span data-adv-ring="3" style="box-shadow:0 0 0 2px #6B3D42;position:absolute;inset:-1.5px;border-radius:12px;pointer-events:none;"></span>
-              <span style="position:absolute;top:-10px;left:18px;background:#C9653F;color:#F5E6D8;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;padding:3px 10px;border-radius:999px;">{{ section.settings.tier3_badge }}</span>
-              <span style="display:flex;align-items:center;gap:14px;"><span style="width:42px;height:42px;background:#C9A89F;border-radius:8px;flex:0 0 auto;"></span><span><span style="display:block;font-size:15px;font-weight:600;color:#6B3D42;">{{ section.settings.tier3_name }}</span><span style="display:block;font-size:12px;color:#7a6258;">{{ section.settings.tier3_sub }}</span></span></span>
-              <span style="text-align:right;flex:0 0 auto;"><span data-adv-total="3" style="display:block;font-size:18px;font-weight:700;color:#C9653F;">$105</span><span data-adv-compare="3" style="display:block;font-size:11px;text-decoration:line-through;color:#A07E81;">$156</span><span data-adv-save="3" style="display:block;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6B3D42;font-weight:600;">Save 33%</span></span>
-            </button>
-            <!-- 6 month -->
-            <button type="button" data-adv="supply" data-adv-val="6" style="position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
-              <span data-adv-ring="6" style="box-shadow:0 0 0 0 transparent;position:absolute;inset:-1.5px;border-radius:12px;pointer-events:none;"></span>
-              <span style="position:absolute;top:-10px;left:18px;background:#6B3D42;color:#F5E6D8;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;padding:3px 10px;border-radius:999px;">{{ section.settings.tier6_badge }}</span>
-              <span style="display:flex;align-items:center;gap:14px;"><span style="width:42px;height:42px;background:#C9A89F;border-radius:8px;flex:0 0 auto;"></span><span><span style="display:block;font-size:15px;font-weight:600;color:#6B3D42;">{{ section.settings.tier6_name }}</span><span style="display:block;font-size:12px;color:#7a6258;">{{ section.settings.tier6_sub }}</span></span></span>
-              <span style="text-align:right;flex:0 0 auto;"><span data-adv-total="6" style="display:block;font-size:18px;font-weight:700;color:#C9653F;">$186</span><span data-adv-compare="6" style="display:block;font-size:11px;text-decoration:line-through;color:#A07E81;">$312</span><span data-adv-save="6" style="display:block;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6B3D42;font-weight:600;">Save 40%</span></span>
-            </button>
-          </div>
-
-          <div data-adv-refill role="checkbox" aria-checked="true" tabindex="0" style="display:flex;align-items:center;gap:10px;background:#FBF1E6;border:1px solid rgba(107,61,66,0.16);border-radius:10px;padding:13px 16px;margin-bottom:18px;cursor:pointer;">
-            <span data-adv-refill-box style="width:18px;height:18px;border-radius:5px;background:#6B3D42;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;color:#E2A24C;font-size:11px;"><span data-adv-refill-check>✓</span></span>
-            <span style="font-size:13px;color:#3A2A20;"><strong style="color:#6B3D42;">{{ section.settings.offer_sub_title }}</strong> {{ section.settings.offer_sub_body }}</span>
-          </div>
-
-          {%- if wk_product != blank -%}
-            <form method="post" action="{{ routes.cart_add_url }}" accept-charset="UTF-8" enctype="multipart/form-data" data-adv-form>
-              <input type="hidden" name="form_type" value="product">
-              <input type="hidden" name="utf8" value="✓">
-              <input type="hidden" name="id" value="{{ wk_variant.id }}">
-              <input type="hidden" name="quantity" value="3" data-adv-qty>
-              <input type="hidden" name="selling_plan" value="{{ wk_selling_plan.id }}" data-adv-selling-plan disabled>
-              <button type="submit"{% unless wk_variant.available %} disabled{% endunless %} style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;{% unless wk_variant.available %}opacity:0.55;cursor:not-allowed;{% endunless %}">
-                {%- if wk_variant.available -%}{{ section.settings.offer_atc_label }} <span style="opacity:0.85;">— <span data-adv-atc-total>{{ wk_variant.price | times: 3 | money }}</span></span>{%- else -%}Sold out{%- endif -%}
-              </button>
-            </form>
-          {%- else -%}
-            <a href="{{ section.settings.offer_fallback_url | default: '#' }}" style="width:100%;box-sizing:border-box;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;text-decoration:none;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;">{{ section.settings.offer_atc_label }} <span style="opacity:0.85;">— {{ section.settings.offer_static_price }}</span></a>
-          {%- endif -%}
-
-          <div style="display:flex;align-items:center;justify-content:center;gap:22px;margin-top:14px;font-size:12px;color:#7a6258;flex-wrap:wrap;">
-            <span>⌁ {{ section.settings.offer_trust1 }}</span>
-            <span>♡ {{ section.settings.offer_trust2 }}</span>
-            <span>↻ {{ section.settings.offer_trust3 }}</span>
+          <div style="padding:48px 44px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;color:#C9653F;">
+              <span style="height:1px;width:26px;background:rgba(201,101,63,0.5);"></span>
+              <span style="font-size:11.5px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;">{{ section.settings.offer_eyebrow }}</span>
+              <span style="height:1px;width:26px;background:rgba(201,101,63,0.5);"></span>
+            </div>
+            <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:500;font-size:34px;line-height:1.08;margin:0 0 6px;color:#6B3D42;">{{ section.settings.offer_h2_lead }} <span style="font-style:italic;color:#C9653F;">{{ section.settings.offer_h2_accent }}</span></h2>
+            {%- if section.settings.cta_sub != blank -%}<div style="font-family:'Fraunces',serif;font-style:italic;font-size:20px;color:#6B3D42;margin:0 0 20px;">{{ section.settings.cta_sub }}</div>{%- endif -%}
+            {%- if section.settings.cta_quote != blank -%}<p style="font-size:15px;line-height:1.7;color:#5a4636;margin:0 0 26px;max-width:42ch;">{{ section.settings.cta_quote }}</p>{%- endif -%}
+            <a href="{{ cta_href | default: '#' }}" style="width:100%;box-sizing:border-box;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:12px;padding:17px 24px;font-size:14px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;">{{ section.settings.cta_label }}</a>
+            {%- if section.settings.cta_bar1 != blank or section.settings.cta_bar2 != blank -%}
+            <div style="width:100%;box-sizing:border-box;margin-top:12px;background:#EAD9C8;border-radius:10px;padding:11px 16px;font-size:12.5px;color:#3A2A20;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
+              {%- if section.settings.cta_bar1 != blank -%}<span style="font-weight:600;">{{ section.settings.cta_bar1 }}</span>{%- endif -%}
+              {%- if section.settings.cta_bar1 != blank and section.settings.cta_bar2 != blank -%}<span style="opacity:0.4;">|</span>{%- endif -%}
+              {%- if section.settings.cta_bar2 != blank -%}<span>{{ section.settings.cta_bar2 }}</span>{%- endif -%}
+            </div>
+            {%- endif -%}
+            {%- if section.settings.cta_guarantee != blank -%}<p style="font-size:12.5px;color:#7a6258;margin:18px 0 0;">{{ section.settings.cta_guarantee }}</p>{%- endif -%}
           </div>
         </div>
       </div>
@@ -578,6 +530,16 @@
     { "type": "product", "id": "product", "label": "Product", "info": "Powers the offer add-to-cart and pricing (tiers + subscription)." },
     { "type": "url", "id": "offer_fallback_url", "label": "Fallback button link", "info": "Used only when no product is selected." },
     { "type": "text", "id": "offer_static_price", "label": "Fallback button price", "default": "$105" },
+    { "type": "header", "content": "Offer → PDP card" },
+    { "type": "url", "id": "cta_url", "label": "Button link → PDP", "info": "Where the button sends shoppers (your gummies PDP). Falls back to the linked product's page if empty." },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Shop the offer →" },
+    { "type": "text", "id": "cta_badge", "label": "Corner badge", "default": "Summer sale" },
+    { "type": "text", "id": "cta_sub", "label": "Headline subline (italic)", "default": "at this summer's price" },
+    { "type": "textarea", "id": "cta_quote", "label": "Quote", "default": "\"I was sceptical too — but with free shipping and a 90-day guarantee, there was nothing to lose.\"" },
+    { "type": "text", "id": "cta_bar1", "label": "Info bar — left", "default": "Free shipping" },
+    { "type": "text", "id": "cta_bar2", "label": "Info bar — right", "default": "90-day guarantee" },
+    { "type": "text", "id": "cta_guarantee", "label": "Guarantee line", "default": "Try it risk-free with our 90-day money-back guarantee." },
+    { "type": "image_picker", "id": "cta_image", "label": "Lifestyle image", "info": "Falls back to a product photo if empty." },
     { "type": "header", "content": "Announcement + header" },
     { "type": "text", "id": "bar_1", "label": "Bar item 1", "default": "Free shipping on all orders" },
     { "type": "text", "id": "bar_2", "label": "Bar item 2", "default": "90-day money-back guarantee" },
