@@ -43,7 +43,7 @@
 
       <!-- byline -->
       <div style="display:flex;align-items:center;gap:16px;padding:20px 0;border-top:1px solid rgba(107,61,66,0.18);border-bottom:1px solid rgba(107,61,66,0.18);">
-        <div style="width:52px;height:52px;border-radius:50%;overflow:hidden;background:#C9A89F;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:8px;letter-spacing:0.1em;text-transform:uppercase;color:#6B3D42;">{%- if section.settings.byline_image -%}<img src="{{ section.settings.byline_image | image_url: width: 120 }}" alt="{{ section.settings.byline_name }}" width="52" height="52" style="width:100%;height:100%;object-fit:cover;">{%- else -%}photo{%- endif -%}</div>
+        <div style="width:52px;height:52px;border-radius:50%;overflow:hidden;background:#C9A89F;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:8px;letter-spacing:0.1em;text-transform:uppercase;color:#6B3D42;">{%- if section.settings.byline_image -%}<img src="{{ section.settings.byline_image | image_url: width: 120 }}" alt="{{ section.settings.byline_name }}" width="52" height="52" style="width:100%;height:100%;object-fit:cover;">{%- else -%}<img src="{{ 'wk-adv2-byline.jpg' | asset_url }}" alt="{{ section.settings.byline_name }}" width="52" height="52" style="width:100%;height:100%;object-fit:cover;">{%- endif -%}</div>
         <div style="flex:1;">
           <div style="font-family:'Fraunces',serif;font-size:16px;color:#6B3D42;">{{ section.settings.byline_name }}</div>
           <div style="font-size:12.5px;color:#7a6258;">{{ section.settings.byline_sub }}</div>
@@ -58,7 +58,7 @@
         {%- if section.settings.hero_image -%}
           <img src="{{ section.settings.hero_image | image_url: width: 1600 }}" alt="{{ section.settings.hero_image.alt | default: 'Womankind' }}" width="1600" height="900" loading="eager" style="width:100%;height:100%;object-fit:cover;">
         {%- else -%}
-          <div class="adv-ph" style="height:100%;"><span style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;">Editorial · lead image</span><span style="font-size:11px;opacity:0.72;">woman, mid-40s · cool morning light</span><span style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;opacity:0.55;">1600 × 900</span></div>
+          <img src="{{ 'wk-adv2-hero.jpg' | asset_url }}" alt="Womankind" width="1600" height="900" loading="eager" style="width:100%;height:100%;object-fit:cover;">
         {%- endif -%}
       </div>
     </div>
@@ -85,11 +85,10 @@
           {%- assign pt = 'prob' | append: i | append: '_title' -%}
           {%- assign pb = 'prob' | append: i | append: '_body' -%}
           {%- assign pim = 'prob' | append: i | append: '_image' -%}
-          {%- assign pbh = 'prob' | append: i | append: '_hint' -%}
           {%- assign p_img = section.settings[pim] -%}
           {%- assign img_left = false -%}{%- if i == 1 or i == 3 -%}{%- assign img_left = true -%}{%- endif -%}
           {%- if img_left -%}{%- assign cols = '0.9fr 1.1fr' -%}{%- else -%}{%- assign cols = '1.1fr 0.9fr' -%}{%- endif -%}
-          {%- capture img_cell -%}<div class="adv-prob-img" style="background:#C9A89F;min-height:230px;overflow:hidden;">{%- if p_img -%}<img src="{{ p_img | image_url: width: 700 }}" alt="" width="700" height="500" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- else -%}<div class="adv-ph" style="height:100%;min-height:230px;"><span style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;">Image</span><span style="font-size:10px;opacity:0.7;">{{ section.settings[pbh] }}</span></div>{%- endif -%}</div>{%- endcapture -%}
+          {%- capture img_cell -%}<div class="adv-prob-img" style="background:#C9A89F;min-height:230px;overflow:hidden;">{%- if p_img -%}<img src="{{ p_img | image_url: width: 700 }}" alt="" width="700" height="500" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- else -%}<img src="{{ 'wk-adv2-prob' | append: i | append: '.jpg' | asset_url }}" alt="" width="700" height="500" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- endif -%}</div>{%- endcapture -%}
           {%- capture txt_cell -%}<div style="padding:34px;"><div style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#C9653F;font-weight:700;margin-bottom:10px;">{{ section.settings[pe] }}</div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:22px;line-height:1.2;margin:0 0 12px;color:#6B3D42;">{{ section.settings[pt] }}</h3><p style="font-size:15px;line-height:1.65;color:#4a3a30;margin:0;">{{ section.settings[pb] }}</p></div>{%- endcapture -%}
           <div class="adv-prob" style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:16px;overflow:hidden;display:grid;grid-template-columns:{{ cols }};">
             {%- if img_left -%}{{ img_cell }}{{ txt_cell }}{%- else -%}{{ txt_cell }}{{ img_cell }}{%- endif -%}
@@ -138,7 +137,7 @@
     <div style="max-width:900px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:12px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9653F;font-weight:700;">{{ section.settings.disc_eyebrow }}</div>
       <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:36px;text-align:center;margin:0 auto 40px;color:#6B3D42;max-width:20ch;">{{ section.settings.disc_heading }}</h2>
-      <div style="aspect-ratio:16/8;background:linear-gradient(150deg,#D8C2BA,#C9A89F);border-radius:16px;overflow:hidden;margin-bottom:40px;">{%- if section.settings.discovery_image -%}<img src="{{ section.settings.discovery_image | image_url: width: 1440 }}" alt="" width="1440" height="720" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- else -%}<div class="adv-ph" style="height:100%;"><span style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;">Image · botanicals</span><span style="font-size:10px;opacity:0.7;">ingredients flat-lay</span></div>{%- endif -%}</div>
+      <div style="aspect-ratio:16/8;background:linear-gradient(150deg,#D8C2BA,#C9A89F);border-radius:16px;overflow:hidden;margin-bottom:40px;">{%- if section.settings.discovery_image -%}<img src="{{ section.settings.discovery_image | image_url: width: 1440 }}" alt="" width="1440" height="720" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- else -%}<img src="{{ 'wk-adv2-discovery.jpg' | asset_url }}" alt="" width="1440" height="720" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- endif -%}</div>
       <div style="max-width:700px;margin:0 auto;">
         <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.disc_p1 }}</p>
         <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.disc_p2 }}</p>
@@ -164,7 +163,7 @@
           {%- assign pl2 = 'pillar' | append: i | append: '_line2' -%}
           {%- assign pimg = section.settings[pk] -%}
           <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;">
-            <div style="aspect-ratio:4/3;background:#C9A89F;overflow:hidden;">{%- if pimg -%}<img src="{{ pimg | image_url: width: 600 }}" alt="" width="600" height="450" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- else -%}<div class="adv-ph" style="height:100%;"><span style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;">Image</span></div>{%- endif -%}</div>
+            <div style="aspect-ratio:4/3;background:#C9A89F;overflow:hidden;">{%- if pimg -%}<img src="{{ pimg | image_url: width: 600 }}" alt="" width="600" height="450" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- else -%}<img src="{{ 'wk-adv2-pillar' | append: i | append: '.jpg' | asset_url }}" alt="" width="600" height="450" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- endif -%}</div>
             <div style="padding:26px 24px;">
               <div style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#C9653F;font-weight:700;margin-bottom:8px;">{{ section.settings[pe] }}</div>
               <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;line-height:1.2;margin:0 0 10px;color:#6B3D42;">{{ section.settings[pt] }}</h3>
@@ -389,7 +388,7 @@
       <div style="font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9653F;font-weight:700;margin-bottom:16px;">{{ section.settings.final_eyebrow }}</div>
       <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:34px;line-height:1.15;margin:0 auto 20px;color:#6B3D42;max-width:22ch;">{{ section.settings.final_heading }}</h2>
       <p style="font-size:16px;line-height:1.7;color:#5a4636;margin:0 auto 30px;max-width:60ch;">{{ section.settings.final_body }}{{ wk_star }}</p>
-      <div style="aspect-ratio:16/7;max-width:600px;margin:0 auto 30px;background:linear-gradient(150deg,#D8C2BA,#C9A89F);border-radius:16px;overflow:hidden;">{%- if section.settings.final_image -%}<img src="{{ section.settings.final_image | image_url: width: 1200 }}" alt="" width="1200" height="525" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- else -%}<div class="adv-ph" style="height:100%;"><span style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;">Product · lifestyle</span></div>{%- endif -%}</div>
+      <div style="aspect-ratio:16/7;max-width:600px;margin:0 auto 30px;background:linear-gradient(150deg,#D8C2BA,#C9A89F);border-radius:16px;overflow:hidden;">{%- if section.settings.final_image -%}<img src="{{ section.settings.final_image | image_url: width: 1200 }}" alt="" width="1200" height="525" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- else -%}<img src="{{ 'wk-adv2-final.jpg' | asset_url }}" alt="" width="1200" height="525" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- endif -%}</div>
       <a href="#offer" style="display:inline-block;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:17px 46px;font-size:14px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.final_cta }}</a>
       <div style="display:flex;align-items:center;justify-content:center;gap:24px;margin-top:18px;font-size:12px;color:#7a6258;flex-wrap:wrap;"><span>{{ section.settings.final_trust1 }}</span><span>{{ section.settings.final_trust2 }}</span><span>{{ section.settings.final_trust3 }}</span></div>
     </div>
