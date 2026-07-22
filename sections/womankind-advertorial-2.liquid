@@ -253,7 +253,7 @@
   <section class="adv-sec" id="offer" style="background:#EFDFD0;padding:74px 28px;scroll-margin-top:80px;">
     <div style="max-width:1040px;margin:0 auto;position:relative;">
       {%- assign cta_href = section.settings.cta_url | default: wk_product.url | default: '/products/hormonal-support-gummies' -%}
-      {%- if section.settings.cta_image -%}{%- assign cta_img_src = section.settings.cta_image | image_url: width: 1000 -%}{%- else -%}{%- assign cta_img_src = 'wk-buybox-2.jpg' | asset_url -%}{%- endif -%}
+      {%- if section.settings.cta_image -%}{%- assign cta_img_src = section.settings.cta_image | image_url: width: 1000 -%}{%- else -%}{%- assign cta_img_src = 'wk-buybox-1.jpg' | asset_url -%}{%- endif -%}
       <span style="position:absolute;top:-19px;left:50%;transform:translateX(-50%);z-index:3;background:#C9653F;color:#F5E6D8;font-family:'Fraunces',serif;font-size:16px;padding:9px 26px;border-radius:999px;white-space:nowrap;">{{ section.settings.cta_badge }}</span>
       <div style="border:1.6px dashed rgba(107,61,66,0.38);border-radius:22px;padding:14px;">
         <div class="adv-offer" style="display:grid;grid-template-columns:0.92fr 1.08fr;background:#FBF1E6;border-radius:14px;overflow:hidden;align-items:stretch;">
