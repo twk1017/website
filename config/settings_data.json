@@ -167,8 +167,8 @@
           "nav_2_link": "",
           "nav_3_label": "Our story",
           "nav_3_link": "",
-          "nav_4_label": "Journal",
-          "nav_4_link": "",
+          "nav_4_label": "Contact us",
+          "nav_4_link": "/pages/contact",
           "utility_1": "Search",
           "utility_2": "Account",
           "cart_label": "Cart"
@@ -431,9 +431,9 @@
       "wk-home-announcement": {
         "type": "wk-home-announcement",
         "settings": {
-          "text": "Save up to 25% on a 6-month supply",
+          "text": "Save up to 51% off on a 6-month supply",
           "link_label": "Shop now",
-          "link_url": ""
+          "link_url": "https://trywomankind.com/pages/pdp2"
         }
       },
       "wk-home-header": {
@@ -443,8 +443,8 @@
           "logo_url": "",
           "nav1_label": "Shop",
           "nav1_url": "",
-          "nav2_label": "Journal",
-          "nav2_url": "",
+          "nav2_label": "Contact us",
+          "nav2_url": "/pages/contact",
           "search_label": "Search",
           "bag_label": "Cart"
         }
