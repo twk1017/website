@@ -2,16 +2,12 @@
   <header style="position:sticky;top:0;z-index:40;background:#6B3D42;color:#F5E6D8;">
     <div style="max-width:1240px;margin:0 auto;padding:0 28px;height:70px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
       <nav style="display:flex;align-items:center;gap:24px;flex:1;font-size:13px;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;">
-        {%- for i in (1..3) -%}
-          {%- assign lk = 'nav' | append: i | append: '_label' -%}
-          {%- assign uk = 'nav' | append: i | append: '_url' -%}
-          {%- assign nl = section.settings[lk] -%}
-          {%- if nl != blank -%}<a href="{{ section.settings[uk] | default: '#' }}" style="color:#F5E6D8;text-decoration:none;">{{ nl }}</a>{%- endif -%}
-        {%- endfor -%}
+        {%- if section.settings.nav1_label != blank -%}<a href="{{ section.settings.nav1_url | default: '#' }}" style="color:#F5E6D8;text-decoration:none;">{{ section.settings.nav1_label }}</a>{%- endif -%}
+        {%- if section.settings.nav2_label != blank -%}<a href="{{ section.settings.nav2_url | default: '#' }}" style="color:#F5E6D8;text-decoration:none;">{{ section.settings.nav2_label }}</a>{%- endif -%}
       </nav>
       <a href="{{ section.settings.logo_url | default: '/' }}" style="font-family:'Cormorant Garamond',serif;font-size:33px;line-height:1;color:#F5E6D8;text-decoration:none;letter-spacing:0.01em;flex:0 0 auto;">{{ section.settings.wordmark }}</a>
       <div style="display:flex;align-items:center;gap:20px;flex:1;justify-content:flex-end;font-size:13px;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;">
-        <a href="{{ routes.account_url | default: '/account' }}" style="color:#F5E6D8;text-decoration:none;">{{ section.settings.account_label }}</a>
+        <span style="cursor:pointer;">{{ section.settings.search_label }}</span>
         <a href="{{ routes.cart_url | default: '/cart' }}" style="color:#F5E6D8;text-decoration:none;display:inline-flex;align-items:center;gap:7px;">{{ section.settings.bag_label }} <span style="background:#C9653F;color:#F5E6D8;border-radius:999px;min-width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:0;">{{ cart.item_count | default: 0 }}</span></a>
       </div>
     </div>
@@ -26,13 +22,11 @@
     { "type": "header", "content": "Nav links" },
     { "type": "text", "id": "nav1_label", "label": "Link 1", "default": "Shop" },
     { "type": "url", "id": "nav1_url", "label": "Link 1 URL" },
-    { "type": "text", "id": "nav2_label", "label": "Link 2", "default": "The science" },
+    { "type": "text", "id": "nav2_label", "label": "Link 2", "default": "Journal" },
     { "type": "url", "id": "nav2_url", "label": "Link 2 URL" },
-    { "type": "text", "id": "nav3_label", "label": "Link 3", "default": "Our story" },
-    { "type": "url", "id": "nav3_url", "label": "Link 3 URL" },
     { "type": "header", "content": "Right side" },
-    { "type": "text", "id": "account_label", "label": "Account label", "default": "Account" },
-    { "type": "text", "id": "bag_label", "label": "Bag label", "default": "Bag" }
+    { "type": "text", "id": "search_label", "label": "Search label", "default": "Search" },
+    { "type": "text", "id": "bag_label", "label": "Cart label", "default": "Cart" }
   ]
 }
 {% endschema %}
