@@ -167,8 +167,8 @@
           "nav_2_link": "",
           "nav_3_label": "Our story",
           "nav_3_link": "",
-          "nav_4_label": "Journal",
-          "nav_4_link": "",
+          "nav_4_label": "Contact us",
+          "nav_4_link": "/pages/contact",
           "utility_1": "Search",
           "utility_2": "Account",
           "cart_label": "Cart"
@@ -443,8 +443,8 @@
           "logo_url": "",
           "nav1_label": "Shop",
           "nav1_url": "",
-          "nav2_label": "Journal",
-          "nav2_url": "",
+          "nav2_label": "Contact us",
+          "nav2_url": "/pages/contact",
           "search_label": "Search",
           "bag_label": "Cart"
         }
