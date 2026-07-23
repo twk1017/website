@@ -443,12 +443,10 @@
           "logo_url": "",
           "nav1_label": "Shop",
           "nav1_url": "",
-          "nav2_label": "The science",
+          "nav2_label": "Journal",
           "nav2_url": "",
-          "nav3_label": "Our story",
-          "nav3_url": "",
-          "account_label": "Account",
-          "bag_label": "Bag"
+          "search_label": "Search",
+          "bag_label": "Cart"
         }
       },
       "wk-home-hero": {
