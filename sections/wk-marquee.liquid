@@ -1,6 +1,6 @@
   <!-- MARQUEE -->
   {%- capture wk_marquee_items -%}
-    {%- for i in (1..7) -%}
+    {%- for i in (1..8) -%}
       {%- assign mk = 'item_' | append: i -%}
       {%- assign mv = section.settings[mk] -%}
       {%- if mv != blank -%}<span style="font-size:12.5px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;padding:0 26px;">{{ mv }}</span><span style="opacity:0.6;">✦</span>{%- endif -%}
@@ -21,9 +21,10 @@
     { "type": "text", "id": "item_2", "label": "Item 2", "default": "Third-party tested" },
     { "type": "text", "id": "item_3", "label": "Item 3", "default": "GMP & non-GMO" },
     { "type": "text", "id": "item_4", "label": "Item 4", "default": "No fillers or sugar" },
-    { "type": "text", "id": "item_5", "label": "Item 5", "default": "Save 33% with a 3-month supply" },
+    { "type": "text", "id": "item_5", "label": "Item 5", "default": "Save 44% with a 3-month supply" },
     { "type": "text", "id": "item_6", "label": "Item 6", "default": "Clinically-backed ingredients" },
-    { "type": "text", "id": "item_7", "label": "Item 7", "default": "Free carbon-neutral shipping on all subscriptions" }
+    { "type": "text", "id": "item_7", "label": "Item 7", "default": "Free carbon-neutral shipping on all subscriptions" },
+    { "type": "text", "id": "item_8", "label": "Item 8", "default": "Made in USA" }
   ]
 }
 {% endschema %}
