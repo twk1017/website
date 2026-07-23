@@ -4,8 +4,15 @@
     <div style="max-width:1180px;margin:0 auto;">
       <div style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:46px;line-height:1;margin-bottom:8px;">{{ section.settings.wordmark }}</div>
       <div style="text-align:center;font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:rgba(245,230,216,0.7);margin-bottom:48px;">{{ section.settings.tagline }}</div>
-      <div style="padding-bottom:40px;border-bottom:1px solid rgba(245,230,216,0.16);">
-        <div style="margin-bottom:44px;max-width:560px;">
+      <style>
+        #wk-{{ section.id }}-fcols { display:grid; gap:40px; padding-bottom:40px; border-bottom:1px solid rgba(245,230,216,0.16); grid-template-columns:1.3fr 1fr 1fr; grid-template-areas:"news policies contact"; }
+        #wk-{{ section.id }}-fcols .wk-fnews { grid-area:news; }
+        #wk-{{ section.id }}-fcols .wk-fpol { grid-area:policies; }
+        #wk-{{ section.id }}-fcols .wk-fcon { grid-area:contact; }
+        @media (max-width:749px){ #wk-{{ section.id }}-fcols { grid-template-columns:1fr 1fr; grid-template-areas:"news news" "policies contact"; } }
+      </style>
+      <div id="wk-{{ section.id }}-fcols">
+        <div class="wk-fnews">
           <div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:14px;">{{ section.settings.news_heading }}</div>
           <p style="font-size:13px;color:rgba(245,230,216,0.75);margin:0 0 16px;line-height:1.5;">{{ section.settings.news_text }}</p>
           {%- form 'customer' -%}
@@ -17,8 +24,7 @@
             {%- if form.posted_successfully? -%}<p style="font-size:12px;color:#E2A24C;margin:10px 0 0;">Thanks — you're on the list.</p>{%- endif -%}
           {%- endform -%}
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:560px;">
-        <div>
+        <div class="wk-fpol">
           <div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:16px;">{{ section.settings.col2_heading }}</div>
           <div style="display:flex;flex-direction:column;gap:11px;font-size:13px;color:rgba(245,230,216,0.8);">
             {%- for i in (1..4) -%}
@@ -29,12 +35,11 @@
             {%- endfor -%}
           </div>
         </div>
-        <div>
+        <div class="wk-fcon">
           <div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:16px;">{{ section.settings.col3_heading }}</div>
           <div style="display:flex;flex-direction:column;gap:11px;font-size:13px;color:rgba(245,230,216,0.8);">
             <span>{{ section.settings.contact1 }}</span>
           </div>
-        </div>
         </div>
       </div>
       <p style="font-size:11px;line-height:1.6;color:rgba(245,230,216,0.55);margin:24px 0 0;max-width:90ch;">{{ section.settings.disclaimer }}</p>
