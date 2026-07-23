@@ -431,9 +431,9 @@
       "wk-home-announcement": {
         "type": "wk-home-announcement",
         "settings": {
-          "text": "Save up to 25% on a 6-month supply",
+          "text": "Save up to 51% off on a 6-month supply",
           "link_label": "Shop now",
-          "link_url": ""
+          "link_url": "https://trywomankind.com/pages/pdp2"
         }
       },
       "wk-home-header": {
