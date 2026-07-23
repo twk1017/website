@@ -345,7 +345,7 @@
       <p style="font-size:16px;line-height:1.7;color:#5a4636;margin:0 auto 30px;max-width:60ch;">{{ section.settings.final_body }}{{ wk_star }}</p>
       <div style="aspect-ratio:16/7;max-width:600px;margin:0 auto 30px;background:linear-gradient(150deg,#D8C2BA,#C9A89F);border-radius:16px;overflow:hidden;">{%- if section.settings.final_image -%}<img src="{{ section.settings.final_image | image_url: width: 1200 }}" alt="" width="1200" height="525" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- else -%}<img src="{{ 'wk-adv2-final.jpg' | asset_url }}" alt="" width="1200" height="525" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- endif -%}</div>
       <a href="{{ wk_pdp }}" style="display:inline-block;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:17px 46px;font-size:14px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.final_cta }}</a>
-      <div style="display:flex;align-items:center;justify-content:center;gap:24px;margin-top:18px;font-size:12px;color:#7a6258;flex-wrap:wrap;"><span>{{ section.settings.final_trust1 }}</span><span>{{ section.settings.final_trust2 }}</span><span>{{ section.settings.final_trust3 }}</span></div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:24px;margin-top:18px;font-size:12px;color:#7a6258;flex-wrap:wrap;"><span>{{ section.settings.final_trust1 }}</span><span>{{ section.settings.final_trust2 }}</span><span>{{ section.settings.final_trust3 }}</span>{%- if section.settings.final_trust4 != blank -%}<span>{{ section.settings.final_trust4 }}</span>{%- endif -%}</div>
     </div>
   </section>
 
@@ -747,6 +747,7 @@
     { "type": "text", "id": "final_trust1", "label": "Trust 1", "default": "Free shipping on all orders" },
     { "type": "text", "id": "final_trust2", "label": "Trust 2", "default": "90-day money-back guarantee" },
     { "type": "text", "id": "final_trust3", "label": "Trust 3", "default": "Cancel anytime" },
+    { "type": "text", "id": "final_trust4", "label": "Trust 4", "default": "Made in USA" },
     { "type": "header", "content": "Comments" },
     { "type": "text", "id": "cm_heading", "label": "Heading", "default": "Comments" },
     { "type": "text", "id": "cm_count", "label": "Count label", "default": "247 comments" },
