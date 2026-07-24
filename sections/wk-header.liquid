@@ -24,6 +24,7 @@
         <span class="wkh-links" style="display:flex;align-items:center;gap:26px;">
           {% if section.settings.nav_1_label != blank %}<a href="{{ section.settings.nav_1_link | default: 'https://trywomankind.com/products/hormonal-support-gummies' }}" style="cursor:pointer;color:inherit;text-decoration:none;">{{ section.settings.nav_1_label }}</a>{% endif %}
           {% if section.settings.nav_4_label != blank %}<a href="{{ section.settings.nav_4_link | default: '#' }}" style="cursor:pointer;color:inherit;text-decoration:none;">{{ section.settings.nav_4_label }}</a>{% endif %}
+          {% if section.settings.manage_sub_label != blank %}<a href="{{ section.settings.manage_sub_link | default: 'https://shopify.com/108000379219/account/pages/7c4a25d5-0da8-4259-bf5f-40ed6112e4d6' }}" style="cursor:pointer;color:inherit;text-decoration:none;">{{ section.settings.manage_sub_label }}</a>{% endif %}
         </span>
       </div>
       <a href="{{ section.settings.logo_link | default: '/' }}" style="font-family:'Cormorant Garamond',serif;font-size:34px;line-height:1;color:#6B3D42;text-decoration:none;letter-spacing:0.01em;flex:0 0 auto;">{{ section.settings.logo_text }}</a>
@@ -37,6 +38,7 @@
     <label class="wkh-drawer-close" for="wkh-cb-{{ section.id }}" aria-label="Close menu">&times;</label>
     {% if section.settings.nav_1_label != blank %}<a href="{{ section.settings.nav_1_link | default: 'https://trywomankind.com/products/hormonal-support-gummies' }}">{{ section.settings.nav_1_label }}</a>{% endif %}
     {% if section.settings.nav_4_label != blank %}<a href="{{ section.settings.nav_4_link | default: '#' }}">{{ section.settings.nav_4_label }}</a>{% endif %}
+    {% if section.settings.manage_sub_label != blank %}<a href="{{ section.settings.manage_sub_link | default: 'https://shopify.com/108000379219/account/pages/7c4a25d5-0da8-4259-bf5f-40ed6112e4d6' }}">{{ section.settings.manage_sub_label }}</a>{% endif %}
   </aside>
   {% render 'wk-cart-drawer' %}
 
@@ -55,6 +57,8 @@
     { "type": "url", "id": "nav_3_link", "label": "Link 3 URL" },
     { "type": "text", "id": "nav_4_label", "label": "Link 4 label", "default": "Contact us" },
     { "type": "url", "id": "nav_4_link", "label": "Link 4 URL" },
+    { "type": "text", "id": "manage_sub_label", "label": "Manage Subscription label", "default": "Manage Subscription" },
+    { "type": "url", "id": "manage_sub_link", "label": "Manage Subscription URL", "info": "Defaults to the customer subscription portal." },
     { "type": "header", "content": "Utility (right side)" },
     { "type": "text", "id": "utility_1", "label": "Utility 1", "default": "Search" },
     { "type": "text", "id": "utility_2", "label": "Utility 2", "default": "Account" },
