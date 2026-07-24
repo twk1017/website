@@ -8,7 +8,7 @@
 {%- assign wk_product = section.settings.product -%}
 {%- if wk_product != blank -%}{%- assign wk_variant = wk_product.selected_or_first_available_variant -%}{%- assign wk_selling_plan = wk_product.selling_plan_groups.first.selling_plans.first -%}{%- endif -%}
 {%- assign wk_star = '<span style="color:#C9653F;">*</span>' -%}
-{%- assign wk_pdp = section.settings.cta_url | default: 'https://trywomankind.com/pages/pdp2' -%}
+{%- assign wk_pdp = section.settings.cta_url | default: 'https://trywomankind.com/products/hormonal-support-gummies' -%}
 
 {% render 'wk-fonts' %}
 
