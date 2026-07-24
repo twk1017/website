@@ -178,6 +178,7 @@
         "type": "wk-hero",
         "settings": {
           "product": "hormonal-support-gummies",
+          "badge": "Clinicians' Choice",
           "eyebrow": "Daily · for perimenopause & beyond",
           "heading": "hormonal support gummies",
           "rating_text": "4.8 · 1,200+ reviews",
@@ -218,7 +219,9 @@
           "c3_title": "Feeling like yourself",
           "c3_b1": "Hot flashes at their fewest and mildest*",
           "c3_b2": "Steady energy, morning to night*",
-          "c3_b3": "Like yourself again, in your own body"
+          "c3_b3": "Like yourself again, in your own body",
+          "use_content": "<ul><li>Take 2 gummies daily, with or without food</li><li>Pick a time you'll remember — consistency matters more than timing</li><li>For optimal results, use consistently for 30–90 days</li></ul>",
+          "ship_content": "<ul><li>Orders ship within 24 hours</li><li>US delivery in 4–7 business days</li><li>Rest of the world in 4–9 business days</li><li>Free, carbon-neutral shipping on all subscriptions</li></ul>"
         }
       },
       "wk-cofounder": {
@@ -324,7 +327,8 @@
           "item_4": "No fillers or sugar",
           "item_5": "Save 44% with a 3-month supply",
           "item_6": "Clinically-backed ingredients",
-          "item_7": "Free carbon-neutral shipping on all subscriptions"
+          "item_7": "Free carbon-neutral shipping on all subscriptions",
+          "item_8": "Made in USA"
         }
       },
       "wk-testimonials": {
@@ -416,7 +420,32 @@
       },
       "wk-footer": {
         "type": "wk-footer",
-        "settings": {}
+        "settings": {
+          "wordmark": "womankind",
+          "tagline": "for perimenopause & beyond",
+          "news_heading": "Let's stay connected",
+          "news_text": "Be first to know about new products and special savings.",
+          "news_placeholder": "Your email",
+          "news_button": "Sign up",
+          "col2_heading": "Policies",
+          "policy1_label": "Privacy policy",
+          "policy1_url": "",
+          "policy2_label": "Refund policy",
+          "policy2_url": "",
+          "policy3_label": "Terms of service",
+          "policy3_url": "",
+          "policy4_label": "Manage subscription",
+          "policy4_url": "",
+          "col3_heading": "Contact us",
+          "contact1": "hello@trywomankind.com",
+          "contact2": "Copenhagen, Denmark",
+          "contact3": "+45 00 00 00 00",
+          "disclaimer": "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Consult your healthcare provider before beginning any supplement, particularly if you are pregnant, nursing, or taking medication.",
+          "copyright": "© 2026 Womankind. All rights reserved.",
+          "bottom1": "Privacy",
+          "bottom2": "Terms",
+          "bottom3": "Accessibility"
+        }
       },
       "wk-sticky-bar": {
         "type": "wk-sticky-bar",
@@ -602,6 +631,46 @@
           "bottom2": "Terms",
           "bottom3": "Accessibility"
         }
+      },
+      "wk-benefits": {
+        "type": "wk-benefits",
+        "settings": {
+          "heading_lead": "Relief you can feel",
+          "heading_emph": "morning to night",
+          "subheading": "Fewer hot flashes, cooler nights, steadier moods, and energy that lasts — eight clinically-backed botanicals in one daily gummy.",
+          "b1_title": "Hot flashes",
+          "b1_desc": "That wave of heat climbing your chest and face out of nowhere — flushed and prickling while you quietly fan yourself and hope it passes. Womankind helps cool the surges so they stop catching you off guard.*",
+          "b2_title": "Sleep",
+          "b2_desc": "That 2am jolt awake — wired, sheets damp, already dreading how foggy tomorrow will feel. Womankind supports cooler, deeper sleep — so you wake up genuinely rested.*",
+          "b3_title": "Mood & stress",
+          "b3_desc": "That snap of irritation over something tiny, then the guilt after. Womankind steadies the lows so you feel like yourself, not someone you don't recognize.*",
+          "b4_title": "Energy",
+          "b4_desc": "The 3pm wall where coffee stops working, and the to-do list keeps going. Womankind helps hold steady energy so the afternoon doesn't flatten you.*"
+        }
+      },
+      "wk-stats": {
+        "type": "wk-stats",
+        "settings": {
+          "heading_lead": "The data behind Womankind's",
+          "heading_emph": "impact",
+          "subheading": "Self-reported improvements from women who made Womankind part of their daily routine.",
+          "s1_pct": 92,
+          "s1_label": "reported fewer, milder hot flashes within the first month",
+          "s2_pct": 89,
+          "s2_label": "felt steadier moods and fewer irritable days",
+          "s3_pct": 94,
+          "s3_label": "experienced cooler nights and less disrupted sleep",
+          "s4_pct": 88,
+          "s4_label": "noticed steadier energy through the day"
+        }
+      },
+      "wk-okendo-reviews": {
+        "type": "wk-okendo-reviews",
+        "settings": {
+          "product": "",
+          "heading": "What women are saying",
+          "subheading": "Real reviews from women navigating perimenopause."
+        }
       }
     },
     "content_for_index": [],
@@ -612,6 +681,11 @@
         "settings": {
           "show_preview_data": true
         }
+      },
+      "2724325275511621162": {
+        "type": "shopify://apps/kaching-subscriptions/blocks/app-embed-block/1fa39fd7-f6a3-4bbc-9383-7d91d27b44f5",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
