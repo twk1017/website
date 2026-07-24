@@ -1,0 +1,174 @@
+{%- comment -%}
+  WK - Full cart page. Brand-styled to match the slide-out drawer.
+  Server-rendered (works with no JS); enhanced with AJAX line edits via the
+  Section Rendering API so quantity/remove update in place without a reload.
+{%- endcomment -%}
+  <style>
+    #wk-cartpage{background:#F5E6D8;color:#3A2A20;font-family:'Hanken Grotesk',sans-serif;padding:56px 28px 80px;}
+    #wk-cartpage .wk-cp-wrap{max-width:1120px;margin:0 auto;}
+    #wk-cartpage .wk-cp-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:34px;flex-wrap:wrap;}
+    #wk-cartpage .wk-cp-title{font-family:'Fraunces',serif;font-weight:400;font-size:42px;line-height:1;color:#6B3D42;letter-spacing:-0.01em;margin:0;}
+    #wk-cartpage .wk-cp-title span{color:#C9653F;font-size:0.62em;}
+    #wk-cartpage .wk-cp-back{font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#6B3D42;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(107,61,66,0.35);padding-bottom:2px;}
+    #wk-cartpage .wk-cp-grid{display:grid;grid-template-columns:1fr 372px;gap:44px;align-items:start;}
+    #wk-cartpage .wk-cp-items{list-style:none;margin:0;padding:0;border-top:1px solid rgba(107,61,66,0.16);}
+    #wk-cartpage .wk-cp-item{display:grid;grid-template-columns:96px 1fr auto;gap:20px;padding:26px 0;border-bottom:1px solid rgba(107,61,66,0.14);}
+    #wk-cartpage .wk-cp-img{width:96px;height:96px;border-radius:12px;object-fit:cover;background:#E7D3C4;display:block;}
+    #wk-cartpage .wk-cp-name{font-size:16px;font-weight:600;color:#6B3D42;line-height:1.3;margin:0 0 4px;text-decoration:none;}
+    #wk-cartpage a.wk-cp-name:hover{color:#C9653F;}
+    #wk-cartpage .wk-cp-meta{font-size:12.5px;color:#7A6258;line-height:1.5;margin:0;}
+    #wk-cartpage .wk-cp-plan{display:inline-block;font-size:10.5px;letter-spacing:0.05em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-top:8px;}
+    #wk-cartpage .wk-cp-qty{display:inline-flex;align-items:center;border:1px solid rgba(107,61,66,0.35);border-radius:999px;overflow:hidden;margin-top:14px;}
+    #wk-cartpage .wk-cp-qty button{width:34px;height:34px;background:none;border:none;cursor:pointer;font-size:17px;line-height:1;color:#6B3D42;font-family:inherit;}
+    #wk-cartpage .wk-cp-qty button:disabled{opacity:0.4;cursor:default;}
+    #wk-cartpage .wk-cp-qty span{min-width:30px;text-align:center;font-size:14px;font-weight:600;color:#3A2A20;}
+    #wk-cartpage .wk-cp-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:14px;text-align:right;}
+    #wk-cartpage .wk-cp-price{font-size:16px;font-weight:700;color:#C9653F;white-space:nowrap;}
+    #wk-cartpage .wk-cp-compare{display:block;font-size:12px;text-decoration:line-through;color:#A07E81;font-weight:500;margin-bottom:2px;}
+    #wk-cartpage .wk-cp-remove{background:none;border:none;cursor:pointer;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#7A6258;text-decoration:underline;padding:0;font-family:inherit;}
+    #wk-cartpage .wk-cp-summary{position:sticky;top:96px;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:18px;padding:28px 26px;}
+    #wk-cartpage .wk-cp-sum-title{font-family:'Fraunces',serif;font-size:22px;color:#6B3D42;margin:0 0 20px;}
+    #wk-cartpage .wk-cp-sum-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px;}
+    #wk-cartpage .wk-cp-sum-label{font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#6B3D42;font-weight:600;}
+    #wk-cartpage .wk-cp-sum-value{font-family:'Fraunces',serif;font-size:26px;color:#6B3D42;}
+    #wk-cartpage .wk-cp-sum-note{font-size:11.5px;color:#7A6258;margin:0 0 20px;}
+    #wk-cartpage .wk-cp-checkout{display:block;width:100%;box-sizing:border-box;text-align:center;background:#C9653F;color:#F5E6D8;text-decoration:none;border:none;cursor:pointer;border-radius:999px;padding:18px;font-size:14px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;font-family:inherit;}
+    #wk-cartpage .wk-cp-trust{display:flex;align-items:center;justify-content:center;gap:8px;font-size:11.5px;color:#7A6258;margin-top:18px;text-align:center;line-height:1.5;}
+    #wk-cartpage .wk-cp-trust span{color:#C9653F;}
+    #wk-cartpage .wk-cp-empty{text-align:center;padding:80px 20px;border-top:1px solid rgba(107,61,66,0.16);}
+    #wk-cartpage .wk-cp-empty-title{font-family:'Fraunces',serif;font-size:30px;color:#6B3D42;margin:0 0 10px;}
+    #wk-cartpage .wk-cp-empty p{color:#7A6258;margin:0;}
+    #wk-cartpage .wk-cp-empty a{display:inline-block;margin-top:26px;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:16px 36px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;}
+    #wk-cartpage.wk-cp-busy [data-wk-cart-refresh]{opacity:0.5;pointer-events:none;transition:opacity .15s ease;}
+    @media (max-width:849px){
+      #wk-cartpage{padding:40px 20px 64px;}
+      #wk-cartpage .wk-cp-title{font-size:34px;}
+      #wk-cartpage .wk-cp-grid{grid-template-columns:1fr;gap:32px;}
+      #wk-cartpage .wk-cp-summary{position:static;}
+      #wk-cartpage .wk-cp-item{grid-template-columns:76px 1fr;}
+      #wk-cartpage .wk-cp-img{width:76px;height:76px;}
+      #wk-cartpage .wk-cp-right{grid-column:1 / -1;flex-direction:row;align-items:center;justify-content:space-between;text-align:left;}
+    }
+  </style>
+
+  <section id="wk-cartpage" data-currency="{{ cart.currency.iso_code | default: shop.currency }}">
+    <div class="wk-cp-wrap">
+      <div class="wk-cp-head">
+        <h1 class="wk-cp-title">Your cart <span data-wk-cp-count>{% if cart.item_count > 0 %}({{ cart.item_count }}){% endif %}</span></h1>
+        <a class="wk-cp-back" href="https://trywomankind.com/pages/pdp2">Continue shopping</a>
+      </div>
+
+      <div data-wk-cart-refresh>
+        {%- if cart.item_count == 0 -%}
+          <div class="wk-cp-empty">
+            <div class="wk-cp-empty-title">Your cart is empty</div>
+            <p>Relief is one daily gummy away.</p>
+            <a href="https://trywomankind.com/pages/pdp2">Shop now</a>
+          </div>
+        {%- else -%}
+          <div class="wk-cp-grid">
+            <ul class="wk-cp-items">
+              {%- for item in cart.items -%}
+                <li class="wk-cp-item" data-line="{{ forloop.index }}">
+                  {%- if item.image -%}
+                    <img class="wk-cp-img" src="{{ item.image | image_url: width: 200 }}" alt="{{ item.product.title | escape }}" width="96" height="96" loading="lazy">
+                  {%- else -%}
+                    <span class="wk-cp-img"></span>
+                  {%- endif -%}
+                  <div>
+                    <a class="wk-cp-name" href="{{ item.url }}">{{ item.product.title }}</a>
+                    {%- if item.variant.title and item.variant.title != 'Default Title' -%}
+                      <p class="wk-cp-meta">{{ item.variant.title }}</p>
+                    {%- endif -%}
+                    {%- if item.selling_plan_allocation -%}
+                      <span class="wk-cp-plan">{{ item.selling_plan_allocation.selling_plan.name }}</span><br>
+                    {%- endif -%}
+                    <div class="wk-cp-qty">
+                      <button type="button" data-wk-dec aria-label="Decrease quantity">&minus;</button>
+                      <span data-qty>{{ item.quantity }}</span>
+                      <button type="button" data-wk-inc aria-label="Increase quantity">+</button>
+                    </div>
+                  </div>
+                  <div class="wk-cp-right">
+                    <div class="wk-cp-price">
+                      {%- if item.original_line_price > item.final_line_price -%}
+                        <span class="wk-cp-compare">{{ item.original_line_price | money }}</span>
+                      {%- endif -%}
+                      {{ item.final_line_price | money }}
+                    </div>
+                    <button type="button" class="wk-cp-remove" data-wk-remove>Remove</button>
+                  </div>
+                </li>
+              {%- endfor -%}
+            </ul>
+
+            <aside class="wk-cp-summary">
+              <div class="wk-cp-sum-title">Order summary</div>
+              <div class="wk-cp-sum-row">
+                <span class="wk-cp-sum-label">Subtotal</span>
+                <span class="wk-cp-sum-value">{{ cart.total_price | money }}</span>
+              </div>
+              <p class="wk-cp-sum-note">Shipping &amp; discounts calculated at checkout.</p>
+              <a class="wk-cp-checkout" href="/checkout">Checkout</a>
+              <div class="wk-cp-trust"><span>★</span> 90-day money-back guarantee · Secure checkout</div>
+            </aside>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  <script>
+  (function(){
+    var root = document.getElementById('wk-cartpage');
+    if (!root || root.dataset.wkInit) return;
+    root.dataset.wkInit = '1';
+
+    function setBadges(count){
+      document.querySelectorAll('[data-wk-cart-count]').forEach(function(el){ el.textContent = count; });
+      var c = root.querySelector('[data-wk-cp-count]');
+      if (c) c.textContent = count > 0 ? '(' + count + ')' : '';
+    }
+
+    function change(line, qty){
+      root.classList.add('wk-cp-busy');
+      fetch('/cart/change.js', {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
+        body: JSON.stringify({ line: line, quantity: qty, sections: ['wk-cart'], sections_url: window.location.pathname })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        var html = data.sections && data.sections['wk-cart'];
+        if (html){
+          var doc = new DOMParser().parseFromString(html, 'text/html');
+          var fresh = doc.querySelector('[data-wk-cart-refresh]');
+          var cur = root.querySelector('[data-wk-cart-refresh]');
+          if (fresh && cur) cur.innerHTML = fresh.innerHTML;
+        }
+        setBadges(data.item_count);
+      })
+      .catch(function(){})
+      .then(function(){ root.classList.remove('wk-cp-busy'); });
+    }
+
+    // Delegated controls (survive innerHTML swaps of the refresh region)
+    root.addEventListener('click', function(e){
+      var row = e.target.closest('.wk-cp-item');
+      if (!row) return;
+      var line = parseInt(row.getAttribute('data-line'), 10);
+      var qtyEl = row.querySelector('[data-qty]');
+      var qty = qtyEl ? parseInt(qtyEl.textContent, 10) : 1;
+      if (e.target.closest('[data-wk-remove]')){ change(line, 0); }
+      else if (e.target.closest('[data-wk-inc]')){ change(line, qty + 1); }
+      else if (e.target.closest('[data-wk-dec]')){ change(line, Math.max(0, qty - 1)); }
+    });
+  })();
+  </script>
+
+{% schema %}
+{
+  "name": "WK - Cart",
+  "settings": []
+}
+{% endschema %}
