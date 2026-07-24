@@ -144,7 +144,27 @@
           });
         }
         var BOTTLE = {{ wk_variant.price | default: 4200 }};
-        var SELLING_PLAN = {{ wk_selling_plan.id | default: 'null' }};
+        var SELLING_PLANS = [
+          {%- assign wk_sp_first = true -%}
+          {%- for grp in wk_product.selling_plan_groups -%}{%- for sp in grp.selling_plans -%}
+            {%- unless wk_sp_first %},{% endunless %}{ id: {{ sp.id }}, name: {{ sp.name | json }} }{%- assign wk_sp_first = false -%}
+          {%- endfor -%}{%- endfor -%}
+        ];
+        var PLAN_OVERRIDES = { '1': {{ section.settings.plan_1_id | default: 'null' }}, '3': {{ section.settings.plan_3_id | default: 'null' }}, '6': {{ section.settings.plan_6_id | default: 'null' }} };
+        function wkParseInterval(name){
+          name = (name || '').toLowerCase();
+          if (/quarter/.test(name)) return 3;
+          var m = name.match(/(\d+)\s*-?\s*month/); if (m) return parseInt(m[1], 10);
+          if (/month/.test(name)) return 1;
+          if (/annual|year/.test(name)) return 12;
+          return 0;
+        }
+        function planForTier(tier){
+          if (PLAN_OVERRIDES[tier]) return PLAN_OVERRIDES[tier];
+          var want = { '1':1, '3':3, '6':6 }[tier];
+          for (var i=0;i<SELLING_PLANS.length;i++){ if (wkParseInterval(SELLING_PLANS[i].name) === want) return SELLING_PLANS[i].id; }
+          return SELLING_PLANS.length ? SELLING_PLANS[0].id : null;
+        }
         var TIERS = { '1': { m:1, off:0 }, '3': { m:3, off:0.25 }, '6': { m:6, off:0.35 } };
         var SUB_OFF = 0.25;
         var wkRefillEl = root.querySelector('[data-wk-refill]');
@@ -170,9 +190,10 @@
           root.querySelectorAll('[data-wk-ship1]').forEach(function(e){ e.style.display = on ? '' : 'none'; });
         }
         function applyCart(){
-          var sub = refillIsOn() && SELLING_PLAN;
+          var planId = planForTier(state.supply);
+          var sub = refillIsOn() && planId;
           root.querySelectorAll('[data-wk-qty]').forEach(function(i){ i.value = state.supply; });
-          root.querySelectorAll('[data-wk-selling-plan]').forEach(function(i){ i.disabled = !sub; });
+          root.querySelectorAll('[data-wk-selling-plan]').forEach(function(i){ if (planId) i.value = planId; i.disabled = !sub; });
         }
         function applySupply(){ applyCart(); applyPricing(); }
         root.querySelectorAll('[data-wk]').forEach(function(el){
@@ -262,6 +283,11 @@
     { "type": "header", "content": "Auto-refill + checkout" },
     { "type": "text", "id": "refill_title", "label": "Refill title", "default": "Save 25% with automatic refills" },
     { "type": "text", "id": "refill_subtitle", "label": "Refill subtitle", "default": "Zero commitment — pause, skip, or cancel anytime" },
+    { "type": "header", "content": "Subscription plans" },
+    { "type": "paragraph", "content": "Plans auto-match by delivery frequency: 1 bottle → monthly, 3 → quarterly, 6 → every 6 months. Only fill these in if auto-matching picks the wrong plan — paste the numeric selling plan ID." },
+    { "type": "text", "id": "plan_1_id", "label": "1-bottle plan ID (monthly)" },
+    { "type": "text", "id": "plan_3_id", "label": "3-bottle plan ID (quarterly)" },
+    { "type": "text", "id": "plan_6_id", "label": "6-bottle plan ID (every 6 months)" },
     { "type": "text", "id": "atc_label", "label": "Add-to-bag label", "default": "Add to bag" },
     { "type": "text", "id": "guarantee_badge", "label": "Guarantee badge", "default": "90" },
     { "type": "text", "id": "guarantee_text", "label": "Guarantee text", "default": "Try it for a full 90 days — love it or your money back" }
