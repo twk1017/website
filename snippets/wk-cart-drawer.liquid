@@ -125,7 +125,7 @@
       html += '<div class="wk-cd-item-price">';
       if (discounted) html += '<span class="wk-cd-item-compare">'+money(item.original_line_price)+'</span>';
       html += money(item.final_line_price)+'</div>';
-      if (discounted) html += '<span class="wk-cd-item-saved">Save '+money(item.original_line_price - item.final_line_price)+'</span>';
+      if (discounted) html += '<span class="wk-cd-item-saved">You save '+money(item.original_line_price - item.final_line_price)+'</span>';
       html += '</div>';
       html += '<button type="button" class="wk-cd-remove" data-wk-remove>Remove</button>';
       html += '</div>';

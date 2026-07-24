@@ -25,6 +25,7 @@
     #wk-cartpage .wk-cp-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:14px;text-align:right;}
     #wk-cartpage .wk-cp-price{font-size:16px;font-weight:700;color:#C9653F;white-space:nowrap;}
     #wk-cartpage .wk-cp-compare{display:block;font-size:12px;text-decoration:line-through;color:#A07E81;font-weight:500;margin-bottom:2px;}
+    #wk-cartpage .wk-cp-saved{display:block;font-size:12px;font-weight:600;color:#C9653F;white-space:nowrap;margin-top:4px;}
     #wk-cartpage .wk-cp-remove{background:none;border:none;cursor:pointer;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#7A6258;text-decoration:underline;padding:0;font-family:inherit;}
     #wk-cartpage .wk-cp-summary{position:sticky;top:96px;background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:18px;padding:28px 26px;}
     #wk-cartpage .wk-cp-sum-title{font-family:'Fraunces',serif;font-size:22px;color:#6B3D42;margin:0 0 20px;}
@@ -90,11 +91,16 @@
                     </div>
                   </div>
                   <div class="wk-cp-right">
-                    <div class="wk-cp-price">
+                    <div>
+                      <div class="wk-cp-price">
+                        {%- if item.original_line_price > item.final_line_price -%}
+                          <span class="wk-cp-compare">{{ item.original_line_price | money }}</span>
+                        {%- endif -%}
+                        {{ item.final_line_price | money }}
+                      </div>
                       {%- if item.original_line_price > item.final_line_price -%}
-                        <span class="wk-cp-compare">{{ item.original_line_price | money }}</span>
+                        <span class="wk-cp-saved">You save {{ item.original_line_price | minus: item.final_line_price | money }}</span>
                       {%- endif -%}
-                      {{ item.final_line_price | money }}
                     </div>
                     <button type="button" class="wk-cp-remove" data-wk-remove>Remove</button>
                   </div>
