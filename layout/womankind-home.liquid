@@ -26,6 +26,8 @@
       .wk-home *, .wk-home *::before, .wk-home *::after { box-sizing: border-box; }
       .wk-home ::selection { background:#C9653F; color:#F5E6D8; }
       .wk-home button { font-family: inherit; }
+      /* Hide the Kaching Subscriptions storefront widget — the custom buy-box handles plan selection via its own hidden selling_plan field */
+      kaching-subscriptions, .kaching-subscriptions__widget { display:none !important; }
       /* pragmatic mobile layer — desktop is left pixel-faithful */
       @media (max-width:749px) {
         .wk-home [style*="grid-template-columns:1.05fr 0.95fr"],

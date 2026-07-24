@@ -441,6 +441,8 @@
   *{box-sizing:border-box;}
   body{margin:0;background:#EFDFD0;}
   ::selection{background:#C9653F;color:#F5E6D8;}
+  /* Hide the Kaching Subscriptions storefront widget — the custom buy-box handles plan selection via its own hidden selling_plan field */
+  kaching-subscriptions,.kaching-subscriptions__widget{display:none !important;}
   @keyframes wk-marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
 
