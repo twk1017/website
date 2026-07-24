@@ -34,8 +34,18 @@
     #wk-cartpage .wk-cp-sum-value{font-family:'Fraunces',serif;font-size:26px;color:#6B3D42;}
     #wk-cartpage .wk-cp-sum-note{font-size:11.5px;color:#7A6258;margin:0 0 20px;}
     #wk-cartpage .wk-cp-checkout{display:block;width:100%;box-sizing:border-box;text-align:center;background:#C9653F;color:#F5E6D8;text-decoration:none;border:none;cursor:pointer;border-radius:999px;padding:18px;font-size:14px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;font-family:inherit;}
-    #wk-cartpage .wk-cp-trust{display:flex;align-items:center;justify-content:center;gap:8px;font-size:11.5px;color:#7A6258;margin-top:18px;text-align:center;line-height:1.5;}
-    #wk-cartpage .wk-cp-trust span{color:#C9653F;}
+    #wk-cartpage .wk-cp-rating{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;color:#6B3D42;margin-top:16px;}
+    #wk-cartpage .wk-cp-rating .wk-cp-stars{color:#C9653F;letter-spacing:1.5px;font-size:14px;}
+    #wk-cartpage .wk-cp-badges{display:flex;justify-content:space-between;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(107,61,66,0.14);}
+    #wk-cartpage .wk-cp-badge{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;}
+    #wk-cartpage .wk-cp-badge svg{width:19px;height:19px;color:#C9653F;}
+    #wk-cartpage .wk-cp-badge span{font-size:11px;color:#6B3D42;line-height:1.3;font-weight:500;}
+    #wk-cartpage .wk-cp-quote{display:flex;gap:12px;align-items:flex-start;background:#F5E6D8;border:1px solid rgba(107,61,66,0.14);border-radius:12px;padding:13px 15px;margin-bottom:20px;transition:opacity .4s ease;}
+    #wk-cartpage .wk-cp-quote-av{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:#6B3D42;color:#F5E6D8;font-size:12.5px;font-weight:600;display:flex;align-items:center;justify-content:center;}
+    #wk-cartpage .wk-cp-quote-stars{color:#C9653F;font-size:12px;letter-spacing:1px;}
+    #wk-cartpage .wk-cp-quote-text{font-family:'Fraunces',serif;font-style:italic;font-size:13.5px;color:#3A2A20;margin:3px 0 5px;line-height:1.4;}
+    #wk-cartpage .wk-cp-quote-name{font-size:11px;color:#7A6258;display:inline-flex;align-items:center;gap:5px;}
+    #wk-cartpage .wk-cp-quote-name svg{width:13px;height:13px;color:#C9653F;flex:0 0 auto;}
     #wk-cartpage .wk-cp-empty{text-align:center;padding:80px 20px;border-top:1px solid rgba(107,61,66,0.16);}
     #wk-cartpage .wk-cp-empty-title{font-family:'Fraunces',serif;font-size:30px;color:#6B3D42;margin:0 0 10px;}
     #wk-cartpage .wk-cp-empty p{color:#7A6258;margin:0;}
@@ -110,13 +120,35 @@
 
             <aside class="wk-cp-summary">
               <div class="wk-cp-sum-title">Order summary</div>
+              <div class="wk-cp-quote" data-wk-cp-quote>
+                <span class="wk-cp-quote-av" data-wk-q-av>KM</span>
+                <div>
+                  <span class="wk-cp-quote-stars">★★★★★</span>
+                  <p class="wk-cp-quote-text" data-wk-q-text>"First full night's sleep in two years. I'm not exaggerating."</p>
+                  <span class="wk-cp-quote-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg> <span data-wk-q-name>Karen M.</span> · Verified buyer</span>
+                </div>
+              </div>
               <div class="wk-cp-sum-row">
                 <span class="wk-cp-sum-label">Subtotal</span>
                 <span class="wk-cp-sum-value">{{ cart.total_price | money }}</span>
               </div>
               <p class="wk-cp-sum-note">Shipping &amp; discounts calculated at checkout.</p>
               <a class="wk-cp-checkout" href="/checkout">Checkout</a>
-              <div class="wk-cp-trust"><span>★</span> 90-day money-back guarantee · Secure checkout</div>
+              <div class="wk-cp-rating"><span class="wk-cp-stars">★★★★★</span> <span>4.6 · Trusted by 12,000+ women</span></div>
+              <div class="wk-cp-badges">
+                <div class="wk-cp-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+                  <span>90-day<br>guarantee</span>
+                </div>
+                <div class="wk-cp-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6"/><path d="M10 3v5L5 18.5A1.5 1.5 0 0 0 6.4 21h11.2a1.5 1.5 0 0 0 1.4-2.5L14 8V3"/><path d="M7.5 15h9"/></svg>
+                  <span>Third-party<br>tested</span>
+                </div>
+                <div class="wk-cp-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                  <span>Made in<br>USA</span>
+                </div>
+              </div>
             </aside>
           </div>
         {%- endif -%}
@@ -169,6 +201,26 @@
       else if (e.target.closest('[data-wk-inc]')){ change(line, qty + 1); }
       else if (e.target.closest('[data-wk-dec]')){ change(line, Math.max(0, qty - 1)); }
     });
+
+    // Rotating verified testimonials (query each tick so it survives refresh swaps)
+    var QUOTES = [
+      { av:'KM', name:'Karen M.', text:'"First full night\'s sleep in two years. I\'m not exaggerating."' },
+      { av:'DR', name:'Diane R.', text:'"The 3pm crashes are gone. I actually have energy for dinner."' },
+      { av:'SL', name:'Sofia L.', text:'"My hot flashes went from constant to barely there."' },
+      { av:'PN', name:'Priya N.', text:'"I feel like myself again — steadier, calmer, more me."' }
+    ];
+    var qi = 0;
+    setInterval(function(){
+      var card = root.querySelector('[data-wk-cp-quote]');
+      var t = root.querySelector('[data-wk-q-text]'), n = root.querySelector('[data-wk-q-name]'), a = root.querySelector('[data-wk-q-av]');
+      if (!card || !t || !n || !a) return;
+      qi = (qi + 1) % QUOTES.length;
+      card.style.opacity = '0';
+      setTimeout(function(){
+        t.textContent = QUOTES[qi].text; n.textContent = QUOTES[qi].name; a.textContent = QUOTES[qi].av;
+        card.style.opacity = '1';
+      }, 400);
+    }, 5000);
   })();
   </script>
 
