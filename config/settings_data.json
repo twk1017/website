@@ -9,7 +9,8 @@
  */
 {
   "current": {
-    "logo_width": 90,
+    "logo": "shopify://shop_images/womankind-logo.png",
+    "logo_width": 180,
     "type_header_font": "assistant_n4",
     "heading_scale": 100,
     "type_body_font": "assistant_n4",
@@ -474,6 +475,8 @@
           "nav1_url": "",
           "nav2_label": "Contact us",
           "nav2_url": "/pages/contact",
+          "manage_sub_label": "Manage Subscription",
+          "manage_sub_link": "",
           "search_label": "Search",
           "bag_label": "Cart"
         }
@@ -496,17 +499,49 @@
       "wk-home-trust": {
         "type": "wk-home-trust",
         "settings": {
+          "speed": 56,
           "item1": "Gut–hormone delivery",
           "item2": "Third-party tested",
           "item3": "GMP & non-GMO",
-          "item4": "No fillers or sugar"
+          "item4": "No fillers or sugar",
+          "item5": "Save 44% with a 3-month supply",
+          "item6": "Clinically-backed ingredients",
+          "item7": "Free carbon-neutral shipping on all subscriptions",
+          "item8": "Made in USA"
         }
       },
       "wk-home-testimonials": {
         "type": "wk-home-testimonials",
         "settings": {
+          "eyebrow": "In their own words",
           "heading_lead": "Women who feel like",
-          "heading_emph": "themselves again"
+          "heading_emph": "themselves again",
+          "subhead": "Trusted by women who wanted a real answer — not another thing that quietly didn't work.",
+          "verified_label": "Verified buyer",
+          "card1_quote": "\"I didn't expect much after years of things that did nothing. Three weeks in, the 2am wake-ups eased and I finally feel steady in my own body again.\"",
+          "card1_name": "Margaret R., 48",
+          "card1_tag1": "Better sleep",
+          "card1_tag2": "Mood balance",
+          "card2_quote": "\"By the end of the first month the bloating I'd carried for a year had calmed, and my mornings stopped feeling like a fog I had to push through.\"",
+          "card2_name": "Elena V., 45",
+          "card2_tag1": "Gut & bloating",
+          "card2_tag2": "Clearer focus",
+          "card3_quote": "\"I'm a sceptic — I've wasted money on a lot of these. This is the first one where I can actually feel the difference. Cooler nights, fewer flushes.\"",
+          "card3_name": "Grace L., 47",
+          "card3_tag1": "Hot flashes",
+          "card3_tag2": "Night sweats",
+          "card4_quote": "\"A doctor told me my labs were normal and it was probably stress. This is the first thing that took the early changes seriously. I feel more like me.\"",
+          "card4_name": "Renée J., 50",
+          "card4_tag1": "Hormonal balance",
+          "card4_tag2": "Steady energy",
+          "card5_quote": "\"The little things stay little now. My family noticed I was more even before I said a word about taking anything.\"",
+          "card5_name": "Gabriela R., 43",
+          "card5_tag1": "Mood balance",
+          "card5_tag2": "Stress response",
+          "card6_quote": "\"I love that every ingredient is on the label — no mystery blend. And the afternoon slump I'd accepted as normal has genuinely lifted.\"",
+          "card6_name": "Cass M., 49",
+          "card6_tag1": "Daily energy",
+          "card6_tag2": "Clearer focus"
         }
       },
       "wk-home-chart": {
@@ -516,6 +551,7 @@
           "body1": "Perimenopause doesn't arrive all at once — hot flashes, sleep, mood and energy wobble for years before menopause itself.",
           "body2": "<strong>Womankind smooths out the day-to-day</strong> — easing the symptoms that pull you off balance, so you feel more like yourself through the whole transition. Most women feel the first shift within two weeks.*",
           "body3": "",
+          "illustrative_note": "Illustrative — based on customer-reported experience over a typical routine, not a clinical measurement. Individual results vary.*",
           "tag1": "Hot flashes",
           "tag2": "Sleep",
           "tag3": "Mood",
@@ -565,7 +601,31 @@
       "wk-home-buybox": {
         "type": "wk-home-buybox",
         "settings": {
-          "product": "hormonal-support-gummies"
+          "product": "hormonal-support-gummies",
+          "badge": "Clinicians' Choice",
+          "eyebrow": "Daily · for perimenopause & beyond",
+          "heading": "hormonal support gummies",
+          "rating_text": "4.8 · 1,200+ reviews",
+          "description": "For the 2am night sweats, the mid-meeting flushes, and the moods that don't feel like yours — one daily gummy that works on the system behind them.*",
+          "benefit_1": "Eases hot flashes & night sweats*",
+          "benefit_2": "Fewer night wakings, deeper sleep*",
+          "benefit_3": "Steadies mood & the stress response*",
+          "benefit_4": "Steadier energy, morning to night*",
+          "flavor_label": "Flavor",
+          "flavor_pill": "Deep-red cranberry",
+          "tier6_badge": "Best value",
+          "tier6_name": "6-month supply",
+          "tier6_sub": "6 bottles · 180 servings · free shipping",
+          "tier3_badge": "Most popular",
+          "tier3_name": "3-month supply",
+          "tier3_sub": "3 bottles · 90 servings · free shipping",
+          "tier1_name": "1-month supply",
+          "tier1_sub": "1 bottle · 30 servings",
+          "refill_title": "Save 25% with automatic refills",
+          "refill_subtitle": "Zero commitment — pause, skip, or cancel anytime",
+          "atc_label": "Add to bag",
+          "guarantee_badge": "90",
+          "guarantee_text": "Try it for a full 90 days — love it or your money back"
         }
       },
       "wk-home-guarantee": {
@@ -670,6 +730,33 @@
           "product": "",
           "heading": "What women are saying",
           "subheading": "Real reviews from women navigating perimenopause."
+        }
+      },
+      "wk-home-benefits": {
+        "type": "wk-home-benefits",
+        "settings": {
+          "heading_lead": "Relief you can feel",
+          "heading_emph": "morning to night",
+          "subheading": "Fewer hot flashes, cooler nights, steadier moods, and energy that lasts — eight clinically-backed botanicals in one daily gummy.",
+          "b1_title": "Hot flashes",
+          "b1_desc": "That wave of heat climbing your chest and face out of nowhere — flushed and prickling while you quietly fan yourself and hope it passes. Womankind helps cool the surges so they stop catching you off guard.*",
+          "b2_title": "Sleep",
+          "b2_desc": "That 2am jolt awake — wired, sheets damp, already dreading how foggy tomorrow will feel. Womankind supports cooler, deeper sleep — so you wake up genuinely rested.*",
+          "b3_title": "Mood & stress",
+          "b3_desc": "That snap of irritation over something tiny, then the guilt after. Womankind steadies the lows so you feel like yourself, not someone you don't recognize.*",
+          "b4_title": "Energy",
+          "b4_desc": "The 3pm wall where coffee stops working, and the to-do list keeps going. Womankind helps hold steady energy so the afternoon doesn't flatten you.*"
+        }
+      },
+      "wk-home-team": {
+        "type": "wk-home-team",
+        "settings": {
+          "eyebrow": "The women behind Womankind",
+          "heading": "Founded by a doctor who was done being dismissed.",
+          "body_1": "Womankind started with Dr. Katie Chen — a board-certified OB/GYN who spent years watching women in their forties get brushed aside, their labs called \"normal\" and their symptoms written off as stress. She built the formula she'd wanted for her own patients and couldn't find on any shelf.",
+          "body_2": "Around her is a team of women — operators, formulators, and builders — who hold the standard she set: every active named and dosed, nothing oversold, and made to meet you years before the word menopause feels like yours.",
+          "cta_label": "Try it risk-free",
+          "cta_link": ""
         }
       }
     },
