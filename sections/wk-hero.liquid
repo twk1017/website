@@ -223,9 +223,10 @@
   function wkQuote(tier, on){
     var t = TIERS[tier];
     var full = BOTTLE * t.m;
-    var afterTier = Math.round(full * (1 - t.off));
-    var total = on ? Math.round(afterTier * (1 - SUB_OFF)) : afterTier;
-    return { full: full, total: total, perMo: Math.round(total / t.m), save: Math.round((1 - total / full) * 100) };
+    // Shopify rounds the discounted price per bottle, then multiplies — mirror that so the buy-box matches the cart/checkout exactly.
+    var perUnit = on ? Math.round(BOTTLE * (1 - t.off) * (1 - SUB_OFF)) : Math.round(BOTTLE * (1 - t.off));
+    var total = perUnit * t.m;
+    return { full: full, total: total, perMo: perUnit, save: Math.round((1 - total / full) * 100) };
   }
 
   // recompute every displayed price from the selected tier + refill state.
