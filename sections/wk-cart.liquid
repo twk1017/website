@@ -105,9 +105,6 @@
                     {%- if item.variant.title and item.variant.title != 'Default Title' -%}
                       <p class="wk-cp-meta">{{ item.variant.title }}</p>
                     {%- endif -%}
-                    {%- if item.selling_plan_allocation -%}
-                      <span class="wk-cp-plan">{{ item.selling_plan_allocation.selling_plan.name }}</span><br>
-                    {%- endif -%}
                     <div class="wk-cp-qty">
                       <button type="button" data-wk-dec aria-label="Decrease quantity">&minus;</button>
                       <span data-qty>{{ item.quantity }}</span>

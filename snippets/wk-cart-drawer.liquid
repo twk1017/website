@@ -153,7 +153,6 @@
       var line = i + 1;
       var meta = [];
       if (item.variant_title && item.variant_title !== 'Default Title') meta.push(esc(item.variant_title));
-      var plan = (item.selling_plan_allocation && item.selling_plan_allocation.selling_plan && item.selling_plan_allocation.selling_plan.name) ? item.selling_plan_allocation.selling_plan.name : '';
       var img = item.image ? item.image.replace(/(\.[a-zA-Z]+)(\?.*)?$/, '_120x120$1$2') : '';
       var discounted = item.original_line_price > item.final_line_price;
       html += '<div class="wk-cd-item" data-line="'+line+'">';
@@ -166,7 +165,6 @@
       html += '<span>'+item.quantity+'</span>';
       html += '<button type="button" data-wk-inc aria-label="Increase quantity">+</button>';
       html += '</div>';
-      if (plan) html += '<span class="wk-cd-item-plan">'+esc(plan)+'</span>';
       html += '</div>';
       html += '<div class="wk-cd-item-right">';
       html += '<div>';
