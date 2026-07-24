@@ -1,0 +1,87 @@
+{%- comment -%} WK - Contact page. Brand-styled Shopify contact form. {%- endcomment -%}
+  <style>
+    #wk-{{ section.id }}-contact .wk-ct-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:56px;align-items:start;}
+    #wk-{{ section.id }}-contact .wk-ct-field{display:flex;flex-direction:column;gap:7px;margin-bottom:18px;}
+    #wk-{{ section.id }}-contact label{font-size:11.5px;letter-spacing:0.14em;text-transform:uppercase;color:#6B3D42;font-weight:600;}
+    #wk-{{ section.id }}-contact input,
+    #wk-{{ section.id }}-contact textarea{font-family:inherit;font-size:15px;color:#3A2A20;background:#F5E6D8;border:1px solid rgba(107,61,66,0.28);border-radius:12px;padding:13px 16px;width:100%;box-sizing:border-box;}
+    #wk-{{ section.id }}-contact input:focus,
+    #wk-{{ section.id }}-contact textarea:focus{outline:none;border-color:#C9653F;}
+    #wk-{{ section.id }}-contact textarea{min-height:140px;resize:vertical;line-height:1.5;}
+    #wk-{{ section.id }}-contact ::placeholder{color:#A08A7C;}
+    @media (max-width:749px){
+      #wk-{{ section.id }}-contact .wk-ct-grid{grid-template-columns:1fr;gap:36px;}
+      #wk-{{ section.id }}-contact .wk-ct-head h1{font-size:38px !important;}
+    }
+  </style>
+
+  <section id="wk-{{ section.id }}-contact" style="background:#F5E6D8;color:#3A2A20;font-family:'Hanken Grotesk',sans-serif;padding:72px 28px 88px;">
+    <div style="max-width:1040px;margin:0 auto;">
+      <div class="wk-ct-grid">
+
+        <div class="wk-ct-head">
+          {%- if section.settings.eyebrow != blank -%}<div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:14px;">{{ section.settings.eyebrow }}</div>{%- endif -%}
+          <h1 style="font-family:'Fraunces',serif;font-weight:400;font-style:italic;font-size:46px;line-height:1.05;margin:0 0 16px;color:#6B3D42;">{{ section.settings.heading }}</h1>
+          <p style="font-size:16px;line-height:1.6;color:#4a3a30;margin:0 0 30px;max-width:34em;">{{ section.settings.intro }}</p>
+
+          {%- if section.settings.email != blank -%}
+            <div style="font-size:11.5px;letter-spacing:0.14em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:6px;">{{ section.settings.email_label }}</div>
+            <a href="mailto:{{ section.settings.email }}" style="font-family:'Fraunces',serif;font-size:20px;color:#C9653F;text-decoration:none;">{{ section.settings.email }}</a>
+          {%- endif -%}
+          {%- if section.settings.response_note != blank -%}
+            <p style="font-size:13px;color:#7A6258;margin:16px 0 0;display:flex;align-items:center;gap:8px;"><span style="color:#C9653F;">★</span> {{ section.settings.response_note }}</p>
+          {%- endif -%}
+        </div>
+
+        <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:18px;padding:34px 32px;">
+          {%- if section.settings.form_title != blank -%}<div style="font-family:'Fraunces',serif;font-size:22px;color:#6B3D42;margin:0 0 22px;">{{ section.settings.form_title }}</div>{%- endif -%}
+
+          {%- form 'contact' -%}
+            {%- if form.posted_successfully? -%}
+              <div style="background:rgba(201,101,63,0.1);border:1px solid rgba(201,101,63,0.3);border-radius:12px;padding:18px 20px;font-size:14.5px;color:#6B3D42;line-height:1.5;">{{ section.settings.success_message }}</div>
+            {%- else -%}
+              {%- if form.errors -%}
+                <div style="background:rgba(160,40,40,0.08);border:1px solid rgba(160,40,40,0.28);border-radius:12px;padding:14px 18px;font-size:13.5px;color:#8A2D2D;margin-bottom:18px;">{{ form.errors | default_errors }}</div>
+              {%- endif -%}
+              <div class="wk-ct-field">
+                <label for="wk-ct-name">Name</label>
+                <input type="text" id="wk-ct-name" name="contact[Name]" value="{{ form.name }}" autocomplete="name" placeholder="Your name">
+              </div>
+              <div class="wk-ct-field">
+                <label for="wk-ct-email">Email</label>
+                <input type="email" id="wk-ct-email" name="contact[email]" value="{{ form.email }}" autocomplete="email" required placeholder="you@email.com">
+              </div>
+              <div class="wk-ct-field">
+                <label for="wk-ct-phone">Phone <span style="text-transform:none;letter-spacing:0;color:#A08A7C;font-weight:400;">(optional)</span></label>
+                <input type="tel" id="wk-ct-phone" name="contact[Phone]" value="{{ form.phone }}" autocomplete="tel" placeholder="Optional">
+              </div>
+              <div class="wk-ct-field">
+                <label for="wk-ct-body">How can we help?</label>
+                <textarea id="wk-ct-body" name="contact[body]" required placeholder="Tell us what's on your mind…">{{ form.body }}</textarea>
+              </div>
+              <button type="submit" style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:16px;font-size:14px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-top:4px;">{{ section.settings.button_label }}</button>
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+{% schema %}
+{
+  "name": "WK - Contact",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Contact" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Get in touch" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Questions about your order, your routine, or an ingredient? We're here — and a real person will get back to you." },
+    { "type": "text", "id": "email_label", "label": "Email label", "default": "Email us directly" },
+    { "type": "text", "id": "email", "label": "Email address", "default": "hello@trywomankind.com" },
+    { "type": "text", "id": "response_note", "label": "Response note", "default": "We reply within 1 business day." },
+    { "type": "header", "content": "Form" },
+    { "type": "text", "id": "form_title", "label": "Form title", "default": "Send us a message" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Send message" },
+    { "type": "textarea", "id": "success_message", "label": "Success message", "default": "Thanks — we've got your message and will reply within 1 business day." }
+  ]
+}
+{% endschema %}

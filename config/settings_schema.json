@@ -1451,5 +1451,27 @@
         "default": "scheme-1"
       }
     ]
+  },
+  {
+    "name": "Cart social proof",
+    "settings": [
+      { "type": "header", "content": "Rotating testimonials" },
+      { "type": "paragraph", "content": "Shown in the slide-out cart and on the cart page. They rotate automatically. Leave a quote blank to hide that slot. Don't type quotation marks — they're added automatically. Use real, verifiable customer reviews only." },
+      { "type": "text", "id": "wk_cart_q1_text", "label": "Quote 1", "default": "First full night's sleep in two years. I'm not exaggerating." },
+      { "type": "text", "id": "wk_cart_q1_name", "label": "Quote 1 — name", "default": "Karen M." },
+      { "type": "text", "id": "wk_cart_q1_initials", "label": "Quote 1 — avatar initials", "default": "KM" },
+      { "type": "text", "id": "wk_cart_q2_text", "label": "Quote 2", "default": "The 3pm crashes are gone. I actually have energy for dinner." },
+      { "type": "text", "id": "wk_cart_q2_name", "label": "Quote 2 — name", "default": "Diane R." },
+      { "type": "text", "id": "wk_cart_q2_initials", "label": "Quote 2 — avatar initials", "default": "DR" },
+      { "type": "text", "id": "wk_cart_q3_text", "label": "Quote 3", "default": "My hot flashes went from constant to barely there." },
+      { "type": "text", "id": "wk_cart_q3_name", "label": "Quote 3 — name", "default": "Sofia L." },
+      { "type": "text", "id": "wk_cart_q3_initials", "label": "Quote 3 — avatar initials", "default": "SL" },
+      { "type": "text", "id": "wk_cart_q4_text", "label": "Quote 4", "default": "I feel like myself again — steadier, calmer, more me." },
+      { "type": "text", "id": "wk_cart_q4_name", "label": "Quote 4 — name", "default": "Priya N." },
+      { "type": "text", "id": "wk_cart_q4_initials", "label": "Quote 4 — avatar initials", "default": "PN" },
+      { "type": "text", "id": "wk_cart_q5_text", "label": "Quote 5" },
+      { "type": "text", "id": "wk_cart_q5_name", "label": "Quote 5 — name" },
+      { "type": "text", "id": "wk_cart_q5_initials", "label": "Quote 5 — avatar initials" }
+    ]
   }
 ]
