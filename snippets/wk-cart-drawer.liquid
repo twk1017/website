@@ -39,8 +39,7 @@
   #wk-cart-drawer .wk-cd-sub-value{font-family:'Fraunces',serif;font-size:24px;color:#6B3D42;}
   #wk-cart-drawer .wk-cd-note{font-size:11.5px;color:#7A6258;margin:0 0 16px;}
   #wk-cart-drawer .wk-cd-checkout{display:block;width:100%;box-sizing:border-box;text-align:center;background:#C9653F;color:#F5E6D8;text-decoration:none;border:none;cursor:pointer;border-radius:999px;padding:17px;font-size:14px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;font-family:inherit;}
-  #wk-cart-drawer .wk-cd-continue{display:block;width:100%;text-align:center;background:none;border:none;cursor:pointer;color:#6B3D42;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;font-weight:600;padding:14px 0 4px;font-family:inherit;}
-  #wk-cart-drawer .wk-cd-trust{display:flex;align-items:center;justify-content:center;gap:8px;font-size:11px;color:#7A6258;margin-top:8px;}
+  #wk-cart-drawer .wk-cd-trust{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13.5px;color:#7A6258;margin-top:16px;font-weight:500;}
   #wk-cart-drawer .wk-cd-trust span{color:#C9653F;}
   #wk-cart-drawer.wk-cd-busy .wk-cd-body{opacity:0.55;transition:opacity .15s ease;pointer-events:none;}
 </style>
@@ -60,7 +59,6 @@
       </div>
       <p class="wk-cd-note">Shipping &amp; discounts calculated at checkout.</p>
       <a class="wk-cd-checkout" href="{{ routes.cart_url }}" data-wk-cd-checkout>Checkout</a>
-      <button type="button" class="wk-cd-continue" data-wk-cart-close>Continue shopping</button>
       <div class="wk-cd-trust"><span>★</span> 90-day money-back guarantee · Secure checkout</div>
     </div>
   </aside>
