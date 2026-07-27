@@ -539,7 +539,8 @@
   "shopify": {
     "checkout": {
       "order_summary": {
-        "recurring_total_tooltip": "You're covered by our 90-day guarantee"
+        "recurring_total_tooltip": "You're covered by our 90-day guarantee",
+        "recurring_payments": "90-day guarantee"
       }
     }
   }
