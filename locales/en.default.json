@@ -540,16 +540,6 @@
     "checkout": {
       "order_summary": {
         "recurring_total_tooltip": "You're covered by our 90-day guarantee"
-      },
-      "shipping": {
-        "subscription_delivery_description": {
-          "subscription_delivery_frequency": {
-            "month": {
-              "one": "90-day guarantee",
-              "other": "90-day guarantee"
-            }
-          }
-        }
       }
     }
   }
