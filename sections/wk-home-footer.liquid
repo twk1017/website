@@ -44,7 +44,8 @@
         <div class="wk-fcon">
           <div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:16px;">{{ section.settings.col3_heading }}</div>
           <div style="display:flex;flex-direction:column;gap:11px;font-size:13px;color:rgba(245,230,216,0.8);">
-            <span>{{ section.settings.contact1 }}</span>
+            <a href="mailto:{{ section.settings.contact1 }}" style="color:rgba(245,230,216,0.8);text-decoration:none;">{{ section.settings.contact1 }}</a>
+            <a href="{{ section.settings.contact_link_url | default: '/pages/contact' }}" style="color:rgba(245,230,216,0.8);text-decoration:none;">{{ section.settings.contact_link_label | default: 'Get in touch' }}</a>
           </div>
         </div>
       </div>
@@ -80,6 +81,8 @@
     { "type": "header", "content": "Contact column" },
     { "type": "text", "id": "col3_heading", "label": "Heading", "default": "Contact us" },
     { "type": "text", "id": "contact1", "label": "Line 1", "default": "hello@trywomankind.com" },
+    { "type": "text", "id": "contact_link_label", "label": "Contact link text", "default": "Get in touch" },
+    { "type": "url", "id": "contact_link_url", "label": "Contact link URL" },
     { "type": "text", "id": "contact2", "label": "Line 2", "default": "Copenhagen, Denmark" },
     { "type": "text", "id": "contact3", "label": "Line 3", "default": "+45 00 00 00 00" },
     { "type": "header", "content": "Legal" },
