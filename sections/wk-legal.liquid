@@ -1,0 +1,216 @@
+{%- comment -%}
+  WK - Legal pages. One brand-styled section that renders Privacy Policy, Refund Policy,
+  or Terms of Service based on the page handle. Create pages titled exactly:
+    "Privacy Policy"  -> handle privacy-policy
+    "Refund Policy"   -> handle refund-policy
+    "Terms of Service"-> handle terms-of-service
+  and the matching page.<handle>.liquid template applies this section automatically.
+  Business specifics (company, email, address, dates) come from the schema settings below.
+{%- endcomment -%}
+
+{%- assign co = section.settings.company_name | default: 'Womankind' -%}
+{%- assign email = section.settings.contact_email | default: 'hello@trywomankind.com' -%}
+{%- assign addr = section.settings.address -%}
+{%- assign site = section.settings.website | default: 'trywomankind.com' -%}
+{%- assign eff = section.settings.effective_date -%}
+{%- assign days = section.settings.refund_days | default: 90 -%}
+{%- assign law = section.settings.governing_law | default: 'Denmark' -%}
+{%- assign portal = section.settings.portal_url -%}
+
+<style>
+  #wk-{{ section.id }}-legal .wk-lg-wrap{max-width:820px;margin:0 auto;}
+  #wk-{{ section.id }}-legal .wk-lg-eyebrow{font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:14px;}
+  #wk-{{ section.id }}-legal h1{font-family:'Fraunces',serif;font-weight:400;font-size:46px;line-height:1.05;margin:0 0 12px;color:#6B3D42;}
+  #wk-{{ section.id }}-legal .wk-lg-meta{font-size:13px;color:#7A6258;margin:0 0 40px;}
+  #wk-{{ section.id }}-legal .wk-lg-prose h2{font-family:'Fraunces',serif;font-weight:400;font-size:24px;line-height:1.2;color:#6B3D42;margin:38px 0 12px;}
+  #wk-{{ section.id }}-legal .wk-lg-prose h3{font-size:15px;letter-spacing:0.02em;color:#3A2A20;font-weight:700;margin:22px 0 8px;}
+  #wk-{{ section.id }}-legal .wk-lg-prose p,
+  #wk-{{ section.id }}-legal .wk-lg-prose li{font-size:15.5px;line-height:1.72;color:#4a3a30;}
+  #wk-{{ section.id }}-legal .wk-lg-prose p{margin:0 0 14px;}
+  #wk-{{ section.id }}-legal .wk-lg-prose ul{margin:0 0 16px;padding-left:22px;}
+  #wk-{{ section.id }}-legal .wk-lg-prose li{margin:0 0 7px;}
+  #wk-{{ section.id }}-legal .wk-lg-prose a{color:#C9653F;text-decoration:underline;text-underline-offset:2px;}
+  #wk-{{ section.id }}-legal .wk-lg-prose strong{color:#3A2A20;}
+  #wk-{{ section.id }}-legal .wk-lg-callout{background:#FBF1E6;border:1px solid rgba(107,61,66,0.16);border-left:3px solid #C9653F;border-radius:12px;padding:18px 22px;margin:0 0 24px;}
+  #wk-{{ section.id }}-legal .wk-lg-callout p{margin:0;font-size:14.5px;color:#4a3a30;}
+  #wk-{{ section.id }}-legal .wk-lg-disc{font-size:12.5px;line-height:1.6;color:#7A6258;font-style:italic;border-top:1px solid rgba(107,61,66,0.14);margin-top:44px;padding-top:20px;}
+  @media (max-width:749px){
+    #wk-{{ section.id }}-legal h1{font-size:34px;}
+    #wk-{{ section.id }}-legal .wk-lg-prose h2{font-size:21px;}
+  }
+</style>
+
+<section id="wk-{{ section.id }}-legal" style="background:#F5E6D8;color:#3A2A20;font-family:'Hanken Grotesk',sans-serif;padding:66px 28px 90px;">
+  <div class="wk-lg-wrap">
+    <div class="wk-lg-eyebrow">{{ section.settings.eyebrow }}</div>
+    <h1>{{ page.title }}</h1>
+    <p class="wk-lg-meta">{% if eff != blank %}Effective date: {{ eff }}{% endif %}</p>
+
+    <div class="wk-lg-prose">
+    {%- case page.handle -%}
+
+    {%- when 'privacy-policy', 'privacy' -%}
+      <p>{{ co }} (“{{ co }},” “we,” “us,” or “our”) respects your privacy. This Privacy Policy explains what information we collect through {{ site }} (the “Site”), how we use and share it, and the choices you have. By using the Site or purchasing from us, you agree to this Policy.</p>
+
+      <h2>1. Information we collect</h2>
+      <h3>Information you provide</h3>
+      <ul>
+        <li><strong>Order &amp; account details:</strong> name, email address, shipping and billing address, phone number (if provided), and order history.</li>
+        <li><strong>Payment information:</strong> processed securely by our payment providers (including Shopify Payments and third-party processors). We do not store full card numbers on our servers.</li>
+        <li><strong>Subscription details:</strong> your plan, delivery frequency, and renewal dates.</li>
+        <li><strong>Communications:</strong> messages you send us and reviews or feedback you submit.</li>
+      </ul>
+      <h3>Information collected automatically</h3>
+      <ul>
+        <li><strong>Device &amp; usage data:</strong> IP address, browser type, device information, pages viewed, and referring URLs.</li>
+        <li><strong>Cookies &amp; similar technologies:</strong> used to run the Site, remember your cart, measure performance, and (with consent where required) support marketing.</li>
+      </ul>
+
+      <h2>2. How we use your information</h2>
+      <ul>
+        <li>Process and fulfil orders and manage subscriptions;</li>
+        <li>Provide customer support and respond to your requests;</li>
+        <li>Send transactional messages (order confirmations, shipping and renewal notices);</li>
+        <li>Send marketing communications where you have consented, and let you opt out at any time;</li>
+        <li>Operate, secure, and improve the Site and our products;</li>
+        <li>Detect and prevent fraud and comply with legal obligations.</li>
+      </ul>
+
+      <h2>3. How we share your information</h2>
+      <p>We do not sell your personal information. We share it only with:</p>
+      <ul>
+        <li><strong>Service providers</strong> who operate the Site on our behalf — including Shopify (e-commerce platform), payment processors, shipping and fulfilment carriers, our subscription provider, and email/SMS and analytics providers;</li>
+        <li><strong>Advertising &amp; analytics partners</strong> (such as Meta and Google) where you have consented to marketing cookies;</li>
+        <li><strong>Legal &amp; safety recipients</strong> where required to comply with law, enforce our terms, or protect rights and safety;</li>
+        <li><strong>A successor entity</strong> in connection with a merger, acquisition, or sale of assets.</li>
+      </ul>
+
+      <h2>4. Cookies</h2>
+      <p>We use strictly necessary cookies to run the Site, plus optional analytics and marketing cookies. You can manage non-essential cookies through your browser settings or any cookie banner shown on the Site.</p>
+
+      <h2>5. Data retention</h2>
+      <p>We keep your information for as long as needed to provide our services, meet legal, tax, and accounting requirements, and resolve disputes. When it is no longer needed, we delete or anonymise it.</p>
+
+      <h2>6. Your rights</h2>
+      <p>Depending on where you live, you may have the right to access, correct, delete, or receive a copy of your personal data; to restrict or object to certain processing; and to withdraw consent. If you are in the EEA/UK, these rights arise under the GDPR. If you are a California resident, you have rights under the CCPA/CPRA, including the right to know, delete, and opt out of the “sale” or “sharing” of personal information, and the right not to be discriminated against for exercising them. To exercise any right, email us at <a href="mailto:{{ email }}">{{ email }}</a>. You may also lodge a complaint with your local data-protection authority.</p>
+
+      <h2>7. International transfers</h2>
+      <p>We operate from {{ law }} and work with providers located in other countries, including the United States. Where we transfer personal data internationally, we use appropriate safeguards such as standard contractual clauses.</p>
+
+      <h2>8. Marketing choices</h2>
+      <p>You can unsubscribe from marketing emails using the link in any email, reply STOP to marketing SMS, or contact us at <a href="mailto:{{ email }}">{{ email }}</a>. You will still receive essential transactional messages about your orders and subscriptions.</p>
+
+      <h2>9. Children</h2>
+      <p>The Site and our products are intended for adults. We do not knowingly collect personal information from anyone under 18.</p>
+
+      <h2>10. Security</h2>
+      <p>We use administrative, technical, and physical safeguards designed to protect your information. No method of transmission or storage is completely secure, so we cannot guarantee absolute security.</p>
+
+      <h2>11. Changes to this Policy</h2>
+      <p>We may update this Policy from time to time. Material changes will be posted here with a revised effective date.</p>
+
+      <h2>12. Contact us</h2>
+      <p>Questions about this Policy or your data? Email <a href="mailto:{{ email }}">{{ email }}</a>{% if addr != blank %} or write to us at {{ addr }}{% endif %}.</p>
+
+    {%- when 'refund-policy', 'refunds', 'returns', 'refund-return-policy' -%}
+      <div class="wk-lg-callout"><p><strong>Our {{ days }}-day money-back guarantee.</strong> We want you to feel like yourself again. If you’re not satisfied for any reason, contact us within {{ days }} days of your purchase for a full refund of the product price — even if the bottle is opened.</p></div>
+
+      <h2>1. How the guarantee works</h2>
+      <p>To request a refund under our {{ days }}-day guarantee, email <a href="mailto:{{ email }}">{{ email }}</a> with your order number. Our team will confirm the details and process your refund. You do not need to return an opened bottle unless we ask you to.</p>
+
+      <h2>2. Damaged, incorrect, or lost orders</h2>
+      <p>If your order arrives damaged, is incorrect, or does not arrive, contact us at <a href="mailto:{{ email }}">{{ email }}</a> within 30 days of the shipping date and we’ll make it right with a replacement or refund at no cost to you.</p>
+
+      <h2>3. Subscriptions</h2>
+      <p>Subscriptions renew automatically at the interval you selected. You can <strong>pause, skip, or cancel anytime</strong>{% if portal != blank %} from your <a href="{{ portal }}">subscription portal</a>{% endif %}. To avoid being charged for the next order, make changes before your renewal date.</p>
+      <ul>
+        <li>Orders already placed under our {{ days }}-day guarantee are eligible for a refund of the product price as described above.</li>
+        <li>If a renewal ships before you cancel, contact us and we’ll help — the {{ days }}-day guarantee still applies to that order.</li>
+      </ul>
+
+      <h2>4. How refunds are issued</h2>
+      <p>Approved refunds are returned to your original payment method. Please allow 5–10 business days for the refund to appear, depending on your bank or card issuer. Original shipping charges, if any, are non-refundable except where an order was damaged, incorrect, or lost.</p>
+
+      <h2>5. Exclusions</h2>
+      <p>Gift cards and promotional free items are not refundable. Refunds apply to amounts actually paid.</p>
+
+      <h2>6. Contact us</h2>
+      <p>Need help with a return or refund? Email <a href="mailto:{{ email }}">{{ email }}</a>{% if addr != blank %} or write to {{ addr }}{% endif %} and a real person will get back to you.</p>
+
+    {%- when 'terms-of-service', 'terms-and-conditions', 'terms', 'tos' -%}
+      <p>These Terms of Service (“Terms”) govern your access to and use of {{ site }} and your purchase of products from {{ co }} (“we,” “us,” or “our”). By using the Site or placing an order, you agree to these Terms.</p>
+
+      <h2>1. Eligibility</h2>
+      <p>You must be at least 18 years old to use the Site and place an order.</p>
+
+      <h2>2. Products &amp; health disclaimer</h2>
+      <div class="wk-lg-callout"><p>These statements have not been evaluated by the Food and Drug Administration. Our products are dietary supplements and are not intended to diagnose, treat, cure, or prevent any disease. The Site does not provide medical advice. Consult your physician before use, especially if you are pregnant, nursing, taking medication, or have a medical condition.</p></div>
+      <p>We work to display products and ingredients accurately, but we do not warrant that descriptions or other content are error-free. Product availability and pricing may change without notice.</p>
+
+      <h2>3. Orders, pricing &amp; payment</h2>
+      <p>All prices are shown at checkout in the currency indicated. We may correct errors, refuse, or cancel any order — including after it has been placed — for reasons such as suspected fraud, pricing errors, or stock limits. If we cancel an order you’ve paid for, we’ll refund the amount charged.</p>
+
+      <h2>4. Subscriptions &amp; automatic renewal</h2>
+      <p>If you choose a subscription, you authorise us to <strong>charge your payment method on a recurring basis</strong> at the price and interval shown at checkout (for example, every 1, 3, or 6 months) until you cancel. Before each renewal we’ll charge the then-current price for your plan.</p>
+      <ul>
+        <li>You can <strong>pause, skip, or cancel anytime</strong>{% if portal != blank %} from your <a href="{{ portal }}">subscription portal</a>{% endif %}, with no cancellation fee.</li>
+        <li>To avoid the next charge, make changes before your renewal date.</li>
+        <li>We’ll give advance notice of any change to your subscription price.</li>
+      </ul>
+
+      <h2>5. Shipping</h2>
+      <p>We ship to the regions shown at checkout. Delivery estimates are not guaranteed. Risk of loss passes to you on delivery to the carrier, subject to our Refund Policy for lost or damaged orders.</p>
+
+      <h2>6. Refunds</h2>
+      <p>Purchases are covered by our {{ days }}-day money-back guarantee. See our <a href="/pages/refund-policy">Refund Policy</a> for details.</p>
+
+      <h2>7. Intellectual property</h2>
+      <p>The Site and its content — including text, images, logos, and the {{ co }} name — are owned by us or our licensors and protected by law. You may not copy, reproduce, or use them without our written permission.</p>
+
+      <h2>8. Reviews &amp; submissions</h2>
+      <p>If you submit reviews or other content, you grant us a non-exclusive, royalty-free licence to use, display, and reproduce it in connection with our business. You’re responsible for the content you submit and must have the right to share it.</p>
+
+      <h2>9. Disclaimers</h2>
+      <p>The Site and products are provided “as is” and “as available.” To the fullest extent permitted by law, we disclaim all warranties, express or implied, including merchantability and fitness for a particular purpose. Individual results may vary.</p>
+
+      <h2>10. Limitation of liability</h2>
+      <p>To the fullest extent permitted by law, {{ co }} will not be liable for any indirect, incidental, or consequential damages arising from your use of the Site or products. Our total liability for any claim will not exceed the amount you paid for the order giving rise to the claim. Nothing in these Terms limits liability that cannot be limited under applicable law.</p>
+
+      <h2>11. Indemnification</h2>
+      <p>You agree to indemnify and hold {{ co }} harmless from claims arising out of your breach of these Terms or misuse of the Site.</p>
+
+      <h2>12. Governing law</h2>
+      <p>These Terms are governed by the laws of {{ law }}, without regard to conflict-of-law rules. Any dispute will be subject to the competent courts of {{ law }}, except where mandatory consumer-protection laws in your country of residence provide otherwise.</p>
+
+      <h2>13. Changes to these Terms</h2>
+      <p>We may update these Terms from time to time. Changes take effect when posted here with a revised effective date. Your continued use of the Site means you accept the updated Terms.</p>
+
+      <h2>14. Contact us</h2>
+      <p>Questions about these Terms? Email <a href="mailto:{{ email }}">{{ email }}</a>{% if addr != blank %} or write to {{ addr }}{% endif %}.</p>
+
+    {%- else -%}
+      {{ page.content }}
+    {%- endcase -%}
+    </div>
+
+    <p class="wk-lg-disc">This document is provided for general information and is not legal advice. Please have your final policies reviewed by a qualified attorney to confirm they fit your business and comply with the laws that apply to you.</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "WK - Legal",
+  "settings": [
+    { "type": "paragraph", "content": "Shared across all three legal pages. The document shown is chosen automatically by the page handle (privacy-policy, refund-policy, terms-of-service)." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Legal" },
+    { "type": "text", "id": "company_name", "label": "Company / legal name", "default": "Womankind" },
+    { "type": "text", "id": "contact_email", "label": "Contact email", "default": "hello@trywomankind.com" },
+    { "type": "text", "id": "website", "label": "Website", "default": "trywomankind.com" },
+    { "type": "textarea", "id": "address", "label": "Registered business address" },
+    { "type": "text", "id": "effective_date", "label": "Effective date", "default": "July 28, 2026" },
+    { "type": "text", "id": "refund_days", "label": "Guarantee window (days)", "default": "90" },
+    { "type": "text", "id": "governing_law", "label": "Governing law / jurisdiction", "default": "Denmark" },
+    { "type": "url", "id": "portal_url", "label": "Subscription portal URL" }
+  ]
+}
+{% endschema %}
