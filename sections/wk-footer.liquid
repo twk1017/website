@@ -31,7 +31,14 @@
               {%- assign lk = 'policy' | append: i | append: '_label' -%}
               {%- assign uk = 'policy' | append: i | append: '_url' -%}
               {%- assign lv = section.settings[lk] -%}
-              {%- if lv != blank -%}<a href="{{ section.settings[uk] | default: '#' }}" style="color:rgba(245,230,216,0.8);text-decoration:none;">{{ lv }}</a>{%- endif -%}
+              {%- case i -%}
+                {%- when 1 -%}{%- assign du = '/pages/privacy-policy' -%}
+                {%- when 2 -%}{%- assign du = '/pages/refund-policy' -%}
+                {%- when 3 -%}{%- assign du = '/pages/terms-of-service' -%}
+                {%- when 4 -%}{%- assign du = 'https://shopify.com/108000379219/account/pages/7c4a25d5-0da8-4259-bf5f-40ed6112e4d6' -%}
+                {%- else -%}{%- assign du = '#' -%}
+              {%- endcase -%}
+              {%- if lv != blank -%}<a href="{{ section.settings[uk] | default: du }}" style="color:rgba(245,230,216,0.8);text-decoration:none;">{{ lv }}</a>{%- endif -%}
             {%- endfor -%}
           </div>
         </div>
