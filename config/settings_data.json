@@ -170,6 +170,8 @@
           "nav_3_link": "",
           "nav_4_label": "Contact us",
           "nav_4_link": "/pages/contact",
+          "manage_sub_label": "Manage Subscription",
+          "manage_sub_link": "",
           "utility_1": "Search",
           "utility_2": "Account",
           "cart_label": "Cart"
@@ -623,6 +625,9 @@
           "tier1_sub": "1 bottle · 30 servings",
           "refill_title": "Save 25% with automatic refills",
           "refill_subtitle": "Zero commitment — pause, skip, or cancel anytime",
+          "plan_1_id": "",
+          "plan_3_id": "",
+          "plan_6_id": "",
           "atc_label": "Add to bag",
           "guarantee_badge": "90",
           "guarantee_text": "Try it for a full 90 days — love it or your money back"
@@ -757,6 +762,20 @@
           "body_2": "Around her is a team of women — operators, formulators, and builders — who hold the standard she set: every active named and dosed, nothing oversold, and made to meet you years before the word menopause feels like yours.",
           "cta_label": "Try it risk-free",
           "cta_link": ""
+        }
+      },
+      "wk-legal": {
+        "type": "wk-legal",
+        "settings": {
+          "eyebrow": "Legal",
+          "company_name": "Womankind",
+          "contact_email": "hello@trywomankind.com",
+          "website": "trywomankind.com",
+          "address": "11407 SW Amu St\nSuite #JT550\nTualatin, OR 97062\nUSA",
+          "effective_date": "July 15, 2024",
+          "refund_days": "90",
+          "governing_law": "USA",
+          "portal_url": "https://shopify.com/108000379219/account/pages/7c4a25d5-0da8-4259-bf5f-40ed6112e4d6"
         }
       }
     },
