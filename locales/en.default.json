@@ -546,6 +546,12 @@
           "first_cycles": {
             "one": "90-day"
           }
+        },
+        "recurring_totals_with_initial_order_shipping_discount_with_policies": {
+          "first_cycles": {
+            "one": "90-day",
+            "other": "guarantee"
+          }
         }
       }
     }
