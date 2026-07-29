@@ -540,6 +540,14 @@
     "checkout": {
       "order_summary": {
         "recurring_total_tooltip": "You're covered by our 90-day guarantee"
+      },
+      "subscriptions": {
+        "recurring_totals_with_policies": {
+          "first_cycles": {
+            "one": "90-day"
+          },
+          "following_cycles": "guarantee"
+        }
       }
     }
   }
