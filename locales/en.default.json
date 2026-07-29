@@ -545,8 +545,7 @@
         "recurring_totals_with_policies": {
           "first_cycles": {
             "one": "90-day"
-          },
-          "following_cycles": "guarantee"
+          }
         }
       }
     }
