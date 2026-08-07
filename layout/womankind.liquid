@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#6B3D42">
     <link rel="canonical" href="{{ canonical_url }}">
-    <title>{{ page_title | default: shop.name }}</title>
+    {%- if template.suffix == 'advertorial-2' -%}
+      <title>Why your hot flashes aren't a heat problem — and the gut-hormone shift that finally cooled them down - Womankind</title>
+    {%- else -%}
+      <title>{{ page_title | default: shop.name }}</title>
+    {%- endif -%}
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
       <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
