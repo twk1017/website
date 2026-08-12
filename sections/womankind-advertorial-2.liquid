@@ -336,6 +336,16 @@
   </section>
   {%- endif -%}
 
+  <!-- THE GUARANTEE -->
+  <section class="adv-sec" style="background:#6B3D42;color:#F5E6D8;padding:66px 28px;">
+    <div style="max-width:720px;margin:0 auto;text-align:center;">
+      <div style="font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#E2A24C;font-weight:700;margin-bottom:16px;">{{ section.settings.band2_eyebrow }}</div>
+      <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:30px;line-height:1.2;margin:0 0 18px;">{{ section.settings.band2_heading }}</h2>
+      <p style="font-size:16px;line-height:1.7;color:rgba(245,230,216,0.85);margin:0 0 28px;">Here's the thing about the estrobolome: it doesn't reset overnight. The gut bacteria that regulate your estrogen need time to repopulate and rebalance. A 30-day guarantee would set you up to quit right before the shift happens. That's why Womankind gives you 90 days. Take the full three months. If your flashes haven't changed — for any reason — email for a full refund. No need to return the bottles. No hoops. No fine print. The only real risk isn't trying it. It's another year of flashes running your life. Another flush at the worst possible moment. Another night soaked through. Another gadget that cools the surface and ignores the cause. That's the real risk — not the one with a money-back guarantee attached.</p>
+      <a href="{{ wk_pdp }}" style="display:inline-block;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:16px 42px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.band2_cta }}</a>
+    </div>
+  </section>
+
   <!-- OFFER → PDP CTA CARD -->
   <section class="adv-sec" id="offer" style="background:#EFDFD0;padding:74px 28px;scroll-margin-top:80px;">
     <div style="max-width:1040px;margin:0 auto;position:relative;">
@@ -367,31 +377,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- SCARCITY (summer sale) -->
-  {%- if section.settings.scar_on -%}
-  <section class="adv-sec" style="background:#F5E6D8;padding:14px 28px 70px;">
-    <div style="max-width:760px;margin:0 auto;">
-      <div style="background:#3A2A20;color:#F5E6D8;border:2px solid #E2A24C;border-radius:18px;padding:46px 38px;text-align:center;">
-        <span style="display:inline-block;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#3A2A20;background:#E2A24C;border-radius:999px;padding:6px 16px;margin-bottom:20px;">{{ section.settings.scar_tag }}</span>
-        <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:30px;line-height:1.18;margin:0 0 18px;color:#F5E6D8;">{{ section.settings.scar_heading }}</h2>
-        <p style="font-size:16px;line-height:1.7;color:rgba(245,230,216,0.85);margin:0 auto 14px;max-width:56ch;">{{ section.settings.scar_body }}</p>
-        <p style="font-size:14px;line-height:1.6;color:#E2A24C;margin:0 auto 30px;max-width:54ch;">{{ section.settings.scar_note }}</p>
-        <a href="{{ wk_pdp }}" style="display:inline-block;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:16px 42px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.scar_cta }}</a>
-      </div>
-    </div>
-  </section>
-  {%- endif -%}
-
-  <!-- COST OF DOING NOTHING -->
-  <section class="adv-sec" style="background:#6B3D42;color:#F5E6D8;padding:66px 28px;">
-    <div style="max-width:720px;margin:0 auto;text-align:center;">
-      <div style="font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#E2A24C;font-weight:700;margin-bottom:16px;">{{ section.settings.band2_eyebrow }}</div>
-      <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:30px;line-height:1.2;margin:0 0 18px;">{{ section.settings.band2_heading }}</h2>
-      <p style="font-size:16px;line-height:1.7;color:rgba(245,230,216,0.85);margin:0 0 28px;">Here's the thing about the estrobolome: it doesn't reset overnight — the gut bacteria that regulate your estrogen need time to repopulate and rebalance, which is why Womankind gives you 90 days. Take the full three months. If your flashes haven't changed, email for a full refund — no need to return the bottles, no hoops, no fine print. Another flush at the worst possible moment, another night soaked through, another gadget that cools the surface and ignores the cause: that's the real risk, not the one with a money-back guarantee attached.</p>
-      <a href="{{ wk_pdp }}" style="display:inline-block;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:16px 42px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.band2_cta }}</a>
     </div>
   </section>
 
@@ -743,16 +728,9 @@
     {"type": "text", "id": "offer_eyebrow", "label": "offer_eyebrow", "default": "Summer sale — now live"},
     {"type": "text", "id": "offer_h2_lead", "label": "offer_h2_lead", "default": "Get your cool"},
     {"type": "text", "id": "offer_h2_accent", "label": "offer_h2_accent", "default": "back"},
-    {"type": "header", "content": "Scarcity section (summer sale)"},
-    {"type": "checkbox", "id": "scar_on", "label": "scar_on", "default": true},
-    {"type": "text", "id": "scar_tag", "label": "scar_tag", "default": "Summer sale — now live"},
-    {"type": "text", "id": "scar_heading", "label": "scar_heading", "default": "Get your cool back — save up to 51% with free shipping"},
-    {"type": "textarea", "id": "scar_body", "label": "scar_body", "default": "I'll be direct with you, the way I wish more people in my field were: the price on this page is our summer-sale pricing, and it isn't permanent. When the sale ends, every bottle goes back to its regular price. Same formula, same bottles — you'd just pay more for them later."},
-    {"type": "textarea", "id": "scar_note", "label": "scar_note", "default": "No countdown gimmicks, no fake \"almost gone.\" Just the honest heads-up: if your flashes sound like mine, there's no reason to pay more for the same thing a month from now."},
-    {"type": "text", "id": "scar_cta", "label": "scar_cta", "default": "Lock in the summer price"},
     {"type": "header", "content": "Cost-of-doing-nothing band"},
-    {"type": "text", "id": "band2_eyebrow", "label": "band2_eyebrow", "default": "The real risk"},
-    {"type": "text", "id": "band2_heading", "label": "band2_heading", "default": "The only real risk isn't trying it. It's another year of flashes running your life."},
+    {"type": "text", "id": "band2_eyebrow", "label": "band2_eyebrow", "default": "Risk-free"},
+    {"type": "text", "id": "band2_heading", "label": "band2_heading", "default": "The guarantee that got me — a skeptic — to finally try."},
     {"type": "text", "id": "band2_cta", "label": "band2_cta", "default": "Start risk-free"},
     {"type": "header", "content": "FAQ"},
     {"type": "text", "id": "faq_eyebrow", "label": "faq_eyebrow", "default": "Your questions, answered"},
