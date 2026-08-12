@@ -35,6 +35,9 @@
     #wk-{{ section.id }} .adv-offer { grid-template-columns:1fr !important; }
     #wk-{{ section.id }} .adv-sec { padding-left:20px !important; padding-right:20px !important; }
     #wk-{{ section.id }} .adv-lede { font-size:17px !important; }
+    #wk-{{ section.id }} .adv-grid5 { grid-template-columns:1fr 1fr !important; }
+    #wk-{{ section.id }} .adv-grid2 { grid-template-columns:1fr !important; }
+    #wk-{{ section.id }} .adv-story-h { font-size:26px !important; }
   }
 </style>
 
@@ -70,10 +73,33 @@
 
     <!-- LEDE -->
     <div class="adv-sec" style="max-width:720px;margin:0 auto;padding:44px 28px 0;">
-      <p class="adv-lede" style="font-size:19px;line-height:1.7;color:#3A2A20;margin:0 0 22px;font-weight:500;">{{ section.settings.hero_p1 }}</p>
+      <p class="adv-lede" style="font-size:19px;line-height:1.7;color:#3A2A20;margin:0 0 26px;font-weight:500;">{{ section.settings.hero_p1 }}</p>
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.hero_p2 }}</p>
-      <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 28px;">{{ section.settings.hero_p3 }}{{ wk_star }}</p>
-      <a href="{{ wk_pdp }}" style="display:inline-flex;align-items:center;gap:10px;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:16px 38px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.hero_cta }}</a>
+      <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.hero_p3 }}</p>
+      <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.hero_p4 }}</p>
+      <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.hero_p5 }}</p>
+      <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.hero_p6 }}</p>
+
+      {%- if section.settings.story1_head != blank -%}
+      <h2 class="adv-story-h" style="font-family:'Fraunces',serif;font-weight:400;font-size:30px;line-height:1.18;color:#6B3D42;margin:42px 0 20px;">{{ section.settings.story1_head }}</h2>
+      <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story1_p1 }}</p>
+      <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story1_p2 }}</p>
+      <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story1_p3 }}</p>
+      <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story1_p4 }}</p>
+      <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story1_p5 }}</p>
+      <p style="font-size:18px;line-height:1.7;color:#3A2A20;font-weight:600;margin:0 0 20px;">{{ section.settings.story1_p6 }}</p>
+      <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 28px;">{{ section.settings.story1_p7 }}</p>
+      {%- endif -%}
+
+      <a href="#offer" style="display:inline-flex;align-items:center;gap:10px;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:16px 38px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.hero_cta }}</a>
+
+      {%- if section.settings.story2_head != blank -%}
+      <h2 class="adv-story-h" style="font-family:'Fraunces',serif;font-weight:400;font-size:30px;line-height:1.18;color:#6B3D42;margin:46px 0 20px;">{{ section.settings.story2_head }}</h2>
+      <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story2_p1 }}</p>
+      <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story2_p2 }}</p>
+      <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story2_p3 }}</p>
+      <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 6px;">{{ section.settings.story2_p4 }}</p>
+      {%- endif -%}
     </div>
   </article>
 
@@ -146,8 +172,17 @@
       <div style="max-width:700px;margin:0 auto;">
         <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.disc_p1 }}</p>
         <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.disc_p2 }}</p>
-        <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.disc_p3 }}{{ wk_star }}</p>
-        <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0;">{{ section.settings.disc_p4 }}{{ wk_star }}</p>
+        <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.disc_p3 }}</p>
+        <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.disc_p4 }}</p>
+        <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0;">{{ section.settings.disc_p5 }}</p>
+
+        {%- if section.settings.disc2_head != blank -%}
+        <h3 class="adv-story-h" style="font-family:'Fraunces',serif;font-weight:400;font-size:28px;line-height:1.2;color:#6B3D42;margin:44px 0 20px;">{{ section.settings.disc2_head }}</h3>
+        <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.disc2_p1 }}</p>
+        <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;padding:18px 22px;background:#FBF1E6;border-left:3px solid #C9653F;border-radius:0 10px 10px 0;">{{ section.settings.disc2_p2 }}</p>
+        <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.disc2_p3 }}</p>
+        <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0;">{{ section.settings.disc2_p4 }}{{ wk_star }}</p>
+        {%- endif -%}
       </div>
     </div>
   </section>
@@ -164,8 +199,6 @@
           {%- assign pe = 'pillar' | append: i | append: '_eyebrow' -%}
           {%- assign pt = 'pillar' | append: i | append: '_title' -%}
           {%- assign pb = 'pillar' | append: i | append: '_body' -%}
-          {%- assign pl1 = 'pillar' | append: i | append: '_line1' -%}
-          {%- assign pl2 = 'pillar' | append: i | append: '_line2' -%}
           {%- assign pimg = section.settings[pk] -%}
           <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;">
             <div style="aspect-ratio:4/3;background:#C9A89F;overflow:hidden;">{%- if pimg -%}<img src="{{ pimg | image_url: width: 600 }}" alt="" width="600" height="450" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- else -%}<img src="{{ 'wk-adv2-pillar' | append: i | append: '.jpg' | asset_url }}" alt="" width="600" height="450" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- endif -%}</div>
@@ -174,9 +207,13 @@
               <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;line-height:1.2;margin:0 0 10px;color:#6B3D42;">{{ section.settings[pt] }}</h3>
               <p style="font-size:14px;line-height:1.6;color:#4a3a30;margin:0 0 18px;">{{ section.settings[pb] }}{{ wk_star }}</p>
               <div style="display:flex;flex-direction:column;gap:9px;">
-                <div style="display:flex;gap:9px;font-size:13px;color:#4a3a30;"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span>{{ section.settings[pl1] }}</div>
-                <div style="display:flex;gap:9px;font-size:13px;color:#4a3a30;"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span>{{ section.settings[pl2] }}</div>
-                <div style="display:flex;gap:9px;font-size:13px;color:#4a3a30;"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span>{{ section.settings.pillars_line3 }}</div>
+                {%- for b in (1..4) -%}
+                  {%- assign blk = 'pillar' | append: i | append: '_line' | append: b -%}
+                  {%- assign bval = section.settings[blk] -%}
+                  {%- if bval != blank -%}
+                  <div style="display:flex;gap:9px;font-size:13px;color:#4a3a30;"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span><span>{{ bval }}</span></div>
+                  {%- endif -%}
+                {%- endfor -%}
               </div>
             </div>
           </div>
@@ -201,8 +238,8 @@
       <div style="text-align:center;margin-bottom:12px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9653F;font-weight:700;">{{ section.settings.tl_eyebrow }}</div>
       <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:36px;text-align:center;margin:0 auto 16px;color:#6B3D42;">{{ section.settings.tl_heading }}</h2>
       <p style="max-width:620px;margin:0 auto 50px;text-align:center;font-size:16px;line-height:1.7;color:#5a4636;">{{ section.settings.tl_intro }}{{ wk_star }}</p>
-      <div class="adv-grid4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;">
-        {%- for i in (1..4) -%}
+      <div class="adv-grid5" style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;">
+        {%- for i in (1..5) -%}
           {%- assign tll = 'tl' | append: i | append: '_label' -%}
           {%- assign tlb = 'tl' | append: i | append: '_body' -%}
           {%- if forloop.last -%}
@@ -239,8 +276,8 @@
           </div>
         {%- endfor -%}
       </div>
-      <div class="adv-grid3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
-        {%- for i in (1..3) -%}
+      <div class="adv-grid4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;">
+        {%- for i in (1..4) -%}
           {%- assign tq = 'testi' | append: i | append: '_quote' -%}
           {%- assign tn = 'testi' | append: i | append: '_name' -%}
           <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:26px 24px;">
@@ -253,6 +290,42 @@
       <p style="font-size:12px;color:#9a8578;margin:22px 0 0;text-align:center;">{{ section.settings.proof_disclaimer }}</p>
     </div>
   </section>
+
+  <!-- WHO THIS IS FOR -->
+  {%- if section.settings.who_heading != blank -%}
+  <section class="adv-sec" style="background:#EFDFD0;padding:74px 28px;">
+    <div style="max-width:960px;margin:0 auto;">
+      {%- if section.settings.who_eyebrow != blank -%}<div style="text-align:center;margin-bottom:12px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9653F;font-weight:700;">{{ section.settings.who_eyebrow }}</div>{%- endif -%}
+      <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:36px;text-align:center;margin:0 auto 44px;color:#6B3D42;max-width:20ch;">{{ section.settings.who_heading }}</h2>
+      <div class="adv-grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:16px;padding:32px 30px;">
+          <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;margin:0 0 20px;color:#6B3D42;">{{ section.settings.who_for_title }}</h3>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            {%- for b in (1..5) -%}
+              {%- assign fk = 'who_for_' | append: b -%}
+              {%- assign fv = section.settings[fk] -%}
+              {%- if fv != blank -%}
+              <div style="display:flex;gap:12px;font-size:14.5px;line-height:1.55;color:#3A2A20;"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span><span>{{ fv }}</span></div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+        <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:16px;padding:32px 30px;">
+          <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;margin:0 0 20px;color:#6B3D42;">{{ section.settings.who_not_title }}</h3>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            {%- for b in (1..3) -%}
+              {%- assign nk = 'who_not_' | append: b -%}
+              {%- assign nv = section.settings[nk] -%}
+              {%- if nv != blank -%}
+              <div style="display:flex;gap:12px;font-size:14.5px;line-height:1.55;color:#7a6258;"><span style="color:#A07E81;font-weight:700;flex:0 0 auto;">—</span><span>{{ nv }}</span></div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
 
   <!-- OFFER → PDP CTA CARD -->
   <section class="adv-sec" id="offer" style="background:#EFDFD0;padding:74px 28px;scroll-margin-top:80px;">
@@ -536,10 +609,10 @@
     { "type": "text", "id": "offer_static_price", "label": "Fallback button price", "default": "$105" },
     { "type": "header", "content": "Offer → PDP card" },
     { "type": "url", "id": "cta_url", "label": "Button link → PDP", "info": "Where the button sends shoppers (your gummies PDP). Falls back to the linked product's page if empty." },
-    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Shop the offer →" },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Try Womankind risk-free →" },
     { "type": "text", "id": "cta_badge", "label": "Corner badge", "default": "Summer sale" },
     { "type": "text", "id": "cta_sub", "label": "Headline subline (italic)", "default": "save up to 51% with free shipping on all subscriptions" },
-    { "type": "textarea", "id": "cta_quote", "label": "Quote", "default": "Our summer sale is live now: bundle up and save up to 51% off, with free shipping on all subscriptions and our 90-day money-back guarantee." },
+    { "type": "textarea", "id": "cta_quote", "label": "Quote", "default": "Our summer sale is live: save up to 51% with free shipping on all subscriptions — backed by our 90-day money-back guarantee." },
     { "type": "text", "id": "cta_bar1", "label": "Info bar — left", "default": "Up to 51% off" },
     { "type": "text", "id": "cta_bar2", "label": "Info bar — right", "default": "Free shipping on all subscriptions" },
     { "type": "text", "id": "cta_guarantee", "label": "Guarantee line", "default": "Try it risk-free with our 90-day money-back guarantee." },
@@ -558,24 +631,40 @@
     { "type": "image_picker", "id": "hero_image", "label": "Lead image (16:9)" },
     { "type": "image_picker", "id": "byline_image", "label": "Byline photo", "info": "Upload the author's headshot (shows a placeholder if empty)." },
     { "type": "text", "id": "byline_name", "label": "Byline name", "default": "By Sarah Ellison, WHNP" },
-    { "type": "text", "id": "byline_sub", "label": "Byline subtitle", "default": "Women's Health Nurse Practitioner · 25 years in women's health" },
+    { "type": "text", "id": "byline_sub", "label": "Byline subtitle", "default": "Women's Health Nurse Practitioner · 25 Years in Women's Health" },
     { "type": "text", "id": "read_time", "label": "Read time", "default": "8 min read" },
-    { "type": "textarea", "id": "hero_p1", "label": "Lede paragraph 1", "default": "The first time it truly floored me I was mid-sentence with a patient. The heat climbed up my chest and neck like a wave, my face went crimson, sweat beaded at my hairline — and I had to stop, fan myself with a clipboard, and pretend it was the room. I'm a women's health nurse — I'd handed women the \"it's just menopause, dress in layers\" line for twenty-five years. And there I stood, flushed and dripping in my own clinic, thinking: nobody ever told me it would be like this." },
-    { "type": "textarea", "id": "hero_p2", "label": "Lede paragraph 2", "default": "It isn't the heat that takes the most from you. It's what the heat takes with it. The flushes came a dozen times a day — in meetings, in the grocery line, at the dinner table — and then again at night, soaking the sheets until I stopped sleeping. I snapped at the people I love. I couldn't hold a thought past 3pm. I began turning down anything that might catch me mid-flush in public, and felt my whole world quietly shrink." },
-    { "type": "textarea", "id": "hero_p3", "label": "Lede paragraph 3", "default": "So I did everything I'd have told a patient to do. None of it worked. And it took me embarrassingly long — a nurse, no less — to find out why: a hot flash was never a heat problem, and it doesn't start anywhere I was trained to look." },
-    { "type": "text", "id": "hero_cta", "label": "Lede button", "default": "Skip to what worked →" },
+    { "type": "textarea", "id": "hero_p1", "label": "Lede — dek (bold)", "default": "I'm a women's health nurse. I spent 25 years telling women to dress in layers and wait it out. Then my own hot flashes hit — in the middle of a patient appointment — and I discovered everything I was taught was missing the real cause." },
+    { "type": "textarea", "id": "hero_p2", "label": "Lede paragraph 2", "default": "The first time it truly floored me, I was mid-sentence with a patient." },
+    { "type": "inline_richtext", "id": "hero_p3", "label": "Lede paragraph 3", "default": "Heat climbed my chest and neck like someone had opened an oven door inside me. My face went crimson. Sweat beaded at my hairline. I had to stop talking, grab a clipboard, and fan myself — in front of a woman who was there for <em>her</em> appointment, not mine." },
+    { "type": "textarea", "id": "hero_p4", "label": "Lede paragraph 4", "default": "I mumbled something about the thermostat. But I knew." },
+    { "type": "inline_richtext", "id": "hero_p5", "label": "Lede paragraph 5", "default": "I'm a women's health nurse practitioner. For twenty-five years, I'd handed women the same script: <em>\"It's just menopause. Dress in layers. Carry a fan. It'll pass.\"</em>" },
+    { "type": "textarea", "id": "hero_p6", "label": "Lede paragraph 6", "default": "And there I stood — flushed, dripping, humiliated in my own clinic — realizing I'd been dismissing women for a quarter of a century, and nobody had ever told me what it actually felt like." },
+    { "type": "text", "id": "story1_head", "label": "Story 1 — heading", "default": "It isn't the heat that takes the most from you." },
+    { "type": "textarea", "id": "story1_p1", "label": "Story 1 — paragraph 1", "default": "It's everything the heat steals." },
+    { "type": "textarea", "id": "story1_p2", "label": "Story 1 — paragraph 2", "default": "The flushes came a dozen times a day. During morning rounds. In the grocery line. At the dinner table with my husband, mid-sentence. My face would ignite without warning, sweat would roll down my back, and I'd quietly fan myself while pretending to follow the conversation." },
+    { "type": "textarea", "id": "story1_p3", "label": "Story 1 — paragraph 3", "default": "Then came the night sweats: 2am, sheets soaked through. Change. Lie awake, wired, heart racing. Finally drift off at 4:30 — and the alarm screams at 6." },
+    { "type": "textarea", "id": "story1_p4", "label": "Story 1 — paragraph 4", "default": "After a week of broken sleep, I couldn't hold a thought past 3pm. I snapped at my kids over nothing. I cried in the parking lot before work and couldn't explain why." },
+    { "type": "textarea", "id": "story1_p5", "label": "Story 1 — paragraph 5", "default": "I started mapping every AC vent in every building I entered. I dressed in layers I could strip off in a panic. I carried a portable fan in my purse. I became a woman who quietly shrank her life — turning down dinner invitations, avoiding crowded rooms, dreading anything that might trap me mid-flush in public." },
+    { "type": "textarea", "id": "story1_p6", "label": "Story 1 — emphasis line", "default": "I didn't just lose my comfort. I lost my confidence, my patience, and — slowly — the sense of who I was." },
+    { "type": "textarea", "id": "story1_p7", "label": "Story 1 — paragraph 7", "default": "The woman who was sharp in meetings, present with her family, steady in her own skin — she was disappearing. And I didn't know how to get her back." },
+    { "type": "text", "id": "hero_cta", "label": "Skip button", "default": "Skip to what worked →" },
+    { "type": "text", "id": "story2_head", "label": "Story 2 — heading", "default": "Then I did something I'd told hundreds of patients to do: I went to my doctor." },
+    { "type": "inline_richtext", "id": "story2_p1", "label": "Story 2 — paragraph 1", "default": "She's someone I'd known for fifteen years. A good doctor. She ran labs, called me two days later, and said: <em>\"Everything looks normal, Sarah. It's probably just stress. We could try a low-dose antidepressant if you want.\"</em>" },
+    { "type": "inline_richtext", "id": "story2_p2", "label": "Story 2 — paragraph 2", "default": "I sat in my car after that call and felt something I'd never understood in my patients before. <strong>Invisible. Dismissed. Like my suffering wasn't real enough to matter.</strong>" },
+    { "type": "textarea", "id": "story2_p3", "label": "Story 2 — paragraph 3", "default": "I had spent my career being the expert. And now I was the patient being told — by someone in my own profession — that my body's betrayal was \"probably just stress.\"" },
+    { "type": "textarea", "id": "story2_p4", "label": "Story 2 — paragraph 4", "default": "I walked into that appointment a healthcare provider. I walked out a woman who finally understood what every patient I'd ever dismissed must have felt." },
     { "type": "header", "content": "Why it failed" },
     { "type": "text", "id": "fail_eyebrow", "label": "Eyebrow", "default": "Everything I tried first" },
     { "type": "text", "id": "fail_heading", "label": "Heading", "default": "I'm a nurse. I tried all of it — and it all failed the same way." },
-    { "type": "textarea", "id": "fail_intro", "label": "Intro", "default": "Over about eighteen months I worked through the whole list — the same list I used to hand my patients. Here's what each thing cost me and exactly why it never touched the flashes. If you've tried these too, the failure was built into them, not into you." },
+    { "type": "textarea", "id": "fail_intro", "label": "Intro", "default": "Over eighteen months, I worked through the whole list — the same list I used to hand my patients. Here's what each thing cost me and exactly why it never touched the flashes. If you've tried these too, the failure was built into them, not into you." },
     { "type": "text", "id": "prob1_eyebrow", "label": "Problem 1 — eyebrow", "default": "The \"menopause\" gummy · $32" },
     { "type": "text", "id": "prob1_title", "label": "Problem 1 — title", "default": "The gummy that quietly made the flashes worse" },
-    { "type": "textarea", "id": "prob1_body", "label": "Problem 1 — body", "default": "I bought the pretty bottle off the pharmacy shelf. What I didn't read — a nurse, embarrassingly — was the 3g of sugar per serving. Sugar throws off the gut bacteria that keep your estrogen steady, and unstable estrogen is exactly what sets off the flush. I was paying to feed the problem." },
+    { "type": "textarea", "id": "prob1_body", "label": "Problem 1 — body", "default": "I bought the pretty bottle off the pharmacy shelf. What I didn't read — a nurse, embarrassingly — was the 3g of sugar per serving. Sugar throws off the gut bacteria that keep your estrogen steady, and unstable estrogen is exactly what triggers the flush. I was paying to feed the problem." },
     { "type": "image_picker", "id": "prob1_image", "label": "Problem 1 — image" },
     { "type": "text", "id": "prob1_hint", "label": "Problem 1 — placeholder hint", "default": "candy gummies" },
     { "type": "text", "id": "prob2_eyebrow", "label": "Problem 2 — eyebrow", "default": "The cooling gadgets · $140" },
     { "type": "text", "id": "prob2_title", "label": "Problem 2 — title", "default": "A drawer full of cooling gadgets" },
-    { "type": "textarea", "id": "prob2_body", "label": "Problem 2 — body", "default": "A cooling mattress pad. A desk fan. A \"chill\" pillow. A hundred and forty dollars of them, all in. They bought me a cooler ten minutes and then the heat came roaring back — because none of them did a thing about why my brain's thermostat kept misfiring in the first place. You can't cool your way out of a signalling problem." },
+    { "type": "textarea", "id": "prob2_body", "label": "Problem 2 — body", "default": "A cooling mattress pad. A desk fan. A \"chill\" pillow. A hundred and forty dollars, all in. They bought me ten cooler minutes and then the heat came roaring back — because none of them did a thing about why my brain's thermostat kept misfiring. You can't cool your way out of a signaling problem." },
     { "type": "image_picker", "id": "prob2_image", "label": "Problem 2 — image" },
     { "type": "text", "id": "prob2_hint", "label": "Problem 2 — placeholder hint", "default": "cooling fan / pad" },
     { "type": "text", "id": "prob3_eyebrow", "label": "Problem 3 — eyebrow", "default": "The pharmacy pills · $28" },
@@ -585,7 +674,7 @@
     { "type": "text", "id": "prob3_hint", "label": "Problem 3 — placeholder hint", "default": "pill bottle" },
     { "type": "text", "id": "prob4_eyebrow", "label": "Problem 4 — eyebrow", "default": "The advice I gave for 25 years" },
     { "type": "text", "id": "prob4_title", "label": "Problem 4 — title", "default": "\"It's just menopause — ride it out\"" },
-    { "type": "textarea", "id": "prob4_body", "label": "Problem 4 — body", "default": "The hardest part wasn't the products. It was realising the advice I'd handed women for a quarter-century — it's just menopause, it passes — was a shrug in a lab coat. I didn't want to plan my life around the next flush. I wanted my days — and my nights — back. So I went looking for why they wouldn't stop." },
+    { "type": "textarea", "id": "prob4_body", "label": "Problem 4 — body", "default": "The hardest part wasn't the failed products. It was realizing the advice I'd handed women for a quarter-century — it's just menopause, it passes — was a shrug in a lab coat. I didn't want to plan my life around the next flush. I wanted my days and my nights back. So I went looking for why they wouldn't stop." },
     { "type": "image_picker", "id": "prob4_image", "label": "Problem 4 — image" },
     { "type": "text", "id": "prob4_hint", "label": "Problem 4 — placeholder hint", "default": "portrait" },
     { "type": "header", "content": "Comparison table" },
@@ -620,54 +709,65 @@
     { "type": "text", "id": "disc_eyebrow", "label": "Eyebrow", "default": "The turning point" },
     { "type": "text", "id": "disc_heading", "label": "Heading", "default": "The 2am I finally read the research on my own symptoms" },
     { "type": "image_picker", "id": "discovery_image", "label": "Image (16:8)" },
-    { "type": "textarea", "id": "disc_p1", "label": "Paragraph 1", "default": "I couldn't sleep anyway, so at 2am I did what nurses do when they're desperate — I started reading the actual studies. And it stopped me cold. A hot flash isn't a heat event at all. It begins in the hypothalamus, the brain's thermostat, which turns hypersensitive as estrogen swings through perimenopause. A tiny temperature change it used to ignore now trips the whole alarm: the flush, the sweat, the racing heart, the sudden crimson wave. My body wasn't failing. Its thermostat had lost its buffer." },
-    { "type": "inline_richtext", "id": "disc_p2", "label": "Paragraph 2", "default": "But that led to the question I'd never once been taught to ask in twenty-five years on the ward: <strong>why was the estrogen swinging so violently in the first place?</strong> The answer wasn't in the ovaries. It was in the gut." },
-    { "type": "inline_richtext", "id": "disc_p3", "label": "Paragraph 3", "default": "There's a community of gut microbes called the <em>estrobolome</em> that helps recycle and steady your estrogen from one day to the next. When it's out of balance, estrogen lurches around and the thermostat misfires more often — by day and by night. And here's the part that made me angry: sugar feeds the microbes that throw it off. Every sweet \"menopause gummy\" I'd ever recommended had been quietly making the flashes worse." },
-    { "type": "textarea", "id": "disc_p4", "label": "Paragraph 4", "default": "I didn't want another cooling gadget. I wanted the thing that steadied the root — researched-dose botanicals to calm the thermostat, a probiotic blend for the estrobolome, and zero sugar so nothing fed the swing. The one formula I could find that did all three, at the doses the research actually used, was Womankind. They call the approach the Root-Up Method, because it works from the gut-hormone root up to the flush itself. After a whole career of quiet skepticism, it's the first supplement I've ever put my name to." },
+    { "type": "textarea", "id": "disc_p1", "label": "Paragraph 1", "default": "I couldn't sleep anyway, so at 2am I did what nurses do when they're desperate — I started reading the actual studies. And it stopped me cold. A hot flash isn't a heat event at all. It begins in the hypothalamus — the brain's thermostat — which turns hypersensitive as estrogen swings through perimenopause. A tiny temperature change it used to ignore now trips the full alarm: the flush, the sweat, the racing heart, the wave of crimson heat. My body wasn't failing. Its thermostat had lost its buffer." },
+    { "type": "inline_richtext", "id": "disc_p2", "label": "Paragraph 2", "default": "But that led to the question I'd never once been taught to ask in twenty-five years on the ward: <strong>why was the estrogen swinging so violently in the first place?</strong> The answer wasn't in my ovaries. It was in my gut." },
+    { "type": "inline_richtext", "id": "disc_p3", "label": "Paragraph 3", "default": "There's a community of gut microbes called the <em>estrobolome</em> that helps recycle and steady your estrogen from one day to the next. When it's healthy and diverse, it smooths out the fluctuations that trigger the hypothalamus. When it's depleted — by stress, by antibiotics, by the standard American diet, by age itself — the estrobolome can't do its job. Estrogen lurches. The thermostat misfires. And you're standing in the freezer aisle at 2pm with your face on fire, wondering what's wrong with you." },
+    { "type": "inline_richtext", "id": "disc_p4", "label": "Paragraph 4", "default": "And here's the part that made me furious: <strong>sugar feeds the exact microbes that throw the estrobolome off balance.</strong> Every sweet \"menopause gummy\" I'd ever recommended had been quietly making the flashes worse." },
+    { "type": "textarea", "id": "disc_p5", "label": "Paragraph 5", "default": "Nothing is wrong with you. The gut-hormone axis is broken. And nobody — not your doctor, not the pharmacy shelf, not the $140 drawer of cooling gadgets — is addressing it." },
+    { "type": "text", "id": "disc2_head", "label": "Dr. Chen — heading", "default": "That's when I found Womankind — or rather, a colleague told me who built it." },
+    { "type": "textarea", "id": "disc2_p1", "label": "Dr. Chen — paragraph 1", "default": "She's an OB/GYN I'd referred patients to for years. Over coffee, I mentioned the flashes. She didn't tell me to dress in layers." },
+    { "type": "inline_richtext", "id": "disc2_p2", "label": "Dr. Chen — quote", "default": "She said: <em>\"A former colleague of ours — Dr. Katie Chen — got so tired of watching her patients get dismissed that she formulated something herself. Board-certified OB/GYN. Menopause Society credentialed. She spent years in clinic watching women in their early forties arrive flushed, exhausted, and told their labs were 'normal.' The shelf was empty — nothing combined researched-dose botanicals with the probiotic strains that actually support the estrobolome. So she built it.\"</em>" },
+    { "type": "inline_richtext", "id": "disc2_p3", "label": "Dr. Chen — paragraph 3", "default": "<strong>Dr. Katie Chen is exactly the kind of clinician you want formulating something you put in your body every day</strong> — someone who spent years on the other side of the exam table, ran out of things to recommend, and decided to solve the problem herself instead of shrugging and reaching for the prescription pad." },
+    { "type": "textarea", "id": "disc2_p4", "label": "Dr. Chen — paragraph 4", "default": "I didn't want another cooling gadget. I wanted the formula that steadied the root. The one I found — the one Dr. Chen built — is called Womankind. They call the approach the Root-Up Method, because it works from the gut-hormone root up to the flush itself. After a career of quiet skepticism, it's the first supplement I've ever put my name to." },
     { "type": "header", "content": "Three pillars" },
     { "type": "text", "id": "pillars_eyebrow", "label": "Eyebrow", "default": "The Root-Up Method" },
     { "type": "text", "id": "pillars_heading", "label": "Heading", "default": "Three layers — because a hot flash has three" },
-    { "type": "textarea", "id": "pillars_intro", "label": "Intro", "default": "A cooling pad works on your skin. A single pill works on one botanical. But a hot flash is a chain — brain, stress, gut — and this is the one formula I found that covers all three at once. Miss a layer and the flashes find their way back. That's why nothing single-note ever held for me." },
-    { "type": "text", "id": "pillars_line3", "label": "Shared 3rd bullet", "default": "Zero sugar · vegan · third-party tested" },
+    { "type": "textarea", "id": "pillars_intro", "label": "Intro", "default": "A cooling pad works on your skin. A single pill works on one botanical. But a hot flash is a chain — thermostat, stress, gut — and this is the one formula I found that covers all three at once. Miss a layer and the flashes find their way back. That's why nothing single-note ever held for me." },
     { "type": "image_picker", "id": "pillar1_image", "label": "Pillar 1 — image" },
-    { "type": "text", "id": "pillar1_eyebrow", "label": "Pillar 1 — eyebrow", "default": "Layer 1 · The flash" },
-    { "type": "text", "id": "pillar1_title", "label": "Pillar 1 — title", "default": "Cool the thermostat" },
-    { "type": "textarea", "id": "pillar1_body", "label": "Pillar 1 — body", "default": "The botanicals with real human evidence behind them, at the doses those studies actually used — not the token pinch in a drugstore pill — to support your own temperature regulation so the flush hits less often, and less hard." },
-    { "type": "text", "id": "pillar1_line1", "label": "Pillar 1 — bullet 1", "default": "Black cohosh, standardised to 2.5% triterpene glycosides" },
-    { "type": "text", "id": "pillar1_line2", "label": "Pillar 1 — bullet 2", "default": "40mg red clover isoflavones" },
+    { "type": "text", "id": "pillar1_eyebrow", "label": "Pillar 1 — eyebrow", "default": "Layer 1 · The thermostat" },
+    { "type": "text", "id": "pillar1_title", "label": "Pillar 1 — title", "default": "Cool the signal at its source" },
+    { "type": "textarea", "id": "pillar1_body", "label": "Pillar 1 — body", "default": "Four botanicals with real human evidence behind them — at the doses the research actually supports, not the token pinch in a drugstore pill. Every milligram is printed on the label so you can verify it yourself." },
+    { "type": "text", "id": "pillar1_line1", "label": "Pillar 1 — bullet 1", "default": "Black cohosh 100mg · 5% triterpene glycosides — the most-studied botanical for hot flashes" },
+    { "type": "text", "id": "pillar1_line2", "label": "Pillar 1 — bullet 2", "default": "Red clover 100mg · 40% isoflavones — buffers estrogen as your own fluctuates" },
+    { "type": "text", "id": "pillar1_line3", "label": "Pillar 1 — bullet 3", "default": "Dong quai 100mg · 1% ligustilide — circulation & hormonal balance" },
+    { "type": "text", "id": "pillar1_line4", "label": "Pillar 1 — bullet 4", "default": "Chasteberry 100mg — supports the hypothalamic-pituitary axis" },
     { "type": "image_picker", "id": "pillar2_image", "label": "Pillar 2 — image" },
     { "type": "text", "id": "pillar2_eyebrow", "label": "Pillar 2 — eyebrow", "default": "Layer 2 · The stress + sleep" },
-    { "type": "text", "id": "pillar2_title", "label": "Pillar 2 — title", "default": "Calm the stress, protect the sleep" },
-    { "type": "textarea", "id": "pillar2_body", "label": "Pillar 2 — body", "default": "Magnesium glycinate and ashwagandha to steady the stress response that makes flashes hit harder, and settle the night sweats that drag you out of sleep — so your days feel calmer and your nights stay yours." },
-    { "type": "text", "id": "pillar2_line1", "label": "Pillar 2 — bullet 1", "default": "200mg magnesium glycinate" },
-    { "type": "text", "id": "pillar2_line2", "label": "Pillar 2 — bullet 2", "default": "KSM-66 ashwagandha at the clinical dose" },
+    { "type": "text", "id": "pillar2_title", "label": "Pillar 2 — title", "default": "Calm the stress response that makes every flash hit harder" },
+    { "type": "textarea", "id": "pillar2_body", "label": "Pillar 2 — body", "default": "Stress amplifies hot flashes — and hot flashes cause stress. It's a loop. This layer breaks it with adaptogenic support and the essential vitamins perimenopause quietly depletes." },
+    { "type": "text", "id": "pillar2_line1", "label": "Pillar 2 — bullet 1", "default": "Ashwagandha 200mg — lowers cortisol and steadies the stress response" },
+    { "type": "text", "id": "pillar2_line2", "label": "Pillar 2 — bullet 2", "default": "Vitamin B6 2mg — supports serotonin & GABA for mood and temperature perception" },
+    { "type": "text", "id": "pillar2_line3", "label": "Pillar 2 — bullet 3", "default": "Vitamin D3 20mcg + Vitamin E 15mg — nutrients depleted in perimenopause" },
     { "type": "image_picker", "id": "pillar3_image", "label": "Pillar 3 — image" },
     { "type": "text", "id": "pillar3_eyebrow", "label": "Pillar 3 — eyebrow", "default": "Layer 3 · The root" },
     { "type": "text", "id": "pillar3_title", "label": "Pillar 3 — title", "default": "Steady the estrobolome" },
-    { "type": "textarea", "id": "pillar3_body", "label": "Pillar 3 — body", "default": "A spore-forming probiotic blend with prebiotic fibre to support the gut bacteria that keep your estrogen — and your thermostat — steady. This is the layer nothing else on the shelf even touches. It's the whole reason the method works." },
-    { "type": "text", "id": "pillar3_line1", "label": "Pillar 3 — bullet 1", "default": "5 billion CFU spore-forming strains" },
-    { "type": "text", "id": "pillar3_line2", "label": "Pillar 3 — bullet 2", "default": "Prebiotic fibre to feed them" },
+    { "type": "textarea", "id": "pillar3_body", "label": "Pillar 3 — body", "default": "The gut-hormone axis — the bacteria that metabolize and recycle your circulating estrogen. When it's healthy, the fluctuations stay smooth. This is the layer nothing else on the shelf touches, and the reason the whole method works." },
+    { "type": "text", "id": "pillar3_line1", "label": "Pillar 3 — bullet 1", "default": "10 billion CFU across 6 targeted probiotic strains" },
+    { "type": "text", "id": "pillar3_line2", "label": "Pillar 3 — bullet 2", "default": "Lacto & Bifido families tied to estrogen metabolism — a therapeutic population, not a sprinkle" },
+    { "type": "text", "id": "pillar3_line3", "label": "Pillar 3 — bullet 3", "default": "Cranberry extract 100mg — urinary tract support" },
     { "type": "header", "content": "Zero-sugar band" },
     { "type": "text", "id": "band1_eyebrow", "label": "Eyebrow", "default": "The detail I can't say loudly enough" },
     { "type": "text", "id": "band1_heading", "label": "Heading", "default": "Zero sugar — because sugar is quietly feeding your hot flashes." },
-    { "type": "textarea", "id": "band1_body", "label": "Body", "default": "This is the part I missed for years as a nurse, so I'll be blunt: nearly every gummy competitor hides 2–4g of sugar a serving, feeding the exact gut imbalance that keeps your estrogen — and your thermostat — swinging. Womankind is sweetened without a grain of it. It tastes like a treat and works like the formula I wish I could have handed every patient." },
+    { "type": "textarea", "id": "band1_body", "label": "Body", "default": "This is the part I missed for years as a nurse, so I'll be blunt: nearly every gummy competitor hides 2–4g of sugar per serving, feeding the exact gut imbalance that keeps your estrogen — and your thermostat — swinging. Womankind is sweetened with stevia and monk fruit — zero sugar, zero glucose spike, nothing feeding the imbalance behind the flush. It tastes like a treat and works like the formula I wish I could have handed every patient." },
     { "type": "text", "id": "band1_cta", "label": "Button", "default": "Try Womankind risk-free" },
     { "type": "header", "content": "30-day timeline" },
     { "type": "text", "id": "tl_eyebrow", "label": "Eyebrow", "default": "My own first month" },
     { "type": "text", "id": "tl_heading", "label": "Heading", "default": "What happened when I finally tried it myself" },
     { "type": "textarea", "id": "tl_intro", "label": "Intro", "default": "I'm a skeptic by training, so I kept a log — half hoping to catch it not working. Here's what I actually wrote down." },
     { "type": "text", "id": "tl1_label", "label": "Week 1 — label", "default": "Week 1" },
-    { "type": "textarea", "id": "tl1_body", "label": "Week 1 — body", "default": "Nothing to report, and I was a little smug about it. But it was easy to take — no sugar, no giant capsule — so I didn't quit. I gave it the full month before I'd let myself decide." },
+    { "type": "textarea", "id": "tl1_body", "label": "Week 1 — body", "default": "Nothing dramatic to report, and I was a little smug about it. But it was easy to take — no sugar, no giant capsule, just two small gummies a day — so I didn't quit. I gave it the full month before I'd let myself decide." },
     { "type": "text", "id": "tl2_label", "label": "Week 2 — label", "default": "Week 2" },
-    { "type": "textarea", "id": "tl2_body", "label": "Week 2 — body", "default": "The first crack in my skepticism. I made it through a whole afternoon clinic without a single flush — and slept through that night for the first time in months. Once could be luck; then it happened again two days later. I wrote \"hmm\" in the margin." },
+    { "type": "textarea", "id": "tl2_body", "label": "Week 2 — body", "default": "The first crack in my skepticism. I made it through an entire afternoon clinic without a single flush — and slept through that night for the first time in months. Once could be luck. Then it happened again two days later. I wrote \"hmm\" in the margin." },
     { "type": "text", "id": "tl3_label", "label": "Week 3 — label", "default": "Week 3" },
     { "type": "textarea", "id": "tl3_body", "label": "Week 3 — body", "default": "The flushes dropped from a dozen a day to two or three, and the sheets stayed dry three, then four nights running. My husband came back from the spare room, and neither of us made a thing of it. I'd forgotten what steady felt like." },
     { "type": "text", "id": "tl4_label", "label": "Week 4 — label", "default": "Week 4" },
     { "type": "textarea", "id": "tl4_body", "label": "Week 4 — body", "default": "I slept a whole night and woke up cool, and I cried into my coffee — not from a flush, from relief. Twenty-five years of telling women to ride it out, and I finally understood how wrong that was. That was the week I started telling every patient." },
+    { "type": "text", "id": "tl5_label", "label": "Month 2–3 — label", "default": "Month 2–3" },
+    { "type": "textarea", "id": "tl5_body", "label": "Month 2–3 — body", "default": "This is when the shift deepened. It wasn't just fewer flushes — it was the return of me. My mood leveled out. My patience came back. I stopped scanning for the nearest exit in every room. The flashes still came occasionally — but they were background noise now, not the loudest thing in my life. I didn't just cool down. I came back." },
     { "type": "text", "id": "tl_disclaimer", "label": "Disclaimer", "default": "*A personal account. Results may vary. These statements have not been evaluated by a medical authority." },
     { "type": "header", "content": "Proof — stats & testimonials" },
     { "type": "text", "id": "proof_eyebrow", "label": "Eyebrow", "default": "It wasn't just me" },
-    { "type": "text", "id": "proof_heading", "label": "Heading", "default": "Then I watched it work on my patients" },
+    { "type": "text", "id": "proof_heading", "label": "Heading", "default": "Then I watched it work on other women" },
     { "type": "text", "id": "stat1_num", "label": "Stat 1 — number", "default": "24+" },
     { "type": "textarea", "id": "stat1_label", "label": "Stat 1 — label", "default": "peer-reviewed human trials behind the botanicals in the formula" },
     { "type": "text", "id": "stat2_num", "label": "Stat 2 — number", "default": "12,000+" },
@@ -678,8 +778,10 @@
     { "type": "text", "id": "testi1_name", "label": "Testimonial 1 — name", "default": "Yvonne T., 53" },
     { "type": "textarea", "id": "testi2_quote", "label": "Testimonial 2 — quote (was skeptical)", "default": "\"I only kept going because of the money-back guarantee — I was certain it wouldn't do a thing. Four weeks later I'm sleeping through the night. I've reordered twice.\"" },
     { "type": "text", "id": "testi2_name", "label": "Testimonial 2 — name", "default": "Bev K., 50" },
-    { "type": "textarea", "id": "testi3_quote", "label": "Testimonial 3 — quote (mine are severe / too late)", "default": "\"Mine were relentless — a dozen a day and soaked twice a night. I assumed I'd left it too late at 56. It's now a handful a week, and I sleep. I only wish I'd started two years ago.\"" },
-    { "type": "text", "id": "testi3_name", "label": "Testimonial 3 — name", "default": "Carol S., 56" },
+    { "type": "textarea", "id": "testi3_quote", "label": "Testimonial 3 — quote (labs 'normal' / I know my body)", "default": "\"A doctor told me my labs were normal and it was probably stress. I'm 44 — I know my own body. Within two months of starting Womankind, my hot flashes went from 8–10 a day to maybe one. I'm sleeping. I'm steady. I'm myself again.\"" },
+    { "type": "text", "id": "testi3_name", "label": "Testimonial 3 — name", "default": "Renée L., 44" },
+    { "type": "textarea", "id": "testi4_quote", "label": "Testimonial 4 — quote (severe / too late)", "default": "\"Mine were relentless — a dozen a day and soaked twice a night. I assumed I'd left it too late at 56. It's now a handful a week, and I sleep. I only wish I'd started two years ago.\"" },
+    { "type": "text", "id": "testi4_name", "label": "Testimonial 4 — name", "default": "Carol S., 56" },
     { "type": "text", "id": "proof_disclaimer", "label": "Disclaimer", "default": "*Illustrative accounts. Results may vary. Individual experiences differ." },
     { "type": "header", "content": "Offer section" },
     { "type": "text", "id": "offer_eyebrow", "label": "Eyebrow", "default": "Summer sale — now live" },
@@ -711,37 +813,50 @@
     { "type": "image_picker", "id": "gallery_4_image", "label": "Image 4" },
     { "type": "header", "content": "Scarcity section (summer sale)" },
     { "type": "checkbox", "id": "scar_on", "label": "Show scarcity section", "default": true, "info": "Turn OFF when the summer sale ends — the whole section disappears." },
-    { "type": "text", "id": "scar_tag", "label": "Tag", "default": "Summer sale — ending soon" },
-    { "type": "text", "id": "scar_heading", "label": "Heading", "default": "The price on this page is a summer-sale price" },
-    { "type": "textarea", "id": "scar_body", "label": "Body", "default": "Let me be straight with you, the way I wish more people in my field were: what you see today is our summer-sale pricing, and it isn't permanent. When the sale ends, every bottle goes back to its regular price. Same formula, same bottles — you'd just pay more for them later." },
+    { "type": "text", "id": "scar_tag", "label": "Tag", "default": "Summer sale — now live" },
+    { "type": "text", "id": "scar_heading", "label": "Heading", "default": "Get your cool back — save up to 51% with free shipping" },
+    { "type": "textarea", "id": "scar_body", "label": "Body", "default": "I'll be direct with you, the way I wish more people in my field were: the price on this page is our summer-sale pricing, and it isn't permanent. When the sale ends, every bottle goes back to its regular price. Same formula, same bottles — you'd just pay more for them later." },
     { "type": "textarea", "id": "scar_note", "label": "Honest note", "default": "No countdown gimmicks, no fake \"almost gone.\" Just the honest heads-up: if your flashes sound like mine, there's no reason to pay more for the same thing a month from now." },
     { "type": "text", "id": "scar_cta", "label": "Button", "default": "Lock in the summer price" },
     { "type": "header", "content": "Cost-of-doing-nothing band" },
     { "type": "text", "id": "band2_eyebrow", "label": "Eyebrow", "default": "The real risk" },
     { "type": "text", "id": "band2_heading", "label": "Heading", "default": "The only real risk is another year of flashes running your life" },
-    { "type": "textarea", "id": "band2_body", "label": "Body", "default": "Another flush at the worst possible moment. Another night soaked through. Another gadget that cools the surface and ignores the cause. That's the real risk — not trying the one thing built for the root. Every order is backed by a 90-day money-back guarantee: if your flashes haven't changed, email for a full refund and keep the bottles. That guarantee is the only reason a skeptic like me tried it in the first place." },
+    { "type": "textarea", "id": "band2_body", "label": "Body", "default": "Here's the thing about the estrobolome: it doesn't reset overnight — the gut bacteria that regulate your estrogen need time to repopulate and rebalance, which is why Womankind gives you 90 days. Take the full three months. If your flashes haven't changed, email for a full refund — no need to return the bottles, no hoops, no fine print. Another flush at the worst possible moment, another night soaked through, another gadget that cools the surface and ignores the cause: that's the real risk, not the one with a money-back guarantee attached." },
     { "type": "text", "id": "band2_cta", "label": "Button", "default": "Start risk-free" },
     { "type": "header", "content": "FAQ" },
     { "type": "text", "id": "faq_eyebrow", "label": "Eyebrow", "default": "Your questions, answered" },
     { "type": "text", "id": "faq_heading", "label": "Heading", "default": "Frequently asked questions" },
     { "type": "text", "id": "faq1_q", "label": "Q1", "default": "Will this actually reduce my hot flashes, or is it another placebo?" },
-    { "type": "textarea", "id": "faq1_a", "label": "A1", "default": "Fair question — as the skeptic in the room, I asked it hard before I'd touch it. Every active is at a clinically-relevant dose, printed on the label, with no proprietary blend hiding token amounts. It's built to support the systems behind the flush — the thermostat and the gut-hormone axis — not to mask the heat for an hour.*" },
+    { "type": "textarea", "id": "faq1_a", "label": "A1", "default": "Fair question — as the skeptic in the room, I asked it hard before I'd touch it. Every active is at a clinically-relevant dose, printed on the label, with no proprietary blend hiding token amounts: black cohosh at 5% triterpene glycosides, red clover at 40% isoflavones, dong quai at 1% ligustilide, and 10 billion CFU across six named probiotic strains. It's built to support the systems behind the flush — the thermostat and the gut-hormone axis — not to mask the heat for an hour.*" },
     { "type": "text", "id": "faq2_q", "label": "Q2", "default": "Does it contain hormones? I can't take HRT." },
-    { "type": "textarea", "id": "faq2_a", "label": "A2", "default": "No hormones of any kind — no estrogen, no progesterone. That's the point: it eases flashes by supporting your body's own temperature regulation and the estrobolome behind it, which is why so many women who can't take HRT end up here.*" },
+    { "type": "textarea", "id": "faq2_a", "label": "A2", "default": "No — Womankind contains no hormones. The botanicals and probiotics work by supporting your body's own regulatory systems — cooling the thermostat, steadying the stress response, and nourishing the estrobolome — not by introducing external hormones. That said, always confirm with your doctor before starting any new supplement.*" },
     { "type": "text", "id": "faq3_q", "label": "Q3", "default": "Is it really zero sugar? My last gummy wasn't." },
-    { "type": "textarea", "id": "faq3_a", "label": "A3", "default": "Zero. It's sweetened without sugar, so nothing in the formula feeds the gut imbalance that worsens estrogen swings — the exact mistake hiding in most \"menopause gummies.\" It still tastes like a treat.*" },
+    { "type": "textarea", "id": "faq3_a", "label": "A3", "default": "Yes — zero sugar. Womankind is sweetened with stevia and monk fruit, with no glucose spike and nothing that feeds the gut imbalance behind the flush. Most menopause gummies contain 2–4g of sugar per serving; Dr. Chen eliminated it entirely because she understood the gut-hormone connection.*" },
     { "type": "text", "id": "faq4_q", "label": "Q4", "default": "How long until I feel a difference?" },
-    { "type": "textarea", "id": "faq4_a", "label": "A4", "default": "In my notes and most women's: cooler nights and fewer daytime flushes within two to three weeks, with the fuller picture by around week eight as the actives reach steady state. Consistency matters more than timing.*" },
+    { "type": "textarea", "id": "faq4_a", "label": "A4", "default": "Most women notice the first shift within 2–3 weeks — fewer daytime flushes, lighter night sweats, the first full night of sleep. The deeper steadiness in mood and energy tends to build through months 2 and 3 as the estrobolome rebalances. That's exactly why the 90-day guarantee exists.*" },
     { "type": "text", "id": "faq5_q", "label": "Q5", "default": "My flashes are still mild — is it too early to start?" },
-    { "type": "textarea", "id": "faq5_a", "label": "A5", "default": "That's the ideal time, honestly. Flashes and night sweats often begin early, in your early forties. Supporting the gut-hormone root early can keep them from escalating into the version I had.*" },
+    { "type": "textarea", "id": "faq5_a", "label": "A5", "default": "The best time to steady the thermostat is before it's fully dysregulated. If you're in perimenopause and starting to notice changes — even mild ones — you're in the window where nutritional support makes the biggest difference. Think of it as maintenance, not rescue.*" },
     { "type": "text", "id": "faq6_q", "label": "Q6", "default": "What if it doesn't work for me?" },
-    { "type": "textarea", "id": "faq6_a", "label": "A6", "default": "Then you email within 90 days and get a full refund — and you keep the bottles. No forms, no hoops. That risk-free guarantee is the only reason a skeptic like me was willing to try it, so I'm glad it's there for you too." },
+    { "type": "textarea", "id": "faq6_a", "label": "A6", "default": "Email within 90 days for a full refund — you don't need to return the bottles, no questions asked. That guarantee, and the fact that it covers a full three months, is the only reason a skeptic like me tried Womankind in the first place." },
     { "type": "text", "id": "faq7_q", "label": "Q7", "default": "Is it safe to take every day, long-term?" },
-    { "type": "textarea", "id": "faq7_a", "label": "A7", "default": "It's formulated as a clean daily for the long transition — hormone-free, sugar-free and third-party tested. As with any supplement, run it past your own provider if you take medication or have a medical condition." },
+    { "type": "textarea", "id": "faq7_a", "label": "A7", "default": "The botanicals are at doses with established safety data, the probiotic strains are among the most well-studied in the world, and every batch is third-party tested. The formula is vegan, made in the USA, and free of sugar, artificial sweeteners, and proprietary blends. As always, consult your provider before beginning any supplement, particularly if pregnant, nursing, or taking medication." },
+    { "type": "header", "content": "Who this is for" },
+    { "type": "text", "id": "who_eyebrow", "label": "Eyebrow", "default": "Is this you?" },
+    { "type": "text", "id": "who_heading", "label": "Heading", "default": "Who this is for — and who it isn't" },
+    { "type": "text", "id": "who_for_title", "label": "For — title", "default": "This is for you if:" },
+    { "type": "text", "id": "who_for_1", "label": "For — 1", "default": "You're between roughly 38 and 55 and your body is doing things you don't recognize" },
+    { "type": "text", "id": "who_for_2", "label": "For — 2", "default": "Hot flashes and night sweats are stealing your sleep, your focus, or your peace" },
+    { "type": "text", "id": "who_for_3", "label": "For — 3", "default": "You've been told your labs are \"normal\" but you know something is off" },
+    { "type": "text", "id": "who_for_4", "label": "For — 4", "default": "You've tried other supplements, gadgets, or advice — and been disappointed" },
+    { "type": "text", "id": "who_for_5", "label": "For — 5", "default": "You want a non-prescription option formulated by a board-certified OB/GYN" },
+    { "type": "text", "id": "who_not_title", "label": "Not for — title", "default": "This is probably not for you if:" },
+    { "type": "text", "id": "who_not_1", "label": "Not for — 1", "default": "You're looking for instant, overnight results — the gut-hormone axis takes weeks, not hours" },
+    { "type": "text", "id": "who_not_2", "label": "Not for — 2", "default": "You're on HRT and satisfied with it (always consult your doctor before combining)" },
+    { "type": "text", "id": "who_not_3", "label": "Not for — 3", "default": "You're not willing to commit to a daily routine for at least 90 days" },
     { "type": "header", "content": "Final CTA" },
     { "type": "text", "id": "final_eyebrow", "label": "Eyebrow", "default": "From one woman to another" },
-    { "type": "text", "id": "final_heading", "label": "Heading", "default": "You finally know why the flashes won't quit. Here's what settles them." },
-    { "type": "textarea", "id": "final_body", "label": "Body", "default": "Picture the next few months the other way: cool, steady days where the heat doesn't ambush you mid-sentence; full nights on dry sheets, waking up rested; your patience and your focus back because your body finally settled. That isn't wishful thinking — it's what happens when you treat the root instead of the heat. I spent twenty-five years handing women the wrong advice. I won't do it again. If any of this sounds like yours, start here." },
+    { "type": "text", "id": "final_heading", "label": "Heading", "default": "The woman you were before the heat took over is still there — and this is how you find her again." },
+    { "type": "textarea", "id": "final_body", "label": "Body", "default": "Picture the next few months turned around: cool, steady days where the heat doesn't ambush you mid-sentence. Full nights on dry sheets, waking up rested. Your patience back. Your focus back. Yourself back. That isn't wishful thinking — it's what happens when you treat the root instead of the heat. I spent twenty-five years handing women the wrong advice. I won't do it again. If any of this sounds like your life — the mid-meeting flush, the 3am soaked sheets, the doctor who said your labs were \"normal\" — this was made for you." },
     { "type": "image_picker", "id": "final_image", "label": "Lifestyle image (16:7)" },
     { "type": "text", "id": "final_cta", "label": "Button", "default": "Get Womankind" },
     { "type": "text", "id": "final_trust1", "label": "Trust 1", "default": "Free shipping on all orders" },
