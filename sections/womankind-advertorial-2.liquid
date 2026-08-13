@@ -83,7 +83,7 @@
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story1_p1 }}</p>
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story1_p2 }}</p>
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story1_p3 }}</p>
-      <div style="aspect-ratio:4/3;background:linear-gradient(150deg,#D8C2BA,#C9A89F);border-radius:16px;overflow:hidden;margin:14px 0 28px;">{%- if section.settings.story1_image -%}<img src="{{ section.settings.story1_image | image_url: width: 1200 }}" alt="{{ section.settings.story1_image.alt }}" width="1200" height="900" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- endif -%}</div>
+      <div style="aspect-ratio:4/3;background:linear-gradient(150deg,#D8C2BA,#C9A89F);border-radius:16px;overflow:hidden;margin:14px 0 28px;">{%- if section.settings.story1_image -%}<img src="{{ section.settings.story1_image | image_url: width: 1200 }}" alt="{{ section.settings.story1_image.alt }}" width="1200" height="900" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- else -%}<img src="{{ 'wk-adv2-story1.jpg' | asset_url }}" alt="" width="1200" height="900" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- endif -%}</div>
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story1_p4 }}</p>
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story1_p5 }}</p>
       <p style="font-size:18px;line-height:1.7;color:#3A2A20;font-weight:600;margin:0 0 20px;">{{ section.settings.story1_p6 }}</p>
@@ -96,7 +96,7 @@
       <h2 class="adv-story-h" style="font-family:'Fraunces',serif;font-weight:400;font-size:30px;line-height:1.18;color:#6B3D42;margin:46px 0 20px;">{{ section.settings.story2_head }}</h2>
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story2_p1 }}</p>
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story2_p2 }}</p>
-      <div style="aspect-ratio:16/9;background:linear-gradient(150deg,#D8C2BA,#C9A89F);border-radius:16px;overflow:hidden;margin:14px 0 28px;">{%- if section.settings.story2_image -%}<img src="{{ section.settings.story2_image | image_url: width: 1400 }}" alt="{{ section.settings.story2_image.alt }}" width="1400" height="788" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- endif -%}</div>
+      <div style="aspect-ratio:16/9;background:linear-gradient(150deg,#D8C2BA,#C9A89F);border-radius:16px;overflow:hidden;margin:14px 0 28px;">{%- if section.settings.story2_image -%}<img src="{{ section.settings.story2_image | image_url: width: 1400 }}" alt="{{ section.settings.story2_image.alt }}" width="1400" height="788" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- else -%}<img src="{{ 'wk-adv2-story2.jpg' | asset_url }}" alt="" width="1400" height="788" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- endif -%}</div>
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story2_p3 }}</p>
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 6px;">{{ section.settings.story2_p4 }}</p>
       {%- endif -%}
