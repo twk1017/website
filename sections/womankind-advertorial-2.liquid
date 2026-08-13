@@ -83,6 +83,7 @@
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story1_p1 }}</p>
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story1_p2 }}</p>
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story1_p3 }}</p>
+      <div style="aspect-ratio:4/3;background:linear-gradient(150deg,#D8C2BA,#C9A89F);border-radius:16px;overflow:hidden;margin:14px 0 28px;">{%- if section.settings.story1_image -%}<img src="{{ section.settings.story1_image | image_url: width: 1200 }}" alt="{{ section.settings.story1_image.alt }}" width="1200" height="900" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- endif -%}</div>
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story1_p4 }}</p>
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story1_p5 }}</p>
       <p style="font-size:18px;line-height:1.7;color:#3A2A20;font-weight:600;margin:0 0 20px;">{{ section.settings.story1_p6 }}</p>
@@ -95,6 +96,7 @@
       <h2 class="adv-story-h" style="font-family:'Fraunces',serif;font-weight:400;font-size:30px;line-height:1.18;color:#6B3D42;margin:46px 0 20px;">{{ section.settings.story2_head }}</h2>
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story2_p1 }}</p>
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story2_p2 }}</p>
+      <div style="aspect-ratio:16/9;background:linear-gradient(150deg,#D8C2BA,#C9A89F);border-radius:16px;overflow:hidden;margin:14px 0 28px;">{%- if section.settings.story2_image -%}<img src="{{ section.settings.story2_image | image_url: width: 1400 }}" alt="{{ section.settings.story2_image.alt }}" width="1400" height="788" loading="lazy" style="width:100%;height:100%;object-fit:cover;">{%- endif -%}</div>
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 20px;">{{ section.settings.story2_p3 }}</p>
       <p style="font-size:17px;line-height:1.75;color:#4a3a30;margin:0 0 6px;">{{ section.settings.story2_p4 }}</p>
       {%- endif -%}
@@ -585,6 +587,8 @@
     {"type": "text", "id": "hero_h1_tail", "label": "hero_h1_tail", "default": "— and the gut-hormone shift that finally cooled them down"},
     {"type": "image_picker", "id": "hero_image", "label": "hero_image"},
     {"type": "image_picker", "id": "byline_image", "label": "byline_image"},
+    {"type": "image_picker", "id": "story1_image", "label": "story1_image"},
+    {"type": "image_picker", "id": "story2_image", "label": "story2_image"},
     {"type": "text", "id": "byline_name", "label": "byline_name", "default": "By Sarah Ellison, WHNP"},
     {"type": "text", "id": "byline_sub", "label": "byline_sub", "default": "Women's Health Nurse Practitioner · 25 Years in Women's Health"},
     {"type": "text", "id": "read_time", "label": "read_time", "default": "8 min read"},
