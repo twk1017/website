@@ -1,12 +1,12 @@
 {%- comment -%}
-  Womankind — solution-aware listicle (focus: hot flashes).
-  "7 things a hot-flash formula needs before it's worth your money."
-  Narrated first-person by Sarah Ellison, WHNP. Self-contained: brand fonts via
-  wk-fonts, scoped reset under #wk-{{ section.id }}, minimal 'womankind' layout.
-  Layout mirrors the wireframe: lead editorial image, each reason a two-column
-  image+text block (alternating sides), lifestyle image, offer image.
-  Copy is hardcoded (avoids the 500-char schema-default limit). CTAs -> wk_pdp.
-  Image slots are editable image_pickers; blank shows a branded placeholder.
+  Womankind — solution-aware editorial listicle (focus: hot flashes).
+  "10 Reasons Women Over 40 Are Ditching Their Menopause Pills..."
+  Byline: Sarah Ellison, WHNP (same narrator as the advertorial). Self-contained:
+  brand fonts via wk-fonts, scoped reset under #wk-{{ section.id }}, 'womankind' layout.
+  Layout mirrors the wireframe: lead image, pull quote, comparison table, TL;DR,
+  10 reasons as alternating image+text blocks, advertorial-style offer card, FAQ,
+  trust strip. Offer deal matches the advertorial (up to 51% off) — no countdown /
+  sell-out gimmicks. Copy hardcoded (avoids 500-char schema limit). CTAs -> wk_pdp.
 {%- endcomment -%}
 {%- assign wk_pdp = section.settings.cta_url | default: 'https://trywomankind.com/products/hormonal-support-gummies' -%}
 
@@ -19,89 +19,103 @@
   #wk-{{ section.id }} img { max-width:100%; display:block; }
   #wk-{{ section.id }} p { margin:0; }
 
-  #wk-{{ section.id }} .lst-sec { padding:70px 28px; }
+  #wk-{{ section.id }} .lst-sec { padding:60px 28px; }
   #wk-{{ section.id }} .lst-wrap { max-width:720px; margin:0 auto; }
   #wk-{{ section.id }} .lst-wide { max-width:1000px; margin:0 auto; }
-
-  #wk-{{ section.id }} .lst-lede p { font-size:17px; line-height:1.75; color:#4a3a30; margin:0 0 20px; }
   #wk-{{ section.id }} .lst-h2 { font-family:'Fraunces',serif; font-weight:400; font-size:31px; line-height:1.2; color:#6B3D42; margin:0 0 22px; }
+  #wk-{{ section.id }} .lst-lede p { font-size:17px; line-height:1.75; color:#4a3a30; margin:0 0 20px; }
 
   /* image placeholder */
   #wk-{{ section.id }} .lst-imgbox { position:relative; background:linear-gradient(150deg,#D8C2BA,#C9A89F); overflow:hidden; display:flex; align-items:center; justify-content:center; }
   #wk-{{ section.id }} .lst-imgbox img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   #wk-{{ section.id }} .lst-ph { position:relative; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#6B3D42; opacity:0.8; font-weight:700; text-align:center; padding:0 14px; }
   #wk-{{ section.id }} .lst-ph small { display:block; opacity:0.7; letter-spacing:0.06em; font-weight:600; margin-top:5px; }
-
-  /* lead / full-width images */
   #wk-{{ section.id }} .lst-lead-img { aspect-ratio:16/8; border-radius:16px; margin:0 auto; max-width:840px; }
 
-  /* reason two-column blocks */
-  #wk-{{ section.id }} .lst-reason { display:grid; grid-template-columns:0.82fr 1.18fr; gap:0; background:#FBF1E6; border:1px solid rgba(107,61,66,0.14); border-radius:16px; overflow:hidden; margin:0 0 26px; align-items:stretch; }
-  #wk-{{ section.id }} .lst-reason.rev { grid-template-columns:1.18fr 0.82fr; }
-  #wk-{{ section.id }} .lst-reason .lst-imgbox { min-height:100%; }
-  #wk-{{ section.id }} .lst-reason.rev .lst-imgbox { order:2; }
-  #wk-{{ section.id }} .lst-reason-body { padding:34px 34px; }
-  #wk-{{ section.id }} .lst-cardhead { display:flex; gap:16px; align-items:flex-start; margin:0 0 18px; }
-  #wk-{{ section.id }} .lst-num { flex:0 0 auto; width:46px; height:46px; border-radius:50%; background:#6B3D42; color:#E2A24C; font-family:'Fraunces',serif; font-size:21px; display:flex; align-items:center; justify-content:center; }
-  #wk-{{ section.id }} .lst-reason-body h3 { font-family:'Fraunces',serif; font-weight:500; font-size:22px; line-height:1.25; color:#3A2A20; margin:5px 0 0; }
-  #wk-{{ section.id }} .lst-reason-body p { font-size:15.5px; line-height:1.7; color:#4a3a30; margin:0 0 15px; }
-  #wk-{{ section.id }} .lst-lbl { font-weight:700; color:#6B3D42; }
-  #wk-{{ section.id }} .lst-pass { background:#F0E4D2; border-left:3px solid #C9653F; border-radius:0 12px 12px 0; padding:16px 20px; margin:18px 0 0; }
-  #wk-{{ section.id }} .lst-pass p { margin:0; font-size:15px; color:#3A2A20; }
-  #wk-{{ section.id }} .lst-pass .lst-lbl { color:#C9653F; }
+  /* pull quote */
+  #wk-{{ section.id }} .lst-pull { border-left:3px solid #C9653F; padding:6px 0 6px 24px; margin:0; }
+  #wk-{{ section.id }} .lst-pull p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:26px; line-height:1.32; color:#6B3D42; margin:0 0 12px; }
+  #wk-{{ section.id }} .lst-pull cite { font-style:normal; font-size:13px; letter-spacing:0.06em; color:#8a7365; }
 
-  /* split (image + content) generic block */
-  #wk-{{ section.id }} .lst-split { display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:16px; overflow:hidden; align-items:stretch; }
-  #wk-{{ section.id }} .lst-split .lst-imgbox { min-height:360px; }
+  /* TL;DR */
+  #wk-{{ section.id }} .lst-tldr { background:#FBF1E6; border:1px solid rgba(107,61,66,0.16); border-radius:14px; padding:26px 28px; }
+  #wk-{{ section.id }} .lst-tldr .lbl { font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#C9653F; font-weight:700; margin:0 0 10px; }
+  #wk-{{ section.id }} .lst-tldr p { font-size:15.5px; line-height:1.7; color:#4a3a30; }
 
   /* comparison table */
   #wk-{{ section.id }} .lst-table { width:100%; border-collapse:collapse; background:#FBF1E6; border:1px solid rgba(107,61,66,0.16); border-radius:16px; overflow:hidden; }
-  #wk-{{ section.id }} .lst-table th, #wk-{{ section.id }} .lst-table td { text-align:left; padding:16px 18px; font-size:14px; line-height:1.5; border-bottom:1px solid rgba(107,61,66,0.12); vertical-align:top; }
+  #wk-{{ section.id }} .lst-table th, #wk-{{ section.id }} .lst-table td { text-align:left; padding:15px 18px; font-size:14px; line-height:1.5; border-bottom:1px solid rgba(107,61,66,0.12); vertical-align:top; }
   #wk-{{ section.id }} .lst-table thead th { background:#6B3D42; color:#F5E6D8; font-family:'Fraunces',serif; font-weight:500; font-size:15px; }
-  #wk-{{ section.id }} .lst-table thead th:last-child { color:#E2A24C; }
-  #wk-{{ section.id }} .lst-table td:first-child { font-weight:600; color:#3A2A20; }
-  #wk-{{ section.id }} .lst-table td:nth-child(2) { color:#8a7365; }
-  #wk-{{ section.id }} .lst-table td:last-child { color:#6B3D42; font-weight:600; }
+  #wk-{{ section.id }} .lst-table thead th:nth-child(2) { color:#E2A24C; }
+  #wk-{{ section.id }} .lst-table td:first-child { font-weight:700; color:#3A2A20; }
+  #wk-{{ section.id }} .lst-table td:nth-child(2) { color:#6B3D42; font-weight:600; }
+  #wk-{{ section.id }} .lst-table td:last-child { color:#8a7365; }
   #wk-{{ section.id }} .lst-tablescroll { overflow-x:auto; }
 
-  /* bands */
-  #wk-{{ section.id }} .lst-band { background:#6B3D42; color:#F5E6D8; }
-  #wk-{{ section.id }} .lst-band .lst-h2 { color:#F5E6D8; }
-  #wk-{{ section.id }} .lst-band p { color:rgba(245,230,216,0.9); }
-  #wk-{{ section.id }} .lst-band .lst-emph { color:#E2A24C; }
+  /* reason two-column blocks */
+  #wk-{{ section.id }} .lst-reason { display:grid; grid-template-columns:0.82fr 1.18fr; gap:0; background:#FBF1E6; border:1px solid rgba(107,61,66,0.14); border-radius:16px; overflow:hidden; margin:0 0 24px; align-items:stretch; }
+  #wk-{{ section.id }} .lst-reason.rev { grid-template-columns:1.18fr 0.82fr; }
+  #wk-{{ section.id }} .lst-reason .lst-imgbox { min-height:100%; }
+  #wk-{{ section.id }} .lst-reason.rev .lst-imgbox { order:2; }
+  #wk-{{ section.id }} .lst-reason-body { padding:32px 32px; }
+  #wk-{{ section.id }} .lst-cardhead { display:flex; gap:15px; align-items:flex-start; margin:0 0 14px; }
+  #wk-{{ section.id }} .lst-num { flex:0 0 auto; width:44px; height:44px; border-radius:50%; background:#6B3D42; color:#E2A24C; font-family:'Fraunces',serif; font-size:20px; display:flex; align-items:center; justify-content:center; }
+  #wk-{{ section.id }} .lst-reason-body h3 { font-family:'Fraunces',serif; font-weight:500; font-size:21px; line-height:1.25; color:#3A2A20; margin:6px 0 0; }
+  #wk-{{ section.id }} .lst-reason-body p { font-size:15.5px; line-height:1.7; color:#4a3a30; margin:0; }
 
-  /* CTA */
-  #wk-{{ section.id }} .lst-cta { display:inline-flex; align-items:center; gap:10px; background:#C9653F; color:#F5E6D8; text-decoration:none; border-radius:999px; padding:18px 44px; font-size:14px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; }
+  /* offer band (reason 6) */
+  #wk-{{ section.id }} .lst-offerband { background:#6B3D42; color:#F5E6D8; border-radius:16px; padding:36px 36px; margin:0 0 24px; }
+  #wk-{{ section.id }} .lst-offerband h3 { font-family:'Fraunces',serif; font-weight:500; font-size:22px; line-height:1.2; color:#F5E6D8; margin:6px 0 0; }
+  #wk-{{ section.id }} .lst-offerband p { font-size:15.5px; line-height:1.7; color:rgba(245,230,216,0.9); margin:0 0 22px; }
+
+  /* bands / CTA */
+  #wk-{{ section.id }} .lst-cta { display:inline-flex; align-items:center; gap:10px; background:#C9653F; color:#F5E6D8; text-decoration:none; border-radius:999px; padding:16px 40px; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; }
   #wk-{{ section.id }} .lst-cta-sub { font-size:12.5px; color:#8a7365; margin:14px 0 0; letter-spacing:0.02em; }
 
   /* sticky sale bar */
   #wk-{{ section.id }}-bar { position:sticky; top:0; z-index:50; background:#6B3D42; color:#F5E6D8; text-align:center; padding:11px 18px; font-size:13px; letter-spacing:0.03em; display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; }
   #wk-{{ section.id }}-bar a { color:#E2A24C; text-decoration:underline; text-underline-offset:2px; font-weight:600; white-space:nowrap; }
 
-  /* offer card */
-  #wk-{{ section.id }} .lst-offer { background:#FBF1E6; border:1px solid rgba(107,61,66,0.16); border-radius:18px; overflow:hidden; display:grid; grid-template-columns:1fr 1fr; align-items:stretch; }
-  #wk-{{ section.id }} .lst-offer .lst-imgbox { min-height:340px; }
-  #wk-{{ section.id }} .lst-offer-body { padding:44px 40px; }
+  /* advertorial-style offer card */
+  #wk-{{ section.id }} .lst-offer-outer { max-width:1040px; margin:0 auto; position:relative; }
+  #wk-{{ section.id }} .lst-offer-badge { position:absolute; top:-19px; left:50%; transform:translateX(-50%); z-index:3; background:#C9653F; color:#F5E6D8; font-family:'Fraunces',serif; font-size:16px; padding:9px 26px; border-radius:999px; white-space:nowrap; }
+  #wk-{{ section.id }} .lst-offer-dash { border:1.6px dashed rgba(107,61,66,0.38); border-radius:22px; padding:14px; }
+  #wk-{{ section.id }} .lst-offer-grid { display:grid; grid-template-columns:0.92fr 1.08fr; background:#FBF1E6; border-radius:14px; overflow:hidden; align-items:stretch; }
+  #wk-{{ section.id }} .lst-offer-grid .lst-imgbox { min-height:340px; }
+  #wk-{{ section.id }} .lst-offer-body { padding:48px 44px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  #wk-{{ section.id }} .lst-offer-eyebrow { display:flex; align-items:center; gap:12px; margin-bottom:18px; color:#C9653F; }
+  #wk-{{ section.id }} .lst-offer-eyebrow span.line { height:1px; width:26px; background:rgba(201,101,63,0.5); }
+  #wk-{{ section.id }} .lst-offer-eyebrow span.txt { font-size:11.5px; letter-spacing:0.2em; text-transform:uppercase; font-weight:700; }
+  #wk-{{ section.id }} .lst-offer-h { font-family:'Fraunces',serif; font-weight:500; font-size:34px; line-height:1.08; margin:0 0 10px; color:#6B3D42; }
+  #wk-{{ section.id }} .lst-offer-h em { font-style:italic; color:#C9653F; }
+  #wk-{{ section.id }} .lst-offer-sub { font-family:'Fraunces',serif; font-style:italic; font-size:20px; color:#6B3D42; margin:0 0 18px; }
+  #wk-{{ section.id }} .lst-offer-body p.body { font-size:15px; line-height:1.7; color:#5a4636; margin:0 0 26px; max-width:44ch; }
+  #wk-{{ section.id }} .lst-offer-btn { width:100%; box-sizing:border-box; background:#C9653F; color:#F5E6D8; text-decoration:none; border-radius:12px; padding:17px 24px; font-size:14px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; display:flex; align-items:center; justify-content:center; gap:12px; }
+  #wk-{{ section.id }} .lst-offer-pill { width:100%; box-sizing:border-box; margin-top:12px; background:#EAD9C8; border-radius:10px; padding:11px 16px; font-size:12.5px; color:#3A2A20; display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; }
+  #wk-{{ section.id }} .lst-offer-guarantee { font-size:12.5px; color:#7a6258; margin:18px 0 0; }
 
-  /* objection Q&A */
+  /* FAQ + trust */
   #wk-{{ section.id }} .lst-obj { margin:0 0 24px; }
   #wk-{{ section.id }} .lst-obj h4 { font-family:'Fraunces',serif; font-weight:500; font-size:19px; color:#6B3D42; margin:0 0 8px; }
   #wk-{{ section.id }} .lst-obj p { font-size:15.5px; line-height:1.7; color:#4a3a30; margin:0; }
+  #wk-{{ section.id }} .lst-trust { text-align:center; }
+  #wk-{{ section.id }} .lst-trust .lbl { font-family:'Fraunces',serif; font-size:22px; color:#6B3D42; margin:0 0 14px; }
+  #wk-{{ section.id }} .lst-trust p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; line-height:1.4; color:#4a3a30; max-width:600px; margin:0 auto; }
 
   #wk-{{ section.id }} .lst-legal { font-size:11.5px; line-height:1.6; color:#9a8578; }
   #wk-{{ section.id }} .lst-legal p { margin:0 0 10px; }
 
   @media (max-width:749px){
-    #wk-{{ section.id }} .lst-sec { padding:52px 20px; }
-    #wk-{{ section.id }} .lst-h1 { font-size:32px !important; }
+    #wk-{{ section.id }} .lst-sec { padding:46px 20px; }
+    #wk-{{ section.id }} .lst-h1 { font-size:31px !important; }
     #wk-{{ section.id }} .lst-h2 { font-size:26px; }
-    #wk-{{ section.id }} .lst-reason, #wk-{{ section.id }} .lst-reason.rev, #wk-{{ section.id }} .lst-split, #wk-{{ section.id }} .lst-offer { grid-template-columns:1fr !important; }
-    #wk-{{ section.id }} .lst-reason .lst-imgbox, #wk-{{ section.id }} .lst-reason.rev .lst-imgbox { order:0 !important; min-height:230px; aspect-ratio:16/10; }
-    #wk-{{ section.id }} .lst-reason-body { padding:26px 22px; }
-    #wk-{{ section.id }} .lst-reason-body h3 { font-size:20px; }
-    #wk-{{ section.id }} .lst-split .lst-imgbox, #wk-{{ section.id }} .lst-offer .lst-imgbox { min-height:0; aspect-ratio:16/10; }
-    #wk-{{ section.id }} .lst-offer-body { padding:30px 24px; }
-    #wk-{{ section.id }} .lst-table { min-width:560px; }
+    #wk-{{ section.id }} .lst-reason, #wk-{{ section.id }} .lst-reason.rev, #wk-{{ section.id }} .lst-offer-grid { grid-template-columns:1fr !important; }
+    #wk-{{ section.id }} .lst-reason .lst-imgbox, #wk-{{ section.id }} .lst-reason.rev .lst-imgbox { order:0 !important; min-height:0; aspect-ratio:16/10; }
+    #wk-{{ section.id }} .lst-reason-body { padding:24px 22px; }
+    #wk-{{ section.id }} .lst-offer-grid .lst-imgbox { min-height:0; aspect-ratio:16/11; }
+    #wk-{{ section.id }} .lst-offer-body { padding:32px 24px; }
+    #wk-{{ section.id }} .lst-offer-h { font-size:29px; }
+    #wk-{{ section.id }} .lst-table { min-width:600px; }
   }
 </style>
 
@@ -115,249 +129,216 @@
   {%- endif -%}
 
   <!-- HERO -->
-  <section class="lst-sec" style="padding-bottom:22px;">
+  <section class="lst-sec" style="padding-bottom:20px;">
     <div class="lst-wrap">
-      <div style="display:flex;align-items:center;gap:14px;margin:0 0 26px;">
-        <div style="width:54px;height:54px;border-radius:50%;overflow:hidden;background:#C9A89F;flex:0 0 auto;"><img src="{{ 'wk-adv2-byline.jpg' | asset_url }}" alt="Sarah Ellison, WHNP" width="54" height="54" style="width:100%;height:100%;object-fit:cover;"></div>
-        <div>
-          <div style="font-size:14px;font-weight:600;color:#3A2A20;">By Sarah Ellison, WHNP</div>
-          <div style="font-size:12px;color:#8a7365;line-height:1.4;">Women's Health Nurse Practitioner · 25 Years in Women's Health · 5 min read</div>
+      <div style="display:flex;align-items:center;gap:14px;margin:0 0 22px;">
+        <div style="width:52px;height:52px;border-radius:50%;overflow:hidden;background:#C9A89F;flex:0 0 auto;"><img src="{{ 'wk-adv2-byline.jpg' | asset_url }}" alt="Sarah Ellison, WHNP" width="52" height="52" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div style="font-size:12.5px;color:#8a7365;line-height:1.5;">
+          <span style="color:#C9653F;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;font-size:11px;">Health · The List</span><br>
+          <span style="color:#3A2A20;font-weight:600;">Sarah Ellison, WHNP</span> · &#10003; Verified · Updated 2 days ago · 7 min read
         </div>
       </div>
-
-      <h1 class="lst-h1" style="font-family:'Fraunces',serif;font-weight:400;font-size:42px;line-height:1.14;color:#6B3D42;margin:0 0 8px;">7 things a hot-flash formula needs before it's worth your money.</h1>
-      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px;line-height:1.2;color:#C9653F;margin:0 0 26px;">Most gummies fail 6 of them.</p>
-
-      <p style="font-size:19px;line-height:1.65;color:#3A2A20;font-weight:600;margin:0;">You've tried everything and you're still flushing at 3am. You're not the problem. The formulas are. Here's the checklist that exposes them all — and the one formula that finally passes it.</p>
+      <h1 class="lst-h1" style="font-family:'Fraunces',serif;font-weight:400;font-size:40px;line-height:1.15;color:#6B3D42;margin:0;">10 Reasons Women Over 40 Are Ditching Their Menopause Pills For This Zero-Sugar Gummy</h1>
     </div>
   </section>
 
-  <!-- LEAD EDITORIAL IMAGE -->
-  <section class="lst-sec" style="padding-top:0;padding-bottom:20px;">
+  <!-- LEAD IMAGE -->
+  <section class="lst-sec" style="padding-top:0;padding-bottom:18px;">
     <div class="lst-imgbox lst-lead-img">
       {%- if section.settings.hero_image -%}<img src="{{ section.settings.hero_image | image_url: width: 1680 }}" alt="{{ section.settings.hero_image.alt }}" loading="eager">{%- else -%}<span class="lst-ph">Editorial · lead image<small>woman, warm morning light</small></span>{%- endif -%}
     </div>
   </section>
 
-  <!-- LEDE -->
-  <section class="lst-sec" style="padding-top:24px;padding-bottom:20px;">
+  <!-- INTRO -->
+  <section class="lst-sec" style="padding-top:22px;padding-bottom:16px;">
     <div class="lst-wrap lst-lede">
-      <p>Let me guess how you got here.</p>
-      <p>It's late. You're in bed — or you're standing in the kitchen with the freezer door open, holding your wrists against the cold, waiting for your face to stop burning. You've been let down so many times that you almost didn't click. Another bottle. Another promise. Another $30 flushed down the same drain as your estrogen.</p>
-      <p>So let me start with the thing nobody has told you, the thing I've watched women wait years to hear:</p>
-      <p style="font-family:'Fraunces',serif;font-size:30px;line-height:1.2;color:#6B3D42;font-weight:500;margin:8px 0 24px;">It was never you.</p>
-      <p>Not the gummies that did nothing. Not the "clinical" pills that were quietly under-dosed. Not the gadgets. You didn't fail the products. The products failed you — most of them on purpose.</p>
-      <p>I'm a women's health nurse practitioner. I've spent 25 years in this field, and I've watched this industry sell sugar pills with pretty labels to women at the most vulnerable moment of their lives. And I've sat in exam rooms with women who quietly told me another one didn't work — and watched them blame themselves for it.</p>
-      <p>I've also been the woman flushing in my own clinic, fanning myself with a clipboard in front of a patient, sleeping alone while my husband took the spare room because the sheets were soaked through every night.</p>
-      <p>So I read everything. I checked every label. And I built the checklist I'm about to give you.</p>
-      <p style="font-size:18px;color:#3A2A20;font-weight:700;">Seven things. Most menopause formulas fail six of them. One passes all seven.</p>
-      <p>Print it. Screenshot it. Take it down the pharmacy aisle with you. Because once you see what the industry is doing to you, you'll never look at another pretty bottle the same way.</p>
+      <p style="margin-bottom:0;">If you're reading this at 2am — sheets soaked, fan in one hand, phone in the other — we wrote it for you. The supplement aisle has been selling perimenopausal women hope in a bottle for years, and most of it fails on purpose: hidden sugar, token doses, zero root-cause support. Here are the ten reasons women over 40 are swapping their old pills for one gummy — and why this time, the swap actually works.</p>
     </div>
   </section>
 
-  <!-- THE 7 REASONS (two-column, alternating) -->
-  <section class="lst-sec" style="padding-top:20px;">
+  <!-- PULL QUOTE -->
+  <section class="lst-sec" style="padding-top:14px;padding-bottom:16px;">
+    <div class="lst-wrap">
+      <blockquote class="lst-pull">
+        <p>"It's the first thing I've taken for hot flashes that I didn't dread. My doctor talked me into it — and it actually tastes good."</p>
+        <cite>— <strong>Felicia K., verified customer</strong></cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section class="lst-sec" style="padding-top:20px;padding-bottom:20px;">
+    <div class="lst-wide">
+      <h2 class="lst-h2" style="text-align:center;">The difference you can actually feel</h2>
+      <div class="lst-tablescroll">
+        <table class="lst-table">
+          <thead><tr><th></th><th>Womankind &#10003;</th><th>Typical "menopause" pill &#10007;</th></tr></thead>
+          <tbody>
+            <tr><td>Hot flashes</td><td>Botanicals at researched doses calm the thermostat</td><td>Under-dosed behind a "proprietary blend"</td></tr>
+            <tr><td>Night sweats</td><td>Estrobolome support at the root of the flush</td><td>Surface-only — nothing touches the cause</td></tr>
+            <tr><td>Sugar</td><td>Zero — stevia + monk fruit</td><td>2–4g hidden per serving</td></tr>
+            <tr><td>Dosing</td><td>Every milligram printed on the label</td><td>A fraction of the researched dose</td></tr>
+            <tr><td>Trust</td><td>OB/GYN-formulated, third-party tested, 90-day guarantee</td><td>Influencer-approved, 30-day refund</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- TL;DR -->
+  <section class="lst-sec" style="padding-top:16px;padding-bottom:24px;">
+    <div class="lst-wrap">
+      <div class="lst-tldr">
+        <div class="lbl">TL;DR</div>
+        <p>Most menopause supplements are under-dosed, single-symptom, and loaded with sugar that feeds the exact gut imbalance behind hot flashes. Womankind is a zero-sugar, 10-in-1 daily gummy built around the gut-hormone axis — clinical doses named on the label, formulated by a board-certified OB/GYN, backed by a 90-day guarantee.*</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE 10 REASONS -->
+  <section class="lst-sec" style="padding-top:16px;">
     <div class="lst-wide">
 
       <!-- 1 -->
       <div class="lst-reason">
-        <div class="lst-imgbox">{%- if section.settings.reason1_image -%}<img src="{{ section.settings.reason1_image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}<span class="lst-ph">Reason 1<small>label close-up / doses</small></span>{%- endif -%}</div>
+        <div class="lst-imgbox">{%- if section.settings.reason1_image -%}<img src="{{ section.settings.reason1_image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}<span class="lst-ph">Reason 1<small>gut-hormone axis</small></span>{%- endif -%}</div>
         <div class="lst-reason-body">
-          <div class="lst-cardhead"><div class="lst-num">1</div><h3>Full researched doses — printed on the label. No "proprietary blend" hide-and-seek.</h3></div>
-          <p><span class="lst-lbl">What most brands do:</span> List "black cohosh" with no amount and no standardization, then hide everything inside a "proprietary blend" — which is just a legal way to sell you a quarter-dose at full price.</p>
-          <p><span class="lst-lbl">Why it fails — and why this one should make you angry:</span> The studies showing black cohosh actually calms hot flashes used specific doses at specific standardization. If a label won't tell you what's inside, assume it's not enough to work — because if it were, they'd be screaming it from the bottle. You spent months swallowing hope that was engineered to fail before you opened the lid. <strong>You weren't resistant to the herbs. You were being under-dosed.</strong></p>
-          <p><span class="lst-lbl">What to demand:</span> Every milligram printed. Black cohosh standardized to 5% triterpene glycosides. Red clover at 40% isoflavones.</p>
-          <div class="lst-pass"><p><span class="lst-lbl">&#10003; Womankind passes:</span> 100mg black cohosh at 5% triterpenes (more than 2× the dose of the most-studied clinical brand), 100mg red clover at 40% isoflavones, 100mg dong quai at 1% ligustilide. All on the label. Go check — the transparency is the tell.</p></div>
+          <div class="lst-cardhead"><div class="lst-num">1</div><h3>The Gut-Hormone Axis — The Root 95% Of Formulas Ignore</h3></div>
+          <p>A hot flash isn't a heat problem. It's your brain's thermostat misfiring as estrogen swings — and the fix most brands miss is in your gut: the estrobolome, the bacteria that recycle and steady your estrogen. Womankind pairs a 10-billion CFU, six-strain probiotic blend with targeted botanicals to calm the swing at the source — not just mask the flush.</p>
         </div>
       </div>
 
       <!-- 2 -->
       <div class="lst-reason rev">
-        <div class="lst-imgbox">{%- if section.settings.reason2_image -%}<img src="{{ section.settings.reason2_image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}<span class="lst-ph">Reason 2<small>gummies / no sugar</small></span>{%- endif -%}</div>
+        <div class="lst-imgbox">{%- if section.settings.reason2_image -%}<img src="{{ section.settings.reason2_image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}<span class="lst-ph">Reason 2<small>3am, dry sheets</small></span>{%- endif -%}</div>
         <div class="lst-reason-body">
-          <div class="lst-cardhead"><div class="lst-num">2</div><h3>Zero sugar. Not "low sugar." ZERO.</h3></div>
-          <p><span class="lst-lbl">What most brands do:</span> Load gummies with 2–4g of sugar per serving, then call it a wellness product.</p>
-          <p><span class="lst-lbl">Why it fails:</span> This is the one that made me genuinely furious. Sugar feeds the exact gut bacteria that throw your estrogen out of balance — and unstable estrogen is what fires the flush in the first place. Every sweet little gummy you've been dutifully taking was quietly <em>feeding the fire it claimed to put out.</em> You were paying to make it worse — and then blaming yourself when it did.</p>
-          <p><span class="lst-lbl">What to demand:</span> Zero grams of sugar. Not 2g. Not "naturally sweetened." Zero.</p>
-          <div class="lst-pass"><p><span class="lst-lbl">&#10003; Womankind passes:</span> 0g sugar. Sweetened with stevia and monk fruit — no glucose spike, nothing feeding the imbalance behind the flush.</p></div>
+          <div class="lst-cardhead"><div class="lst-num">2</div><h3>The 3am Wake-Up, Handled</h3></div>
+          <p>The sheets soaked through. The clock glowing 3:07. The wired exhaustion. That's the thermostat misfiring in the dark. Black cohosh standardized to 5% triterpenes — the most-studied botanical for hot flashes — plus ashwagandha and B6 to take the edge off, so you sleep through and wake up dry. <em>Actually dry.</em></p>
         </div>
       </div>
 
       <!-- 3 -->
       <div class="lst-reason">
-        <div class="lst-imgbox">{%- if section.settings.reason3_image -%}<img src="{{ section.settings.reason3_image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}<span class="lst-ph">Reason 3<small>gut / estrobolome</small></span>{%- endif -%}</div>
+        <div class="lst-imgbox">{%- if section.settings.reason3_image -%}<img src="{{ section.settings.reason3_image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}<span class="lst-ph">Reason 3<small>zero sugar</small></span>{%- endif -%}</div>
         <div class="lst-reason-body">
-          <div class="lst-cardhead"><div class="lst-num">3</div><h3>The estrobolome layer. This is the one 95% of formulas skip.</h3></div>
-          <p><span class="lst-lbl">What most brands do:</span> Throw two botanicals in a bottle and call it a menopause formula.</p>
-          <p><span class="lst-lbl">Why it fails:</span> A hot flash isn't a heat event. It starts in your brain's thermostat — the hypothalamus — which goes haywire as estrogen swings through perimenopause. And here's the part almost nobody tells you: your gut houses a community of bacteria called the <strong>estrobolome</strong> whose job is to recycle and steady your estrogen. When it's out of balance, the thermostat misfires constantly — by day and by night. Botanicals alone are trying to calm a hormone signal they can't even reach. It's like fixing the siren without touching the fire.</p>
-          <p><span class="lst-lbl">What to demand:</span> A formula that supports the gut-hormone axis — not just the flush.</p>
-          <div class="lst-pass"><p><span class="lst-lbl">&#10003; Womankind passes:</span> A Menopause Support Probiotic Blend — <strong>10 billion CFU across six named strains</strong> (<em>B. breve, B. lactis, B. longum, L. rhamnosus, L. gasseri, L. reuteri</em>) — the bacterial families most closely tied to estrogen metabolism. This is the layer that separates "fewer flushes this week" from "steady for the long run."</p></div>
+          <div class="lst-cardhead"><div class="lst-num">3</div><h3>Zero Sugar — Because Sugar Quietly Feeds Your Flashes</h3></div>
+          <p>Most "menopause" gummies hide 2–4g of sugar per serving — feeding the exact gut imbalance that fires the flush. You weren't just wasting money. You were paying to make it worse. Womankind is sweetened with stevia and monk fruit: zero sugar, zero sabotage, all formula.</p>
         </div>
       </div>
 
       <!-- 4 -->
       <div class="lst-reason rev">
-        <div class="lst-imgbox">{%- if section.settings.reason4_image -%}<img src="{{ section.settings.reason4_image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}<span class="lst-ph">Reason 4<small>supplement facts panel</small></span>{%- endif -%}</div>
+        <div class="lst-imgbox">{%- if section.settings.reason4_image -%}<img src="{{ section.settings.reason4_image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}<span class="lst-ph">Reason 4<small>label / doses</small></span>{%- endif -%}</div>
         <div class="lst-reason-body">
-          <div class="lst-cardhead"><div class="lst-num">4</div><h3>Real strain names, real CFU counts. Not "probiotic blend" with no numbers.</h3></div>
-          <p><span class="lst-lbl">What most brands do:</span> Print "probiotic blend" on the label and hope you don't ask questions.</p>
-          <p><span class="lst-lbl">Why it fails:</span> A probiotic without a named strain or a CFU count isn't an ingredient — it's a costume. Some gummies contain a few million CFU, thousands of times below anything therapeutic. You were taking a fairy dusting and hoping it rebuilt a system. It can't. It was never enough.</p>
-          <p><span class="lst-lbl">What to demand:</span> Named strains. A CFU count in the billions. On the label.</p>
-          <div class="lst-pass"><p><span class="lst-lbl">&#10003; Womankind passes:</span> Six named strains. 10 billion CFU per serving. Nothing hidden, nothing vague.</p></div>
+          <div class="lst-cardhead"><div class="lst-num">4</div><h3>Clinical Doses, Printed On The Label</h3></div>
+          <p>"Proprietary blend" is industry-speak for a quarter-dose sold at full price. Every Womankind active is named with its exact amount — black cohosh at 5% triterpenes, red clover at 40% isoflavones, dong quai at 1% ligustilide. If a label won't show you the dose, assume it's too low to work. This label hides nothing.</p>
         </div>
       </div>
 
       <!-- 5 -->
       <div class="lst-reason">
-        <div class="lst-imgbox">{%- if section.settings.reason5_image -%}<img src="{{ section.settings.reason5_image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}<span class="lst-ph">Reason 5<small>Dr. Katie Chen</small></span>{%- endif -%}</div>
+        <div class="lst-imgbox">{%- if section.settings.reason5_image -%}<img src="{{ section.settings.reason5_image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}<span class="lst-ph">Reason 5<small>one daily ritual</small></span>{%- endif -%}</div>
         <div class="lst-reason-body">
-          <div class="lst-cardhead"><div class="lst-num">5</div><h3>Built by a credentialed clinician — not a marketing team.</h3></div>
-          <p><span class="lst-lbl">What most brands do:</span> Hire an influencer, take pretty photos, and sell you a feeling.</p>
-          <p><span class="lst-lbl">Why it fails:</span> Perimenopause is not a vibe. It's the most medically dismissed transition in women's health — most clinicians get five minutes of training on it, which is exactly why so many of you have been told your labs are "normal" and offered an antidepressant for a hormonal cascade. You don't need another brand ambassador with a ring light. You need someone with real credentials who got angry enough to solve it.</p>
-          <p><span class="lst-lbl">What to demand:</span> A clinician behind the formula — and their name on it.</p>
-          <div class="lst-pass"><p><span class="lst-lbl">&#10003; Womankind passes:</span> Formulated by <strong>Dr. Katie Chen, board-certified OB/GYN with Menopause Society certification (MSCP)</strong> — a doctor who spent years watching her patients get dismissed with "normal" labs, walked to the shelf to find something honest to recommend, found nothing, and built the formula herself. This isn't a marketing story. It's a doctor refusing to lose another patient to the shrug.</p></div>
+          <div class="lst-cardhead"><div class="lst-num">5</div><h3>One Formula. Ten Actives. Zero Cabinet Clutter.</h3></div>
+          <p>Hot flashes, sleep, mood, and gut health move together — so chasing one symptom at a time never works. Womankind puts it all in two small gummies a day: botanicals for the thermostat, a probiotic blend for the estrobolome, vitamins for what perimenopause depletes. One ritual instead of four half-empty bottles.</p>
         </div>
       </div>
 
-      <!-- 6 -->
-      <div class="lst-reason rev">
-        <div class="lst-imgbox">{%- if section.settings.reason6_image -%}<img src="{{ section.settings.reason6_image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}<span class="lst-ph">Reason 6<small>90-day guarantee</small></span>{%- endif -%}</div>
-        <div class="lst-reason-body">
-          <div class="lst-cardhead"><div class="lst-num">6</div><h3>A guarantee that matches the biology. 30 days is a setup.</h3></div>
-          <p><span class="lst-lbl">What most brands do:</span> Offer a 30-day guarantee on a product whose mechanism takes longer than 30 days.</p>
-          <p><span class="lst-lbl">Why it fails:</span> The gut-hormone axis doesn't reset in two weeks. The estrobolome needs time to rebalance, and black cohosh's full effect lands around week 8. A 30-day guarantee is engineered to have you quit right before the shift happens — the brand keeps your money and you keep believing <em>you</em> failed. That's not confidence. That's math designed against you.</p>
-          <p><span class="lst-lbl">What to demand:</span> A guarantee that covers the time your body actually needs.</p>
-          <div class="lst-pass"><p><span class="lst-lbl">&#10003; Womankind passes:</span> <strong>90 days. Full refund. No returns.</strong> If your flashes haven't changed, email them and keep the bottles. That guarantee is the only reason a skeptic like me tried it in the first place — and it's the tell of a brand that knows its formula works.</p></div>
-        </div>
+      <!-- 6 (offer band) -->
+      <div class="lst-offerband">
+        <div class="lst-cardhead"><div class="lst-num" style="background:#E2A24C;color:#6B3D42;">6</div><h3>The Summer Sale — And Why You Shouldn't Wait</h3></div>
+        <p>The women who feel best are the ones who started three months ago. Sale pricing won't last — and every week you wait is another week of soaked sheets and mid-meeting flushes.</p>
+        <a class="lst-cta" href="#offer">Claim the deal &rarr;</a>
       </div>
 
       <!-- 7 -->
-      <div class="lst-reason">
-        <div class="lst-imgbox">{%- if section.settings.reason7_image -%}<img src="{{ section.settings.reason7_image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}<span class="lst-ph">Reason 7<small>third-party tested</small></span>{%- endif -%}</div>
+      <div class="lst-reason rev">
+        <div class="lst-imgbox">{%- if section.settings.reason7_image -%}<img src="{{ section.settings.reason7_image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}<span class="lst-ph">Reason 7<small>Dr. Katie Chen</small></span>{%- endif -%}</div>
         <div class="lst-reason-body">
-          <div class="lst-cardhead"><div class="lst-num">7</div><h3>Third-party tested. Because you shouldn't have to take anyone's word for it.</h3></div>
-          <p><span class="lst-lbl">What most brands do:</span> Self-certify. "Trust us" isn't a quality program.</p>
-          <p><span class="lst-lbl">Why it fails:</span> The supplement industry is full of products that don't contain what the label claims — you've probably already swallowed one of them. Independent testing is the difference between "we say it's clean" and "someone else proved it."</p>
-          <p><span class="lst-lbl">What to demand:</span> Third-party testing. Made in the USA. Vegan. No artificial sweeteners.</p>
-          <div class="lst-pass"><p><span class="lst-lbl">&#10003; Womankind passes:</span> Third-party tested, made in the USA, vegan, zero sugar, zero artificial sweeteners.</p></div>
+          <div class="lst-cardhead"><div class="lst-num">7</div><h3>Backed By Real Research, Not Marketing</h3></div>
+          <p>These aren't trend ingredients. The botanicals sit behind 24+ peer-reviewed human trials — and the woman who formulated this isn't a brand founder first. She's Dr. Katie Chen, board-certified OB/GYN with Menopause Society certification, who got tired of watching her patients be dismissed with "normal" labs and built the formula herself.</p>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="lst-reason">
+        <div class="lst-imgbox">{%- if section.settings.reason8_image -%}<img src="{{ section.settings.reason8_image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}<span class="lst-ph">Reason 8<small>cranberry gummies</small></span>{%- endif -%}</div>
+        <div class="lst-reason-body">
+          <div class="lst-cardhead"><div class="lst-num">8</div><h3>Tastes Like A Treat, Not A Chore</h3></div>
+          <p>A supplement only works if you take it. Two small cranberry-flavored gummies a day — no horse pills, no chalky aftertaste. The easiest habit you'll ever keep. And habits you keep are the ones that give you your life back.</p>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="lst-reason rev">
+        <div class="lst-imgbox">{%- if section.settings.reason9_image -%}<img src="{{ section.settings.reason9_image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}<span class="lst-ph">Reason 9<small>vegan · tested</small></span>{%- endif -%}</div>
+        <div class="lst-reason-body">
+          <div class="lst-cardhead"><div class="lst-num">9</div><h3>Vegan, Hormone-Free, Third-Party Tested</h3></div>
+          <p>No estrogen. No progesterone. No synthetic anything. Just named botanicals, vitamins, and a six-strain probiotic blend that support your body's own systems — vegan, made in the USA, third-party tested. Clean enough for the long transition.</p>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="lst-reason">
+        <div class="lst-imgbox">{%- if section.settings.reason10_image -%}<img src="{{ section.settings.reason10_image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}<span class="lst-ph">Reason 10<small>90-day guarantee</small></span>{%- endif -%}</div>
+        <div class="lst-reason-body">
+          <div class="lst-cardhead"><div class="lst-num">10</div><h3>90 Days To Feel It — Or Your Money Back</h3></div>
+          <p>The estrobolome doesn't reset overnight. The real results land by month three — which is exactly why the guarantee runs 90 days. If your flashes haven't changed, email for a full refund and keep the bottles. That's not a guarantee. That's a dare.</p>
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- VERDICT TABLE -->
-  <section class="lst-sec" style="background:#EFDFD0;">
-    <div class="lst-wide">
-      <h2 class="lst-h2" style="text-align:center;">The verdict, side by side</h2>
-      <div class="lst-tablescroll">
-        <table class="lst-table">
-          <thead><tr><th></th><th>The gummy you're holding now</th><th>Womankind</th></tr></thead>
-          <tbody>
-            <tr><td>Researched doses, printed on the label</td><td>Probably not — check for "proprietary blend"</td><td>&#10003; Every milligram named</td></tr>
-            <tr><td>Zero sugar</td><td>2–4g per serving is typical</td><td>&#10003; 0g — stevia + monk fruit</td></tr>
-            <tr><td>Estrobolome support</td><td>Almost certainly missing</td><td>&#10003; 10B CFU, 6 named strains</td></tr>
-            <tr><td>Clinician-formulated</td><td>An influencer, maybe</td><td>&#10003; OB/GYN + MSCP founder</td></tr>
-            <tr><td>Guarantee that matches the biology</td><td>30 days, if anything</td><td>&#10003; 90 days, full refund, no returns</td></tr>
-            <tr><td>Third-party tested</td><td>Unknown</td><td>&#10003; Every batch</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p style="max-width:640px;margin:26px auto 0;text-align:center;font-size:16px;line-height:1.7;color:#5a4636;">Seven items. One passes. You can keep comparing bottles forever — or you can stop being the woman the industry counts on to give up.</p>
-    </div>
-  </section>
-
-  <!-- WHAT YOU GET BACK (with lifestyle image) -->
-  <section class="lst-sec">
-    <div class="lst-wide">
-      <div class="lst-split" style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);margin:0 0 34px;">
-        <div class="lst-imgbox">{%- if section.settings.getback_image -%}<img src="{{ section.settings.getback_image | image_url: width: 1000 }}" alt="" loading="lazy">{%- else -%}<span class="lst-ph">Lifestyle image<small>woman with gummy · warm</small></span>{%- endif -%}</div>
-        <div style="padding:40px 38px;display:flex;flex-direction:column;justify-content:center;">
-          <h2 class="lst-h2" style="margin:0 0 6px;">What you actually get back.</h2>
-          <p style="font-size:15px;color:#8a7365;font-style:italic;margin:0 0 16px;">This is the part the checklist can't show.</p>
-          <p style="font-size:16px;line-height:1.7;color:#4a3a30;margin:0;">The criteria matter because of what's waiting on the other side of them. So let me name it — the thing you've been too tired, too hot, too discouraged to say out loud:</p>
-        </div>
-      </div>
-      <div class="lst-wrap lst-lede" style="margin:0 auto;">
-        <p><strong style="color:#3A2A20;">You want to sleep through the night and wake up dry.</strong> Not damp, not reaching for the towel. Dry. Restored. Ready.</p>
-        <p><strong style="color:#3A2A20;">You want to sit in a meeting and think about the work — not the heat climbing your neck.</strong> To be the sharp woman in the room again, the one people listen to, not the one fanning herself and losing her sentence halfway through.</p>
-        <p><strong style="color:#3A2A20;">You want to wear what you want without planning exits.</strong> Layers you don't need to strip. A summer you don't spend dreading.</p>
-        <p><strong style="color:#3A2A20;">You want to feel like yourself in your own body.</strong> Not a stranger to your moods, not a spectator to your own patience snapping. You want <em>her</em> back — the woman who was steady, sharp, warm, funny, fully present. The one your family has been quietly missing too.</p>
-        <p><strong style="color:#3A2A20;">And yes — you want your bed back.</strong> Not the spare-room arrangement that neither of you talks about. Not the quiet distance. The warmth. The closeness. The woman who doesn't flinch when he reaches for her.</p>
-        <p style="margin-bottom:0;">That's not a supplement promise. That's what happens when the thermostat stops misfiring and the body you live in stops betraying you in public.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHAT TO EXPECT -->
-  <section class="lst-sec lst-band">
-    <div class="lst-wrap">
-      <h2 class="lst-h2">What to actually expect <span style="opacity:0.7;font-size:0.7em;">(no fairy tales, no sandbagging)</span></h2>
-      <p style="margin:0 0 18px;"><span class="lst-emph" style="font-weight:700;">First 2–3 weeks:</span> Flushes start feeling <em>lighter</em> — less like an attack, more like a wave you can ride out. Your first flush-free afternoon. A night that's drier than it's been in months. For some women, the first full sleep comes early — and I watched more than one cry from sheer relief.</p>
-      <p style="margin:0 0 18px;"><span class="lst-emph" style="font-weight:700;">By month 1:</span> A clear pattern. Fewer flushes, deeper sleep, steadier days. You'll feel the shift before you believe it.</p>
-      <p style="margin:0 0 22px;"><span class="lst-emph" style="font-weight:700;">By month 3:</span> The women taking Womankind report flushes dropping from a dozen a day to two or three — some days, none. Waking up cool. The fog lifting. Mood steady. The woman in the mirror starting to look familiar again. This is where the formula peaks — which is exactly why the guarantee is 90 days.</p>
-      <p><strong style="color:#F5E6D8;">That's the honest timeline. It's also the reason to start today, not next month.</strong> Every week you wait is another week of 3am sheet changes and mid-meeting flushes — another week of your body fighting itself while the fix sits in a bottle you haven't opened.</p>
-    </div>
-  </section>
-
-  <!-- SUMMER SALE + OFFER (with product image) -->
-  <section class="lst-sec" id="offer" style="background:#EFDFD0;">
-    <div class="lst-wide">
-      <div style="text-align:center;margin:0 0 30px;">
-        <div style="font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9653F;font-weight:700;margin:0 0 12px;">Summer sale — now live</div>
-        <h2 class="lst-h2" style="text-align:center;margin:0;">Save up to 51% with free shipping on all subscriptions.</h2>
-      </div>
-      <div class="lst-offer">
-        <div class="lst-imgbox">{%- if section.settings.offer_image -%}<img src="{{ section.settings.offer_image | image_url: width: 1000 }}" alt="Womankind Hormonal Support Gummies" loading="lazy">{%- else -%}<span class="lst-ph">Product image<small>free bottle with your order</small></span>{%- endif -%}</div>
-        <div class="lst-offer-body">
-          <div class="lst-lede" style="margin:0 0 24px;">
-            <p style="margin:0 0 16px;">I'll be direct with you, the way I wish more people in my field were: the price on this page is our summer-sale pricing, and it isn't permanent. When the sale ends, every bottle goes back to its regular price. Same formula, same bottles — you'd just pay more for them later.</p>
-            <p style="margin:0;">No countdown gimmicks. No fake "almost gone." Just the honest heads-up: <strong style="color:#3A2A20;">if your flashes sound like yours, there's no reason to pay more for the same thing a month from now.</strong></p>
+  <!-- OFFER CARD (advertorial layout) -->
+  <section class="lst-sec" id="offer" style="background:#EFDFD0;scroll-margin-top:70px;">
+    <div class="lst-offer-outer">
+      <span class="lst-offer-badge">Summer sale</span>
+      <div class="lst-offer-dash">
+        <div class="lst-offer-grid">
+          <div class="lst-imgbox">{%- if section.settings.offer_image -%}<img src="{{ section.settings.offer_image | image_url: width: 1000 }}" alt="Womankind Hormonal Support Gummies" loading="lazy">{%- else -%}<span class="lst-ph">Product image<small>bottle + botanicals</small></span>{%- endif -%}</div>
+          <div class="lst-offer-body">
+            <div class="lst-offer-eyebrow"><span class="line"></span><span class="txt">Summer sale — now live</span><span class="line"></span></div>
+            <h2 class="lst-offer-h">Get your cool <em>back</em></h2>
+            <div class="lst-offer-sub">save up to 51% with free shipping on all subscriptions</div>
+            <p class="body">Our summer sale is live: save up to 51% with free shipping on all subscriptions — backed by our 90-day money-back guarantee.</p>
+            <a class="lst-offer-btn" href="{{ wk_pdp }}">Try Womankind risk-free &rarr;</a>
+            <div class="lst-offer-pill"><span style="font-weight:600;">Up to 51% off</span><span style="opacity:0.4;">|</span><span>Free shipping on all subscriptions</span></div>
+            <p class="lst-offer-guarantee">Try it risk-free with our 90-day money-back guarantee.</p>
           </div>
-          <a class="lst-cta" href="{{ wk_pdp }}">Try Womankind risk-free &rarr;</a>
-          <p class="lst-cta-sub">Up to 51% off · Free shipping on subscriptions · 90-day money-back guarantee</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- OBJECTION CHECK -->
+  <!-- FAQ -->
   <section class="lst-sec">
     <div class="lst-wrap">
-      <h2 class="lst-h2">The 30-second objection check</h2>
-      <div class="lst-obj"><h4>"Is this just another placebo?"</h4><p>Every active is at a clinically-relevant dose, printed on the label, no proprietary blends, zero sugar. 24+ peer-reviewed human trials sit behind the botanicals. And if it doesn't work for you, it costs you nothing — no placebo seller makes that offer.</p></div>
-      <div class="lst-obj"><h4>"I've already wasted money on three different products."</h4><p>So had most of the 12,000+ women now taking Womankind daily. The difference: this formula works on the root — the gut-hormone axis — not the surface. And the 90-day guarantee means you're not betting anything you can't get back.</p></div>
-      <div class="lst-obj"><h4>"Can I take this if I can't do HRT?"</h4><p>Yes. No hormones of any kind. It works by supporting your body's own systems. Check with your doctor if you're unsure.</p></div>
-      <div class="lst-obj"><h4>"I'm past 50 — is it too late?"</h4><p>No. The mechanism doesn't switch off at menopause. Women in their mid-50s and beyond report the same pattern: a dozen a day down to a handful a week, dry sheets, real sleep. The only version of too late is another year you didn't have to spend soaked and sleepless.</p></div>
-      <div class="lst-obj" style="margin-bottom:0;"><h4>"How fast does it arrive?"</h4><p>2–5 days in the US. Free shipping on subscriptions. You could be on day one of this by Friday.</p></div>
+      <h2 class="lst-h2">Frequently asked questions</h2>
+      <div class="lst-obj"><h4>Does it actually work, or is it another placebo?</h4><p>Every active is at a clinically-relevant dose, printed on the label — no proprietary blends, zero sugar. The formula targets the root of the flush, and if it doesn't work for you, the 90-day guarantee means it costs you nothing.*</p></div>
+      <div class="lst-obj"><h4>Does it contain hormones? I can't take HRT.</h4><p>No hormones of any kind. The botanicals, vitamins, and probiotic blend support your own systems — which is why so many women who can't or won't take HRT choose Womankind.*</p></div>
+      <div class="lst-obj"><h4>How long until I feel something?</h4><p>Most women feel flushes getting lighter within 2–3 weeks, a clear pattern by month one, and the full shift — fewer, milder flushes, dry nights — by month three. That's exactly why the guarantee runs 90 days.*</p></div>
+      <div class="lst-obj"><h4>Can I take it with my medications — and is it safe long-term?</h4><p>No known interactions with common prescriptions like SSRIs, thyroid, or blood pressure medication — but confirm with your prescriber first. For long-term daily use, yes: established safety data, third-party tested, vegan, made in the USA.*</p></div>
+      <div class="lst-obj" style="margin-bottom:0;"><h4>Can I cancel anytime? What if it doesn't work?</h4><p>Pause, skip, or cancel anytime from your account. And every order is backed by the 90-day money-back guarantee — full refund, no returns, no fine print.</p></div>
     </div>
   </section>
 
-  <!-- BOTTOM LINE -->
-  <section class="lst-sec" style="padding-top:20px;">
+  <!-- TRUST STRIP -->
+  <section class="lst-sec lst-trust" style="background:#EFDFD0;">
     <div class="lst-wrap">
-      <h2 class="lst-h2">The bottom line.</h2>
-      <div class="lst-lede">
-        <p>You didn't end up on this page by accident.</p>
-        <p>You've been flushing in meetings, waking up soaked, sleeping in a bed you've been slowly pushed out of, and nodding politely while someone with a prescription pad told you your labs were "normal."</p>
-        <p>You've spent years being the strong one — holding it together for your family, your career, everyone but yourself — while your own body quietly came apart.</p>
-        <p>And somewhere along the way, you started to believe the lie the whole industry sells: that this is just aging, that you should dress in layers and endure it, that the woman you used to be was gone for good.</p>
-        <p style="font-family:'Fraunces',serif;font-size:24px;line-height:1.3;color:#6B3D42;font-weight:500;margin:6px 0 20px;">She isn't gone. She's still in there — under the heat, the fog, and the exhaustion.</p>
-        <p>Seven items on that checklist. Most formulas fail six. One passes all of them.</p>
-        <p>And it's the one with your money-back guarantee built in.</p>
-        <p style="margin-bottom:0;">You've tried everything else. Try the one thing that was built to actually work — and find out what it feels like to wake up dry, think clearly, and recognize yourself again.</p>
-      </div>
-      <div style="text-align:center;margin:40px 0 0;">
+      <div class="lbl">Trusted by 12,000+ women 40+</div>
+      <p>"I was sceptical too. Three months in, I'm sleeping through the night — and I've stopped dressing in layers."</p>
+      <div style="margin-top:30px;">
         <a class="lst-cta" href="{{ wk_pdp }}">Get Womankind &rarr;</a>
-        <p class="lst-cta-sub">90-day money-back guarantee · Made in the USA · Free shipping on subscriptions</p>
+        <p class="lst-cta-sub">Up to 51% off · Free shipping on subscriptions · 90-day money-back guarantee</p>
       </div>
     </div>
   </section>
 
-  <!-- LEGAL / FOOTER -->
-  <section class="lst-sec" style="padding-top:20px;padding-bottom:56px;">
+  <!-- LEGAL -->
+  <section class="lst-sec" style="padding-top:24px;padding-bottom:54px;">
     <div class="lst-wrap lst-legal">
-      <p><em>A personal account. Results may vary. These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary. Consult your healthcare provider before beginning any supplement, particularly if you are pregnant, nursing, or taking medication.</em></p>
+      <p><em>These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary. This page is an advertisement.</em></p>
       <p style="margin-bottom:0;">© 2026 Womankind. All rights reserved.</p>
     </div>
   </section>
@@ -370,7 +351,7 @@
   "settings": [
     {"type": "url", "id": "cta_url", "label": "CTA / product URL"},
     {"type": "checkbox", "id": "sale_bar_on", "label": "Show sticky sale bar", "default": true},
-    {"type": "text", "id": "sale_bar_text", "label": "Sale bar text", "default": "Summer sale · Buy 2, get 1 free · Free shipping on subscriptions"},
+    {"type": "text", "id": "sale_bar_text", "label": "Sale bar text", "default": "Summer sale · Save up to 51% off · Free shipping on subscriptions"},
     {"type": "header", "content": "Images"},
     {"type": "image_picker", "id": "hero_image", "label": "Lead editorial image"},
     {"type": "image_picker", "id": "reason1_image", "label": "Reason 1 image"},
@@ -378,9 +359,10 @@
     {"type": "image_picker", "id": "reason3_image", "label": "Reason 3 image"},
     {"type": "image_picker", "id": "reason4_image", "label": "Reason 4 image"},
     {"type": "image_picker", "id": "reason5_image", "label": "Reason 5 image"},
-    {"type": "image_picker", "id": "reason6_image", "label": "Reason 6 image"},
     {"type": "image_picker", "id": "reason7_image", "label": "Reason 7 image"},
-    {"type": "image_picker", "id": "getback_image", "label": "Lifestyle image (What you get back)"},
+    {"type": "image_picker", "id": "reason8_image", "label": "Reason 8 image"},
+    {"type": "image_picker", "id": "reason9_image", "label": "Reason 9 image"},
+    {"type": "image_picker", "id": "reason10_image", "label": "Reason 10 image"},
     {"type": "image_picker", "id": "offer_image", "label": "Product image (offer)"}
   ],
   "presets": [{"name": "WK Listicle"}]
