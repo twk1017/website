@@ -403,7 +403,7 @@
         "settings": {
           "eyebrow": "Questions, answered",
           "heading": "Frequently Asked Questions",
-          "subhead": "No spin, no over-promising. If something isn't here, our team reads every message.",
+          "subhead": "",
           "q1": "Will this actually work for me, or is it another placebo?",
           "a1": "We built this formula because that's exactly what we refused to sell. Every active is at a clinically-relevant dose, printed on the label — no proprietary blends, no hidden under-dosing, zero sugar. The formula works on the root: the brain's thermostat and the gut-hormone axis. And if it doesn't work for you, it costs you nothing — we back that with our 90-day guarantee.",
           "q2": "Can I take it with my medications — and is it safe every day, long-term?",
@@ -652,23 +652,23 @@
       "wk-home-faq": {
         "type": "wk-home-faq",
         "settings": {
-          "heading": "Frequently asked questions",
-          "q1": "I'm not sure I'm in perimenopause yet — is this for me?",
-          "a1": "Most likely, yes. Perimenopause can begin in your early forties — often before the word menopause feels like it belongs to you. If you're noticing changes in sleep, mood, or bloating, it was built for that window.*",
-          "q2": "I'm already in menopause — is it too late for this to help?",
-          "a2": "No. The transition doesn't end at your last period — hot flashes, night sweats, and disrupted sleep often continue for years beyond it. It works on the same systems whichever side of that line you're on.*",
-          "q3": "Does it contain hormones?",
-          "a3": "No. There's no estrogen, progesterone, or any hormone — it works through named botanicals, vitamins, and a probiotic blend that support your body's own systems.*",
-          "q4": "Can I take it with HRT, birth control, or my medications?",
-          "a4": "Every ingredient and dose is on the label, so you and your clinician can review it in full. Some botanicals can interact with certain medications and hormone therapies, so check with your provider first if you're on HRT or hormonal birth control, taking medication, pregnant, or nursing.",
-          "q5": "Are there any side effects?",
-          "a5": "It's hormone-free and sugar-free, dosed at researched levels, and formulated as a clean daily for the long transition. Some women notice mild digestive shifts in the first week as the probiotics settle in — that usually passes. If anything persists, check with your provider.",
-          "q6": "How soon will I feel results?",
-          "a6": "Many women report steadier sleep and a calmer stress response within two to three weeks, with the fuller picture by week eight as the actives reach steady state.*",
+          "heading": "Frequently Asked Questions",
+          "q1": "Will this actually work for me, or is it another placebo?",
+          "a1": "We built this formula because that's exactly what we refused to sell. Every active is at a clinically-relevant dose, printed on the label — no proprietary blends, no hidden under-dosing, zero sugar. The formula works on the root: the brain's thermostat and the gut-hormone axis. And if it doesn't work for you, it costs you nothing — we back that with our 90-day guarantee.",
+          "q2": "Can I take it with my medications — and is it safe every day, long-term?",
+          "a2": "There are no known interactions with common prescriptions like SSRIs, thyroid medication, blood pressure medication, or birth control — but if you take daily medication, please run it past your prescriber first. It's a quick conversation. For long-term daily use: yes. Our doses have established safety data, our six probiotic strains are among the most studied in the world, and every batch is third-party tested. Vegan, made in the USA, sugar-free.",
+          "q3": "Does it contain hormones? I can't take HRT.",
+          "a3": "No hormones of any kind. Our botanicals and probiotics work with your body's own systems — steadying the thermostat, calming the stress response, and nourishing the estrobolome — rather than introducing hormones from outside. That's why so many women who can't or won't do HRT choose Womankind.",
+          "q4": "How long until I feel a difference?",
+          "a4": "Most women feel the first shift within 2–3 weeks — flushes feeling lighter, the first flush-free afternoon, a drier night. A clear pattern by month one. The full effect — fewer, milder flushes, steady sleep, the fog lifting — lands by month three, once the gut-hormone axis rebalances. That's why our guarantee is 90 days: your body needs the time, and you shouldn't have to gamble it.",
+          "q5": "Is it too late for me? I'm past 50.",
+          "a5": "No. The systems our formula supports — the hypothalamus-thermostat axis and the estrobolome — don't switch off at menopause. Women in their mid-50s and beyond report the same pattern: flushes down from a dozen a day to a handful a week, dry sheets, real sleep. We built this for perimenopause <em>and</em> beyond. The only version of too late is another year you didn't have to spend soaked and sleepless.",
+          "q6": "How does the subscription work — and can I cancel anytime?",
+          "a6": "Subscribing gets you the best price with free shipping, and you're always in control: pause, skip, or cancel anytime, no hoops. You can also order a one-time purchase if you'd rather try it first. Our honest take: the real results land at month 3, and subscribers pay the lowest price to get there.",
           "q7": "What if it doesn't work for me?",
-          "a7": "Every order is backed by our 90-day money-back guarantee. Take the full three months, and if it isn't right for you, reach out for a full refund — no need to return the bottles.",
-          "q8": "How does the subscription work?",
-          "a8": "Your subscription ships free on your chosen cadence, and you can pause, skip, or cancel anytime from your account — no emails, no hoops."
+          "a7": "Email us within 90 days for a full refund — no returns, no forms, no fine print. The gut-hormone axis doesn't reset overnight, and a 30-day guarantee would ask you to quit before the shift happens. We give you a full three months because that's what your body actually needs — and we're betting on you, not on the fine print.",
+          "q8": "",
+          "a8": ""
         }
       },
       "wk-home-footer": {
