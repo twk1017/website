@@ -144,7 +144,7 @@
                     <div><div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:700;margin-bottom:3px;">{{ section.settings[ek] }}</div><h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;line-height:1.15;color:#F5E6D8;margin:0;">{{ section.settings[tk] }}</h3></div>
                   </div>
                   <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;">
-                    {%- for bi in (1..3) -%}
+                    {%- for bi in (1..4) -%}
                       {%- assign bk = 'c' | append: ci | append: '_b' | append: bi -%}
                       {%- assign bt = section.settings[bk] -%}
                       {%- if bt != blank -%}<li style="display:flex;gap:11px;font-size:14px;line-height:1.5;color:rgba(245,230,216,0.82);"><span style="color:#C9653F;flex:0 0 auto;">&bull;</span><span>{{ bt }}</span></li>{%- endif -%}
@@ -502,21 +502,24 @@
     { "type": "header", "content": "What to expect · Stage 1" },
     { "type": "text", "id": "c1_eyebrow", "label": "Eyebrow", "default": "Week 1" },
     { "type": "text", "id": "c1_title", "label": "Title", "default": "Settling in" },
-    { "type": "text", "id": "c1_b1", "label": "Bullet 1", "default": "A ritual you look forward to — zero sugar, nothing to dread" },
-    { "type": "text", "id": "c1_b2", "label": "Bullet 2", "default": "Easier wind-down as evening comes*" },
-    { "type": "text", "id": "c1_b3", "label": "Bullet 3", "default": "By week two, the first shift — the afternoon flush easing*" },
+    { "type": "text", "id": "c1_b1", "label": "Bullet 1", "default": "A ritual you look forward to — two small gummies, zero sugar, nothing to dread" },
+    { "type": "text", "id": "c1_b2", "label": "Bullet 2", "default": "No dramatic change yet — and that's normal. Your body is laying the groundwork.*" },
+    { "type": "text", "id": "c1_b3", "label": "Bullet 3", "default": "" },
+    { "type": "text", "id": "c1_b4", "label": "Bullet 4", "default": "" },
     { "type": "header", "content": "What to expect · Stage 2" },
     { "type": "text", "id": "c2_eyebrow", "label": "Eyebrow", "default": "Month 1" },
     { "type": "text", "id": "c2_title", "label": "Title", "default": "Finding your rhythm" },
-    { "type": "text", "id": "c2_b1", "label": "Bullet 1", "default": "Fewer 2am wake-ups, deeper sleep*" },
-    { "type": "text", "id": "c2_b2", "label": "Bullet 2", "default": "Cooler nights, daytime flushes spacing out*" },
-    { "type": "text", "id": "c2_b3", "label": "Bullet 3", "default": "A calmer middle and steadier moods*" },
+    { "type": "text", "id": "c2_b1", "label": "Bullet 1", "default": "Flushes feeling lighter — less like an attack, more like a wave you can ride out*" },
+    { "type": "text", "id": "c2_b2", "label": "Bullet 2", "default": "Your first flush-free afternoons, fewer 2am wake-ups*" },
+    { "type": "text", "id": "c2_b3", "label": "Bullet 3", "default": "Drier nights, deeper sleep — a clear pattern forming*" },
+    { "type": "text", "id": "c2_b4", "label": "Bullet 4", "default": "" },
     { "type": "header", "content": "What to expect · Stage 3" },
     { "type": "text", "id": "c3_eyebrow", "label": "Eyebrow", "default": "Month 3+" },
     { "type": "text", "id": "c3_title", "label": "Title", "default": "Feeling like yourself" },
-    { "type": "text", "id": "c3_b1", "label": "Bullet 1", "default": "Hot flashes at their fewest and mildest*" },
-    { "type": "text", "id": "c3_b2", "label": "Bullet 2", "default": "Steady energy, morning to night*" },
-    { "type": "text", "id": "c3_b3", "label": "Bullet 3", "default": "Like yourself again, in your own body" },
+    { "type": "text", "id": "c3_b1", "label": "Bullet 1", "default": "Hot flashes at their fewest and mildest — for many women, down from a dozen a day to two or three, some days none*" },
+    { "type": "text", "id": "c3_b2", "label": "Bullet 2", "default": "Full nights, night after night — waking up cool, not soaked*" },
+    { "type": "text", "id": "c3_b3", "label": "Bullet 3", "default": "The fog lifts: steadier energy, calmer moods, your patience back*" },
+    { "type": "text", "id": "c3_b4", "label": "Bullet 4", "default": "Like yourself again, in your own body" },
     { "type": "header", "content": "How to use" },
     { "type": "richtext", "id": "use_content", "label": "Content", "default": "<ul><li>Take 2 gummies daily, with or without food</li><li>Pick a time you'll remember — consistency matters more than timing</li><li>For optimal results, use consistently for 30–90 days</li></ul>" },
     { "type": "header", "content": "Shipping" },
