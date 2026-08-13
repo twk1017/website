@@ -20,6 +20,12 @@
   #wk-{{ section.id }} [data-adv-faq-panel].is-open { display:block; }
   #wk-{{ section.id }} .adv-scroll { scrollbar-width:none; -ms-overflow-style:none; }
   #wk-{{ section.id }} .adv-scroll::-webkit-scrollbar { display:none; height:0; width:0; }
+  #wk-{{ section.id }} .adv-timeline { display:block; position:relative; max-width:660px; margin:0 auto; padding-left:34px; }
+  #wk-{{ section.id }} .adv-timeline::before { content:""; position:absolute; left:9px; top:8px; bottom:8px; width:2px; background:rgba(201,101,63,0.3); }
+  #wk-{{ section.id }} .adv-timeline > div { position:relative; margin-bottom:16px; padding:24px 24px; }
+  #wk-{{ section.id }} .adv-timeline > div:last-child { margin-bottom:0; }
+  #wk-{{ section.id }} .adv-timeline > div::before { content:""; position:absolute; left:-29px; top:27px; width:12px; height:12px; border-radius:50%; background:#C9653F; border:3px solid #EFDFD0; box-shadow:0 0 0 1px rgba(201,101,63,0.3); }
+  #wk-{{ section.id }} .adv-timeline > div:last-child::before { background:#E2A24C; box-shadow:0 0 0 1px rgba(226,162,76,0.4); }
 
   @media (max-width:749px){
     #wk-{{ section.id }} .adv-h1 { font-size:33px !important; }
@@ -33,12 +39,9 @@
     #wk-{{ section.id }} .adv-offer { grid-template-columns:1fr !important; }
     #wk-{{ section.id }} .adv-sec { padding-left:20px !important; padding-right:20px !important; }
     #wk-{{ section.id }} .adv-lede { font-size:17px !important; }
-    #wk-{{ section.id }} .adv-timeline { display:block !important; position:relative; padding-left:30px; }
-    #wk-{{ section.id }} .adv-timeline::before { content:""; position:absolute; left:8px; top:8px; bottom:8px; width:2px; background:rgba(201,101,63,0.3); }
-    #wk-{{ section.id }} .adv-timeline > div { position:relative; margin-bottom:14px; padding:20px 20px !important; }
-    #wk-{{ section.id }} .adv-timeline > div:last-child { margin-bottom:0; }
-    #wk-{{ section.id }} .adv-timeline > div::before { content:""; position:absolute; left:-27px; top:24px; width:12px; height:12px; border-radius:50%; background:#C9653F; border:3px solid #EFDFD0; box-shadow:0 0 0 1px rgba(201,101,63,0.3); }
-    #wk-{{ section.id }} .adv-timeline > div:last-child::before { background:#E2A24C; box-shadow:0 0 0 1px rgba(226,162,76,0.4); }
+    #wk-{{ section.id }} .adv-timeline { padding-left:30px; }
+    #wk-{{ section.id }} .adv-timeline > div { padding:20px 20px; }
+    #wk-{{ section.id }} .adv-timeline > div::before { left:-27px; top:24px; }
     #wk-{{ section.id }} .adv-grid2 { grid-template-columns:1fr !important; }
     #wk-{{ section.id }} .adv-story-h { font-size:26px !important; }
   }
@@ -243,7 +246,7 @@
       <div style="text-align:center;margin-bottom:12px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9653F;font-weight:700;">{{ section.settings.tl_eyebrow }}</div>
       <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:36px;text-align:center;margin:0 auto 16px;color:#6B3D42;">{{ section.settings.tl_heading }}</h2>
       <p style="max-width:620px;margin:0 auto 50px;text-align:center;font-size:16px;line-height:1.7;color:#5a4636;">{{ section.settings.tl_intro }}{{ wk_star }}</p>
-      <div class="adv-grid5 adv-timeline" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start;">
+      <div class="adv-timeline">
         {%- for i in (1..4) -%}
           {%- assign tll = 'tl' | append: i | append: '_label' -%}
           {%- assign tlb = 'tl' | append: i | append: '_body' -%}
