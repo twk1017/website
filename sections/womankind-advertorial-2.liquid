@@ -243,8 +243,8 @@
       <div style="text-align:center;margin-bottom:12px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9653F;font-weight:700;">{{ section.settings.tl_eyebrow }}</div>
       <h2 class="adv-h2" style="font-family:'Fraunces',serif;font-weight:400;font-size:36px;text-align:center;margin:0 auto 16px;color:#6B3D42;">{{ section.settings.tl_heading }}</h2>
       <p style="max-width:620px;margin:0 auto 50px;text-align:center;font-size:16px;line-height:1.7;color:#5a4636;">{{ section.settings.tl_intro }}{{ wk_star }}</p>
-      <div class="adv-grid5 adv-timeline" style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;">
-        {%- for i in (1..5) -%}
+      <div class="adv-grid5 adv-timeline" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start;">
+        {%- for i in (1..4) -%}
           {%- assign tll = 'tl' | append: i | append: '_label' -%}
           {%- assign tlb = 'tl' | append: i | append: '_body' -%}
           {%- assign tld = 'tl' | append: i | append: '_lead' -%}
@@ -253,7 +253,7 @@
               <div style="font-family:'Fraunces',serif;font-size:15px;color:#E2A24C;margin-bottom:8px;">{{ section.settings[tll] }}</div>
               <div style="width:36px;height:2px;background:rgba(226,162,76,0.5);margin-bottom:16px;"></div>
               {%- if section.settings[tld] != blank -%}<p style="font-size:15.5px;line-height:1.35;color:#F5E6D8;font-weight:700;margin:0 0 9px;">{{ section.settings[tld] }}</p>{%- endif -%}
-              <p style="font-size:14px;line-height:1.6;color:rgba(245,230,216,0.9);margin:0;">{{ section.settings[tlb] }}<span style="color:#E2A24C;">*</span></p>
+              <p style="font-size:14px;line-height:1.6;color:rgba(245,230,216,0.9);margin:0;">This is when it <em>really</em> turned. The flushes that had been a dozen a day dropped to two or three — some days, none. I slept through the night, night after night, and woke up cool instead of soaked. The fog lifted, my patience came back, my mood leveled out. I stopped scanning every room for the nearest exit. I laughed at something my husband said and realized I hadn't done that in a year. Twenty-five years of telling women to ride it out — and I finally understood how wrong that was. That was the month I cried into my coffee, from pure relief, and started telling every patient.<span style="color:#E2A24C;">*</span></p>
             </div>
           {%- else -%}
             <div style="background:#FBF1E6;border:1px solid rgba(107,61,66,0.14);border-radius:14px;padding:26px 22px;">
@@ -265,6 +265,7 @@
           {%- endif -%}
         {%- endfor -%}
       </div>
+      <p style="max-width:640px;margin:34px auto 0;text-align:center;font-family:'Fraunces',serif;font-style:italic;font-size:23px;line-height:1.3;color:#6B3D42;">{{ section.settings.tl_close }}{{ wk_star }}</p>
       <p style="font-size:12px;color:#9a8578;margin:22px 0 0;text-align:center;">{{ section.settings.tl_disclaimer }}</p>
     </div>
   </section>
@@ -718,19 +719,16 @@
     {"type": "text", "id": "tl1_label", "label": "tl1_label", "default": "Week 1"},
     {"type": "text", "id": "tl1_lead", "label": "tl1_lead", "default": "No fireworks."},
     {"type": "textarea", "id": "tl1_body", "label": "tl1_body", "default": "Nothing dramatic — and I was a little smug about it. But it was easy: two small gummies, no sugar, no giant capsule. So I kept going and gave it the full month before judging."},
-    {"type": "text", "id": "tl2_label", "label": "tl2_label", "default": "Week 2"},
+    {"type": "text", "id": "tl2_label", "label": "tl2_label", "default": "Week 2–3"},
     {"type": "text", "id": "tl2_lead", "label": "tl2_lead", "default": "The first crack."},
-    {"type": "textarea", "id": "tl2_body", "label": "tl2_body", "default": "The first crack in my skepticism. An entire afternoon clinic without a single flush — then my first full night's sleep in months. Once could be luck. It happened again two days later. I wrote \"hmm\" in the margin."},
-    {"type": "text", "id": "tl3_label", "label": "tl3_label", "default": "Week 3"},
-    {"type": "text", "id": "tl3_lead", "label": "tl3_lead", "default": "It held."},
-    {"type": "textarea", "id": "tl3_body", "label": "tl3_body", "default": "Flushes dropped from a dozen a day to two or three, and the sheets stayed dry three, then four nights running. My husband came back from the spare room — neither of us made a thing of it. I'd forgotten what steady felt like."},
-    {"type": "text", "id": "tl4_label", "label": "tl4_label", "default": "Week 4"},
-    {"type": "text", "id": "tl4_lead", "label": "tl4_lead", "default": "Relief, not heat."},
-    {"type": "textarea", "id": "tl4_body", "label": "tl4_body", "default": "A full night's sleep. Woke up cool. Cried into my coffee — from relief, not from a flush. Twenty-five years of telling women to ride it out, and I finally understood how wrong that was. That week, I started telling every patient."},
-    {"type": "text", "id": "tl5_label", "label": "tl5_label", "default": "Month 2–3"},
-    {"type": "text", "id": "tl5_lead", "label": "tl5_lead", "default": "The return of me."},
-    {"type": "textarea", "id": "tl5_body", "label": "tl5_body", "default": "The deeper shift. It was never just about fewer flushes — it was the return of me. My mood leveled. My patience came back. The flashes still came sometimes, but they were background noise now, not the loudest thing in my life. I didn't just cool down. I came back."},
+    {"type": "textarea", "id": "tl2_body", "label": "tl2_body", "default": "The first crack in my skepticism. The flushes felt <em>lighter</em> — less like an attack, more like a wave I could ride out. Then an entire afternoon clinic passed without one, and I slept through the night for the first time in months. Once could be luck. It happened again two days later. I wrote \"hmm\" in the margin."},
+    {"type": "text", "id": "tl3_label", "label": "tl3_label", "default": "Week 4"},
+    {"type": "text", "id": "tl3_lead", "label": "tl3_lead", "default": "A clear pattern."},
+    {"type": "textarea", "id": "tl3_body", "label": "tl3_body", "default": "A clear pattern now: fewer flushes, drier nights. My husband came back from the spare room — neither of us made a thing of it. I'd forgotten what steady felt like."},
+    {"type": "text", "id": "tl4_label", "label": "tl4_label", "default": "Month 2–3"},
+    {"type": "text", "id": "tl4_lead", "label": "tl4_lead", "default": "The return of me."},
     {"type": "text", "id": "tl_disclaimer", "label": "tl_disclaimer", "default": "*A personal account. Results may vary. These statements have not been evaluated by a medical authority."},
+    {"type": "text", "id": "tl_close", "label": "tl_close", "default": "I didn't just cool down. I came back."},
     {"type": "header", "content": "Proof — stats & testimonials"},
     {"type": "text", "id": "proof_eyebrow", "label": "proof_eyebrow", "default": "It wasn't just me"},
     {"type": "text", "id": "proof_heading", "label": "proof_heading", "default": "Then I watched it work on other women"},
