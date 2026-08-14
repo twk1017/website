@@ -72,10 +72,6 @@
   #wk-{{ section.id }} .lst-cta { display:inline-flex; align-items:center; gap:10px; background:#C9653F; color:#F5E6D8; text-decoration:none; border-radius:999px; padding:16px 40px; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; }
   #wk-{{ section.id }} .lst-cta-sub { font-size:12.5px; color:#8a7365; margin:14px 0 0; letter-spacing:0.02em; }
 
-  /* sticky sale bar */
-  #wk-{{ section.id }}-bar { position:sticky; top:0; z-index:50; background:#6B3D42; color:#F5E6D8; text-align:center; padding:11px 18px; font-size:13px; letter-spacing:0.03em; display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; }
-  #wk-{{ section.id }}-bar a { color:#E2A24C; text-decoration:underline; text-underline-offset:2px; font-weight:600; white-space:nowrap; }
-
   /* advertorial-style offer card */
   #wk-{{ section.id }} .lst-offer-outer { max-width:1040px; margin:0 auto; position:relative; }
   #wk-{{ section.id }} .lst-offer-badge { position:absolute; top:-19px; left:50%; transform:translateX(-50%); z-index:3; background:#C9653F; color:#F5E6D8; font-family:'Fraunces',serif; font-size:16px; padding:9px 26px; border-radius:999px; white-space:nowrap; }
@@ -120,13 +116,6 @@
 </style>
 
 <div id="wk-{{ section.id }}">
-
-  {%- if section.settings.sale_bar_on -%}
-  <div id="wk-{{ section.id }}-bar">
-    <span>{{ section.settings.sale_bar_text }}</span>
-    <a href="{{ wk_pdp }}">Shop the offer &rarr;</a>
-  </div>
-  {%- endif -%}
 
   <!-- HERO -->
   <section class="lst-sec" style="padding-bottom:20px;">
@@ -350,8 +339,6 @@
   "name": "WK Listicle",
   "settings": [
     {"type": "url", "id": "cta_url", "label": "CTA / product URL"},
-    {"type": "checkbox", "id": "sale_bar_on", "label": "Show sticky sale bar", "default": true},
-    {"type": "text", "id": "sale_bar_text", "label": "Sale bar text", "default": "Summer sale · Save up to 51% off · Free shipping on subscriptions"},
     {"type": "header", "content": "Images"},
     {"type": "image_picker", "id": "hero_image", "label": "Lead editorial image"},
     {"type": "image_picker", "id": "reason1_image", "label": "Reason 1 image"},
