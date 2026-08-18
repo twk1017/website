@@ -97,6 +97,12 @@
   #wk-{{ section.id }} .lst-trust { text-align:center; }
   #wk-{{ section.id }} .lst-trust .lbl { font-family:'Fraunces',serif; font-size:22px; color:#6B3D42; margin:0 0 14px; }
   #wk-{{ section.id }} .lst-trust p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; line-height:1.4; color:#4a3a30; max-width:600px; margin:0 auto; }
+  #wk-{{ section.id }} .lst-faces { display:flex; flex-wrap:wrap; justify-content:center; gap:24px 30px; margin:0 0 34px; }
+  #wk-{{ section.id }} .lst-face { width:96px; text-align:center; }
+  #wk-{{ section.id }} .lst-face-av { width:76px; height:76px; border-radius:50%; margin:0 auto 9px; overflow:hidden; background:linear-gradient(150deg,#D8C2BA,#C9A89F); display:flex; align-items:center; justify-content:center; color:#6B3D42; font-family:'Fraunces',serif; font-size:27px; position:relative; }
+  #wk-{{ section.id }} .lst-face-av img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  #wk-{{ section.id }} .lst-face-name { font-size:12px; color:#3A2A20; font-weight:600; line-height:1.3; }
+  #wk-{{ section.id }} .lst-face-stars { color:#E2A24C; font-size:10px; letter-spacing:1px; margin-top:3px; }
 
   #wk-{{ section.id }} .lst-legal { font-size:11.5px; line-height:1.6; color:#9a8578; }
   #wk-{{ section.id }} .lst-legal p { margin:0 0 10px; }
@@ -317,8 +323,40 @@
 
   <!-- TRUST STRIP -->
   <section class="lst-sec lst-trust" style="background:#EFDFD0;">
-    <div class="lst-wrap">
+    <div class="lst-wide">
       <div class="lbl">Trusted by 12,000+ women 40+</div>
+      <div class="lst-faces">
+        <div class="lst-face">
+          <div class="lst-face-av">{%- if section.settings.customer1_image -%}<img src="{{ section.settings.customer1_image | image_url: width: 200 }}" alt="Margaret R.">{%- else -%}M{%- endif -%}</div>
+          <div class="lst-face-name">Margaret R., 48</div>
+          <div class="lst-face-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+        <div class="lst-face">
+          <div class="lst-face-av">{%- if section.settings.customer2_image -%}<img src="{{ section.settings.customer2_image | image_url: width: 200 }}" alt="Elena V.">{%- else -%}E{%- endif -%}</div>
+          <div class="lst-face-name">Elena V., 45</div>
+          <div class="lst-face-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+        <div class="lst-face">
+          <div class="lst-face-av">{%- if section.settings.customer3_image -%}<img src="{{ section.settings.customer3_image | image_url: width: 200 }}" alt="Grace L.">{%- else -%}G{%- endif -%}</div>
+          <div class="lst-face-name">Grace L., 47</div>
+          <div class="lst-face-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+        <div class="lst-face">
+          <div class="lst-face-av">{%- if section.settings.customer4_image -%}<img src="{{ section.settings.customer4_image | image_url: width: 200 }}" alt="Renée J.">{%- else -%}R{%- endif -%}</div>
+          <div class="lst-face-name">Renée J., 50</div>
+          <div class="lst-face-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+        <div class="lst-face">
+          <div class="lst-face-av">{%- if section.settings.customer5_image -%}<img src="{{ section.settings.customer5_image | image_url: width: 200 }}" alt="Gabriela R.">{%- else -%}G{%- endif -%}</div>
+          <div class="lst-face-name">Gabriela R., 43</div>
+          <div class="lst-face-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+        <div class="lst-face">
+          <div class="lst-face-av">{%- if section.settings.customer6_image -%}<img src="{{ section.settings.customer6_image | image_url: width: 200 }}" alt="Cass M.">{%- else -%}C{%- endif -%}</div>
+          <div class="lst-face-name">Cass M., 49</div>
+          <div class="lst-face-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+      </div>
       <p>"I was sceptical too. Three months in, I'm sleeping through the night — and I've stopped dressing in layers."</p>
       <div style="margin-top:30px;">
         <a class="lst-cta" href="{{ wk_pdp }}">Get Womankind &rarr;</a>
@@ -353,7 +391,14 @@
     {"type": "image_picker", "id": "reason8_image", "label": "Reason 8 image"},
     {"type": "image_picker", "id": "reason9_image", "label": "Reason 9 image"},
     {"type": "image_picker", "id": "reason10_image", "label": "Reason 10 image"},
-    {"type": "image_picker", "id": "offer_image", "label": "Product image (offer)"}
+    {"type": "image_picker", "id": "offer_image", "label": "Product image (offer)"},
+    {"type": "header", "content": "Customer photos (trust strip)"},
+    {"type": "image_picker", "id": "customer1_image", "label": "Margaret R."},
+    {"type": "image_picker", "id": "customer2_image", "label": "Elena V."},
+    {"type": "image_picker", "id": "customer3_image", "label": "Grace L."},
+    {"type": "image_picker", "id": "customer4_image", "label": "Renée J."},
+    {"type": "image_picker", "id": "customer5_image", "label": "Gabriela R."},
+    {"type": "image_picker", "id": "customer6_image", "label": "Cass M."}
   ],
   "presets": [{"name": "WK Listicle"}]
 }
