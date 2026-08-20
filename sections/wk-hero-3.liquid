@@ -1,3 +1,4 @@
+{%- comment -%} gummies-3 hero variant — clone of wk-hero (A/B test) {%- endcomment -%}
 {%- assign wk_product = section.settings.product -%}
 {%- if wk_product != blank -%}{%- assign wk_variant = wk_product.selected_or_first_available_variant -%}{%- assign wk_selling_plan = wk_product.selling_plan_groups.first.selling_plans.first -%}{%- endif -%}
 
