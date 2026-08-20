@@ -1,0 +1,77 @@
+  <!-- COMPARISON (gummies-3) -->
+  <section id="wk-compare-{{ section.id }}" style="background:#EFDFD0;padding:88px 28px;">
+    <style>
+      #wk-compare-{{ section.id }} .wk-cmp-table { width:100%; border-collapse:collapse; }
+      #wk-compare-{{ section.id }} .wk-cmp-table th,
+      #wk-compare-{{ section.id }} .wk-cmp-table td { padding:15px 18px; text-align:left; vertical-align:middle; }
+      #wk-compare-{{ section.id }} .wk-cmp-feat { font-size:14.5px; font-weight:500; color:#6B3D42; }
+      #wk-compare-{{ section.id }} .wk-cmp-wk { text-align:center; background:rgba(107,61,66,0.055); }
+      #wk-compare-{{ section.id }} .wk-cmp-comp { text-align:right; font-size:13.5px; color:#8a7568; }
+      #wk-compare-{{ section.id }} .wk-cmp-table thead th { border-bottom:1px solid rgba(107,61,66,0.14); }
+      #wk-compare-{{ section.id }} .wk-cmp-table tbody tr { border-bottom:1px solid rgba(107,61,66,0.10); }
+      #wk-compare-{{ section.id }} .wk-cmp-table tbody tr:last-child { border-bottom:none; }
+      #wk-compare-{{ section.id }} .wk-cmp-check { display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#C9653F;color:#F5E6D8;font-size:13px;font-weight:700;line-height:1; }
+      @media (max-width:600px){
+        #wk-compare-{{ section.id }} .wk-cmp-table th,
+        #wk-compare-{{ section.id }} .wk-cmp-table td { padding:12px 9px; }
+        #wk-compare-{{ section.id }} .wk-cmp-feat { font-size:13px; }
+        #wk-compare-{{ section.id }} .wk-cmp-comp { font-size:12px; }
+      }
+    </style>
+    <div style="max-width:760px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:40px;">
+        <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:14px;">{{ section.settings.eyebrow }}</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:38px;line-height:1.1;margin:0 auto 16px;max-width:20ch;color:#6B3D42;">{{ section.settings.heading }}</h2>
+        <p style="font-size:15px;line-height:1.6;color:#4a3a30;max-width:56ch;margin:0 auto;">{{ section.settings.intro }}</p>
+      </div>
+
+      <div style="background:#FFFCF8;border:1px solid rgba(107,61,66,0.10);border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(107,61,66,0.07);">
+        <table class="wk-cmp-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="wk-cmp-wk" style="background:#6B3D42;color:#F5E6D8;font-family:'Fraunces',serif;font-weight:500;font-size:16px;text-align:center;">Womankind</th>
+              <th style="text-align:right;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:#8a7568;font-weight:600;">Typical menopause gummy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="wk-cmp-feat">Every active and dose disclosed</td><td class="wk-cmp-wk"><span class="wk-cmp-check">&check;</span></td><td class="wk-cmp-comp">Often hidden in blends</td></tr>
+            <tr><td class="wk-cmp-feat">Standardized botanical extracts</td><td class="wk-cmp-wk"><span class="wk-cmp-check">&check;</span></td><td class="wk-cmp-comp">Often unspecified</td></tr>
+            <tr><td class="wk-cmp-feat">10 billion CFU probiotic blend</td><td class="wk-cmp-wk"><span class="wk-cmp-check">&check;</span></td><td class="wk-cmp-comp">Rarely included</td></tr>
+            <tr><td class="wk-cmp-feat">Zero added sugar</td><td class="wk-cmp-wk"><span class="wk-cmp-check">&check;</span></td><td class="wk-cmp-comp">Often contains sugar</td></tr>
+            <tr><td class="wk-cmp-feat">Hormone-free</td><td class="wk-cmp-wk"><span class="wk-cmp-check">&check;</span></td><td class="wk-cmp-comp">Varies</td></tr>
+            <tr><td class="wk-cmp-feat">Formulated for perimenopause</td><td class="wk-cmp-wk"><span class="wk-cmp-check">&check;</span></td><td class="wk-cmp-comp">Often general women’s wellness</td></tr>
+            <tr><td class="wk-cmp-feat">90-day money-back guarantee</td><td class="wk-cmp-wk"><span class="wk-cmp-check">&check;</span></td><td class="wk-cmp-comp">Not always</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="text-align:center;font-size:15px;line-height:1.6;color:#4a3a30;max-width:52ch;margin:34px auto 0;">{{ section.settings.closing }}</p>
+
+      <div style="text-align:center;margin:30px 0 0;">
+        <button type="button" data-wk-compare-cta style="cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:17px 44px;font-size:14px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.cta_label }}</button>
+        <div style="margin:14px 0 0;font-size:12.5px;color:#6B3D42;font-weight:600;display:flex;align-items:center;justify-content:center;gap:7px;"><span style="color:#C9653F;">&check;</span>{{ section.settings.guarantee_text }}</div>
+      </div>
+    </div>
+    <script>
+      (function(){
+        var root = document.getElementById('wk-compare-{{ section.id }}');
+        if(!root) return;
+        var cta = root.querySelector('[data-wk-compare-cta]');
+        if(cta) cta.addEventListener('click', function(){ window.scrollTo({ top:0, behavior:'smooth' }); });
+      })();
+    </script>
+
+{% schema %}
+{
+  "name": "WK Compare (g3)",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Not your typical menopause gummy" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "More than candy with a menopause label" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Most gummies give you sugar, vague blends, and trendy ingredients sprinkled in at label-friendly amounts. Womankind was built differently: a zero-sugar, hormone-free formula with every active and dose printed clearly on the label." },
+    { "type": "textarea", "id": "closing", "label": "Closing line", "default": "Nothing hidden. Nothing sprinkled in just for the label. Just serious daily support for the symptoms that make perimenopause feel anything but normal.*" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Try Womankind risk-free" },
+    { "type": "text", "id": "guarantee_text", "label": "Guarantee text", "default": "90-day money-back guarantee" }
+  ]
+}
+{% endschema %}
