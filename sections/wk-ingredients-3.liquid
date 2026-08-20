@@ -1,0 +1,238 @@
+  <!-- INGREDIENT DEEP DIVE -->
+  {%- assign ing_defaults = 'wk-ing-ashwagandha.jpg,wk-ing-black-cohosh.jpg,wk-ing-red-clover.jpg,wk-ing-chasteberry.jpg,wk-ing-dong-quai.jpg,wk-ing-cranberry.jpg,wk-ing-vitamins.jpg,wk-ing-probiotic.jpg' | split: ',' -%}
+  <section id="wk-ing-{{ section.id }}" style="background:#F5E6D8;padding:88px 28px;">
+    <style>
+      #wk-ing-{{ section.id }} .wk-ing-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+      #wk-ing-{{ section.id }} .wk-ing-card {
+        position:relative; overflow:hidden; text-align:left; cursor:pointer;
+        background:#FFFCF8; border:1px solid rgba(107,61,66,0.11); border-radius:16px;
+        min-height:120px; padding:22px 44% 22px 24px; width:100%; display:block;
+        box-shadow:0 6px 20px rgba(107,61,66,0.05); transition:box-shadow 0.18s ease, transform 0.18s ease;
+        font-family:inherit; color:inherit;
+      }
+      #wk-ing-{{ section.id }} .wk-ing-card:hover { box-shadow:0 12px 30px rgba(107,61,66,0.12); transform:translateY(-2px); }
+      #wk-ing-{{ section.id }} .wk-ing-card:focus-visible { outline:2px solid #C9653F; outline-offset:2px; }
+      #wk-ing-{{ section.id }} .wk-ing-card-img { position:absolute; top:0; right:0; bottom:0; width:42%; height:100%; object-fit:cover; display:block; }
+      #wk-ing-{{ section.id }} .wk-ing-plus {
+        position:absolute; bottom:12px; right:12px; z-index:2; width:34px; height:34px; border-radius:50%;
+        background:#6B3D42; color:#F5E6D8; display:inline-flex; align-items:center; justify-content:center;
+        font-size:20px; line-height:1; box-shadow:0 3px 10px rgba(43,24,26,0.28); pointer-events:none;
+      }
+      /* modal */
+      #wk-ing-{{ section.id }} .wk-ingm-slide { flex:0 0 100%; width:100%; }
+      #wk-ing-{{ section.id }} .wk-ingm-track { display:flex; transition:transform 0.32s cubic-bezier(0.4,0,0.2,1); }
+      @media (max-width:749px) {
+        #wk-ing-{{ section.id }} .wk-ing-grid { grid-template-columns:1fr; }
+        #wk-ing-{{ section.id }} .wk-ing-card { min-height:104px; padding:20px 46% 20px 20px; }
+      }
+    </style>
+    <div style="max-width:1080px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:54px;">
+        <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:14px;">{{ section.settings.eyebrow }}</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:40px;line-height:1.08;margin:0 auto 14px;max-width:20ch;color:#6B3D42;">{{ section.settings.heading }}</h2>
+        <p style="font-size:15px;line-height:1.6;color:#4a3a30;max-width:54ch;margin:0 auto;">{{ section.settings.subhead }}</p>
+      </div>
+
+      <div class="wk-ing-grid">
+        {%- assign vis = 0 -%}
+        {%- for i in (1..8) -%}
+          {%- assign nk = 'ing' | append: i | append: '_name' -%}
+          {%- assign name = section.settings[nk] -%}
+          {%- if name != blank -%}
+            {%- assign rk = 'ing' | append: i | append: '_role' -%}
+            {%- assign dk = 'ing' | append: i | append: '_dose' -%}
+            {%- assign ik = 'ing' | append: i | append: '_image' -%}
+            {%- assign img = section.settings[ik] -%}
+            {%- if img -%}{%- assign src = img | image_url: width: 320 -%}{%- else -%}{%- assign fname = ing_defaults[forloop.index0] -%}{%- assign src = fname | asset_url -%}{%- endif -%}
+            <div class="wk-ing-card" role="button" tabindex="0" data-wk-ing-open="{{ vis }}" aria-label="Learn more about {{ name | escape }}">
+              <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:7px;">
+                <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:20px;line-height:1.12;margin:0;color:#6B3D42;">{{ name }}</h3>
+                {%- if section.settings[dk] != blank -%}<span style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">{{ section.settings[dk] }}</span>{%- endif -%}
+              </div>
+              <p style="font-size:13px;line-height:1.4;color:#7a6258;margin:0;">{{ section.settings[rk] }}</p>
+              <img src="{{ src }}" alt="{{ name | escape }}" width="200" height="200" loading="lazy" class="wk-ing-card-img">
+              <span class="wk-ing-plus" aria-hidden="true">+</span>
+            </div>
+            {%- assign vis = vis | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <div style="text-align:center;margin-top:48px;">
+        <button type="button" data-wk-suppfacts-open style="cursor:pointer;font-family:inherit;display:inline-block;background:none;border:1.5px solid #6B3D42;color:#6B3D42;border-radius:999px;padding:15px 38px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.supp_button_label }}</button>
+      </div>
+    </div>
+
+    <!-- INGREDIENT DETAIL MODAL (carousel) -->
+    <div data-wk-ingm-overlay role="dialog" aria-modal="true" aria-label="Ingredient details" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(43,24,26,0.66);align-items:center;justify-content:center;padding:24px;">
+      <div style="position:relative;background:#FFFCF8;border-radius:18px;max-width:520px;width:100%;max-height:90vh;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,0.35);">
+        <button type="button" data-wk-ingm-close aria-label="Close" style="cursor:pointer;font-family:inherit;position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;border:none;background:rgba(107,61,66,0.9);color:#F5E6D8;font-size:19px;line-height:1;display:inline-flex;align-items:center;justify-content:center;z-index:3;">&times;</button>
+        <div style="overflow:hidden;">
+          <div class="wk-ingm-track" data-wk-ingm-track>
+            {%- assign vis = 0 -%}
+            {%- for i in (1..8) -%}
+              {%- assign nk = 'ing' | append: i | append: '_name' -%}
+              {%- assign name = section.settings[nk] -%}
+              {%- if name != blank -%}
+                {%- assign dk = 'ing' | append: i | append: '_dose' -%}
+                {%- assign dsk = 'ing' | append: i | append: '_desc' -%}
+                {%- assign ik = 'ing' | append: i | append: '_image' -%}
+                {%- assign img = section.settings[ik] -%}
+                {%- if img -%}{%- assign msrc = img | image_url: width: 640 -%}{%- else -%}{%- assign fname = ing_defaults[forloop.index0] -%}{%- assign msrc = fname | asset_url -%}{%- endif -%}
+                <div class="wk-ingm-slide">
+                  <img src="{{ msrc }}" alt="{{ name | escape }}" width="520" height="240" loading="lazy" style="width:100%;height:210px;object-fit:cover;display:block;">
+                  <div style="padding:26px 30px 30px;max-height:calc(90vh - 210px);overflow:auto;">
+                    <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+                      <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:24px;line-height:1.1;margin:0;color:#6B3D42;">{{ name }}</h3>
+                      {%- if section.settings[dk] != blank -%}<span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#C9653F;font-weight:700;">{{ section.settings[dk] }}</span>{%- endif -%}
+                    </div>
+                    <p style="font-size:15px;line-height:1.62;color:#4a3a30;margin:0;">{{ section.settings[dsk] }}</p>
+                  </div>
+                </div>
+                {%- assign vis = vis | plus: 1 -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 20px;border-top:1px solid rgba(107,61,66,0.12);background:#FFFCF8;">
+          <button type="button" data-wk-ingm-prev aria-label="Previous ingredient" style="cursor:pointer;font-family:inherit;width:40px;height:40px;border-radius:50%;border:none;background:#6B3D42;color:#F5E6D8;font-size:17px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;">&lsaquo;</button>
+          <span data-wk-ingm-count style="font-size:11.5px;letter-spacing:0.14em;text-transform:uppercase;color:#6B3D42;font-weight:600;">1 / 1</span>
+          <button type="button" data-wk-ingm-next aria-label="Next ingredient" style="cursor:pointer;font-family:inherit;width:40px;height:40px;border-radius:50%;border:none;background:#6B3D42;color:#F5E6D8;font-size:17px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;">&rsaquo;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUPPLEMENT FACTS LIGHTBOX -->
+    {%- if section.settings.supp_facts_image -%}{%- assign supp_src = section.settings.supp_facts_image | image_url: width: 700 -%}{%- else -%}{%- assign supp_src = 'wk-supplement-facts.jpg' | asset_url -%}{%- endif -%}
+    <div data-wk-suppfacts-overlay role="dialog" aria-modal="true" aria-label="Supplement facts" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(43,24,26,0.66);align-items:center;justify-content:center;padding:24px;">
+      <div data-wk-suppfacts-dialog style="position:relative;background:#fff;border-radius:16px;max-width:560px;width:100%;max-height:90vh;overflow:auto;box-shadow:0 24px 70px rgba(0,0,0,0.35);">
+        <button type="button" data-wk-suppfacts-close aria-label="Close" style="cursor:pointer;font-family:inherit;position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;border:none;background:#6B3D42;color:#F5E6D8;font-size:20px;line-height:1;display:inline-flex;align-items:center;justify-content:center;z-index:2;">&times;</button>
+        <img src="{{ supp_src }}" alt="Womankind hormonal support gummies — full supplement facts panel" width="692" height="705" loading="lazy" style="display:block;width:100%;height:auto;border-radius:16px;">
+      </div>
+    </div>
+
+    <script>
+      (function(){
+        var root = document.getElementById('wk-ing-{{ section.id }}');
+        if(!root) return;
+
+        /* ---- ingredient detail carousel ---- */
+        var overlay = root.querySelector('[data-wk-ingm-overlay]');
+        var track   = root.querySelector('[data-wk-ingm-track]');
+        var count   = root.querySelector('[data-wk-ingm-count]');
+        var prev    = root.querySelector('[data-wk-ingm-prev]');
+        var next    = root.querySelector('[data-wk-ingm-next]');
+        var slides  = track ? track.querySelectorAll('.wk-ingm-slide') : [];
+        var total   = slides.length;
+        var cur     = 0;
+
+        function render(){
+          track.style.transform = 'translateX(' + (-cur * 100) + '%)';
+          count.textContent = (cur + 1) + ' / ' + total;
+          prev.style.visibility = cur === 0 ? 'hidden' : 'visible';
+          next.style.visibility = cur === total - 1 ? 'hidden' : 'visible';
+        }
+        function openM(idx){
+          cur = Math.max(0, Math.min(idx, total - 1));
+          overlay.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+          render();
+        }
+        function closeM(){
+          overlay.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+        root.querySelectorAll('[data-wk-ing-open]').forEach(function(btn){
+          var idx = function(){ return parseInt(btn.getAttribute('data-wk-ing-open'), 10) || 0; };
+          btn.addEventListener('click', function(){ openM(idx()); });
+          btn.addEventListener('keydown', function(e){
+            if(e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar'){ e.preventDefault(); openM(idx()); }
+          });
+        });
+        if(prev) prev.addEventListener('click', function(){ if(cur > 0){ cur--; render(); } });
+        if(next) next.addEventListener('click', function(){ if(cur < total - 1){ cur++; render(); } });
+        if(overlay){
+          overlay.addEventListener('click', function(e){ if(e.target === overlay) closeM(); });
+          root.querySelector('[data-wk-ingm-close]').addEventListener('click', closeM);
+        }
+        document.addEventListener('keydown', function(e){
+          if(overlay.style.display !== 'flex') return;
+          if(e.key === 'Escape') closeM();
+          else if(e.key === 'ArrowLeft' && cur > 0){ cur--; render(); }
+          else if(e.key === 'ArrowRight' && cur < total - 1){ cur++; render(); }
+        });
+
+        /* ---- supplement facts lightbox ---- */
+        var sOverlay = root.querySelector('[data-wk-suppfacts-overlay]');
+        var sOpen    = root.querySelector('[data-wk-suppfacts-open]');
+        var sClose   = root.querySelector('[data-wk-suppfacts-close]');
+        if(sOpen && sOverlay){
+          sOpen.addEventListener('click', function(){ sOverlay.style.display = 'flex'; document.body.style.overflow = 'hidden'; });
+          function sc(){ sOverlay.style.display = 'none'; document.body.style.overflow = ''; }
+          if(sClose) sClose.addEventListener('click', sc);
+          sOverlay.addEventListener('click', function(e){ if(e.target === sOverlay) sc(); });
+          document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && sOverlay.style.display === 'flex') sc(); });
+        }
+      })();
+    </script>
+
+{% schema %}
+{
+  "name": "WK Ingredients (g3)",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "What's inside, and why" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Every ingredient, chosen for a reason" },
+    { "type": "textarea", "id": "subhead", "label": "Subheading", "default": "No proprietary blends. No fairy dust. No hiding behind vague labels. Every active in Womankind is clearly named, fully dosed, and selected for the specific role it plays in supporting you through perimenopause—with ingredient choices grounded in published research, not marketing fluff." },
+    { "type": "text", "id": "supp_button_label", "label": "Supplement-facts button", "default": "See full supplement facts" },
+    { "type": "image_picker", "id": "supp_facts_image", "label": "Supplement facts panel", "info": "Defaults to wk-supplement-facts.jpg" },
+    { "type": "header", "content": "Ingredient 1" },
+    { "type": "image_picker", "id": "ing1_image", "label": "Image" },
+    { "type": "text", "id": "ing1_name", "label": "Name", "default": "Ashwagandha root" },
+    { "type": "text", "id": "ing1_role", "label": "Card label (benefit)", "default": "Calmer moods and a steadier stress response*" },
+    { "type": "text", "id": "ing1_dose", "label": "Dose", "default": "200 mg" },
+    { "type": "textarea", "id": "ing1_desc", "label": "Description", "default": "A standardised adaptogen for the stress response — supporting steadier mood and calmer days through the transition.*" },
+    { "type": "header", "content": "Ingredient 2" },
+    { "type": "image_picker", "id": "ing2_image", "label": "Image" },
+    { "type": "text", "id": "ing2_name", "label": "Name", "default": "Black cohosh" },
+    { "type": "text", "id": "ing2_role", "label": "Card label (benefit)", "default": "Fewer, milder hot flashes and night sweats*" },
+    { "type": "text", "id": "ing2_dose", "label": "Dose", "default": "100 mg" },
+    { "type": "textarea", "id": "ing2_desc", "label": "Description", "default": "Standardised to 5% triterpene glycosides — the botanical most studied for hot flashes and night sweats.*" },
+    { "type": "header", "content": "Ingredient 3" },
+    { "type": "image_picker", "id": "ing3_image", "label": "Image" },
+    { "type": "text", "id": "ing3_name", "label": "Name", "default": "Red clover" },
+    { "type": "text", "id": "ing3_role", "label": "Card label (benefit)", "default": "Support through the hormonal changes of perimenopause*" },
+    { "type": "text", "id": "ing3_dose", "label": "Dose", "default": "100 mg" },
+    { "type": "textarea", "id": "ing3_desc", "label": "Description", "default": "40% isoflavones — plant compounds that gently support hormonal balance as estrogen shifts.*" },
+    { "type": "header", "content": "Ingredient 4" },
+    { "type": "image_picker", "id": "ing4_image", "label": "Image" },
+    { "type": "text", "id": "ing4_name", "label": "Name", "default": "Chasteberry" },
+    { "type": "text", "id": "ing4_role", "label": "Card label (benefit)", "default": "A steadier cycle rhythm during perimenopause*" },
+    { "type": "text", "id": "ing4_dose", "label": "Dose", "default": "100 mg" },
+    { "type": "textarea", "id": "ing4_desc", "label": "Description", "default": "Also known as Vitex — traditionally used to support hormonal rhythm and the month-to-month patterns that shift in perimenopause.*" },
+    { "type": "header", "content": "Ingredient 5" },
+    { "type": "image_picker", "id": "ing5_image", "label": "Image" },
+    { "type": "text", "id": "ing5_name", "label": "Name", "default": "Dong quai" },
+    { "type": "text", "id": "ing5_role", "label": "Card label (benefit)", "default": "Traditional support for comfort and vitality*" },
+    { "type": "text", "id": "ing5_dose", "label": "Dose", "default": "100 mg" },
+    { "type": "textarea", "id": "ing5_desc", "label": "Description", "default": "Standardised to 1% ligustilide — a traditional women's botanical, properly dosed rather than sprinkled in.*" },
+    { "type": "header", "content": "Ingredient 6" },
+    { "type": "image_picker", "id": "ing6_image", "label": "Image" },
+    { "type": "text", "id": "ing6_name", "label": "Name", "default": "Cranberry extract" },
+    { "type": "text", "id": "ing6_role", "label": "Card label (benefit)", "default": "Daily urinary and intimate comfort*" },
+    { "type": "text", "id": "ing6_dose", "label": "Dose", "default": "100 mg" },
+    { "type": "textarea", "id": "ing6_desc", "label": "Description", "default": "Supports urinary and everyday comfort — one of the quieter changes estrogen brings.*" },
+    { "type": "header", "content": "Ingredient 7" },
+    { "type": "image_picker", "id": "ing7_image", "label": "Image" },
+    { "type": "text", "id": "ing7_name", "label": "Name", "default": "Vitamins B6, D3 & E" },
+    { "type": "text", "id": "ing7_role", "label": "Card label (benefit)", "default": "Foundational support for mood, bones, immunity, and energy*" },
+    { "type": "text", "id": "ing7_dose", "label": "Dose", "default": "2 mg · 20 mcg · 15 mg" },
+    { "type": "textarea", "id": "ing7_desc", "label": "Description", "default": "Foundational support for mood, bone, and cellular defense — with D3 sourced from lichen, not sheep's wool.*" },
+    { "type": "header", "content": "Ingredient 8" },
+    { "type": "image_picker", "id": "ing8_image", "label": "Image" },
+    { "type": "text", "id": "ing8_name", "label": "Name", "default": "Probiotic blend" },
+    { "type": "text", "id": "ing8_role", "label": "Card label (benefit)", "default": "Gut support for the body's natural hormone pathways*" },
+    { "type": "text", "id": "ing8_dose", "label": "Dose", "default": "10B CFU" },
+    { "type": "textarea", "id": "ing8_desc", "label": "Description", "default": "A 6-strain Lacto/Bifido blend that feeds the estrobolome — the gut bacteria that metabolise estrogen.*" }
+  ]
+}
+{% endschema %}
