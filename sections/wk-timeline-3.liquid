@@ -1,0 +1,69 @@
+  <!-- WHAT TO EXPECT TIMELINE (gummies-3) -->
+  <section style="background:#FBF1E6;padding:92px 28px;">
+    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:0.82fr 1.18fr;gap:64px;align-items:start;">
+
+      <!-- LEFT: intro -->
+      <div>
+        <div style="font-size:11.5px;letter-spacing:0.24em;text-transform:uppercase;color:#A07E81;font-weight:600;margin-bottom:22px;">{{ section.settings.eyebrow }}</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:42px;line-height:1.12;margin:0;color:#6B3D42;letter-spacing:-0.01em;">{{ section.settings.heading }}</h2>
+      </div>
+
+      <!-- RIGHT: timeline -->
+      <div style="position:relative;">
+        <div style="position:absolute;left:8px;top:12px;bottom:12px;width:2px;background:#6B3D42;"></div>
+        {%- for i in (1..3) -%}
+          {%- assign lk = 'node_' | append: i | append: '_label' -%}
+          {%- assign label = section.settings[lk] -%}
+          {%- if label != blank -%}
+          {%- assign tk = 'node_' | append: i | append: '_title' -%}
+          {%- assign title = section.settings[tk] -%}
+          <div style="position:relative;display:grid;grid-template-columns:18px 1fr;gap:26px;padding-bottom:{% if forloop.last %}0{% else %}42px{% endif %};">
+            <div style="width:18px;height:18px;border-radius:50%;background:#6B3D42;position:relative;z-index:1;margin-top:1px;"></div>
+            <div>
+              <span style="display:inline-block;background:#6B3D42;border:1.5px solid #6B3D42;border-radius:6px;padding:8px 15px;font-size:13px;letter-spacing:0.16em;text-transform:uppercase;color:#F5E6D8;font-weight:700;">{{ label }}</span>
+              {%- if title != blank -%}<h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:22px;line-height:1.15;color:#6B3D42;margin:14px 0 0;">{{ title }}</h3>{%- endif -%}
+              <ul style="list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:9px;">
+                {%- for j in (1..4) -%}
+                  {%- assign bk = 'node_' | append: i | append: '_b' | append: j -%}
+                  {%- assign bullet = section.settings[bk] -%}
+                  {%- if bullet != blank -%}<li style="display:flex;gap:11px;font-size:15px;line-height:1.5;color:#3A2A20;"><span style="color:#6B3D42;flex:0 0 auto;">•</span><span>{{ bullet }}</span></li>{%- endif -%}
+                {%- endfor -%}
+              </ul>
+            </div>
+          </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+{% schema %}
+{
+  "name": "WK Timeline (gummies-3)",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "How it works" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "<strong>Two gummies a day.</strong> Here's what to expect next." },
+    { "type": "header", "content": "Stage 1" },
+    { "type": "text", "id": "node_1_label", "label": "Label", "default": "Week 1" },
+    { "type": "text", "id": "node_1_title", "label": "Title", "default": "Start your daily reset" },
+    { "type": "inline_richtext", "id": "node_1_b1", "label": "Bullet 1", "default": "Two zero-sugar gummies become a simple ritual you'll actually look forward to." },
+    { "type": "inline_richtext", "id": "node_1_b2", "label": "Bullet 2", "default": "Your body is beginning to build up the botanicals that support temperature, sleep, mood, and daily energy.*" },
+    { "type": "inline_richtext", "id": "node_1_b3", "label": "Bullet 3" },
+    { "type": "inline_richtext", "id": "node_1_b4", "label": "Bullet 4" },
+    { "type": "header", "content": "Stage 2" },
+    { "type": "text", "id": "node_2_label", "label": "Label", "default": "Month 1" },
+    { "type": "text", "id": "node_2_title", "label": "Title", "default": "Notice the first shifts" },
+    { "type": "inline_richtext", "id": "node_2_b1", "label": "Bullet 1", "default": "Hot flashes feel less intense and easier to ride out.*" },
+    { "type": "inline_richtext", "id": "node_2_b2", "label": "Bullet 2", "default": "Fewer 2am wake-ups. More nights that feel genuinely restful.*" },
+    { "type": "inline_richtext", "id": "node_2_b3", "label": "Bullet 3", "default": "You start noticing cooler nights, steadier moods, and more energy in the afternoon.*" },
+    { "type": "inline_richtext", "id": "node_2_b4", "label": "Bullet 4" },
+    { "type": "header", "content": "Stage 3" },
+    { "type": "text", "id": "node_3_label", "label": "Label", "default": "Month 3+" },
+    { "type": "text", "id": "node_3_title", "label": "Title", "default": "Feel more like yourself again" },
+    { "type": "inline_richtext", "id": "node_3_b1", "label": "Bullet 1", "default": "Hot flashes and night sweats become less frequent and less disruptive.*" },
+    { "type": "inline_richtext", "id": "node_3_b2", "label": "Bullet 2", "default": "More full nights of sleep, without waking up overheated and exhausted.*" },
+    { "type": "inline_richtext", "id": "node_3_b3", "label": "Bullet 3", "default": "Steadier energy, calmer moods, and more patience for the people and things you care about.*" },
+    { "type": "inline_richtext", "id": "node_3_b4", "label": "Bullet 4", "default": "A daily routine that helps you feel more at home in your body.*" }
+  ]
+}
+{% endschema %}
