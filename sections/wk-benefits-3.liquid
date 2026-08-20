@@ -1,0 +1,88 @@
+  <!-- THE BENEFITS YOU FEEL EVERY DAY (gummies-3) -->
+  {%- assign ben_defaults = 'wk-benefit-3.jpg,wk-benefit-1.jpg,wk-benefit-2.jpg,wk-benefit-4.jpg' | split: ',' -%}
+  <style>
+    #wk-{{ section.id }}-ben .wk-ben-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
+    #wk-{{ section.id }}-ben .wk-ben-card { background:rgba(245,230,216,0.05); border:1px solid rgba(245,230,216,0.12); border-radius:18px; padding:16px 16px 22px; transition:transform .25s ease, border-color .25s ease, background .25s ease; }
+    #wk-{{ section.id }}-ben .wk-ben-card:hover { transform:translateY(-4px); border-color:rgba(226,162,76,0.5); background:rgba(245,230,216,0.08); }
+    #wk-{{ section.id }}-ben .wk-ben-media { width:100%; height:auto; aspect-ratio:1/1; border-radius:12px; object-fit:cover; display:block; }
+    @media (max-width:900px){ #wk-{{ section.id }}-ben .wk-ben-grid { grid-template-columns:1fr 1fr; } }
+    @media (max-width:520px){ #wk-{{ section.id }}-ben .wk-ben-grid { grid-template-columns:1fr; } }
+  </style>
+  <section id="wk-{{ section.id }}-ben" style="background:#6B3D42;padding:84px 28px;">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="text-align:center;max-width:820px;margin:0 auto 48px;">
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-style:italic;font-size:38px;line-height:1.08;margin:0 0 14px;color:#F5E6D8;">{{ section.settings.heading_lead }} <span style="color:#E2A24C;font-style:normal;font-weight:500;">{{ section.settings.heading_emph }}</span></h2>
+        <p style="font-size:16px;line-height:1.55;color:rgba(245,230,216,0.78);margin:0;">{{ section.settings.subheading }}</p>
+      </div>
+
+      <div class="wk-ben-grid">
+        {%- for i in (1..4) -%}
+          {%- assign tk = 'b' | append: i | append: '_title' -%}
+          {%- assign title = section.settings[tk] -%}
+          {%- if title != blank -%}
+            {%- assign ik = 'b' | append: i | append: '_image' -%}
+            {%- assign dk = 'b' | append: i | append: '_desc' -%}
+            {%- assign img = section.settings[ik] -%}
+            {%- if img -%}
+              {%- assign src = img | image_url: width: 600 -%}
+            {%- else -%}
+              {%- assign fname = ben_defaults[forloop.index0] -%}
+              {%- assign src = fname | asset_url -%}
+            {%- endif -%}
+            <div class="wk-ben-card">
+              <img class="wk-ben-media" src="{{ src }}" alt="{{ title }}" width="600" height="600" loading="lazy">
+              <h3 style="font-size:14px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:#F5E6D8;margin:20px 0 9px;">{{ title }}</h3>
+              <p style="font-size:14.5px;line-height:1.55;color:rgba(245,230,216,0.78);margin:0;">{{ section.settings[dk] }}</p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      {%- if section.settings.cta_label != blank -%}
+        <div style="text-align:center;margin:52px 0 0;">
+          <button type="button" data-wk-ben-cta style="cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:17px 44px;font-size:14px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.cta_label }}</button>
+          {%- if section.settings.guarantee_text != blank -%}
+            <div style="margin:15px 0 0;font-size:13px;color:rgba(245,230,216,0.9);font-weight:500;display:flex;align-items:center;justify-content:center;gap:7px;"><span style="color:#E2A24C;">&check;</span>{{ section.settings.guarantee_text }}</div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+  <script>
+    (function(){
+      var root = document.getElementById('wk-{{ section.id }}-ben');
+      if(!root) return;
+      var cta = root.querySelector('[data-wk-ben-cta]');
+      if(cta) cta.addEventListener('click', function(){ window.scrollTo({ top:0, behavior:'smooth' }); });
+    })();
+  </script>
+
+{% schema %}
+{
+  "name": "WK - Benefits (g3)",
+  "settings": [
+    { "type": "text", "id": "heading_lead", "label": "Heading (italic part)", "default": "Stop letting perimenopause run your day—" },
+    { "type": "text", "id": "heading_emph", "label": "Heading (emphasis part)", "default": "and ruin your night." },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Fewer hot flashes. Deeper sleep. Calmer moods. Steadier energy. Two zero-sugar gummies a day to help you stop planning your life around perimenopause symptoms." },
+    { "type": "header", "content": "Benefit 1" },
+    { "type": "image_picker", "id": "b1_image", "label": "Image (optional — defaults to bundled photo)" },
+    { "type": "text", "id": "b1_title", "label": "Title", "default": "Turn down the heat" },
+    { "type": "textarea", "id": "b1_desc", "label": "Description", "default": "Fewer, milder hot flashes that stop hijacking meetings, dinners, and everything in between.*" },
+    { "type": "header", "content": "Benefit 2" },
+    { "type": "image_picker", "id": "b2_image", "label": "Image (optional — defaults to bundled photo)" },
+    { "type": "text", "id": "b2_title", "label": "Title", "default": "Sleep through the night" },
+    { "type": "textarea", "id": "b2_desc", "label": "Description", "default": "Cooler, deeper sleep—with fewer 2am wake-ups and mornings that no longer start exhausted.*" },
+    { "type": "header", "content": "Benefit 3" },
+    { "type": "image_picker", "id": "b3_image", "label": "Image (optional — defaults to bundled photo)" },
+    { "type": "text", "id": "b3_title", "label": "Title", "default": "Feel steadier again" },
+    { "type": "textarea", "id": "b3_desc", "label": "Description", "default": "Calmer moods, less overwhelm, and more patience for the people and things that matter.*" },
+    { "type": "header", "content": "Benefit 4" },
+    { "type": "image_picker", "id": "b4_image", "label": "Image (optional — defaults to bundled photo)" },
+    { "type": "text", "id": "b4_title", "label": "Title", "default": "Get your afternoons back" },
+    { "type": "textarea", "id": "b4_desc", "label": "Description", "default": "Steadier energy and clearer focus—without leaning on coffee just to make it through the day.*" },
+    { "type": "header", "content": "Call to action" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Start feeling like yourself again" },
+    { "type": "text", "id": "guarantee_text", "label": "Guarantee text", "default": "Try it for 90 days—or get your money back" }
+  ]
+}
+{% endschema %}
