@@ -385,14 +385,14 @@
       "wk-marquee": {
         "type": "wk-marquee",
         "settings": {
-          "item_1": "Gut–hormone delivery",
-          "item_2": "Third-party tested",
-          "item_3": "GMP & non-GMO",
-          "item_4": "No fillers or sugar",
-          "item_5": "Save 44% with a 3-month supply",
-          "item_6": "Clinically-backed ingredients",
-          "item_7": "Free carbon-neutral shipping on all subscriptions",
-          "item_8": "Made in USA"
+          "item_1": "Zero hormones",
+          "item_2": "Zero sugar",
+          "item_3": "No proprietary blends",
+          "item_4": "Standardized botanical extracts",
+          "item_5": "10 billion CFU probiotics",
+          "item_6": "Third-party tested",
+          "item_7": "Made in the USA",
+          "item_8": ""
         }
       },
       "wk-testimonials": {
