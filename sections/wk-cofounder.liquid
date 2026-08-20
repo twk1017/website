@@ -13,7 +13,10 @@
             <span style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6B3D42;font-weight:700;border:1.5px solid #6B3D42;border-radius:999px;padding:3px 10px;">{{ section.settings.role_badge }}</span>
           </div>
           <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:31px;line-height:1.12;margin:0 0 20px;color:#6B3D42;max-width:26ch;">{{ section.settings.heading }}</h2>
-          <p style="font-size:15.5px;line-height:1.68;color:#4a3a30;margin:0 0 22px;font-family:'Fraunces',serif;font-style:italic;">{{ section.settings.quote }}</p>
+          {%- assign wk_cf_paras = section.settings.quote | split: '||' -%}
+          {%- for para in wk_cf_paras -%}
+            <p style="font-size:15.5px;line-height:1.68;color:#4a3a30;margin:0 0 {% if forloop.last %}22{% else %}16{% endif %}px;font-family:'Fraunces',serif;font-style:italic;">{{ para | strip }}</p>
+          {%- endfor -%}
           <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
             <span style="font-family:'Fraunces',serif;font-style:italic;font-size:22px;color:#6B3D42;">{{ section.settings.signature }}</span>
             <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#A07E81;font-weight:600;">{{ section.settings.credentials }}</span>
