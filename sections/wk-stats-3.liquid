@@ -26,9 +26,6 @@
             {%- endif -%}
           {%- endfor -%}
         </div>
-        {%- if section.settings.closing != blank -%}
-          <p style="font-size:15px;line-height:1.55;color:#6B3D42;font-weight:500;margin:32px 0 0;max-width:44ch;">{{ section.settings.closing }}</p>
-        {%- endif -%}
       </div>
       {%- if section.settings.image -%}{%- assign isrc = section.settings.image | image_url: width: 760 -%}{%- else -%}{%- assign isrc = 'wk-stats-lifestyle.jpg' | asset_url -%}{%- endif -%}
       <img class="wk-st-img" src="{{ isrc }}" alt="{{ section.settings.image.alt | default: 'Womankind' }}" width="760" height="760" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:16px;display:block;">
@@ -78,9 +75,7 @@
     { "type": "text", "id": "s3_label", "label": "Label", "default": "experienced cooler nights and less disrupted sleep" },
     { "type": "header", "content": "Stat 4" },
     { "type": "number", "id": "s4_pct", "label": "Percent", "default": 88 },
-    { "type": "text", "id": "s4_label", "label": "Label", "default": "noticed steadier energy through the day" },
-    { "type": "header", "content": "Closing line" },
-    { "type": "textarea", "id": "closing", "label": "Closing", "default": "92% reported fewer or milder hot flashes. 94% reported better sleep. If you’ve been told to wait it out, this is the opposite of waiting." }
+    { "type": "text", "id": "s4_label", "label": "Label", "default": "noticed steadier energy through the day" }
   ]
 }
 {% endschema %}
