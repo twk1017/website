@@ -11,7 +11,7 @@
       #wk-{{ section.id }}-buy .wk-buy-grid { grid-template-columns:1fr !important; gap:30px !important; padding:36px 22px !important; }
       #wk-{{ section.id }}-buy .wk-gallery { position:static !important; top:auto !important; }
       #wk-{{ section.id }}-buy .wk-thumbs > button { flex:0 0 calc((100% - 27px) / 3.5) !important; }
-      #wk-{{ section.id }}-buy .wk-buy-title { font-size:34px !important; }
+      #wk-{{ section.id }}-buy .wk-buy-title { font-size:26px !important; }
     }
   </style>
   <section id="wk-{{ section.id }}-buy" style="background:#F5E6D8;">
@@ -52,7 +52,7 @@
       <!-- BUY BOX -->
       <div>
         <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:14px;">{{ section.settings.eyebrow }}</div>
-        <h2 class="wk-buy-title" style="font-family:'Fraunces',serif;font-weight:400;font-size:48px;line-height:1.02;margin:0 0 14px;color:#6B3D42;letter-spacing:-0.01em;">{{ section.settings.heading }}</h2>
+        <h2 class="wk-buy-title" style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(26px, 3vw, 30px);line-height:1.12;margin:0 0 14px;color:#6B3D42;letter-spacing:-0.01em;">{{ section.settings.heading }}</h2>
 
         {%- assign oke_product = wk_product | default: all_products['hormonal-support-gummies'] -%}
         <div data-oke-star-rating data-oke-reviews-product-id="shopify-{{ oke_product.id }}" style="margin-bottom:16px;">{{ oke_product.metafields.okendo.StarRatingSnippet }}</div>
@@ -117,10 +117,14 @@
         {%- else -%}
           <button type="button" style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;">Select a product</button>
         {%- endif -%}
-        <div style="display:flex;align-items:center;justify-content:center;gap:11px;margin:16px 0 0;">
-          <span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:1.5px solid #C9653F;color:#C9653F;font-size:11px;font-weight:700;flex:0 0 auto;line-height:1;">{{ section.settings.guarantee_badge }}</span>
-          <span style="font-size:12.5px;color:#6B3D42;font-weight:600;letter-spacing:0.02em;">{{ section.settings.guarantee_text }}</span>
+        <div style="display:flex;align-items:center;gap:14px;margin:16px 0 0;padding:15px 18px;background:rgba(201,101,63,0.08);border:1.5px solid rgba(201,101,63,0.32);border-radius:12px;">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:#C9653F;color:#F5E6D8;font-size:13px;font-weight:700;flex:0 0 auto;line-height:1;box-shadow:0 3px 9px rgba(201,101,63,0.3);">{{ section.settings.guarantee_badge }}</span>
+          <span style="display:block;">
+            <span style="display:block;font-size:14.5px;color:#6B3D42;font-weight:700;letter-spacing:0.01em;line-height:1.25;">90-day money-back guarantee</span>
+            <span style="display:block;font-size:12.5px;color:#4a3a30;line-height:1.4;margin-top:3px;">Try Womankind for a full 90 days. If you don't love it, get your money back.</span>
+          </span>
         </div>
+        <div style="text-align:center;margin:12px 0 0;font-size:11.5px;letter-spacing:0.02em;color:#7a6258;font-weight:600;line-height:1.45;">Hormone-free · Third-party tested · Made in Europe in a GMP-certified facility</div>
       </div>
     </div>
   </section>
@@ -258,15 +262,15 @@
     { "type": "image_picker", "id": "gallery_7_image", "label": "Image 7" },
     { "type": "image_picker", "id": "gallery_8_image", "label": "Image 8" },
     { "type": "header", "content": "Heading" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Daily · for perimenopause & beyond" },
-    { "type": "text", "id": "heading", "label": "Title", "default": "hormonal support gummies" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Zero sugar · no hormones · 90-day guarantee" },
+    { "type": "text", "id": "heading", "label": "Title", "default": "Wake up dry. Get through the day without the heat. Feel like yourself again." },
     { "type": "text", "id": "rating_text", "label": "Rating text", "default": "4.6 · 500+ reviews" },
-    { "type": "textarea", "id": "description", "label": "Description", "default": "For the 2am night sweats, the mid-meeting flushes, and the moods that don't feel like yours — one daily gummy that works on the system behind them.*" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Two zero-sugar gummies a day for hot flashes, night sweats, disrupted sleep, mood changes, and the energy dips that can make you feel unlike yourself.*" },
     { "type": "header", "content": "Benefit checklist" },
-    { "type": "inline_richtext", "id": "benefit_1", "label": "Benefit 1", "default": "Eases hot flashes & night sweats*" },
-    { "type": "inline_richtext", "id": "benefit_2", "label": "Benefit 2", "default": "Fewer night wakings, deeper sleep*" },
-    { "type": "inline_richtext", "id": "benefit_3", "label": "Benefit 3", "default": "Steadies mood & the stress response*" },
-    { "type": "inline_richtext", "id": "benefit_4", "label": "Benefit 4", "default": "Steadier energy, morning to night*" },
+    { "type": "inline_richtext", "id": "benefit_1", "label": "Benefit 1", "default": "Fewer, milder hot flashes and night sweats*" },
+    { "type": "inline_richtext", "id": "benefit_2", "label": "Benefit 2", "default": "Deeper sleep and fewer 2am wake-ups*" },
+    { "type": "inline_richtext", "id": "benefit_3", "label": "Benefit 3", "default": "Steadier mood, stress response, and daytime energy*" },
+    { "type": "inline_richtext", "id": "benefit_4", "label": "Benefit 4", "default": "8 research-backed botanicals in fully disclosed doses — zero hormones, zero sugar, no proprietary blend" },
     { "type": "header", "content": "Flavor" },
     { "type": "text", "id": "flavor_label", "label": "Section label", "default": "Flavor" },
     { "type": "text", "id": "flavor_pill", "label": "Flavor pill", "default": "Deep-red cranberry" },
@@ -287,7 +291,7 @@
     { "type": "text", "id": "plan_1_id", "label": "1-bottle plan ID (monthly)" },
     { "type": "text", "id": "plan_3_id", "label": "3-bottle plan ID (quarterly)" },
     { "type": "text", "id": "plan_6_id", "label": "6-bottle plan ID (every 6 months)" },
-    { "type": "text", "id": "atc_label", "label": "Add-to-bag label", "default": "Add to bag" },
+    { "type": "text", "id": "atc_label", "label": "Add-to-bag label", "default": "Add to cart" },
     { "type": "text", "id": "guarantee_badge", "label": "Guarantee badge", "default": "90" },
     { "type": "text", "id": "guarantee_text", "label": "Guarantee text", "default": "Try it for a full 90 days — love it or your money back" }
   ]
