@@ -112,7 +112,6 @@
                     {%- if spa -%}
                       {%- comment -%} Subscription lines are fixed-quantity bundles: lock the stepper so the plan discount can't be kept on a reduced quantity. Remove still clears the whole line. {%- endcomment -%}
                       <div class="wk-cp-qty wk-cp-qty-locked"><span data-qty>{{ item.quantity }}</span></div>
-                      <p class="wk-cp-subnote">Subscription bundle · quantity set by your plan</p>
                     {%- else -%}
                       <div class="wk-cp-qty">
                         <button type="button" data-wk-dec aria-label="Decrease quantity">&minus;</button>

@@ -171,7 +171,6 @@
       if (spa) {
         // Subscription lines are fixed-quantity bundles: lock the stepper so the plan discount can't be kept on a reduced quantity. Remove still clears the whole line.
         html += '<div class="wk-cd-qty wk-cd-qty-locked"><span>'+item.quantity+'</span></div>';
-        html += '<p class="wk-cd-subnote">Subscription bundle · quantity set by your plan</p>';
       } else {
         html += '<div class="wk-cd-qty">';
         html += '<button type="button" data-wk-dec aria-label="Decrease quantity">&minus;</button>';
