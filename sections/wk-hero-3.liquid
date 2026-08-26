@@ -59,7 +59,12 @@
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:26px;flex-wrap:wrap;">
         <button data-wk="flavor" data-wk-val="cranberry" style="position:relative;cursor:pointer;font-family:inherit;background:#F5E6D8;border:1.5px solid #6B3D42;color:#6B3D42;border-radius:999px;padding:9px 18px;font-size:13px;letter-spacing:0.04em;">{{ section.settings.flavor_pill }}<span data-wk-ring="flavor:cranberry" style="box-shadow:0 0 0 2px #6B3D42;position:absolute;inset:-1.5px;border-radius:999px;pointer-events:none;"></span></button>
         {%- if section.settings.sale_badge != blank -%}
-          <div style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#E2A24C,#C9653F);color:#FFF7EE;border:1.5px solid rgba(251,241,230,0.65);border-radius:999px;padding:9px 18px;font-size:13px;font-weight:800;letter-spacing:0.02em;line-height:1.15;box-shadow:0 4px 14px rgba(201,101,63,0.42);white-space:nowrap;"><span style="font-size:15px;line-height:1;">&#9728;</span>{{ section.settings.sale_badge }}</div>
+          <style>
+            @keyframes wkSalePulse { 0%,100%{ transform:scale(1); box-shadow:0 4px 14px rgba(201,101,63,0.42);} 50%{ transform:scale(1.045); box-shadow:0 7px 22px rgba(201,101,63,0.62);} }
+            .wk-sale-badge { animation:wkSalePulse 2.2s ease-in-out infinite; }
+            @media (prefers-reduced-motion: reduce){ .wk-sale-badge { animation:none; } }
+          </style>
+          <div class="wk-sale-badge" style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#E2A24C,#C9653F);color:#FFF7EE;border:1.5px solid rgba(251,241,230,0.7);border-radius:999px;padding:10px 20px;font-size:13.5px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;line-height:1.1;box-shadow:0 4px 14px rgba(201,101,63,0.42);white-space:nowrap;"><span style="font-size:16px;line-height:1;">&#9728;</span>{{ section.settings.sale_badge }}</div>
         {%- endif -%}
       </div>
 
@@ -512,7 +517,7 @@
     { "type": "header", "content": "How to use" },
     { "type": "richtext", "id": "use_content", "label": "Content", "default": "<p>Take two gummies daily, with or without food. For the best experience, take Womankind consistently as part of your daily routine.</p>" },
     { "type": "header", "content": "Shipping" },
-    { "type": "richtext", "id": "ship_content", "label": "Content", "default": "<p>Orders ship within 24 hours. You’ll receive tracking as soon as your order is on its way.</p><p>We are currently experiencing a high volume of orders, so delivery times, depending on your location, range from 2-9 business days.</p><p>Most US orders arrive within 2-3 business days.</p>" }
+    { "type": "richtext", "id": "ship_content", "label": "Content", "default": "<p>Orders ship within 24 hours. You’ll receive tracking as soon as your order is on its way.</p><p>We are currently experiencing a high volume of orders, so delivery times, depending on your location, range from 2-9 business days.</p>" }
   ]
 }
 {% endschema %}
