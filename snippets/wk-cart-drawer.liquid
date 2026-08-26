@@ -4,6 +4,7 @@
   Opens on click of any [data-wk-cart-open]. Reads /cart.js, edits via /cart/change.js.
   Also intercepts add-to-cart forms so adding a product opens the drawer.
 {%- endcomment -%}
+{%- capture wk_shop_url -%}{%- render 'wk-localized-url', fallback: '/products/hormonal-support-gummies' -%}{%- endcapture -%}
 {% render 'wk-fonts' %}
 {%- comment -%} Find the first non-blank testimonial (from Theme settings → Cart social proof) for the initial render {%- endcomment -%}
 {%- assign wk_q_first_t = '' -%}{%- assign wk_q_first_n = '' -%}{%- assign wk_q_first_a = '' -%}
@@ -147,7 +148,7 @@
     if (countEl) countEl.textContent = cart.item_count ? '(' + cart.item_count + ')' : '';
     if (!cart.items || cart.items.length === 0){
       foot.hidden = true;
-      body.innerHTML = '<div class="wk-cd-empty"><div class="wk-cd-empty-title">Your cart is empty</div><div>Relief is one daily gummy away.</div><a href="https://trywomankind.com/products/hormonal-support-gummies">Shop now</a></div>';
+      body.innerHTML = '<div class="wk-cd-empty"><div class="wk-cd-empty-title">Your cart is empty</div><div>Relief is one daily gummy away.</div><a href="{{ wk_shop_url }}">Shop now</a></div>';
       return;
     }
     foot.hidden = false;

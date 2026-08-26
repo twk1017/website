@@ -6,7 +6,7 @@
   'womankind' layout. The offer buy-box is a real add-to-cart form wired to the Product setting.
 {%- endcomment -%}
 {%- assign wk_star = '<span style="color:#C9653F;">*</span>' -%}
-{%- assign wk_pdp = section.settings.cta_url | default: 'https://trywomankind.com/products/hormonal-support-gummies' -%}
+{%- capture wk_pdp -%}{%- render 'wk-localized-url', url: section.settings.cta_url, fallback: '/products/hormonal-support-gummies' -%}{%- endcapture -%}
 
 {% render 'wk-fonts' %}
 

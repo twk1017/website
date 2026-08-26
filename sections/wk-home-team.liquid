@@ -21,7 +21,7 @@
         <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:38px;line-height:1.1;margin:0 0 20px;color:#6B3D42;">{{ section.settings.heading }}</h2>
         <p style="font-size:15px;line-height:1.65;color:#4a3a30;margin:0 0 18px;max-width:48ch;">{{ section.settings.body_1 }}</p>
         <p style="font-size:15px;line-height:1.65;color:#4a3a30;margin:0 0 32px;max-width:48ch;">{{ section.settings.body_2 }}</p>
-        <a href="{{ section.settings.cta_link | default: 'https://trywomankind.com/products/hormonal-support-gummies' }}" style="align-self:flex-start;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:15px 34px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.cta_label }}</a>
+        <a href="{%- render 'wk-localized-url', url: section.settings.cta_link, fallback: '/products/hormonal-support-gummies' -%}" style="align-self:flex-start;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:15px 34px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">{{ section.settings.cta_label }}</a>
       </div>
     </div>
   </section>

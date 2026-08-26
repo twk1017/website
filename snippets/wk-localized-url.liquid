@@ -1,0 +1,34 @@
+{%- comment -%}
+  wk-localized-url — returns a market-aware URL string.
+
+  Params:
+    url      (optional) a setting value; may be blank, relative (/products/x), or absolute.
+    fallback (optional) relative path used when `url` is blank.
+
+  Behaviour:
+    - Our own absolute URLs are reduced to a relative path.
+    - External absolute URLs (other domains, mailto:, tel:) and '#' pass through unchanged.
+    - Relative paths are prefixed with routes.root_url so they inherit the active
+      market (e.g. /en-gb) — and render unchanged on a single-market store.
+
+  Usage:  href="{%- render 'wk-localized-url', url: section.settings.cta_url, fallback: '/products/hormonal-support-gummies' -%}"
+{%- endcomment -%}
+{%- liquid
+  assign wk_u = url
+  if wk_u == blank
+    assign wk_u = fallback
+  endif
+  # normalise our own absolute URLs down to a relative path so they get the market prefix
+  assign wk_u = wk_u | remove: 'https://www.trywomankind.com' | remove: 'http://www.trywomankind.com' | remove: 'https://trywomankind.com' | remove: 'http://trywomankind.com'
+  if wk_u == blank
+    echo '#'
+  elsif wk_u contains '://' or wk_u contains 'mailto:' or wk_u contains 'tel:' or wk_u == '#'
+    echo wk_u
+  else
+    assign wk_root = routes.root_url
+    if wk_root == '/'
+      assign wk_root = ''
+    endif
+    echo wk_root | append: wk_u
+  endif
+-%}

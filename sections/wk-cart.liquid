@@ -83,7 +83,7 @@
     <div class="wk-cp-wrap">
       <div class="wk-cp-head">
         <h1 class="wk-cp-title">Your cart <span data-wk-cp-count>{% if cart.item_count > 0 %}({{ cart.item_count }}){% endif %}</span></h1>
-        <a class="wk-cp-back" href="https://trywomankind.com/products/hormonal-support-gummies">Continue shopping</a>
+        <a class="wk-cp-back" href="{%- render 'wk-localized-url', fallback: '/products/hormonal-support-gummies' -%}">Continue shopping</a>
       </div>
 
       <div data-wk-cart-refresh>
@@ -91,7 +91,7 @@
           <div class="wk-cp-empty">
             <div class="wk-cp-empty-title">Your cart is empty</div>
             <p>Relief is one daily gummy away.</p>
-            <a href="https://trywomankind.com/products/hormonal-support-gummies">Shop now</a>
+            <a href="{%- render 'wk-localized-url', fallback: '/products/hormonal-support-gummies' -%}">Shop now</a>
           </div>
         {%- else -%}
           <div class="wk-cp-grid">
@@ -162,7 +162,7 @@
                 <span class="wk-cp-sum-value">{{ cart.total_price | money }}</span>
               </div>
               <p class="wk-cp-sum-note">Shipping &amp; discounts calculated at checkout.</p>
-              <a class="wk-cp-checkout" href="/checkout">Checkout</a>
+              <a class="wk-cp-checkout" href="{%- render 'wk-localized-url', url: '/checkout' -%}">Checkout</a>
               <div class="wk-cp-rating"><span class="wk-cp-stars">★★★★★</span> <span>4.6 · Trusted by 50,000+ women</span></div>
               <div class="wk-cp-badges">
                 <div class="wk-cp-badge">

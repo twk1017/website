@@ -38,7 +38,7 @@
                 {%- when 4 -%}{%- assign du = 'https://shopify.com/108000379219/account/pages/7c4a25d5-0da8-4259-bf5f-40ed6112e4d6' -%}
                 {%- else -%}{%- assign du = '#' -%}
               {%- endcase -%}
-              {%- if lv != blank -%}<a href="{{ section.settings[uk] | default: du }}" style="color:rgba(245,230,216,0.8);text-decoration:none;">{{ lv }}</a>{%- endif -%}
+              {%- if lv != blank -%}<a href="{%- render 'wk-localized-url', url: section.settings[uk], fallback: du -%}" style="color:rgba(245,230,216,0.8);text-decoration:none;">{{ lv }}</a>{%- endif -%}
             {%- endfor -%}
           </div>
         </div>
@@ -46,7 +46,7 @@
           <div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E2A24C;font-weight:600;margin-bottom:16px;">{{ section.settings.col3_heading }}</div>
           <div style="display:flex;flex-direction:column;gap:11px;font-size:13px;color:rgba(245,230,216,0.8);">
             <a href="mailto:{{ section.settings.contact1 }}" style="color:rgba(245,230,216,0.8);text-decoration:none;">{{ section.settings.contact1 }}</a>
-            <a href="{{ section.settings.contact_link_url | default: '/pages/contact' }}" style="color:rgba(245,230,216,0.8);text-decoration:none;">{{ section.settings.contact_link_label | default: 'Get in touch' }}</a>
+            <a href="{%- render 'wk-localized-url', url: section.settings.contact_link_url, fallback: '/pages/contact' -%}" style="color:rgba(245,230,216,0.8);text-decoration:none;">{{ section.settings.contact_link_label | default: 'Get in touch' }}</a>
           </div>
         </div>
       </div>

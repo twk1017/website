@@ -50,7 +50,7 @@
             {%- if cv != blank -%}<span><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span>{{ cv }}</span>{%- endif -%}
           {%- endfor -%}
         </div>
-        <a href="{{ section.settings.cta_url | default: 'https://trywomankind.com/products/hormonal-support-gummies' }}" class="wk-h-cta">{{ section.settings.cta_label }} <span class="wk-h-arrow">&rarr;</span></a>
+        <a href="{%- render 'wk-localized-url', url: section.settings.cta_url, fallback: '/products/hormonal-support-gummies' -%}" class="wk-h-cta">{{ section.settings.cta_label }} <span class="wk-h-arrow">&rarr;</span></a>
         <div class="wk-h-guar"><span style="color:#E2A24C;">♡</span>{{ section.settings.guarantee_text }}</div>
       </div>
       <div class="wk-h-media">
