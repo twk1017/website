@@ -38,6 +38,9 @@
   #wk-cart-drawer .wk-cd-qty button{width:30px;height:30px;background:none;border:none;cursor:pointer;font-size:16px;line-height:1;color:#6B3D42;font-family:inherit;}
   #wk-cart-drawer .wk-cd-qty button:disabled{opacity:0.4;cursor:default;}
   #wk-cart-drawer .wk-cd-qty span{min-width:26px;text-align:center;font-size:13.5px;font-weight:600;color:#3A2A20;}
+  #wk-cart-drawer .wk-cd-qty-locked{padding:0 12px;}
+  #wk-cart-drawer .wk-cd-qty-locked span{min-width:0;line-height:30px;}
+  #wk-cart-drawer .wk-cd-subnote{margin:6px 0 0;font-size:11px;color:#7a6258;font-style:italic;}
   #wk-cart-drawer .wk-cd-item-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:10px;}
   #wk-cart-drawer .wk-cd-item-price{font-size:14.5px;font-weight:700;color:#C9653F;white-space:nowrap;}
   #wk-cart-drawer .wk-cd-item-compare{font-size:11.5px;text-decoration:line-through;color:#A07E81;margin-right:6px;font-weight:500;}
@@ -164,11 +167,17 @@
       html += '<div>';
       html += '<p class="wk-cd-item-title">'+esc(item.product_title)+'</p>';
       if (meta.length) html += '<p class="wk-cd-item-meta">'+meta.join(' · ')+'</p>';
-      html += '<div class="wk-cd-qty">';
-      html += '<button type="button" data-wk-dec aria-label="Decrease quantity">&minus;</button>';
-      html += '<span>'+item.quantity+'</span>';
-      html += '<button type="button" data-wk-inc aria-label="Increase quantity">+</button>';
-      html += '</div>';
+      if (spa) {
+        // Subscription lines are fixed-quantity bundles: lock the stepper so the plan discount can't be kept on a reduced quantity. Remove still clears the whole line.
+        html += '<div class="wk-cd-qty wk-cd-qty-locked"><span>'+item.quantity+'</span></div>';
+        html += '<p class="wk-cd-subnote">Subscription bundle · quantity set by your plan</p>';
+      } else {
+        html += '<div class="wk-cd-qty">';
+        html += '<button type="button" data-wk-dec aria-label="Decrease quantity">&minus;</button>';
+        html += '<span>'+item.quantity+'</span>';
+        html += '<button type="button" data-wk-inc aria-label="Increase quantity">+</button>';
+        html += '</div>';
+      }
       html += '</div>';
       html += '<div class="wk-cd-item-right">';
       html += '<div>';

@@ -34,6 +34,9 @@
     #wk-cartpage .wk-cp-qty button{width:34px;height:34px;background:none;border:none;cursor:pointer;font-size:17px;line-height:1;color:#6B3D42;font-family:inherit;}
     #wk-cartpage .wk-cp-qty button:disabled{opacity:0.4;cursor:default;}
     #wk-cartpage .wk-cp-qty span{min-width:30px;text-align:center;font-size:14px;font-weight:600;color:#3A2A20;}
+    #wk-cartpage .wk-cp-qty-locked{padding:0 14px;}
+    #wk-cartpage .wk-cp-qty-locked span{min-width:0;line-height:34px;}
+    #wk-cartpage .wk-cp-subnote{margin:7px 0 0;font-size:11.5px;color:#7a6258;font-style:italic;}
     #wk-cartpage .wk-cp-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:14px;text-align:right;}
     #wk-cartpage .wk-cp-price{font-size:16px;font-weight:700;color:#C9653F;white-space:nowrap;}
     #wk-cartpage .wk-cp-compare{display:block;font-size:12px;text-decoration:line-through;color:#A07E81;font-weight:500;margin-bottom:2px;}
@@ -100,19 +103,25 @@
                   {%- else -%}
                     <span class="wk-cp-img"></span>
                   {%- endif -%}
+                  {%- assign spa = item.selling_plan_allocation -%}
                   <div>
                     <a class="wk-cp-name" href="{{ item.url }}">{{ item.product.title }}</a>
                     {%- if item.variant.title and item.variant.title != 'Default Title' -%}
                       <p class="wk-cp-meta">{{ item.variant.title }}</p>
                     {%- endif -%}
-                    <div class="wk-cp-qty">
-                      <button type="button" data-wk-dec aria-label="Decrease quantity">&minus;</button>
-                      <span data-qty>{{ item.quantity }}</span>
-                      <button type="button" data-wk-inc aria-label="Increase quantity">+</button>
-                    </div>
+                    {%- if spa -%}
+                      {%- comment -%} Subscription lines are fixed-quantity bundles: lock the stepper so the plan discount can't be kept on a reduced quantity. Remove still clears the whole line. {%- endcomment -%}
+                      <div class="wk-cp-qty wk-cp-qty-locked"><span data-qty>{{ item.quantity }}</span></div>
+                      <p class="wk-cp-subnote">Subscription bundle · quantity set by your plan</p>
+                    {%- else -%}
+                      <div class="wk-cp-qty">
+                        <button type="button" data-wk-dec aria-label="Decrease quantity">&minus;</button>
+                        <span data-qty>{{ item.quantity }}</span>
+                        <button type="button" data-wk-inc aria-label="Increase quantity">+</button>
+                      </div>
+                    {%- endif -%}
                   </div>
                   {%- comment -%} Subscription discounts are baked into the plan price; derive compare-at from the plan allocation. One-time lines use original_line_price. {%- endcomment -%}
-                  {%- assign spa = item.selling_plan_allocation -%}
                   {%- if spa and spa.compare_at_price > spa.price -%}
                     {%- assign wk_compare = spa.compare_at_price | times: item.quantity -%}
                   {%- else -%}
