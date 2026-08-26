@@ -20,7 +20,7 @@
             {%- if q != blank -%}
             <div class="wk-faq{% if i == 1 %} is-open{% endif %}" data-wk-faq style="border-top:1px solid rgba(107,61,66,0.2);">
               <button type="button" data-wk-faq-q style="width:100%;cursor:pointer;font-family:inherit;background:none;border:none;text-align:left;padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;"><span style="font-family:'Fraunces',serif;font-size:18px;color:#6B3D42;line-height:1.3;">{{ q }}</span><span class="wk-faq-ico" style="font-size:22px;color:#C9653F;font-weight:300;flex:0 0 auto;">+</span></button>
-              <div class="wk-faq-a"><p style="font-size:14px;line-height:1.6;color:#4a3a30;margin:0 0 22px;">{{ section.settings[ak] }}</p></div>
+              <div class="wk-faq-a">{%- assign wk_faq_paras = section.settings[ak] | split: '||' -%}{%- for para in wk_faq_paras -%}<p style="font-size:14px;line-height:1.6;color:#4a3a30;margin:0 0 {% if forloop.last %}22{% else %}12{% endif %}px;">{{ para | strip }}</p>{%- endfor -%}</div>
             </div>
             {%- endif -%}
           {%- endfor -%}
@@ -59,11 +59,11 @@
     {"type": "text", "id": "q2", "label": "Question", "default": "Can I take it with my medications — and is it safe every day, long-term?"},
     {"type": "textarea", "id": "a2", "label": "Answer", "default": "There are no known interactions with common prescriptions like SSRIs, thyroid medication, blood pressure medication, or birth control — but if you take daily medication, please run it past your prescriber first. It's a quick conversation. For long-term daily use: yes. Our doses have established safety data, our six probiotic strains are among the most studied in the world, and every batch is third-party tested. Vegan, made in Europe, sugar-free."},
     {"type": "header", "content": "Q3"},
-    {"type": "text", "id": "q3", "label": "Question", "default": "Does it contain hormones? I can't take HRT."},
-    {"type": "textarea", "id": "a3", "label": "Answer", "default": "No hormones of any kind. Our botanicals and probiotics work with your body's own systems — steadying the thermostat, calming the stress response, and nourishing the estrobolome — rather than introducing hormones from outside. That's why so many women who can't or won't do HRT choose Womankind."},
+    {"type": "text", "id": "q3", "label": "Question", "default": "Does this contain hormones? I can’t take HRT."},
+    {"type": "textarea", "id": "a3", "label": "Answer", "default": "No. There are no hormones in this. Not estrogen. Not progesterone. Not DHEA. Not “secretly kind of HRT.” || If you can’t take hormone therapy — or you don’t want to — that’s exactly who this was built for. Botanicals at researched doses, not a hormone in a gummy. || If you are already on HRT and want to add this, that’s a conversation with your clinician. Bring them the label. That’s why every milligram is printed."},
     {"type": "header", "content": "Q4"},
-    {"type": "text", "id": "q4", "label": "Question", "default": "How long until I feel a difference?"},
-    {"type": "textarea", "id": "a4", "label": "Answer", "default": "Most women feel the first shift within 2–3 weeks — flushes feeling lighter, the first flush-free afternoon, a drier night. A clear pattern by month one. The full effect — fewer, milder flushes, steady sleep, the fog lifting — lands by month three, once the gut-hormone axis rebalances. That's why our guarantee is 90 days: your body needs the time, and you shouldn't have to gamble it."},
+    {"type": "text", "id": "q4", "label": "Question", "default": "How long until I feel something — and what if I don’t?"},
+    {"type": "textarea", "id": "a4", "label": "Answer", "default": "Some women notice quieter nights or spacing flashes around weeks 3–4. For a lot of people the clearer shift is closer to weeks 6–8. Full effect is a 30–90 day window. That’s the formula, not a delay tactic. || Take two a day and give it a real chance. If your nights, heat, mood, or energy haven’t moved in a way that matters to you, you don’t pay — keep the bottle."},
     {"type": "header", "content": "Q5"},
     {"type": "text", "id": "q5", "label": "Question", "default": "Is it too late for me? I'm past 50."},
     {"type": "textarea", "id": "a5", "label": "Answer", "default": "No. The systems our formula supports — the hypothalamus-thermostat axis and the estrobolome — don't switch off at menopause. Women in their mid-50s and beyond report the same pattern: flushes down from a dozen a day to a handful a week, dry sheets, real sleep. We built this for perimenopause <em>and</em> beyond. The only version of too late is another year you didn't have to spend soaked and sleepless."},
@@ -74,8 +74,8 @@
     {"type": "text", "id": "q7", "label": "Question", "default": "What if it doesn't work for me?"},
     {"type": "textarea", "id": "a7", "label": "Answer", "default": "Email us within 90 days for a full refund — no returns, no forms, no fine print. The gut-hormone axis doesn't reset overnight, and a 30-day guarantee would ask you to quit before the shift happens. We give you a full three months because that's what your body actually needs — and we're betting on you, not on the fine print."},
     {"type": "header", "content": "Q8"},
-    {"type": "text", "id": "q8", "label": "Question", "default": ""},
-    {"type": "textarea", "id": "a8", "label": "Answer", "default": ""}
+    {"type": "text", "id": "q8", "label": "Question", "default": "What if I already take HRT, or other menopause supplements?"},
+    {"type": "textarea", "id": "a8", "label": "Answer", "default": "This is not HRT and it does not replace HRT. || Some women use it because they can’t take hormones. Some use it because they don’t want to. Some are already on a prescription and want a non-hormonal option for sleep and heat — that is between you and your clinician. Bring them the label. || If you’re already taking other menopause blends, don’t stack three things and then guess which one did what. Pick a protocol. Give it 90 days."}
   ]
 }
 {% endschema %}

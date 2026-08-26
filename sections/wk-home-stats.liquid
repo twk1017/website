@@ -7,7 +7,10 @@
   <section id="wk-{{ section.id }}-stats" style="background:#EFDFD0;padding:80px 28px;">
     <div style="max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 0.9fr;gap:48px;align-items:center;">
       <div>
-        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:36px;margin:0 0 10px;color:#6B3D42;">{{ section.settings.heading_lead }} <span style="font-style:italic;color:#C9653F;">{{ section.settings.heading_emph }}</span></h2>
+        {%- if section.settings.eyebrow != blank -%}
+          <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:14px;">{{ section.settings.eyebrow }}</div>
+        {%- endif -%}
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:36px;line-height:1.12;margin:0 0 10px;color:#6B3D42;">{{ section.settings.heading_lead }} <span style="font-style:italic;color:#C9653F;">{{ section.settings.heading_emph }}</span></h2>
         <p style="font-size:14px;color:#5a4636;margin:0 0 34px;">{{ section.settings.subheading }}</p>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px 40px;">
           {%- for i in (1..4) -%}
@@ -53,9 +56,10 @@
 {
   "name": "Home · Data stats",
   "settings": [
-    { "type": "text", "id": "heading_lead", "label": "Heading", "default": "The data behind Womankind's" },
-    { "type": "text", "id": "heading_emph", "label": "Heading (italic)", "default": "impact" },
-    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Self-reported improvements from women who made Womankind part of their daily routine." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The results are hard to ignore" },
+    { "type": "text", "id": "heading_lead", "label": "Heading", "default": "Cooler nights. Calmer days." },
+    { "type": "text", "id": "heading_emph", "label": "Heading (italic)", "default": "More of you back." },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Based on a 90-day customer-perception survey of 214 women who took two Womankind gummies daily. Percentages reflect respondents who said their symptoms were “somewhat better” or “much better” than at baseline. Individual results vary. Survey conducted March–June 2026." },
     { "type": "image_picker", "id": "image", "label": "Image", "info": "Defaults to wk-stats-lifestyle.jpg if empty." },
     { "type": "header", "content": "Stat 1" },
     { "type": "number", "id": "s1_pct", "label": "Percent", "default": 92 },
