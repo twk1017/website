@@ -1,0 +1,622 @@
+<!-- WK - QUIZ (Q1-Q8 + reflections + scorecard + honest timeline + offer buy box) -->
+{%- assign uid = section.id -%}
+{%- assign wk_product = section.settings.product -%}
+{%- if wk_product != blank -%}{%- assign wk_variant = wk_product.selected_or_first_available_variant -%}{%- endif -%}
+{%- capture wk_pdp_url -%}{%- render 'wk-localized-url', url: wk_product.url, fallback: '/products/hormonal-support-gummies' -%}{%- endcapture -%}
+<style>
+  #wkq-{{ uid }}{--plum:#6B3D42;--terra:#C9653F;--gold:#E2A24C;--cream:#FBF1E6;--blush:#E9D6CE;--body:#4a3a30;--line:rgba(107,61,66,0.16);}
+  #wkq-{{ uid }}{background:var(--cream);min-height:100vh;display:flex;flex-direction:column;font-family:'Hanken Grotesk',sans-serif;color:var(--body);}
+  #wkq-{{ uid }} *{box-sizing:border-box;}
+  #wkq-{{ uid }} .wkq-frame{display:contents;}
+
+  /* top bar + progress */
+  #wkq-{{ uid }} .wkq-top{position:sticky;top:0;z-index:5;background:var(--cream);}
+  #wkq-{{ uid }} .wkq-bar-inner{max-width:640px;margin:0 auto;padding:20px 24px 16px;display:flex;align-items:center;justify-content:center;position:relative;}
+  #wkq-{{ uid }} .wkq-logo{font-family:'Cormorant Garamond','Fraunces',serif;font-size:30px;line-height:1;color:var(--plum);letter-spacing:0.01em;}
+  #wkq-{{ uid }} .wkq-back{position:absolute;left:24px;top:50%;transform:translateY(-50%);border:none;background:none;cursor:pointer;color:var(--plum);font-size:22px;line-height:1;opacity:0;pointer-events:none;transition:opacity .2s ease;padding:6px;}
+  #wkq-{{ uid }} .wkq-back.show{opacity:0.7;pointer-events:auto;}
+  #wkq-{{ uid }} .wkq-progress{height:4px;background:var(--blush);}
+  #wkq-{{ uid }} .wkq-progress-fill{height:100%;width:0;background:var(--plum);border-radius:0 4px 4px 0;transition:width .45s cubic-bezier(.4,0,.2,1);}
+
+  /* stage */
+  #wkq-{{ uid }} .wkq-stage{flex:1;width:100%;max-width:640px;margin:0 auto;padding:40px 24px 150px;}
+  #wkq-{{ uid }} .wkq-screen{animation:wkq-fade .4s ease;}
+  @keyframes wkq-fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+  #wkq-{{ uid }} .wkq-eyebrow{font-size:13px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--terra);margin-bottom:14px;}
+  #wkq-{{ uid }} .wkq-title{font-family:'Fraunces',serif;font-weight:600;font-size:33px;line-height:1.12;color:var(--plum);letter-spacing:-0.01em;margin:0 0 14px;}
+  #wkq-{{ uid }} .wkq-sub{font-size:18px;line-height:1.45;color:rgba(74,58,48,0.66);margin:0 0 26px;}
+  #wkq-{{ uid }} .wkq-note{display:flex;gap:12px;background:var(--blush);border-radius:16px;padding:18px 20px;font-size:15.5px;line-height:1.5;color:var(--plum);margin:0 0 26px;}
+  #wkq-{{ uid }} .wkq-note b{font-weight:700;}
+  #wkq-{{ uid }} .wkq-note .wkq-spark{flex:0 0 auto;color:var(--terra);font-size:16px;line-height:1.5;}
+
+  /* options */
+  #wkq-{{ uid }} .wkq-opts{display:flex;flex-direction:column;gap:12px;}
+  #wkq-{{ uid }} .wkq-opt{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;text-align:left;cursor:pointer;background:#FFFDFA;border:1.5px solid var(--line);border-radius:16px;padding:20px 22px;font-family:inherit;font-size:18px;font-weight:600;color:var(--plum);line-height:1.3;transition:border-color .18s ease,box-shadow .18s ease,transform .08s ease,background .18s ease;}
+  #wkq-{{ uid }} .wkq-opt:hover{border-color:rgba(107,61,66,0.4);box-shadow:0 6px 18px rgba(107,61,66,0.08);}
+  #wkq-{{ uid }} .wkq-opt:active{transform:scale(.995);}
+  #wkq-{{ uid }} .wkq-opt.sel{border-color:var(--plum);border-width:2px;background:#F5E6D8;}
+  #wkq-{{ uid }} .wkq-radio{flex:0 0 auto;width:24px;height:24px;border-radius:50%;border:2px solid rgba(107,61,66,0.35);display:inline-flex;align-items:center;justify-content:center;transition:border-color .18s ease,background .18s ease;}
+  #wkq-{{ uid }} .wkq-opt.multi .wkq-radio{border-radius:7px;}
+  #wkq-{{ uid }} .wkq-opt.sel .wkq-radio{border-color:var(--plum);background:var(--plum);}
+  #wkq-{{ uid }} .wkq-radio svg{opacity:0;transition:opacity .18s ease;}
+  #wkq-{{ uid }} .wkq-opt.sel .wkq-radio svg{opacity:1;}
+  #wkq-{{ uid }} .wkq-choose{font-size:14px;color:rgba(74,58,48,0.6);margin:16px 0 0;}
+  #wkq-{{ uid }} .wkq-err{font-size:14px;font-weight:600;color:#B23B2E;margin:12px 0 0;display:none;}
+  #wkq-{{ uid }} .wkq-err.show{display:block;}
+
+  /* reflection */
+  #wkq-{{ uid }} .wkq-hl{background:var(--gold);color:var(--plum);border-radius:6px;padding:1px 8px;box-decoration-break:clone;-webkit-box-decoration-break:clone;font-weight:600;}
+  #wkq-{{ uid }} .wkq-lead{font-size:19px;line-height:1.55;color:rgba(74,58,48,0.72);margin:0 0 28px;}
+  #wkq-{{ uid }} .wkq-points{display:flex;flex-direction:column;gap:20px;margin:0 0 8px;}
+  #wkq-{{ uid }} .wkq-point{display:flex;gap:14px;}
+  #wkq-{{ uid }} .wkq-pnum{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--plum);color:var(--cream);font-size:14px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;}
+  #wkq-{{ uid }} .wkq-ph{font-size:12.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--terra);display:block;margin-bottom:3px;}
+  #wkq-{{ uid }} .wkq-pb{font-size:16.5px;line-height:1.5;color:var(--body);}
+
+  /* scorecard */
+  #wkq-{{ uid }} .wkq-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:6px 0 26px;}
+  #wkq-{{ uid }} .wkq-card{position:relative;background:#FFFDFA;border:1.5px solid var(--line);border-radius:18px;padding:24px 18px 20px;text-align:center;}
+  #wkq-{{ uid }} .wkq-card.weak{border-color:var(--plum);border-width:2px;background:#F5E6D8;}
+  #wkq-{{ uid }} .wkq-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--plum);color:var(--cream);font-size:10.5px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:5px 12px;border-radius:999px;white-space:nowrap;}
+  #wkq-{{ uid }} .wkq-card-name{font-size:13px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--terra);margin:12px 0 4px;}
+  #wkq-{{ uid }} .wkq-card-tier{font-size:14px;font-weight:700;color:var(--plum);margin-bottom:8px;}
+  #wkq-{{ uid }} .wkq-card-desc{font-size:12.5px;line-height:1.42;color:rgba(74,58,48,0.7);}
+  #wkq-{{ uid }} .wkq-why{background:var(--blush);border-radius:16px;padding:20px 22px;}
+  #wkq-{{ uid }} .wkq-why-h{font-size:12.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--terra);margin-bottom:8px;}
+  #wkq-{{ uid }} .wkq-why-b{font-size:16.5px;line-height:1.5;color:var(--plum);}
+
+  /* honest timeline */
+  #wkq-{{ uid }} .wkq-tl{display:flex;flex-direction:column;margin:6px 0 8px;}
+  #wkq-{{ uid }} .wkq-tl-item{display:flex;gap:16px;padding-bottom:22px;}
+  #wkq-{{ uid }} .wkq-tl-item:last-child{padding-bottom:0;}
+  #wkq-{{ uid }} .wkq-tl-rail{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;}
+  #wkq-{{ uid }} .wkq-tl-dot{width:14px;height:14px;border-radius:50%;background:var(--plum);margin-top:6px;}
+  #wkq-{{ uid }} .wkq-tl-line{width:2px;flex:1;background:var(--blush);margin-top:6px;}
+  #wkq-{{ uid }} .wkq-tl-item:last-child .wkq-tl-line{display:none;}
+  #wkq-{{ uid }} .wkq-tl-card{flex:1;background:#FFFDFA;border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;}
+  #wkq-{{ uid }} .wkq-tl-card.hi{border-color:var(--plum);border-width:2px;background:#F5E6D8;}
+  #wkq-{{ uid }} .wkq-tl-when{font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--terra);margin-bottom:4px;}
+  #wkq-{{ uid }} .wkq-tl-body{font-size:15.5px;line-height:1.5;color:var(--body);}
+
+  /* offer buy box */
+  #wkq-{{ uid }} .wkq-plans{display:flex;flex-direction:column;gap:16px;margin:8px 0 0;}
+  #wkq-{{ uid }} .wkq-plan{position:relative;display:flex;align-items:center;gap:12px;width:100%;text-align:left;cursor:pointer;background:#FFFDFA;border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;font-family:inherit;transition:border-color .18s ease,background .18s ease;}
+  #wkq-{{ uid }} .wkq-plan.sel{border-color:var(--plum);border-width:2px;background:#F5E6D8;}
+  #wkq-{{ uid }} .wkq-plan-l{flex:1;min-width:0;}
+  #wkq-{{ uid }} .wkq-plan-name{display:block;font-size:15.5px;font-weight:700;color:var(--plum);}
+  #wkq-{{ uid }} .wkq-plan-sub{display:block;font-size:12.5px;color:#7a6258;margin-top:3px;}
+  #wkq-{{ uid }} .wkq-plan-sub .save{color:var(--terra);font-weight:600;}
+  #wkq-{{ uid }} .wkq-plan-r{flex:0 0 auto;text-align:right;}
+  #wkq-{{ uid }} .wkq-strike{display:block;font-size:13px;text-decoration:line-through;color:#8f6266;line-height:1.2;}
+  #wkq-{{ uid }} .wkq-price{display:block;font-size:19px;font-weight:700;color:var(--terra);line-height:1.15;}
+  #wkq-{{ uid }} .wkq-plan-radio{flex:0 0 auto;width:22px;height:22px;border-radius:50%;border:2px solid rgba(107,61,66,0.35);display:inline-flex;align-items:center;justify-content:center;}
+  #wkq-{{ uid }} .wkq-plan.sel .wkq-plan-radio{border-color:var(--plum);background:var(--plum);}
+  #wkq-{{ uid }} .wkq-plan-radio svg{opacity:0;}
+  #wkq-{{ uid }} .wkq-plan.sel .wkq-plan-radio svg{opacity:1;}
+  #wkq-{{ uid }} .wkq-badge2{position:absolute;top:-10px;left:16px;background:var(--terra);color:var(--cream);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;padding:3px 10px;border-radius:999px;}
+  #wkq-{{ uid }} .wkq-refill{display:flex;align-items:center;gap:14px;border:1.5px dashed rgba(107,61,66,0.45);border-radius:12px;padding:14px 16px;cursor:pointer;margin:16px 0 0;}
+  #wkq-{{ uid }} .wkq-refill-box{width:24px;height:24px;flex:0 0 auto;border:1.5px solid var(--plum);border-radius:6px;display:flex;align-items:center;justify-content:center;background:var(--plum);}
+  #wkq-{{ uid }} .wkq-refill[aria-checked="false"] .wkq-refill-box{background:transparent;}
+  #wkq-{{ uid }} .wkq-refill[aria-checked="false"] .wkq-refill-box svg{opacity:0;}
+  #wkq-{{ uid }} .wkq-refill-t{display:block;font-size:15px;font-weight:700;color:var(--plum);}
+  #wkq-{{ uid }} .wkq-refill-s{display:block;font-size:12.5px;color:#7a6258;margin-top:2px;}
+  #wkq-{{ uid }} .wkq-atc-wrap{margin:0;}
+  #wkq-{{ uid }} .wkq-atc{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:16px;cursor:pointer;border:none;font-family:inherit;background:var(--terra);color:var(--cream);font-size:16px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;padding:20px;border-radius:999px;text-decoration:none;box-shadow:0 5px 0 #97432a,0 10px 20px rgba(201,101,63,0.3);transition:transform .1s ease,box-shadow .1s ease;}
+  #wkq-{{ uid }} .wkq-atc:active{transform:translateY(3px);box-shadow:0 2px 0 #97432a,0 5px 12px rgba(201,101,63,0.3);}
+  #wkq-{{ uid }} .wkq-atc-total{opacity:0.9;font-weight:700;}
+  #wkq-{{ uid }} .wkq-guar{display:flex;align-items:center;gap:14px;margin:16px 0 0;padding:15px 18px;background:rgba(201,101,63,0.08);border:1.5px solid rgba(201,101,63,0.32);border-radius:12px;}
+  #wkq-{{ uid }} .wkq-guar-badge{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:var(--terra);color:var(--cream);font-size:13px;font-weight:700;flex:0 0 auto;line-height:1;}
+  #wkq-{{ uid }} .wkq-guar-t{display:block;font-size:14.5px;color:var(--plum);font-weight:700;line-height:1.25;}
+  #wkq-{{ uid }} .wkq-guar-s{display:block;font-size:12.5px;color:var(--body);line-height:1.4;margin-top:3px;}
+  #wkq-{{ uid }} .wkq-trust{text-align:center;margin:12px 0 0;font-size:11.5px;letter-spacing:0.02em;color:#7a6258;font-weight:600;}
+
+  /* end placeholder */
+  #wkq-{{ uid }} .wkq-end{text-align:center;padding:30px 0;}
+  #wkq-{{ uid }} .wkq-end .wkq-title{margin-bottom:12px;}
+
+  /* sticky CTA */
+  #wkq-{{ uid }} .wkq-footer{position:fixed;bottom:0;left:0;right:0;z-index:6;background:linear-gradient(180deg,rgba(251,241,230,0) 0%,var(--cream) 34%);padding:22px 24px 26px;}
+  #wkq-{{ uid }} .wkq-cta{display:block;width:100%;max-width:592px;margin:0 auto;cursor:pointer;border:none;font-family:inherit;background:var(--plum);color:var(--gold);font-size:18px;font-weight:800;letter-spacing:0.03em;text-transform:uppercase;padding:22px;border-radius:999px;box-shadow:0 6px 0 #4a2a2e,0 12px 22px rgba(107,61,66,0.28);transition:transform .1s ease,box-shadow .1s ease;}
+  #wkq-{{ uid }} .wkq-cta:active{transform:translateY(3px);box-shadow:0 3px 0 #4a2a2e,0 6px 14px rgba(107,61,66,0.28);}
+  #wkq-{{ uid }} .wkq-cta.hidden{display:none;}
+
+  @media(max-width:600px){
+    #wkq-{{ uid }} .wkq-title{font-size:28px;}
+    #wkq-{{ uid }} .wkq-sub{font-size:16.5px;}
+    #wkq-{{ uid }} .wkq-opt{font-size:16.5px;padding:18px 18px;}
+    #wkq-{{ uid }} .wkq-stage{padding:32px 20px 150px;}
+    #wkq-{{ uid }} .wkq-card{padding:22px 12px 18px;}
+  }
+
+  /* desktop frame — the phone-width funnel sits in an elevated card */
+  @media(min-width:900px){
+    #wkq-{{ uid }}{background:#E6D3C6;align-items:center;justify-content:flex-start;padding:52px 24px;}
+    #wkq-{{ uid }} .wkq-frame{display:flex;flex-direction:column;width:100%;max-width:680px;min-height:600px;background:var(--cream);border:1px solid rgba(107,61,66,0.12);border-radius:24px;box-shadow:0 26px 64px rgba(74,42,46,0.18);overflow:hidden;}
+    #wkq-{{ uid }} .wkq-top{position:static;background:none;}
+    #wkq-{{ uid }} .wkq-bar-inner{max-width:none;padding:22px 40px 16px;}
+    #wkq-{{ uid }} .wkq-back{left:40px;}
+    #wkq-{{ uid }} .wkq-stage{flex:1 1 auto;max-width:none;padding:40px 48px 8px;}
+    #wkq-{{ uid }} .wkq-footer{position:static;background:none;padding:24px 48px 40px;}
+    #wkq-{{ uid }} .wkq-cta{max-width:none;}
+  }
+</style>
+
+<section id="wkq-{{ uid }}" class="wkq">
+  <div class="wkq-frame">
+    <div class="wkq-top">
+      <div class="wkq-bar-inner">
+        <button class="wkq-back" type="button" aria-label="Back" data-wkq-back>&larr;</button>
+        <span class="wkq-logo">{{ section.settings.logo_text | default: 'womankind' }}</span>
+      </div>
+      <div class="wkq-progress"><div class="wkq-progress-fill" data-wkq-fill></div></div>
+    </div>
+
+    <div class="wkq-stage" data-wkq-stage></div>
+
+    <div class="wkq-footer">
+      <button class="wkq-cta hidden" type="button" data-wkq-cta></button>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var root = document.getElementById('wkq-{{ uid }}');
+  if(!root) return;
+  var TOTAL_Q = {{ section.settings.total_questions | default: 8 }};
+
+  var CHECK = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FBF1E6" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+  /* ---- offer buy box (mirrors the gummies-3 pricing engine) ---- */
+  var CART_ADD_URL = {{ routes.cart_add_url | json }};
+  var PDP_URL = {{ wk_pdp_url | strip | json }};
+  {%- if wk_product != blank and wk_variant != blank -%}
+  var VARIANT_ID = {{ wk_variant.id }}, VARIANT_AVAIL = {{ wk_variant.available }}, BOTTLE = {{ wk_variant.price }};
+  {%- else -%}
+  var VARIANT_ID = null, VARIANT_AVAIL = false, BOTTLE = 4985;
+  {%- endif -%}
+  var SELLING_PLANS = [
+    {%- assign wk_sp_first = true -%}
+    {%- for grp in wk_product.selling_plan_groups -%}{%- for sp in grp.selling_plans -%}
+      {%- unless wk_sp_first %},{% endunless %}{ id: {{ sp.id }}, name: {{ sp.name | json }} }{%- assign wk_sp_first = false -%}
+    {%- endfor -%}{%- endfor -%}
+  ];
+  var PLAN_OVERRIDES = { '1': {{ section.settings.plan_1_id | default: 'null' }}, '3': {{ section.settings.plan_3_id | default: 'null' }}, '5': {{ section.settings.plan_5_id | default: 'null' }} };
+  var TIERS = { '1':{m:1,off:0}, '3':{m:3,off:1/3}, '5':{m:5,off:0.40} };
+  var SUB_OFF = 0.25;
+  function wkMoney(c){ return '$' + (c/100).toFixed(2).replace(/\.00$/,''); }
+  function wkPerDay(c){ return '$' + (c/100/30).toFixed(2); }
+  function wkQuote(tier,on){
+    var t=TIERS[tier], full=BOTTLE*t.m;
+    var perUnit = on ? Math.round(BOTTLE*(1-t.off)*(1-SUB_OFF)) : Math.round(BOTTLE*(1-t.off));
+    var total=perUnit*t.m;
+    return { full:full, total:total, perMo:perUnit, save:Math.round((1-total/full)*100) };
+  }
+  function wkParseInterval(name){
+    name=(name||'').toLowerCase();
+    if(/quarter/.test(name)) return 3;
+    var m=name.match(/(\d+)\s*-?\s*month/); if(m) return parseInt(m[1],10);
+    if(/month/.test(name)) return 1;
+    if(/annual|year/.test(name)) return 12;
+    return 0;
+  }
+  function planForTier(tier){
+    if(PLAN_OVERRIDES[tier]) return PLAN_OVERRIDES[tier];
+    var want={'1':1,'3':3,'5':5}[tier];
+    for(var j=0;j<SELLING_PLANS.length;j++){ if(wkParseInterval(SELLING_PLANS[j].name)===want) return SELLING_PLANS[j].id; }
+    return SELLING_PLANS.length ? SELLING_PLANS[0].id : null;
+  }
+
+  var STEPS = [
+    { kind:'q', q:1, id:'pattern',
+      eyebrow:'Question 1 of ' + TOTAL_Q,
+      title:'Which sounds most like the last few months?',
+      sub:'Most supplements are built for one of these. Very few are built for the whole shift.',
+      note:'Eight questions, about 60 seconds. At the end you’ll see which part of your hormonal shift needs the most support, what to change first, and the routine built for the rest.',
+      options:[
+        { v:'cycle',  label:'My cycle has gone unpredictable' },
+        { v:'mood',   label:'I’m wired, anxious, and short-fused' },
+        { v:'heat',   label:'I’m hot and sweaty, especially at night' },
+        { v:'energy', label:'I’m running on empty by mid-afternoon' }
+      ]
+    },
+    { kind:'reflect',
+      eyebrow:'What you just described',
+      title:'You’re describing early perimenopause.',
+      leadPre:'Those swings are ',
+      leadHl:'your hormones shifting, not you falling apart',
+      leadPost:'. That’s a pattern — and patterns can be supported.',
+      points:[
+        { h:'The shift', b:'Estrogen and progesterone stop moving in a straight line. They surge and dip, which is why the symptoms feel random.' },
+        { h:'The fix',   b:'The right support steadies the whole swing instead of chasing one symptom at a time.' }
+      ],
+      cta:'Keep going'
+    },
+    { kind:'q', q:2, id:'sleep',
+      eyebrow:'Question 2 of ' + TOTAL_Q,
+      title:'How are your nights right now?',
+      sub:'No judgement either way — we just need the full picture.',
+      options:[
+        { v:'threeam',     label:'I fall asleep fine, then I’m wide awake at 3am' },
+        { v:'racing',      label:'I lie there for ages before I go down' },
+        { v:'sweats',      label:'I wake up drenched and have to cool off' },
+        { v:'unrefreshed', label:'I sleep through but wake up shattered' }
+      ]
+    },
+    { kind:'q', q:3, id:'flashes',
+      eyebrow:'Question 3 of ' + TOTAL_Q,
+      title:'How often do heat waves catch you out?',
+      sub:'Daytime flushes or night sweats — both count.',
+      options:[
+        { v:'often',  label:'Most days, and they wake me at night' },
+        { v:'weekly', label:'A few times a week' },
+        { v:'rare',   label:'Now and then' },
+        { v:'never',  label:'Not really my thing' }
+      ]
+    },
+    { kind:'q', q:4, id:'moodq',
+      eyebrow:'Question 4 of ' + TOTAL_Q,
+      title:'How has your patience been lately?',
+      sub:'The bit nobody warns you about.',
+      options:[
+        { v:'edge',    label:'I snap at things that never used to bother me' },
+        { v:'anxious', label:'A low hum of anxiety I can’t quite place' },
+        { v:'flat',    label:'Flat and unmotivated, more than sad' },
+        { v:'steady',  label:'Honestly, pretty steady' }
+      ]
+    },
+    { kind:'q', q:5, id:'tried', multi:true, exclusive:'nothing',
+      eyebrow:'Question 5 of ' + TOTAL_Q,
+      title:'What have you already tried?',
+      sub:'We ask because it changes what we’d suggest — not to sell you the same thing again.',
+      options:[
+        { v:'hrt',      label:'HRT or the pill' },
+        { v:'herbs',    label:'Black cohosh, sage, or red clover' },
+        { v:'mag',      label:'Magnesium from the supermarket' },
+        { v:'primrose', label:'Evening primrose oil' },
+        { v:'nothing',  label:'Nothing yet — this is where I’m starting' }
+      ]
+    },
+    { kind:'reflect',
+      eyebrow:'Why none of it quite stuck',
+      title:'Most of what you’ve tried was built for one symptom.',
+      leadPre:'Perimenopause isn’t one problem, so ',
+      leadHl:'a single-symptom fix leaves the rest untouched',
+      leadPost:'. That’s not you failing — it’s the wrong tool.',
+      points:[
+        { h:'Under-dosed',       b:'Supermarket magnesium and primrose oil are usually a fraction of the amount studies actually use.' },
+        { h:'Given up too soon', b:'Hormone support builds over weeks. Most people quit in week two, right before it turns.' }
+      ],
+      cta:'Makes sense'
+    },
+    { kind:'q', q:6, id:'energyq',
+      eyebrow:'Question 6 of ' + TOTAL_Q,
+      title:'Where does your energy give out?',
+      sub:'Point us to the moment it drops.',
+      options:[
+        { v:'wall',    label:'I hit a wall by mid-afternoon' },
+        { v:'foggy',   label:'It’s more brain fog than tiredness' },
+        { v:'morning', label:'I wake up already drained' },
+        { v:'ok',      label:'Energy isn’t my main issue' }
+      ]
+    },
+    { kind:'q', q:7, id:'evening', multi:true, exclusive:'none',
+      eyebrow:'Question 7 of ' + TOTAL_Q,
+      title:'Which of these are part of your day?',
+      sub:'Nobody’s telling you to give anything up. We’re working out where the symptoms come from.',
+      options:[
+        { v:'wine',     label:'A glass of wine most evenings' },
+        { v:'caffeine', label:'Coffee after 2pm' },
+        { v:'scroll',   label:'Working or scrolling right up to bed' },
+        { v:'stress',   label:'Stress that doesn’t switch off' },
+        { v:'none',     label:'None of these' }
+      ]
+    },
+    { kind:'q', q:8, id:'goal',
+      eyebrow:'Question 8 of ' + TOTAL_Q,
+      title:'What would “better” actually look like?',
+      sub:'This is the finish line we’ll build toward.',
+      options:[
+        { v:'cool',   label:'Cooler, unbroken nights' },
+        { v:'steady', label:'A steadier, calmer mood' },
+        { v:'energy', label:'Real energy back in the afternoons' },
+        { v:'me',     label:'Feeling like myself again' }
+      ]
+    },
+    { kind:'score' },
+    { kind:'timeline' },
+    { kind:'offer' }
+  ];
+
+  /* ---- scoring model (4 pillars) ---- */
+  var PILLARS = [
+    { k:'R', name:'Rhythm',      desc:'Temperature and timing — where the 3am wake-up lives.' },
+    { k:'T', name:'Temperature', desc:'Hot flashes and night sweats. The part that steals your sleep.' },
+    { k:'M', name:'Mood',        desc:'Irritability and low-level anxiety. Felt by everyone around you too.' },
+    { k:'E', name:'Energy',      desc:'Afternoon crashes and brain fog. The tax on everything else.' }
+  ];
+  var SCORES = {
+    pattern: { cycle:{R:3}, mood:{M:3}, heat:{T:3}, energy:{E:3} },
+    sleep:   { threeam:{R:3}, racing:{M:2,R:1}, sweats:{T:3}, unrefreshed:{E:2,R:1} },
+    flashes: { often:{T:3}, weekly:{T:2}, rare:{T:1}, never:{} },
+    moodq:   { edge:{M:3}, anxious:{M:3}, flat:{M:2,E:1}, steady:{} },
+    energyq: { wall:{E:3}, foggy:{E:2,M:1}, morning:{E:2,R:1}, ok:{} },
+    evening: { wine:{T:1,R:1}, caffeine:{R:2}, scroll:{R:1,M:1}, stress:{M:2,T:1}, none:{} }
+  };
+
+  function computeScores(){
+    var pts = { R:0, T:0, M:0, E:0 };
+    Object.keys(SCORES).forEach(function(qid){
+      var a = answers[qid]; if(a==null) return;
+      var vals = Array.isArray(a) ? a : [a];
+      vals.forEach(function(v){
+        var d = SCORES[qid][v] || {};
+        Object.keys(d).forEach(function(k){ pts[k] += d[k]; });
+      });
+    });
+    var max = Math.max(pts.R, pts.T, pts.M, pts.E, 1);
+    var list = PILLARS.map(function(p){
+      var pct = Math.max(Math.round(pts[p.k] / max * 100), 20);
+      return { k:p.k, name:p.name, desc:p.desc, pct:pct, raw:pts[p.k] };
+    });
+    var weakIdx = 0, best = -1;
+    list.forEach(function(o,idx){ if(o.raw > best){ best = o.raw; weakIdx = idx; } });
+    list[weakIdx].weak = true;
+    return { list:list, weak:list[weakIdx] };
+  }
+  function tierLabel(pct){ return pct>=85 ? 'Needs the most support' : (pct>=55 ? 'Some strain' : 'In good shape'); }
+  function ring(pct, weak){
+    var r=32, c=2*Math.PI*r, off=c*(1-pct/100), col = weak ? '#C9653F' : '#E2A24C';
+    return '<svg width="80" height="80" viewBox="0 0 80 80" aria-hidden="true">'
+      + '<circle cx="40" cy="40" r="'+r+'" fill="none" stroke="#E9D6CE" stroke-width="7"/>'
+      + '<circle cx="40" cy="40" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="7" stroke-linecap="round" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'" transform="rotate(-90 40 40)"/>'
+      + '<text x="40" y="46" text-anchor="middle" font-family="Fraunces,serif" font-weight="600" font-size="19" fill="#6B3D42">'+pct+'%</text></svg>';
+  }
+
+  var stage = root.querySelector('[data-wkq-stage]');
+  var fill  = root.querySelector('[data-wkq-fill]');
+  var back  = root.querySelector('[data-wkq-back]');
+  var cta   = root.querySelector('[data-wkq-cta]');
+
+  var i = 0;
+  var answers = {};
+
+  function esc(s){ var d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+
+  function lastQ(){
+    var n = 0;
+    for(var k=0;k<=i && k<STEPS.length;k++){ if(STEPS[k].kind==='q') n = STEPS[k].q; }
+    return n;
+  }
+  function setProgress(){
+    var step = STEPS[i];
+    var frac = Math.min(lastQ() / TOTAL_Q, 1);
+    if(step && (step.kind==='score' || step.kind==='timeline' || step.kind==='offer')) frac = 1;
+    fill.style.width = (frac*100) + '%';
+  }
+
+  function render(){
+    var step = STEPS[i];
+    back.classList.toggle('show', i>0);
+    setProgress();
+    if(step.kind==='q')             renderQuestion(step);
+    else if(step.kind==='reflect')  renderReflect(step);
+    else if(step.kind==='score')    renderScore();
+    else if(step.kind==='timeline') renderTimeline();
+    else                            renderOffer();
+    window.scrollTo(0,0);
+  }
+
+  function renderQuestion(step){
+    var multi = !!step.multi;
+    var sel = multi ? (answers[step.id] || []) : answers[step.id];
+    var h = '<div class="wkq-screen">';
+    h += '<div class="wkq-eyebrow">'+esc(step.eyebrow)+'</div>';
+    h += '<h1 class="wkq-title">'+esc(step.title)+'</h1>';
+    if(step.sub)  h += '<p class="wkq-sub">'+esc(step.sub)+'</p>';
+    if(step.note) h += '<div class="wkq-note"><span class="wkq-spark">&#10022;</span><span>'+step.note.replace('60 seconds','<b>60 seconds</b>')+'</span></div>';
+    h += '<div class="wkq-opts">';
+    step.options.forEach(function(o){
+      var on = multi ? (sel.indexOf(o.v)>-1 ? ' sel' : '') : (sel===o.v ? ' sel' : '');
+      h += '<button type="button" class="wkq-opt'+(multi?' multi':'')+on+'" data-v="'+esc(o.v)+'">'
+         +   '<span>'+esc(o.label)+'</span><span class="wkq-radio">'+CHECK+'</span></button>';
+    });
+    h += '</div>';
+    if(multi) h += '<p class="wkq-choose">Choose as many as apply.</p><p class="wkq-err" data-err>Pick at least one to continue.</p>';
+    h += '</div>';
+    stage.innerHTML = h;
+
+    var btns = stage.querySelectorAll('.wkq-opt');
+    if(multi){
+      if(!answers[step.id]) answers[step.id] = [];
+      btns.forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var v = btn.getAttribute('data-v');
+          var arr = answers[step.id];
+          if(step.exclusive && v===step.exclusive){
+            answers[step.id] = [v];
+          } else {
+            var idx = arr.indexOf(v);
+            if(idx>-1){ arr.splice(idx,1); }
+            else {
+              arr.push(v);
+              if(step.exclusive){ var ei = arr.indexOf(step.exclusive); if(ei>-1) arr.splice(ei,1); }
+            }
+          }
+          var cur = answers[step.id];
+          btns.forEach(function(b){ b.classList.toggle('sel', cur.indexOf(b.getAttribute('data-v'))>-1); });
+          var e = stage.querySelector('[data-err]'); if(e) e.classList.remove('show');
+        });
+      });
+      cta.textContent = 'Continue';
+      cta.classList.remove('hidden');
+      cta.onclick = function(){
+        if((answers[step.id]||[]).length===0){ var e=stage.querySelector('[data-err]'); if(e) e.classList.add('show'); return; }
+        next();
+      };
+    } else {
+      cta.classList.add('hidden');
+      btns.forEach(function(btn){
+        btn.addEventListener('click', function(){
+          answers[step.id] = btn.getAttribute('data-v');
+          btns.forEach(function(b){ b.classList.remove('sel'); });
+          btn.classList.add('sel');
+          setTimeout(next, 280);
+        });
+      });
+    }
+  }
+
+  function renderReflect(step){
+    var h = '<div class="wkq-screen">';
+    h += '<div class="wkq-eyebrow">'+esc(step.eyebrow)+'</div>';
+    h += '<h1 class="wkq-title">'+esc(step.title)+'</h1>';
+    h += '<p class="wkq-lead">'+esc(step.leadPre)+'<span class="wkq-hl">'+esc(step.leadHl)+'</span>'+esc(step.leadPost)+'</p>';
+    h += '<div class="wkq-points">';
+    step.points.forEach(function(p,idx){
+      h += '<div class="wkq-point"><span class="wkq-pnum">'+(idx+1)+'</span>'
+         +   '<div><span class="wkq-ph">'+esc(p.h)+'</span><span class="wkq-pb">'+esc(p.b)+'</span></div></div>';
+    });
+    h += '</div></div>';
+    stage.innerHTML = h;
+    cta.textContent = step.cta || 'Continue';
+    cta.classList.remove('hidden');
+    cta.onclick = next;
+  }
+
+  function renderScore(){
+    var s = computeScores();
+    var h = '<div class="wkq-screen">';
+    h += '<div class="wkq-eyebrow">Your results</div>';
+    h += '<h1 class="wkq-title">Here’s where your hormones need the most support.</h1>';
+    h += '<p class="wkq-sub">Four systems shift in perimenopause. Yours point to one clear priority.</p>';
+    h += '<div class="wkq-grid">';
+    s.list.forEach(function(o){
+      h += '<div class="wkq-card'+(o.weak?' weak':'')+'">'
+         +   (o.weak ? '<span class="wkq-badge">Weakest link</span>' : '')
+         +   ring(o.pct, o.weak)
+         +   '<div class="wkq-card-name">'+esc(o.name)+'</div>'
+         +   '<div class="wkq-card-tier">'+esc(tierLabel(o.pct))+'</div>'
+         +   '<div class="wkq-card-desc">'+esc(o.desc)+'</div></div>';
+    });
+    h += '</div>';
+    h += '<div class="wkq-why"><div class="wkq-why-h">Why this matters</div>'
+       +   '<div class="wkq-why-b"><span class="wkq-hl">'+esc(s.weak.name)+'</span> is where your night gives way first — steady it, and the others start to settle too.</div></div>';
+    h += '</div>';
+    stage.innerHTML = h;
+    cta.textContent = 'What happens next';
+    cta.classList.remove('hidden');
+    cta.onclick = next;
+  }
+
+  function renderTimeline(){
+    var weak = computeScores().weak.name.toLowerCase();
+    var items = [
+      { when:'Days 1–7',  hi:false, body:'The fast half. The calming actives take the edge off your evenings — most people feel the wind-down inside the first week.' },
+      { when:'Weeks 2–4', hi:false, body:'The build. The hormone-support actives reach steady levels. Sleep and temperature start to even out.' },
+      { when:'Weeks 6–8', hi:true,  body:'The shift. This is the slow half most people quit right before — where mood and energy settle into a new baseline.' }
+    ];
+    var h = '<div class="wkq-screen"><div class="wkq-eyebrow">Your first 8 weeks</div>';
+    h += '<h1 class="wkq-title">Here’s the honest timeline.</h1>';
+    h += '<p class="wkq-sub">Your '+esc(weak)+' won’t flip overnight. Half of this works within days, half takes a few weeks — we’d rather tell you now.</p>';
+    h += '<div class="wkq-tl">';
+    items.forEach(function(it){
+      h += '<div class="wkq-tl-item"><div class="wkq-tl-rail"><div class="wkq-tl-dot"></div><div class="wkq-tl-line"></div></div>'
+         + '<div class="wkq-tl-card'+(it.hi?' hi':'')+'"><div class="wkq-tl-when">'+esc(it.when)+'</div><div class="wkq-tl-body">'+esc(it.body)+'</div></div></div>';
+    });
+    h += '</div></div>';
+    stage.innerHTML = h;
+    cta.textContent = 'Show me what to do';
+    cta.classList.remove('hidden');
+    cta.onclick = next;
+  }
+
+  function renderOffer(){
+    cta.classList.add('hidden');
+    var s = computeScores();
+    var oState = { tier:'3', on:true };
+    var meta = { '5':{name:'5-bottle supply', badge:'Best value'}, '3':{name:'3-bottle supply', badge:'Most popular'}, '1':{name:'1-bottle supply', badge:'' } };
+
+    function planCard(tier){
+      var m = meta[tier];
+      return '<button type="button" class="wkq-plan'+(oState.tier===tier?' sel':'')+'" data-tier="'+tier+'">'
+        + (m.badge ? '<span class="wkq-badge2">'+esc(m.badge)+'</span>' : '')
+        + '<span class="wkq-plan-l"><span class="wkq-plan-name">'+esc(m.name)+'</span>'
+        + '<span class="wkq-plan-sub"><span data-permo></span>/bottle · <span data-perday></span>/day<span data-savew> · <span data-save class="save"></span></span></span></span>'
+        + '<span class="wkq-plan-r"><span data-compare class="wkq-strike"></span><span data-total class="wkq-price"></span></span>'
+        + '<span class="wkq-plan-radio">'+CHECK+'</span></button>';
+    }
+
+    var h = '<div class="wkq-screen"><div class="wkq-eyebrow">Your routine</div>';
+    h += '<h1 class="wkq-title">Built for your '+esc(s.weak.name.toLowerCase())+'.</h1>';
+    h += '<p class="wkq-sub">Fully-dosed, hormone-free, third-party tested. One daily gummy, built for the whole shift — not one symptom.</p>';
+    h += '<div class="wkq-plans">'+planCard('5')+planCard('3')+planCard('1')+'</div>';
+    h += '<div class="wkq-refill" data-refill role="checkbox" aria-checked="true" tabindex="0"><span class="wkq-refill-box">'+CHECK+'</span>'
+       + '<span><span class="wkq-refill-t">Auto-refill &amp; save 25%</span><span class="wkq-refill-s">Delivered on your schedule. Pause, skip, or cancel anytime.</span></span></div>';
+    if(VARIANT_ID && VARIANT_AVAIL){
+      h += '<form method="post" action="'+CART_ADD_URL+'" class="wkq-atc-wrap">'
+         + '<input type="hidden" name="form_type" value="product"><input type="hidden" name="utf8" value="✓">'
+         + '<input type="hidden" name="id" value="'+VARIANT_ID+'">'
+         + '<input type="hidden" name="quantity" value="3" data-qty>'
+         + '<input type="hidden" name="selling_plan" value="" data-plan disabled>'
+         + '<button type="submit" class="wkq-atc">Get my routine <span class="wkq-atc-total">— <span data-atc-total></span></span></button></form>';
+    } else {
+      h += '<a class="wkq-atc" href="'+PDP_URL+'">Get my routine</a>';
+    }
+    h += '<div class="wkq-guar"><span class="wkq-guar-badge">90</span><span><span class="wkq-guar-t">90-day money-back guarantee</span><span class="wkq-guar-s">Love it, or get your money back.</span></span></div>';
+    h += '<div class="wkq-trust">Hormone-free · Third-party tested · Made in Europe</div>';
+    h += '</div>';
+    stage.innerHTML = h;
+
+    var refill = stage.querySelector('[data-refill]');
+    function paint(){
+      ['5','3','1'].forEach(function(k){
+        var card = stage.querySelector('.wkq-plan[data-tier="'+k+'"]'); if(!card) return;
+        var q = wkQuote(k, oState.on);
+        card.querySelector('[data-permo]').textContent  = wkMoney(q.perMo);
+        card.querySelector('[data-perday]').textContent = wkPerDay(q.perMo);
+        card.querySelector('[data-total]').textContent  = wkMoney(q.total);
+        var cmp = card.querySelector('[data-compare]'); cmp.textContent = wkMoney(q.full); cmp.style.display = q.save>0 ? 'block' : 'none';
+        card.querySelector('[data-save]').textContent = 'Save ' + q.save + '%';
+        card.querySelector('[data-savew]').style.display = q.save>0 ? '' : 'none';
+        card.classList.toggle('sel', oState.tier===k);
+      });
+      var q = wkQuote(oState.tier, oState.on);
+      var at = stage.querySelector('[data-atc-total]'); if(at) at.textContent = wkMoney(q.total);
+      var qty = stage.querySelector('[data-qty]'); if(qty) qty.value = oState.tier;
+      var planId = planForTier(oState.tier), sub = oState.on && planId;
+      var pl = stage.querySelector('[data-plan]'); if(pl){ if(planId) pl.value = planId; pl.disabled = !sub; }
+      if(refill) refill.setAttribute('aria-checked', oState.on ? 'true' : 'false');
+    }
+    stage.querySelectorAll('.wkq-plan').forEach(function(b){ b.addEventListener('click', function(){ oState.tier = b.getAttribute('data-tier'); paint(); }); });
+    if(refill){
+      function tog(){ oState.on = !oState.on; paint(); }
+      refill.addEventListener('click', tog);
+      refill.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); tog(); } });
+    }
+    paint();
+  }
+
+  function next(){ if(i < STEPS.length-1){ i++; render(); } }
+  function prev(){ if(i > 0){ i--; render(); } }
+
+  back.addEventListener('click', prev);
+  render();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "WK - Quiz",
+  "settings": [
+    { "type": "text", "id": "logo_text", "label": "Logo text", "default": "womankind" },
+    { "type": "range", "id": "total_questions", "label": "Total questions (for progress bar)", "min": 4, "max": 12, "step": 1, "default": 8 },
+    { "type": "header", "content": "Offer (results buy box)" },
+    { "type": "product", "id": "product", "label": "Product" },
+    { "type": "text", "id": "plan_1_id", "label": "1-bottle subscription plan ID (optional)" },
+    { "type": "text", "id": "plan_3_id", "label": "3-bottle subscription plan ID (optional)" },
+    { "type": "text", "id": "plan_5_id", "label": "5-bottle subscription plan ID (optional)" }
+  ]
+}
+{% endschema %}
