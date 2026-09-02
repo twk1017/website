@@ -55,6 +55,12 @@
       </div>
 
       <!-- FLAVOR -->
+      <style>
+        @media(max-width:749px){
+          .wk-sale-badge{margin-left:0 !important;font-size:11.5px !important;padding:8px 15px !important;gap:6px !important;letter-spacing:0.03em !important;box-shadow:0 3px 10px rgba(201,101,63,0.35) !important;}
+          .wk-sale-badge > span{font-size:13px !important;}
+        }
+      </style>
       <div style="font-size:11.5px;letter-spacing:0.22em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:10px;">{{ section.settings.flavor_label }}</div>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:26px;flex-wrap:wrap;">
         <button data-wk="flavor" data-wk-val="cranberry" style="position:relative;cursor:pointer;font-family:inherit;background:#F5E6D8;border:1.5px solid #6B3D42;color:#6B3D42;border-radius:999px;padding:9px 18px;font-size:13px;letter-spacing:0.04em;">{{ section.settings.flavor_pill }}<span data-wk-ring="flavor:cranberry" style="box-shadow:0 0 0 2px #6B3D42;position:absolute;inset:-1.5px;border-radius:999px;pointer-events:none;"></span></button>
