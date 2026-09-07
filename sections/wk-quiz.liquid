@@ -431,16 +431,17 @@
 
   /* ---- offer reveal content (ported from the gummies-3 buy box) ---- */
   var OFFER_IMG = {{ wk_offer_img | json }};
-  /* full product gallery (all PDP images) — sized at 800px for a fast, sharp 1:1 render */
+  /* full buy-box gallery — same source as the gummies-3 PDP: gallery_N image settings,
+     else the assets/wk-buybox-N.jpg files. Sized 800px for a fast, sharp 1:1 render. */
   var OFFER_IMGS = [
     {%- assign wk_img_first = true -%}
-    {%- if section.settings.offer_image -%}{{ section.settings.offer_image | image_url: width: 800 | json }}{%- assign wk_img_first = false -%}{%- endif -%}
-    {%- if wk_product.images.size > 0 -%}
-      {%- for img in wk_product.images limit: 8 -%}
-        {%- unless wk_img_first %},{% endunless %}{{ img | image_url: width: 800 | json }}{%- assign wk_img_first = false -%}
-      {%- endfor -%}
-    {%- endif -%}
-    {%- if wk_img_first and wk_offer_img != blank -%}{{ wk_offer_img | json }}{%- endif -%}
+    {%- for i in (1..8) -%}
+      {%- assign gik = 'gallery_' | append: i | append: '_image' -%}
+      {%- assign gimg = section.settings[gik] -%}
+      {%- if gimg -%}{%- assign gsrc = gimg | image_url: width: 800 -%}
+      {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- assign gsrc = gfname | asset_url -%}{%- endif -%}
+      {%- unless wk_img_first %},{% endunless %}{{ gsrc | json }}{%- assign wk_img_first = false -%}
+    {%- endfor -%}
   ];
   var OFFER_DESC = {{ section.settings.offer_desc | default: 'Two zero-sugar gummies a day for hot flashes, night sweats, disrupted sleep, mood changes, and the energy dips that can make you feel unlike yourself.' | json }};
   var OFFER_BENEFITS = [
@@ -484,7 +485,7 @@
         { v:'sleep',  label:'I’m up in the night and can’t get back down' },
         { v:'heat',   label:'I’m hot and sweaty, especially at night' },
         { v:'mood',   label:'I’m wired, anxious, and short-fused' },
-        { v:'energy', label:'I’m running on empty by mid-afternoon' }
+        { v:'energy', label:'I’m foggy and running on empty by mid-afternoon' }
       ]
     },
     { kind:'q', q:2, id:'sleep',
@@ -1165,8 +1166,16 @@
     { "type": "range", "id": "total_questions", "label": "Total questions (for progress bar)", "min": 4, "max": 12, "step": 1, "default": 8 },
     { "type": "header", "content": "Offer (results buy box)" },
     { "type": "product", "id": "product", "label": "Product" },
-    { "type": "image_picker", "id": "offer_image", "label": "Product image (optional)", "info": "Defaults to the product's featured image, then assets/wk-buybox-1.jpg." },
     { "type": "textarea", "id": "offer_desc", "label": "Description", "default": "Two zero-sugar gummies a day for hot flashes, night sweats, disrupted sleep, mood changes, and the energy dips that can make you feel unlike yourself." },
+    { "type": "header", "content": "Offer — gallery", "info": "Same images as the gummies-3 PDP buy box. Each slot defaults to assets/wk-buybox-1…8.jpg; upload here only to override. Image 1 is the main view." },
+    { "type": "image_picker", "id": "gallery_1_image", "label": "Image 1 (main)" },
+    { "type": "image_picker", "id": "gallery_2_image", "label": "Image 2" },
+    { "type": "image_picker", "id": "gallery_3_image", "label": "Image 3" },
+    { "type": "image_picker", "id": "gallery_4_image", "label": "Image 4" },
+    { "type": "image_picker", "id": "gallery_5_image", "label": "Image 5" },
+    { "type": "image_picker", "id": "gallery_6_image", "label": "Image 6" },
+    { "type": "image_picker", "id": "gallery_7_image", "label": "Image 7" },
+    { "type": "image_picker", "id": "gallery_8_image", "label": "Image 8" },
     { "type": "text", "id": "benefit_1", "label": "Benefit 1", "default": "Fewer, milder hot flashes and night sweats" },
     { "type": "text", "id": "benefit_2", "label": "Benefit 2", "default": "Deeper sleep and fewer 2am wake-ups" },
     { "type": "text", "id": "benefit_3", "label": "Benefit 3", "default": "Steadier mood, stress response, and daytime energy" },

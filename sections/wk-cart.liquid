@@ -3,18 +3,6 @@
   Server-rendered (works with no JS); enhanced with AJAX line edits via the
   Section Rendering API so quantity/remove update in place without a reload.
 {%- endcomment -%}
-  {%- comment -%} First non-blank testimonial (Theme settings → Cart social proof) for the initial render {%- endcomment -%}
-  {%- assign wk_q_first_t = '' -%}{%- assign wk_q_first_n = '' -%}{%- assign wk_q_first_a = '' -%}
-  {%- for i in (1..5) -%}
-    {%- assign tkey = 'wk_cart_q' | append: i | append: '_text' -%}
-    {%- if settings[tkey] != blank and wk_q_first_t == '' -%}
-      {%- assign wk_q_first_t = settings[tkey] -%}
-      {%- assign nkey = 'wk_cart_q' | append: i | append: '_name' -%}
-      {%- assign akey = 'wk_cart_q' | append: i | append: '_initials' -%}
-      {%- assign wk_q_first_n = settings[nkey] -%}
-      {%- assign wk_q_first_a = settings[akey] -%}
-    {%- endif -%}
-  {%- endfor -%}
   <style>
     #wk-cartpage{background:#F5E6D8;color:#3A2A20;font-family:'Hanken Grotesk',sans-serif;padding:56px 28px 80px;}
     #wk-cartpage .wk-cp-wrap{max-width:1120px;margin:0 auto;}
@@ -57,14 +45,6 @@
     #wk-cartpage .wk-cp-badge{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;}
     #wk-cartpage .wk-cp-badge svg{width:19px;height:19px;color:#C9653F;}
     #wk-cartpage .wk-cp-badge span{font-size:11px;color:#6B3D42;line-height:1.3;font-weight:500;}
-    #wk-cartpage .wk-cp-quote{display:flex;gap:12px;align-items:flex-start;background:#F5E6D8;border:1px solid rgba(107,61,66,0.14);border-radius:12px;padding:13px 15px;margin-bottom:20px;transition:opacity .4s ease;}
-    #wk-cartpage .wk-cp-quote-av{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:#6B3D42;color:#F5E6D8;font-size:12.5px;font-weight:600;display:flex;align-items:center;justify-content:center;}
-    #wk-cartpage .wk-cp-quote-stars{color:#C9653F;font-size:12px;letter-spacing:1px;}
-    #wk-cartpage .wk-cp-quote-text{font-family:'Fraunces',serif;font-style:italic;font-size:13.5px;color:#3A2A20;margin:3px 0 5px;line-height:1.4;}
-    #wk-cartpage .wk-cp-quote-text::before{content:'\201C';}
-    #wk-cartpage .wk-cp-quote-text::after{content:'\201D';}
-    #wk-cartpage .wk-cp-quote-name{font-size:11px;color:#7A6258;display:inline-flex;align-items:center;gap:5px;}
-    #wk-cartpage .wk-cp-quote-name svg{width:13px;height:13px;color:#C9653F;flex:0 0 auto;}
     #wk-cartpage .wk-cp-empty{text-align:center;padding:80px 20px;border-top:1px solid rgba(107,61,66,0.16);}
     #wk-cartpage .wk-cp-empty-title{font-family:'Fraunces',serif;font-size:30px;color:#6B3D42;margin:0 0 10px;}
     #wk-cartpage .wk-cp-empty p{color:#7A6258;margin:0;}
@@ -150,16 +130,6 @@
 
             <aside class="wk-cp-summary">
               <div class="wk-cp-sum-title">Order summary</div>
-              {%- if wk_q_first_t != blank -%}
-              <div class="wk-cp-quote" data-wk-cp-quote>
-                <span class="wk-cp-quote-av" data-wk-q-av>{{ wk_q_first_a }}</span>
-                <div>
-                  <span class="wk-cp-quote-stars">★★★★★</span>
-                  <p class="wk-cp-quote-text" data-wk-q-text>{{ wk_q_first_t }}</p>
-                  <span class="wk-cp-quote-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg> <span data-wk-q-name>{{ wk_q_first_n }}</span> · Verified buyer</span>
-                </div>
-              </div>
-              {%- endif -%}
               <div class="wk-cp-sum-row">
                 <span class="wk-cp-sum-label">Subtotal</span>
                 <span class="wk-cp-sum-value">{{ cart.total_price | money }}</span>
@@ -237,37 +207,6 @@
       else if (e.target.closest('[data-wk-inc]')){ change(line, qty + 1); }
       else if (e.target.closest('[data-wk-dec]')){ change(line, Math.max(0, qty - 1)); }
     });
-
-    // Rotating verified testimonials (content from Theme settings → Cart social proof;
-    // query each tick so it survives the refresh-region innerHTML swaps)
-    var QUOTES = [
-      {%- assign wk_q_any = false -%}
-      {%- for i in (1..5) -%}
-        {%- assign tkey = 'wk_cart_q' | append: i | append: '_text' -%}
-        {%- assign qtext = settings[tkey] -%}
-        {%- if qtext != blank -%}
-          {%- assign nkey = 'wk_cart_q' | append: i | append: '_name' -%}
-          {%- assign akey = 'wk_cart_q' | append: i | append: '_initials' -%}
-          {%- if wk_q_any %},{% endif -%}
-          { av: {{ settings[akey] | json }}, name: {{ settings[nkey] | json }}, text: {{ qtext | json }} }
-          {%- assign wk_q_any = true -%}
-        {%- endif -%}
-      {%- endfor -%}
-    ];
-    if (QUOTES.length > 1){
-      var qi = 0;
-      setInterval(function(){
-        var card = root.querySelector('[data-wk-cp-quote]');
-        var t = root.querySelector('[data-wk-q-text]'), n = root.querySelector('[data-wk-q-name]'), a = root.querySelector('[data-wk-q-av]');
-        if (!card || !t || !n || !a) return;
-        qi = (qi + 1) % QUOTES.length;
-        card.style.opacity = '0';
-        setTimeout(function(){
-          t.textContent = QUOTES[qi].text; n.textContent = QUOTES[qi].name; a.textContent = QUOTES[qi].av;
-          card.style.opacity = '1';
-        }, 400);
-      }, 5000);
-    }
   })();
   </script>
 
