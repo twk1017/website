@@ -999,14 +999,14 @@
     cta.classList.add('hidden');
     var s = computeScores();
     var oState = { tier:'3', on:true };
-    var meta = { '5':{name:'5-bottle supply', badge:'Best value'}, '3':{name:'3-bottle supply', badge:'Most popular'}, '1':{name:'1-bottle supply', badge:'' } };
+    var meta = { '5':{name:'5-month supply', badge:'Best value'}, '3':{name:'3-month supply', badge:'Most popular'}, '1':{name:'1-month supply', badge:'' } };
 
     function planCard(tier){
       var m = meta[tier];
       return '<button type="button" class="wkq-plan'+(oState.tier===tier?' sel':'')+'" data-tier="'+tier+'">'
         + (m.badge ? '<span class="wkq-badge2">'+esc(m.badge)+'</span>' : '')
         + '<span class="wkq-plan-l"><span class="wkq-plan-name">'+esc(m.name)+'</span>'
-        + '<span class="wkq-plan-sub"><span data-permo></span>/bottle · <span data-perday></span>/day<span data-savew> · <span data-save class="save"></span></span></span></span>'
+        + '<span class="wkq-plan-sub"><span data-permo></span>/month · <span data-perday></span>/day<span data-savew> · <span data-save class="save"></span></span></span></span>'
         + '<span class="wkq-plan-r"><span data-compare class="wkq-strike"></span><span data-total class="wkq-price"></span></span>'
         + '<span class="wkq-plan-radio">'+CHECK+'</span></button>';
     }
@@ -1031,7 +1031,7 @@
     var bens = '';
     OFFER_BENEFITS.forEach(function(b){ if(b) bens += '<div class="wkq-ben"><span class="ck">&check;</span><span>'+esc(b)+'</span></div>'; });
     h += '<div class="wkq-bens">'+bens+'</div>';
-    h += '<p style="font-size:15px;line-height:1.5;color:var(--body);margin:0 0 14px;">Your timeline showed the real shift lands around <b style="color:var(--plum);">month 3</b> — that’s the <b style="color:var(--plum);">3-bottle supply</b>, so we’ve set you up there. Change it anytime below.</p>';
+    h += '<p style="font-size:15px;line-height:1.5;color:var(--body);margin:0 0 14px;">Your timeline showed the real shift lands around <b style="color:var(--plum);">month 3</b> — that’s the <b style="color:var(--plum);">3-month supply</b>, so we’ve set you up there. Change it anytime below.</p>';
     h += '<div class="wkq-plans">'+planCard('5')+planCard('3')+planCard('1')+'</div>';
     h += '<div class="wkq-refill" data-refill role="checkbox" aria-checked="true" tabindex="0"><span class="wkq-refill-box">'+CHECK+'</span>'
        + '<span><span class="wkq-refill-t">Auto-refill &amp; save 25%</span><span class="wkq-refill-s">Delivered on your schedule. Pause, skip, or cancel anytime.</span></span></div>';
@@ -1180,9 +1180,9 @@
     { "type": "text", "id": "benefit_2", "label": "Benefit 2", "default": "Deeper sleep and fewer 2am wake-ups" },
     { "type": "text", "id": "benefit_3", "label": "Benefit 3", "default": "Steadier mood, stress response, and daytime energy" },
     { "type": "text", "id": "benefit_4", "label": "Benefit 4", "default": "8 research-backed botanicals in fully disclosed doses — zero hormones, zero sugar" },
-    { "type": "text", "id": "plan_1_id", "label": "1-bottle subscription plan ID (optional)" },
-    { "type": "text", "id": "plan_3_id", "label": "3-bottle subscription plan ID (optional)" },
-    { "type": "text", "id": "plan_5_id", "label": "5-bottle subscription plan ID (optional)" },
+    { "type": "text", "id": "plan_1_id", "label": "1-month subscription plan ID (optional)" },
+    { "type": "text", "id": "plan_3_id", "label": "3-month subscription plan ID (optional)" },
+    { "type": "text", "id": "plan_5_id", "label": "5-month subscription plan ID (optional)" },
     { "type": "header", "content": "Offer — reviews (Okendo)" },
     { "type": "text", "id": "reviews_heading", "label": "Reviews heading", "default": "What women are saying" },
     { "type": "header", "content": "Offer — ingredients" },
