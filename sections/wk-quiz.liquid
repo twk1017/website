@@ -3,6 +3,12 @@
 {%- assign wk_product = section.settings.product -%}
 {%- if wk_product != blank -%}{%- assign wk_variant = wk_product.selected_or_first_available_variant -%}{%- endif -%}
 {%- capture wk_pdp_url -%}{%- render 'wk-localized-url', url: wk_product.url, fallback: '/products/hormonal-support-gummies' -%}{%- endcapture -%}
+{%- comment -%} offer reveal image — same source order as the gummies-3 buy box {%- endcomment -%}
+{%- assign wk_offer_img = '' -%}
+{%- if section.settings.offer_image -%}{%- assign wk_offer_img = section.settings.offer_image | image_url: width: 900 -%}
+{%- elsif wk_product.featured_image -%}{%- assign wk_offer_img = wk_product.featured_image | image_url: width: 900 -%}
+{%- else -%}{%- assign wk_offer_img = 'wk-buybox-1.jpg' | asset_url -%}{%- endif -%}
+{%- assign oke_product = wk_product | default: all_products['hormonal-support-gummies'] -%}
 <style>
   #wkq-{{ uid }}{--plum:#6B3D42;--terra:#C9653F;--gold:#E2A24C;--cream:#FBF1E6;--blush:#E9D6CE;--body:#4a3a30;--line:rgba(107,61,66,0.16);}
   #wkq-{{ uid }}{background:var(--cream);min-height:100vh;display:flex;flex-direction:column;font-family:'Hanken Grotesk',sans-serif;color:var(--body);}
@@ -78,8 +84,24 @@
   #wkq-{{ uid }} .wkq-tl-card.hi{border-color:var(--plum);border-width:2px;background:#F5E6D8;}
   #wkq-{{ uid }} .wkq-tl-when{font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--terra);margin-bottom:4px;}
   #wkq-{{ uid }} .wkq-tl-body{font-size:15.5px;line-height:1.5;color:var(--body);}
+  #wkq-{{ uid }} .wkq-tl-badge{display:inline-block;background:var(--plum);color:var(--cream);font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:5px 12px;border-radius:999px;margin-bottom:11px;}
+  #wkq-{{ uid }} .wkq-tl-title{font-family:'Fraunces',serif;font-weight:600;font-size:20px;line-height:1.15;color:var(--plum);margin:0 0 11px;}
+  #wkq-{{ uid }} .wkq-tl-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;}
+  #wkq-{{ uid }} .wkq-tl-bullet{position:relative;padding-left:18px;font-size:14.5px;line-height:1.5;color:var(--body);}
+  #wkq-{{ uid }} .wkq-tl-bullet::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--terra);}
+  #wkq-{{ uid }} .wkq-tl-guar{margin-top:14px;padding-top:14px;border-top:1px solid rgba(107,61,66,0.2);font-size:15px;font-weight:700;line-height:1.45;color:var(--plum);}
+  #wkq-{{ uid }} .wkq-fine{font-size:11px;line-height:1.45;color:#9b8578;margin:18px 0 0;}
 
   /* offer buy box */
+  #wkq-{{ uid }} .wkq-hero{position:relative;width:100%;aspect-ratio:1/1;border-radius:18px;overflow:hidden;margin:0 0 20px;background:radial-gradient(120% 92% at 50% 16%, #ECDBCC 0%, #D8BFB4 52%, #C2A099 100%);}
+  #wkq-{{ uid }} .wkq-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+  #wkq-{{ uid }} .wkq-hero-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(107,61,66,0.5);font-weight:700;}
+  #wkq-{{ uid }} .wkq-rating{display:flex;align-items:center;gap:9px;margin:0 0 16px;font-size:13.5px;color:#7a6258;font-weight:600;}
+  #wkq-{{ uid }} .wkq-rating .stars{color:var(--gold);letter-spacing:2px;font-size:15px;}
+  #wkq-{{ uid }} .wkq-odesc{font-size:15px;line-height:1.55;color:var(--body);margin:0 0 18px;}
+  #wkq-{{ uid }} .wkq-bens{display:flex;flex-direction:column;gap:10px;margin:0 0 24px;}
+  #wkq-{{ uid }} .wkq-ben{display:flex;align-items:flex-start;gap:11px;font-size:14.5px;line-height:1.45;color:#3A2A20;}
+  #wkq-{{ uid }} .wkq-ben .ck{flex:0 0 auto;color:var(--terra);font-weight:800;line-height:1.4;}
   #wkq-{{ uid }} .wkq-plans{display:flex;flex-direction:column;gap:16px;margin:8px 0 0;}
   #wkq-{{ uid }} .wkq-plan{position:relative;display:flex;align-items:center;gap:12px;width:100%;text-align:left;cursor:pointer;background:#FFFDFA;border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;font-family:inherit;transition:border-color .18s ease,background .18s ease;}
   #wkq-{{ uid }} .wkq-plan.sel{border-color:var(--plum);border-width:2px;background:#F5E6D8;}
@@ -111,9 +133,83 @@
   #wkq-{{ uid }} .wkq-guar-s{display:block;font-size:12.5px;color:var(--body);line-height:1.4;margin-top:3px;}
   #wkq-{{ uid }} .wkq-trust{text-align:center;margin:12px 0 0;font-size:11.5px;letter-spacing:0.02em;color:#7a6258;font-weight:600;}
 
+  /* extra selling blocks (offer step only) */
+  #wkq-{{ uid }}.wkq-offermode .wkq-footer{display:none;}
+  #wkq-{{ uid }}.wkq-offermode .wkq-stage{padding-bottom:24px;}
+  #wkq-{{ uid }} .wkq-extras{width:100%;max-width:640px;margin:0 auto;padding:8px 24px 60px;}
+  #wkq-{{ uid }} .wkq-ex-eyebrow{font-size:12px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:var(--terra);margin-bottom:10px;text-align:center;}
+  #wkq-{{ uid }} .wkq-ex-h{font-family:'Fraunces',serif;font-weight:500;font-size:27px;line-height:1.12;color:var(--plum);text-align:center;margin:0 0 12px;}
+  #wkq-{{ uid }} .wkq-ex-sub{font-size:14.5px;line-height:1.55;color:var(--body);text-align:center;max-width:48ch;margin:0 auto 26px;}
+  #wkq-{{ uid }} .wkq-ex-reviews{padding:34px 0 12px;border-top:1px solid var(--line);}
+  #wkq-{{ uid }} .wkq-ex-ing{padding:38px 0 0;border-top:1px solid var(--line);margin-top:34px;}
+  #wkq-{{ uid }} .wkq-ing-grid{display:grid;grid-template-columns:1fr;gap:14px;}
+  #wkq-{{ uid }} .wkq-ing-card{position:relative;overflow:hidden;text-align:left;cursor:pointer;background:#FFFCF8;border:1px solid rgba(107,61,66,0.11);border-radius:16px;min-height:104px;padding:20px 46% 20px 20px;width:100%;display:block;box-shadow:0 6px 20px rgba(107,61,66,0.05);transition:box-shadow .18s ease,transform .18s ease;font-family:inherit;color:inherit;}
+  #wkq-{{ uid }} .wkq-ing-card:hover{box-shadow:0 12px 30px rgba(107,61,66,0.12);transform:translateY(-2px);}
+  #wkq-{{ uid }} .wkq-ing-card:focus-visible{outline:2px solid var(--terra);outline-offset:2px;}
+  #wkq-{{ uid }} .wkq-ing-card-top{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:7px;}
+  #wkq-{{ uid }} .wkq-ing-card-name{font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.12;margin:0;color:var(--plum);}
+  #wkq-{{ uid }} .wkq-ing-card-dose{font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--terra);font-weight:700;}
+  #wkq-{{ uid }} .wkq-ing-card-role{font-size:13px;line-height:1.4;color:#7a6258;margin:0;}
+  #wkq-{{ uid }} .wkq-ing-card-img{position:absolute;top:0;right:0;bottom:0;width:42%;height:100%;object-fit:cover;display:block;}
+  #wkq-{{ uid }} .wkq-ing-plus{position:absolute;bottom:12px;right:12px;z-index:2;width:32px;height:32px;border-radius:50%;background:var(--plum);color:var(--cream);display:inline-flex;align-items:center;justify-content:center;font-size:19px;line-height:1;box-shadow:0 3px 10px rgba(43,24,26,0.28);pointer-events:none;}
+  #wkq-{{ uid }} .wkq-ex-suppfacts{text-align:center;margin-top:26px;}
+  #wkq-{{ uid }} .wkq-ex-outline{cursor:pointer;font-family:inherit;display:inline-block;background:none;border:1.5px solid var(--plum);color:var(--plum);border-radius:999px;padding:14px 34px;font-size:12.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;}
+  /* ingredient + supplement-facts modals */
+  #wkq-{{ uid }} .wkq-ingm-overlay{display:none;position:fixed;inset:0;z-index:9998;background:rgba(43,24,26,0.66);align-items:center;justify-content:center;padding:20px;}
+  #wkq-{{ uid }} .wkq-ingm-overlay.open{display:flex;}
+  #wkq-{{ uid }} .wkq-ingm-box{position:relative;background:#FFFCF8;border-radius:18px;max-width:480px;width:100%;max-height:90vh;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,0.35);}
+  #wkq-{{ uid }} .wkq-ingm-x{cursor:pointer;font-family:inherit;position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;border:none;background:rgba(107,61,66,0.9);color:var(--cream);font-size:19px;line-height:1;display:inline-flex;align-items:center;justify-content:center;z-index:3;}
+  #wkq-{{ uid }} .wkq-ingm-track{display:flex;transition:transform .32s cubic-bezier(0.4,0,0.2,1);}
+  #wkq-{{ uid }} .wkq-ingm-slide{flex:0 0 100%;width:100%;}
+  #wkq-{{ uid }} .wkq-ingm-img{width:100%;height:200px;object-fit:cover;display:block;}
+  #wkq-{{ uid }} .wkq-ingm-body{padding:24px 26px 28px;max-height:calc(90vh - 200px);overflow:auto;}
+  #wkq-{{ uid }} .wkq-ingm-name{font-family:'Fraunces',serif;font-weight:500;font-size:23px;line-height:1.1;margin:0;color:var(--plum);}
+  #wkq-{{ uid }} .wkq-ingm-desc{font-size:15px;line-height:1.62;color:var(--body);margin:0;}
+  #wkq-{{ uid }} .wkq-ingm-nav{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px;border-top:1px solid var(--line);}
+  #wkq-{{ uid }} .wkq-ingm-arrow{cursor:pointer;font-family:inherit;width:40px;height:40px;border-radius:50%;border:none;background:var(--plum);color:var(--cream);font-size:17px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;}
+  #wkq-{{ uid }} .wkq-ingm-count{font-size:11.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--plum);font-weight:600;}
+  #wkq-{{ uid }} .wkq-suppfacts-box{position:relative;background:#fff;border-radius:16px;max-width:540px;width:100%;max-height:90vh;overflow:auto;box-shadow:0 24px 70px rgba(0,0,0,0.35);}
+  #wkq-{{ uid }} .wkq-suppfacts-img{display:block;width:100%;height:auto;border-radius:16px;}
+  /* experts */
+  #wkq-{{ uid }} .wkq-ex-experts{padding:38px 0 0;border-top:1px solid var(--line);margin-top:34px;}
+  #wkq-{{ uid }} .wkq-exp-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 2px 10px;scrollbar-width:none;}
+  #wkq-{{ uid }} .wkq-exp-track::-webkit-scrollbar{display:none;}
+  #wkq-{{ uid }} .wkq-exp-card{scroll-snap-align:center;flex:0 0 82%;background:#FFFCF8;border:1px solid rgba(107,61,66,0.11);border-radius:16px;padding:18px 20px 20px;box-shadow:0 6px 20px rgba(107,61,66,0.05);}
+  #wkq-{{ uid }} .wkq-exp-img{width:64px;height:64px;border-radius:50%;object-fit:cover;display:block;margin-bottom:14px;}
+  #wkq-{{ uid }} .wkq-exp-name{font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:20px;margin:0 0 5px;color:#3A2A20;}
+  #wkq-{{ uid }} .wkq-exp-cred{font-size:10px;letter-spacing:0.13em;text-transform:uppercase;color:var(--terra);font-weight:700;line-height:1.4;margin-bottom:12px;}
+  #wkq-{{ uid }} .wkq-exp-quote{font-size:13.5px;line-height:1.55;color:var(--body);margin:0;}
+
   /* end placeholder */
   #wkq-{{ uid }} .wkq-end{text-align:center;padding:30px 0;}
   #wkq-{{ uid }} .wkq-end .wkq-title{margin-bottom:12px;}
+
+  /* loader (computing your results) */
+  #wkq-{{ uid }} .wkq-loader{display:flex;flex-direction:column;align-items:center;text-align:center;}
+  #wkq-{{ uid }} .wkq-load-ring{margin:8px 0 2px;}
+  #wkq-{{ uid }} .wkq-load-title{margin:6px 0 8px;}
+  #wkq-{{ uid }} .wkq-load-bar{width:100%;max-width:300px;height:8px;background:var(--blush);border-radius:999px;overflow:hidden;margin:0 0 28px;}
+  #wkq-{{ uid }} .wkq-load-bar-fill{height:100%;width:0;background:var(--plum);border-radius:999px;}
+  #wkq-{{ uid }} .wkq-load-checks{width:100%;display:flex;flex-direction:column;gap:12px;margin:0 0 30px;}
+  #wkq-{{ uid }} .wkq-load-check{display:flex;align-items:center;gap:14px;text-align:left;background:#FFFDFA;border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;font-size:16px;font-weight:600;color:var(--plum);opacity:0.45;transition:opacity .35s ease,border-color .35s ease;}
+  #wkq-{{ uid }} .wkq-load-check.done{opacity:1;border-color:rgba(107,61,66,0.28);}
+  #wkq-{{ uid }} .wkq-load-box{width:26px;height:26px;flex:0 0 auto;border-radius:50%;border:2px solid rgba(107,61,66,0.3);display:flex;align-items:center;justify-content:center;background:transparent;transition:background .35s ease,border-color .35s ease;}
+  #wkq-{{ uid }} .wkq-load-check.done .wkq-load-box{background:var(--terra);border-color:var(--terra);}
+  #wkq-{{ uid }} .wkq-load-box svg{opacity:0;transition:opacity .35s ease;}
+  #wkq-{{ uid }} .wkq-load-check.done .wkq-load-box svg{opacity:1;}
+
+  /* testimonial carousel */
+  #wkq-{{ uid }} .wkq-tst{width:100%;overflow:hidden;}
+  #wkq-{{ uid }} .wkq-tst-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 2px 10px;scrollbar-width:none;}
+  #wkq-{{ uid }} .wkq-tst-track::-webkit-scrollbar{display:none;}
+  #wkq-{{ uid }} .wkq-tst-card{scroll-snap-align:center;flex:0 0 84%;background:#FFFDFA;border:1.5px solid var(--line);border-radius:16px;padding:18px 20px;text-align:left;box-shadow:0 8px 22px rgba(107,61,66,0.08);}
+  #wkq-{{ uid }} .wkq-tst-stars{font-size:14px;letter-spacing:2px;margin-bottom:8px;color:var(--gold);}
+  #wkq-{{ uid }} .wkq-tst-stars .off{color:rgba(107,61,66,0.2);}
+  #wkq-{{ uid }} .wkq-tst-q{font-size:15px;line-height:1.5;color:var(--body);margin-bottom:10px;}
+  #wkq-{{ uid }} .wkq-tst-n{font-size:12.5px;font-weight:700;color:var(--plum);}
+  #wkq-{{ uid }} .wkq-tst-n span{color:#7a6258;font-weight:600;}
+  #wkq-{{ uid }} .wkq-tst-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;}
+  #wkq-{{ uid }} .wkq-tst-tags span{font-size:10px;letter-spacing:0.07em;text-transform:uppercase;font-weight:700;color:var(--plum);border:1px solid var(--line);border-radius:999px;padding:5px 11px;}
 
   /* sticky CTA */
   #wkq-{{ uid }} .wkq-footer{position:fixed;bottom:0;left:0;right:0;z-index:6;background:linear-gradient(180deg,rgba(251,241,230,0) 0%,var(--cream) 34%);padding:22px 24px 26px;}
@@ -157,6 +253,129 @@
     <div class="wkq-footer">
       <button class="wkq-cta hidden" type="button" data-wkq-cta></button>
     </div>
+
+    {%- comment -%} live Okendo star rating — the JS moves this into the offer's rating slot {%- endcomment -%}
+    <div data-wkq-oke-holder hidden><div data-wkq-oke-star class="wkq-rating"><div data-oke-star-rating data-oke-reviews-product-id="shopify-{{ oke_product.id }}">{{ oke_product.metafields.okendo.StarRatingSnippet }}</div></div></div>
+
+    {%- comment -%} extra selling blocks — revealed by the JS only on the offer step {%- endcomment -%}
+    <div class="wkq-extras" data-wkq-extras hidden>
+
+      {%- assign oke_product = wk_product | default: all_products['hormonal-support-gummies'] -%}
+      <div class="wkq-ex-reviews">
+        <div class="wkq-ex-eyebrow">Reviews</div>
+        <h2 class="wkq-ex-h">{{ section.settings.reviews_heading | default: 'What women are saying' }}</h2>
+        <div data-oke-widget data-oke-reviews-product-id="shopify-{{ oke_product.id }}">{{ oke_product.metafields.okendo.ReviewsWidgetSnippet }}</div>
+      </div>
+
+      {%- comment -%} INGREDIENT DEEP DIVE (ported from wk-ingredients-3) {%- endcomment -%}
+      {%- assign ing_defaults = 'wk-ing-ashwagandha.jpg,wk-ing-black-cohosh.jpg,wk-ing-red-clover.jpg,wk-ing-chasteberry.jpg,wk-ing-dong-quai.jpg,wk-ing-cranberry.jpg,wk-ing-vitamins.jpg,wk-ing-probiotic.jpg' | split: ',' -%}
+      <div id="wkq-ing-{{ uid }}" class="wkq-ex-ing">
+        <div class="wkq-ex-ing-head">
+          <div class="wkq-ex-eyebrow">{{ section.settings.ing_eyebrow | default: "What's inside, and why" }}</div>
+          <h2 class="wkq-ex-h">{{ section.settings.ing_heading | default: 'Every ingredient, chosen for a reason' }}</h2>
+          <p class="wkq-ex-sub">{{ section.settings.ing_subhead | default: 'No proprietary blends. No fairy dust. Every active in Womankind is clearly named, fully dosed, and chosen for the specific role it plays through perimenopause — grounded in published research, not marketing fluff.' }}</p>
+        </div>
+        <div class="wkq-ing-grid">
+          {%- assign vis = 0 -%}
+          {%- for i in (1..8) -%}
+            {%- assign nk = 'ing' | append: i | append: '_name' -%}
+            {%- assign name = section.settings[nk] -%}
+            {%- if name != blank -%}
+              {%- assign rk = 'ing' | append: i | append: '_role' -%}
+              {%- assign dk = 'ing' | append: i | append: '_dose' -%}
+              {%- assign ik = 'ing' | append: i | append: '_image' -%}
+              {%- assign img = section.settings[ik] -%}
+              {%- if img -%}{%- assign src = img | image_url: width: 320 -%}{%- else -%}{%- assign fname = ing_defaults[forloop.index0] -%}{%- assign src = fname | asset_url -%}{%- endif -%}
+              <div class="wkq-ing-card" role="button" tabindex="0" data-wkq-ing-open="{{ vis }}" aria-label="Learn more about {{ name | escape }}">
+                <div class="wkq-ing-card-top">
+                  <h3 class="wkq-ing-card-name">{{ name }}</h3>
+                  {%- if section.settings[dk] != blank -%}<span class="wkq-ing-card-dose">{{ section.settings[dk] }}</span>{%- endif -%}
+                </div>
+                <p class="wkq-ing-card-role">{{ section.settings[rk] }}</p>
+                <img src="{{ src }}" alt="{{ name | escape }}" width="200" height="200" loading="lazy" class="wkq-ing-card-img">
+                <span class="wkq-ing-plus" aria-hidden="true">+</span>
+              </div>
+              {%- assign vis = vis | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <div class="wkq-ex-suppfacts">
+          <button type="button" data-wkq-suppfacts-open class="wkq-ex-outline">{{ section.settings.supp_button_label | default: 'See full supplement facts' }}</button>
+        </div>
+
+        <div data-wkq-ingm-overlay class="wkq-ingm-overlay" role="dialog" aria-modal="true" aria-label="Ingredient details">
+          <div class="wkq-ingm-box">
+            <button type="button" data-wkq-ingm-close aria-label="Close" class="wkq-ingm-x">&times;</button>
+            <div style="overflow:hidden;">
+              <div class="wkq-ingm-track" data-wkq-ingm-track>
+                {%- assign vis = 0 -%}
+                {%- for i in (1..8) -%}
+                  {%- assign nk = 'ing' | append: i | append: '_name' -%}
+                  {%- assign name = section.settings[nk] -%}
+                  {%- if name != blank -%}
+                    {%- assign dk = 'ing' | append: i | append: '_dose' -%}
+                    {%- assign dsk = 'ing' | append: i | append: '_desc' -%}
+                    {%- assign ik = 'ing' | append: i | append: '_image' -%}
+                    {%- assign img = section.settings[ik] -%}
+                    {%- if img -%}{%- assign msrc = img | image_url: width: 640 -%}{%- else -%}{%- assign fname = ing_defaults[forloop.index0] -%}{%- assign msrc = fname | asset_url -%}{%- endif -%}
+                    <div class="wkq-ingm-slide">
+                      <img src="{{ msrc }}" alt="{{ name | escape }}" width="520" height="240" loading="lazy" class="wkq-ingm-img">
+                      <div class="wkq-ingm-body">
+                        <div class="wkq-ing-card-top">
+                          <h3 class="wkq-ingm-name">{{ name }}</h3>
+                          {%- if section.settings[dk] != blank -%}<span class="wkq-ing-card-dose">{{ section.settings[dk] }}</span>{%- endif -%}
+                        </div>
+                        <p class="wkq-ingm-desc">{{ section.settings[dsk] }}</p>
+                      </div>
+                    </div>
+                    {%- assign vis = vis | plus: 1 -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+            <div class="wkq-ingm-nav">
+              <button type="button" data-wkq-ingm-prev aria-label="Previous ingredient" class="wkq-ingm-arrow">&lsaquo;</button>
+              <span data-wkq-ingm-count class="wkq-ingm-count">1 / 1</span>
+              <button type="button" data-wkq-ingm-next aria-label="Next ingredient" class="wkq-ingm-arrow">&rsaquo;</button>
+            </div>
+          </div>
+        </div>
+
+        {%- if section.settings.supp_facts_image -%}{%- assign supp_src = section.settings.supp_facts_image | image_url: width: 700 -%}{%- else -%}{%- assign supp_src = 'wk-supplement-facts.jpg' | asset_url -%}{%- endif -%}
+        <div data-wkq-suppfacts-overlay class="wkq-ingm-overlay" role="dialog" aria-modal="true" aria-label="Supplement facts">
+          <div data-wkq-suppfacts-dialog class="wkq-suppfacts-box">
+            <button type="button" data-wkq-suppfacts-close aria-label="Close" class="wkq-ingm-x">&times;</button>
+            <img src="{{ supp_src }}" alt="Womankind supplement facts panel" width="692" height="705" loading="lazy" class="wkq-suppfacts-img">
+          </div>
+        </div>
+      </div>
+
+      {%- comment -%} RECOMMENDED BY EXPERTS (ported from wk-experts-3) {%- endcomment -%}
+      {%- assign exp_defaults = 'wk-expert-delgado.jpg,wk-expert-lin.jpg,wk-expert-raman.jpg' | split: ',' -%}
+      <div class="wkq-ex-experts">
+        <div class="wkq-ex-eyebrow">Expert-backed</div>
+        <h2 class="wkq-ex-h">{{ section.settings.experts_heading | default: 'Recommended by women’s health experts' }}</h2>
+        <div class="wkq-exp-track">
+          {%- for i in (1..3) -%}
+            {%- assign nk = 'exp' | append: i | append: '_name' -%}
+            {%- assign name = section.settings[nk] -%}
+            {%- if name != blank -%}
+              {%- assign ik = 'exp' | append: i | append: '_image' -%}
+              {%- assign ck = 'exp' | append: i | append: '_credential' -%}
+              {%- assign qk = 'exp' | append: i | append: '_quote' -%}
+              {%- assign img = section.settings[ik] -%}
+              {%- if img -%}{%- assign src = img | image_url: width: 400 -%}{%- else -%}{%- assign fname = exp_defaults[forloop.index0] -%}{%- assign src = fname | asset_url -%}{%- endif -%}
+              <div class="wkq-exp-card">
+                <img src="{{ src }}" alt="{{ name | escape }}, {{ section.settings[ck] }}" width="400" height="400" loading="lazy" class="wkq-exp-img">
+                <h3 class="wkq-exp-name">{{ name }}</h3>
+                <div class="wkq-exp-cred">{{ section.settings[ck] }}</div>
+                <p class="wkq-exp-quote">{{ section.settings[qk] }}</p>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -167,6 +386,14 @@
   var TOTAL_Q = {{ section.settings.total_questions | default: 8 }};
 
   var CHECK = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FBF1E6" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+  /* ---- reviews (from the homepage) ---- */
+  var TESTIMONIALS = [
+    { stars:5, quote:'I didn’t expect much after years of things that did nothing. Three weeks in, the 2am wake-ups eased and I finally feel steady in my own body again.', name:'Margaret R., 48', tags:['Better sleep','Mood balance'] },
+    { stars:5, quote:'I’m a sceptic — I’ve wasted money on a lot of these. This is the first one where I can actually feel the difference. Cooler nights, fewer flushes.', name:'Grace L., 47', tags:['Hot flashes','Night sweats'] },
+    { stars:5, quote:'A doctor told me my labs were normal and it was probably stress. This is the first thing that took the early changes seriously. I feel more like me.', name:'Renée J., 50', tags:['Hormonal balance','Steady energy'] },
+    { stars:5, quote:'The little things stay little now. My family noticed I was more even before I said a word about taking anything.', name:'Gabriela R., 43', tags:['Mood balance','Stress response'] }
+  ];
 
   /* ---- offer buy box (mirrors the gummies-3 pricing engine) ---- */
   var CART_ADD_URL = {{ routes.cart_add_url | json }};
@@ -183,6 +410,16 @@
     {%- endfor -%}{%- endfor -%}
   ];
   var PLAN_OVERRIDES = { '1': {{ section.settings.plan_1_id | default: 'null' }}, '3': {{ section.settings.plan_3_id | default: 'null' }}, '5': {{ section.settings.plan_5_id | default: 'null' }} };
+
+  /* ---- offer reveal content (ported from the gummies-3 buy box) ---- */
+  var OFFER_IMG = {{ wk_offer_img | json }};
+  var OFFER_DESC = {{ section.settings.offer_desc | default: 'Two zero-sugar gummies a day for hot flashes, night sweats, disrupted sleep, mood changes, and the energy dips that can make you feel unlike yourself.' | json }};
+  var OFFER_BENEFITS = [
+    {{ section.settings.benefit_1 | default: 'Fewer, milder hot flashes and night sweats' | json }},
+    {{ section.settings.benefit_2 | default: 'Deeper sleep and fewer 2am wake-ups' | json }},
+    {{ section.settings.benefit_3 | default: 'Steadier mood, stress response, and daytime energy' | json }},
+    {{ section.settings.benefit_4 | default: '8 research-backed botanicals in fully disclosed doses — zero hormones, zero sugar' | json }}
+  ];
   var TIERS = { '1':{m:1,off:0}, '3':{m:3,off:1/3}, '5':{m:5,off:0.40} };
   var SUB_OFF = 0.25;
   function wkMoney(c){ return '$' + (c/100).toFixed(2).replace(/\.00$/,''); }
@@ -215,16 +452,33 @@
       sub:'Most supplements are built for one of these. Very few are built for the whole shift.',
       note:'Eight questions, about 60 seconds. At the end you’ll see which part of your hormonal shift needs the most support, what to change first, and the routine built for the rest.',
       options:[
-        { v:'cycle',  label:'My cycle has gone unpredictable' },
-        { v:'mood',   label:'I’m wired, anxious, and short-fused' },
+        { v:'sleep',  label:'I’m up in the night and can’t get back down' },
         { v:'heat',   label:'I’m hot and sweaty, especially at night' },
+        { v:'mood',   label:'I’m wired, anxious, and short-fused' },
         { v:'energy', label:'I’m running on empty by mid-afternoon' }
+      ]
+    },
+    { kind:'q', q:2, id:'sleep',
+      eyebrow:'Question 2 of ' + TOTAL_Q,
+      title:'How are your nights right now?',
+      sub:'Whatever you picked first, sleep is usually underneath it — so let’s start here.',
+      options:[
+        { v:'threeam',     label:'I fall asleep fine, then I’m wide awake at 3am' },
+        { v:'racing',      label:'I lie there for ages before I go down' },
+        { v:'sweats',      label:'I wake up drenched and have to cool off' },
+        { v:'unrefreshed', label:'I sleep through but wake up shattered' }
       ]
     },
     { kind:'reflect',
       eyebrow:'What you just described',
-      title:'You’re describing early perimenopause.',
-      leadPre:'Those swings are ',
+      title:'You’re describing perimenopause.',
+      leadPreByPattern:{
+        sleep:  'Lying awake at 3am isn’t a willpower problem. It’s ',
+        heat:   'The hot flashes and drenched sheets aren’t random. They’re ',
+        mood:   'The short fuse and the low hum of anxiety aren’t a character flaw. They’re ',
+        energy: 'That afternoon crash isn’t you being lazy. It’s '
+      },
+      leadPre:'What you’re feeling is ',
       leadHl:'your hormones shifting, not you falling apart',
       leadPost:'. That’s a pattern — and patterns can be supported.',
       points:[
@@ -233,31 +487,20 @@
       ],
       cta:'Keep going'
     },
-    { kind:'q', q:2, id:'sleep',
-      eyebrow:'Question 2 of ' + TOTAL_Q,
-      title:'How are your nights right now?',
-      sub:'No judgement either way — we just need the full picture.',
-      options:[
-        { v:'threeam',     label:'I fall asleep fine, then I’m wide awake at 3am' },
-        { v:'racing',      label:'I lie there for ages before I go down' },
-        { v:'sweats',      label:'I wake up drenched and have to cool off' },
-        { v:'unrefreshed', label:'I sleep through but wake up shattered' }
-      ]
-    },
     { kind:'q', q:3, id:'flashes',
       eyebrow:'Question 3 of ' + TOTAL_Q,
-      title:'How often do heat waves catch you out?',
-      sub:'Daytime flushes or night sweats — both count.',
+      title:'How often do hot flashes catch you off guard?',
+      sub:'Daytime flashes or night sweats — both count.',
       options:[
         { v:'often',  label:'Most days, and they wake me at night' },
         { v:'weekly', label:'A few times a week' },
         { v:'rare',   label:'Now and then' },
-        { v:'never',  label:'Not really my thing' }
+        { v:'never',  label:'I don’t really get these' }
       ]
     },
     { kind:'q', q:4, id:'moodq',
       eyebrow:'Question 4 of ' + TOTAL_Q,
-      title:'How has your patience been lately?',
+      title:'How has your mood been lately?',
       sub:'The bit nobody warns you about.',
       options:[
         { v:'edge',    label:'I snap at things that never used to bother me' },
@@ -279,25 +522,51 @@
       ]
     },
     { kind:'reflect',
-      eyebrow:'Why none of it quite stuck',
-      title:'Most of what you’ve tried was built for one symptom.',
-      leadPre:'Perimenopause isn’t one problem, so ',
-      leadHl:'a single-symptom fix leaves the rest untouched',
-      leadPost:'. That’s not you failing — it’s the wrong tool.',
-      points:[
-        { h:'Under-dosed',       b:'Supermarket magnesium and primrose oil are usually a fraction of the amount studies actually use.' },
-        { h:'Given up too soon', b:'Hormone support builds over weeks. Most people quit in week two, right before it turns.' }
-      ],
-      cta:'Makes sense'
+      cta:'Makes sense',
+      variantsByTried:{
+        default:{
+          eyebrow:'Why none of it quite stuck',
+          title:'Most of what you’ve tried was built for one symptom.',
+          leadPre:'Perimenopause isn’t one problem, so ',
+          leadHl:'a single-symptom fix leaves the rest untouched',
+          leadPost:'. That’s not you failing — it’s the wrong tool.',
+          points:[
+            { h:'Under-dosed',       b:'Single herbs and supermarket supplements — think black cohosh or magnesium — are usually a fraction of the dose studies actually use.' },
+            { h:'Given up too soon', b:'Hormone support builds over weeks. Most people quit in week two, right before it turns.' }
+          ]
+        },
+        hrt:{
+          eyebrow:'Where this fits with HRT',
+          title:'This sits alongside HRT — not instead of it.',
+          leadPre:'HRT does real work, and ',
+          leadHl:'this is the daily support that works with it',
+          leadPost:' — picking up the everyday symptoms it doesn’t always reach.',
+          points:[
+            { h:'Alongside, not instead', b:'HRT steadies your hormones; the gummy covers the daily load — sleep, mood, temperature, energy — with fully-dosed, hormone-free actives.' },
+            { h:'For the gaps HRT leaves', b:'Many women still get breakthrough symptoms on HRT, or can’t take it at all. This is built for exactly that.' }
+          ]
+        },
+        nothing:{
+          eyebrow:'The best place to start',
+          title:'Starting fresh is the best position to be in.',
+          leadPre:'You haven’t wasted months on half-doses, so ',
+          leadHl:'you can start with something built for the whole shift',
+          leadPost:' — instead of chasing one symptom at a time.',
+          points:[
+            { h:'No bad habits to undo', b:'Most women arrive here after a drawer of single-symptom supplements that never quite worked. You get to skip that.' },
+            { h:'One daily routine', b:'Fully-dosed, hormone-free, and built for sleep, mood, temperature, and energy together — from day one.' }
+          ]
+        }
+      }
     },
     { kind:'q', q:6, id:'energyq',
       eyebrow:'Question 6 of ' + TOTAL_Q,
       title:'Where does your energy give out?',
       sub:'Point us to the moment it drops.',
       options:[
-        { v:'wall',    label:'I hit a wall by mid-afternoon' },
-        { v:'foggy',   label:'It’s more brain fog than tiredness' },
-        { v:'morning', label:'I wake up already drained' },
+        { v:'wall',    label:'By mid-afternoon I’ve got nothing left' },
+        { v:'foggy',   label:'Brain fog — I keep losing my train of thought' },
+        { v:'morning', label:'I wake up as tired as when I went to bed' },
         { v:'ok',      label:'Energy isn’t my main issue' }
       ]
     },
@@ -318,10 +587,20 @@
       title:'What would “better” actually look like?',
       sub:'This is the finish line we’ll build toward.',
       options:[
-        { v:'cool',   label:'Cooler, unbroken nights' },
-        { v:'steady', label:'A steadier, calmer mood' },
-        { v:'energy', label:'Real energy back in the afternoons' },
-        { v:'me',     label:'Feeling like myself again' }
+        { v:'cool',   label:'Cool, unbroken nights — waking up rested' },
+        { v:'steady', label:'Calm and steady, with my patience back' },
+        { v:'energy', label:'Real energy — no 3pm crash' },
+        { v:'clear',  label:'A clear head — no more brain fog' },
+        { v:'me',     label:'Like myself again — not a stranger in my own body' }
+      ]
+    },
+    { kind:'loader',
+      headline:'Mapping your pattern.',
+      checks:[
+        'Sorting your answers into the four systems',
+        'Finding where the strain lands first',
+        'Checking what you’ve already ruled out',
+        'Building your personalized routine'
       ]
     },
     { kind:'score' },
@@ -331,19 +610,20 @@
 
   /* ---- scoring model (4 pillars) ---- */
   var PILLARS = [
-    { k:'R', name:'Rhythm',      desc:'Temperature and timing — where the 3am wake-up lives.' },
+    { k:'R', name:'Sleep',       desc:'The 3am wake-ups and nights that never quite restore you.' },
     { k:'T', name:'Temperature', desc:'Hot flashes and night sweats. The part that steals your sleep.' },
     { k:'M', name:'Mood',        desc:'Irritability and low-level anxiety. Felt by everyone around you too.' },
     { k:'E', name:'Energy',      desc:'Afternoon crashes and brain fog. The tax on everything else.' }
   ];
   var SCORES = {
-    pattern: { cycle:{R:3}, mood:{M:3}, heat:{T:3}, energy:{E:3} },
+    pattern: { sleep:{R:3}, heat:{T:3}, mood:{M:3}, energy:{E:3} },
     sleep:   { threeam:{R:3}, racing:{M:2,R:1}, sweats:{T:3}, unrefreshed:{E:2,R:1} },
     flashes: { often:{T:3}, weekly:{T:2}, rare:{T:1}, never:{} },
     moodq:   { edge:{M:3}, anxious:{M:3}, flat:{M:2,E:1}, steady:{} },
     energyq: { wall:{E:3}, foggy:{E:2,M:1}, morning:{E:2,R:1}, ok:{} },
-    evening: { wine:{T:1,R:1}, caffeine:{R:2}, scroll:{R:1,M:1}, stress:{M:2,T:1}, none:{} }
+    evening: { wine:{T:1,R:1}, caffeine:{R:1}, scroll:{R:1,M:1}, stress:{M:2,T:1}, none:{} }
   };
+  var GOAL_ECHO = { cool:'cool, unbroken nights', steady:'a calm, steady mood', energy:'real energy back', clear:'a clear head', me:'feeling like yourself again' };
 
   function computeScores(){
     var pts = { R:0, T:0, M:0, E:0 };
@@ -365,7 +645,7 @@
     list[weakIdx].weak = true;
     return { list:list, weak:list[weakIdx] };
   }
-  function tierLabel(pct){ return pct>=85 ? 'Needs the most support' : (pct>=55 ? 'Some strain' : 'In good shape'); }
+  function tierLabel(pct){ return pct>=85 ? 'Needs the most support' : (pct>=40 ? 'Some strain' : 'In good shape'); }
   function ring(pct, weak){
     var r=32, c=2*Math.PI*r, off=c*(1-pct/100), col = weak ? '#C9653F' : '#E2A24C';
     return '<svg width="80" height="80" viewBox="0 0 80 80" aria-hidden="true">'
@@ -400,8 +680,16 @@
     var step = STEPS[i];
     back.classList.toggle('show', i>0);
     setProgress();
+    var extras = root.querySelector('[data-wkq-extras]');
+    if(extras) extras.hidden = (step.kind !== 'offer');
+    root.classList.toggle('wkq-offermode', step.kind === 'offer');
+    // park the live Okendo star node back in its holder before the stage is rewritten
+    var okeHolder = root.querySelector('[data-wkq-oke-holder]');
+    var okeStar = root.querySelector('[data-wkq-oke-star]');
+    if(okeHolder && okeStar && okeStar.parentNode !== okeHolder) okeHolder.appendChild(okeStar);
     if(step.kind==='q')             renderQuestion(step);
     else if(step.kind==='reflect')  renderReflect(step);
+    else if(step.kind==='loader')   renderLoader(step);
     else if(step.kind==='score')    renderScore();
     else if(step.kind==='timeline') renderTimeline();
     else                            renderOffer();
@@ -468,11 +756,24 @@
     }
   }
 
+  function pickReflect(step){
+    if(!step.variantsByTried) return step;
+    var t = answers.tried || [];
+    var key = 'default';
+    if(t.indexOf('nothing')>-1) key = 'nothing';
+    else if(t.indexOf('hrt')>-1) key = 'hrt';
+    var v = step.variantsByTried[key] || {};
+    var out = {}; for(var a in step){ out[a] = step[a]; } for(var b in v){ out[b] = v[b]; }
+    return out;
+  }
   function renderReflect(step){
+    step = pickReflect(step);
     var h = '<div class="wkq-screen">';
     h += '<div class="wkq-eyebrow">'+esc(step.eyebrow)+'</div>';
     h += '<h1 class="wkq-title">'+esc(step.title)+'</h1>';
-    h += '<p class="wkq-lead">'+esc(step.leadPre)+'<span class="wkq-hl">'+esc(step.leadHl)+'</span>'+esc(step.leadPost)+'</p>';
+    var leadPre = step.leadPre;
+    if(step.leadPreByPattern && answers.pattern && step.leadPreByPattern[answers.pattern]) leadPre = step.leadPreByPattern[answers.pattern];
+    h += '<p class="wkq-lead">'+esc(leadPre)+'<span class="wkq-hl">'+esc(step.leadHl)+'</span>'+esc(step.leadPost)+'</p>';
     h += '<div class="wkq-points">';
     step.points.forEach(function(p,idx){
       h += '<div class="wkq-point"><span class="wkq-pnum">'+(idx+1)+'</span>'
@@ -483,6 +784,81 @@
     cta.textContent = step.cta || 'Continue';
     cta.classList.remove('hidden');
     cta.onclick = next;
+  }
+
+  function stars(n){ var s=''; for(var k=0;k<5;k++){ s += '<span'+(k<n?'':' class="off"')+'>&#9733;</span>'; } return s; }
+  function ringShell(){
+    var C = 2*Math.PI*34;
+    return '<svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true">'
+      + '<circle cx="60" cy="60" r="34" fill="none" stroke="#E9D6CE" stroke-width="8"/>'
+      + '<circle data-ringfg cx="60" cy="60" r="34" fill="none" stroke="#6B3D42" stroke-width="8" stroke-linecap="round" stroke-dasharray="'+C.toFixed(1)+'" stroke-dashoffset="'+C.toFixed(1)+'" transform="rotate(-90 60 60)"/>'
+      + '<text data-ringtext x="60" y="67" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-weight="800" font-size="22" fill="#6B3D42">0%</text></svg>';
+  }
+  function renderLoader(step){
+    cta.classList.add('hidden');
+    var checks = step.checks || [];
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var h = '<div class="wkq-screen wkq-loader">';
+    h += '<div class="wkq-load-ring">'+ringShell()+'</div>';
+    h += '<h1 class="wkq-title wkq-load-title">'+esc(step.headline || 'Building your results.')+'</h1>';
+    h += '<div class="wkq-load-bar"><div class="wkq-load-bar-fill" data-loadbar></div></div>';
+    h += '<div class="wkq-load-checks">';
+    checks.forEach(function(c,idx){
+      h += '<div class="wkq-load-check" data-check="'+idx+'"><span class="wkq-load-box">'+CHECK+'</span><span>'+esc(c)+'</span></div>';
+    });
+    h += '</div>';
+    h += '<div class="wkq-tst"><div class="wkq-tst-track" data-tst-track>';
+    TESTIMONIALS.forEach(function(t){
+      var tg = (t.tags && t.tags.length) ? '<div class="wkq-tst-tags">'+t.tags.map(function(x){ return '<span>'+esc(x)+'</span>'; }).join('')+'</div>' : '';
+      h += '<div class="wkq-tst-card"><div class="wkq-tst-stars">'+stars(t.stars)+'</div>'
+         + '<div class="wkq-tst-q">'+esc(t.quote)+'</div>'
+         + '<div class="wkq-tst-n">'+esc(t.name)+' · <span>Verified buyer</span></div>'+tg+'</div>';
+    });
+    h += '</div></div>';
+    h += '</div>';
+    stage.innerHTML = h;
+
+    var ringFg = stage.querySelector('[data-ringfg]');
+    var ringTx = stage.querySelector('[data-ringtext]');
+    var bar    = stage.querySelector('[data-loadbar]');
+    var checkEls = stage.querySelectorAll('.wkq-load-check');
+    var C = 2*Math.PI*34, D = 6000;
+
+    function finish(){ if(ringFg && ringFg.isConnected) next(); }
+    if(reduce){
+      if(ringFg) ringFg.style.strokeDashoffset = '0';
+      if(ringTx) ringTx.textContent = '100%';
+      if(bar) bar.style.width = '100%';
+      checkEls.forEach(function(el){ el.classList.add('done'); });
+      setTimeout(finish, 1000);
+    } else {
+      var start = null;
+      function frame(ts){
+        if(!ringFg || !ringFg.isConnected) return;
+        if(start===null) start = ts;
+        var p = Math.min((ts-start)/D, 1);
+        ringFg.style.strokeDashoffset = (C*(1-p)).toFixed(1);
+        if(ringTx) ringTx.textContent = Math.round(p*100) + '%';
+        if(bar) bar.style.width = (p*100) + '%';
+        checkEls.forEach(function(el,idx){
+          if(p >= ((idx+1)/checkEls.length)*0.9) el.classList.add('done');
+        });
+        if(p < 1) requestAnimationFrame(frame);
+        else setTimeout(finish, 450);
+      }
+      requestAnimationFrame(frame);
+
+      var track = stage.querySelector('[data-tst-track]');
+      if(track && track.children.length > 1){
+        var ti = 0;
+        var iv = setInterval(function(){
+          if(!track.isConnected){ clearInterval(iv); return; }
+          ti = (ti+1) % track.children.length;
+          var card = track.children[ti];
+          track.scrollTo({ left: card.offsetLeft - (track.clientWidth - card.clientWidth)/2, behavior:'smooth' });
+        }, 2200);
+      }
+    }
   }
 
   function renderScore(){
@@ -501,8 +877,26 @@
          +   '<div class="wkq-card-desc">'+esc(o.desc)+'</div></div>';
     });
     h += '</div>';
+    var WHY_TAIL = {
+      R:' is the first domino — steady your nights, and mood, energy and temperature all get easier to shift.',
+      T:' is what steals your sleep — settle the flashes and night sweats, and the rest starts to follow.',
+      M:' runs under everything else — steady it, and the days stop feeling like a fight on every front.',
+      E:' is the tax on everything else — get it back, and every other symptom feels more manageable.'
+    };
+    var whyTail = WHY_TAIL[s.weak.k] || ' is where to start — steady it, and the others start to settle too.';
+    // one lifestyle trigger they picked that actually feeds the weak pillar
+    var TRIGGER_PHRASE = { wine:'your evening glass of wine', caffeine:'afternoon caffeine', scroll:'screens right up to bedtime', stress:'stress that doesn’t switch off' };
+    var trig = '';
+    (answers.evening || []).forEach(function(v){ if(!trig && SCORES.evening[v] && SCORES.evening[v][s.weak.k]) trig = TRIGGER_PHRASE[v] || ''; });
+    var whyBody = '<span class="wkq-hl">'+esc(s.weak.name)+'</span>'+esc(whyTail);
+    if(trig) whyBody += ' One thing likely feeding it: '+esc(trig)+'.';
     h += '<div class="wkq-why"><div class="wkq-why-h">Why this matters</div>'
-       +   '<div class="wkq-why-b"><span class="wkq-hl">'+esc(s.weak.name)+'</span> is where your night gives way first — steady it, and the others start to settle too.</div></div>';
+       +   '<div class="wkq-why-b">'+whyBody+'</div></div>';
+    // echo their stated goal (display only — not part of the score)
+    var goalTxt = GOAL_ECHO[answers.goal];
+    if(goalTxt){
+      h += '<p class="wkq-sub" style="margin:20px 0 0;">You told us better looks like <span class="wkq-hl">'+esc(goalTxt)+'</span>. Steady your '+esc(s.weak.name.toLowerCase())+' first — that’s the fastest way there.</p>';
+    }
     h += '</div>';
     stage.innerHTML = h;
     cta.textContent = 'What happens next';
@@ -511,21 +905,51 @@
   }
 
   function renderTimeline(){
-    var weak = computeScores().weak.name.toLowerCase();
+    var s = computeScores();
+    var weak = s.weak.name.toLowerCase();
+    // weak-pillar lead bullets, so their symptom is the first win they read
+    var FIRST = {
+      R:'Fewer 2am wake-ups — more nights that actually leave you rested.',
+      T:'Hot flashes feel less intense and easier to ride out.',
+      M:'The edge comes off — steadier moods and less of that low-hum anxiety.',
+      E:'The afternoon crash softens — steadier energy and a clearer head.'
+    };
+    var PAYOFF = {
+      R:'Full nights of sleep — no more waking at 3am wired and overheated.',
+      T:'Hot flashes and night sweats fade into the background — less frequent, less disruptive.',
+      M:'Calmer moods and more patience for the people and things you care about.',
+      E:'Steady energy and a clear head, right through the afternoon.'
+    };
     var items = [
-      { when:'Days 1–7',  hi:false, body:'The fast half. The calming actives take the edge off your evenings — most people feel the wind-down inside the first week.' },
-      { when:'Weeks 2–4', hi:false, body:'The build. The hormone-support actives reach steady levels. Sleep and temperature start to even out.' },
-      { when:'Weeks 6–8', hi:true,  body:'The shift. This is the slow half most people quit right before — where mood and energy settle into a new baseline.' }
+      { when:'Week 1', title:'The edge starts to lift', hi:false, bullets:[
+        'The fast half. Within a few days, most women feel the first wind-down in the evening — calmer, a little more settled.',
+        'Nothing dramatic yet — this is the groundwork the bigger changes build on.'
+      ]},
+      { when:'Month 1', title:'The first real shifts', hi:false, bullets:[
+        FIRST[s.weak.k] || FIRST.T,
+        'Cooler nights, steadier moods, more energy in the afternoon — the changes start to stack up.',
+        'This is also the point most women quit — right before it turns. Stay with it.'
+      ]},
+      { when:'Month 3+', title:'Feeling like yourself again', hi:true, bullets:[
+        PAYOFF[s.weak.k] || PAYOFF.T,
+        'Steadier energy, calmer moods, and more patience for the people and things you care about.',
+        'You feel at home in your own body again.'
+      ], guar:'By day 90 you’ll know. If you don’t feel the difference, <span class="wkq-hl">it’s free</span> — that’s the whole guarantee.' }
     ];
-    var h = '<div class="wkq-screen"><div class="wkq-eyebrow">Your first 8 weeks</div>';
+    var h = '<div class="wkq-screen"><div class="wkq-eyebrow">Your first 3 months</div>';
     h += '<h1 class="wkq-title">Here’s the honest timeline.</h1>';
-    h += '<p class="wkq-sub">Your '+esc(weak)+' won’t flip overnight. Half of this works within days, half takes a few weeks — we’d rather tell you now.</p>';
+    h += '<p class="wkq-sub">Your '+esc(weak)+' won’t change in a day — but it does change. Here’s exactly what happens, and when.</p>';
     h += '<div class="wkq-tl">';
     items.forEach(function(it){
+      var b = '';
+      it.bullets.forEach(function(x){ b += '<li class="wkq-tl-bullet">'+esc(x)+'</li>'; });
       h += '<div class="wkq-tl-item"><div class="wkq-tl-rail"><div class="wkq-tl-dot"></div><div class="wkq-tl-line"></div></div>'
-         + '<div class="wkq-tl-card'+(it.hi?' hi':'')+'"><div class="wkq-tl-when">'+esc(it.when)+'</div><div class="wkq-tl-body">'+esc(it.body)+'</div></div></div>';
+         + '<div class="wkq-tl-card'+(it.hi?' hi':'')+'"><span class="wkq-tl-badge">'+esc(it.when)+'</span>'
+         + '<div class="wkq-tl-title">'+esc(it.title)+'</div><ul class="wkq-tl-list">'+b+'</ul>'
+         + (it.guar ? '<div class="wkq-tl-guar">'+it.guar+'</div>' : '') + '</div></div>';
     });
-    h += '</div></div>';
+    h += '</div>';
+    h += '</div>';
     stage.innerHTML = h;
     cta.textContent = 'Show me what to do';
     cta.classList.remove('hidden');
@@ -548,9 +972,16 @@
         + '<span class="wkq-plan-radio">'+CHECK+'</span></button>';
     }
 
-    var h = '<div class="wkq-screen"><div class="wkq-eyebrow">Your routine</div>';
+    var h = '<div class="wkq-screen">';
+    h += '<div class="wkq-hero">' + (OFFER_IMG ? '<img src="'+esc(OFFER_IMG)+'" alt="Womankind Hormonal Support Gummies">' : '<span class="wkq-hero-ph">Product image</span>') + '</div>';
+    h += '<div class="wkq-eyebrow">Your match</div>';
     h += '<h1 class="wkq-title">Built for your '+esc(s.weak.name.toLowerCase())+'.</h1>';
-    h += '<p class="wkq-sub">Fully-dosed, hormone-free, third-party tested. One daily gummy, built for the whole shift — not one symptom.</p>';
+    h += '<div data-wkq-rating-slot></div>';
+    h += '<p class="wkq-odesc">'+esc(OFFER_DESC)+'</p>';
+    var bens = '';
+    OFFER_BENEFITS.forEach(function(b){ if(b) bens += '<div class="wkq-ben"><span class="ck">&check;</span><span>'+esc(b)+'</span></div>'; });
+    h += '<div class="wkq-bens">'+bens+'</div>';
+    h += '<p style="font-size:15px;line-height:1.5;color:var(--body);margin:0 0 14px;">Your timeline showed the real shift lands around <b style="color:var(--plum);">month 3</b> — that’s the <b style="color:var(--plum);">3-bottle supply</b>, so we’ve set you up there. Change it anytime below.</p>';
     h += '<div class="wkq-plans">'+planCard('5')+planCard('3')+planCard('1')+'</div>';
     h += '<div class="wkq-refill" data-refill role="checkbox" aria-checked="true" tabindex="0"><span class="wkq-refill-box">'+CHECK+'</span>'
        + '<span><span class="wkq-refill-t">Auto-refill &amp; save 25%</span><span class="wkq-refill-s">Delivered on your schedule. Pause, skip, or cancel anytime.</span></span></div>';
@@ -568,6 +999,11 @@
     h += '<div class="wkq-trust">Hormone-free · Third-party tested · Made in Europe</div>';
     h += '</div>';
     stage.innerHTML = h;
+
+    // drop the live Okendo star rating into the rating slot under the title
+    var okeSlot = stage.querySelector('[data-wkq-rating-slot]');
+    var okeStar = root.querySelector('[data-wkq-oke-star]');
+    if(okeSlot && okeStar) okeSlot.appendChild(okeStar);
 
     var refill = stage.querySelector('[data-refill]');
     function paint(){
@@ -606,6 +1042,56 @@
 })();
 </script>
 
+<script>
+/* ingredient deep-dive modal + supplement-facts lightbox (offer extras) */
+(function(){
+  var root = document.getElementById('wkq-ing-{{ uid }}');
+  if(!root) return;
+  var overlay = root.querySelector('[data-wkq-ingm-overlay]');
+  var track   = root.querySelector('[data-wkq-ingm-track]');
+  var count   = root.querySelector('[data-wkq-ingm-count]');
+  var prev    = root.querySelector('[data-wkq-ingm-prev]');
+  var next    = root.querySelector('[data-wkq-ingm-next]');
+  var slides  = track ? track.querySelectorAll('.wkq-ingm-slide') : [];
+  var total   = slides.length, cur = 0;
+  function draw(){
+    if(!track) return;
+    track.style.transform = 'translateX(' + (-cur*100) + '%)';
+    if(count) count.textContent = (cur+1) + ' / ' + total;
+    if(prev) prev.style.visibility = cur===0 ? 'hidden' : 'visible';
+    if(next) next.style.visibility = cur===total-1 ? 'hidden' : 'visible';
+  }
+  function openM(idx){ cur = Math.max(0, Math.min(idx, total-1)); if(overlay) overlay.classList.add('open'); document.body.style.overflow='hidden'; draw(); }
+  function closeM(){ if(overlay) overlay.classList.remove('open'); document.body.style.overflow=''; }
+  root.querySelectorAll('[data-wkq-ing-open]').forEach(function(btn){
+    var gi = function(){ return parseInt(btn.getAttribute('data-wkq-ing-open'),10) || 0; };
+    btn.addEventListener('click', function(){ openM(gi()); });
+    btn.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openM(gi()); } });
+  });
+  if(prev) prev.addEventListener('click', function(){ if(cur>0){ cur--; draw(); } });
+  if(next) next.addEventListener('click', function(){ if(cur<total-1){ cur++; draw(); } });
+  if(overlay){
+    overlay.addEventListener('click', function(e){ if(e.target===overlay) closeM(); });
+    var xb = root.querySelector('[data-wkq-ingm-close]'); if(xb) xb.addEventListener('click', closeM);
+  }
+  document.addEventListener('keydown', function(e){
+    if(!overlay || !overlay.classList.contains('open')) return;
+    if(e.key==='Escape') closeM();
+    else if(e.key==='ArrowLeft' && cur>0){ cur--; draw(); }
+    else if(e.key==='ArrowRight' && cur<total-1){ cur++; draw(); }
+  });
+  var sOv = root.querySelector('[data-wkq-suppfacts-overlay]');
+  var sOpen = root.querySelector('[data-wkq-suppfacts-open]');
+  if(sOpen && sOv){
+    sOpen.addEventListener('click', function(){ sOv.classList.add('open'); document.body.style.overflow='hidden'; });
+    function sc(){ sOv.classList.remove('open'); document.body.style.overflow=''; }
+    var sClose = root.querySelector('[data-wkq-suppfacts-close]'); if(sClose) sClose.addEventListener('click', sc);
+    sOv.addEventListener('click', function(e){ if(e.target===sOv) sc(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape' && sOv.classList.contains('open')) sc(); });
+  }
+})();
+</script>
+
 {% schema %}
 {
   "name": "WK - Quiz",
@@ -614,9 +1100,73 @@
     { "type": "range", "id": "total_questions", "label": "Total questions (for progress bar)", "min": 4, "max": 12, "step": 1, "default": 8 },
     { "type": "header", "content": "Offer (results buy box)" },
     { "type": "product", "id": "product", "label": "Product" },
+    { "type": "image_picker", "id": "offer_image", "label": "Product image (optional)", "info": "Defaults to the product's featured image, then assets/wk-buybox-1.jpg." },
+    { "type": "textarea", "id": "offer_desc", "label": "Description", "default": "Two zero-sugar gummies a day for hot flashes, night sweats, disrupted sleep, mood changes, and the energy dips that can make you feel unlike yourself." },
+    { "type": "text", "id": "benefit_1", "label": "Benefit 1", "default": "Fewer, milder hot flashes and night sweats" },
+    { "type": "text", "id": "benefit_2", "label": "Benefit 2", "default": "Deeper sleep and fewer 2am wake-ups" },
+    { "type": "text", "id": "benefit_3", "label": "Benefit 3", "default": "Steadier mood, stress response, and daytime energy" },
+    { "type": "text", "id": "benefit_4", "label": "Benefit 4", "default": "8 research-backed botanicals in fully disclosed doses — zero hormones, zero sugar" },
     { "type": "text", "id": "plan_1_id", "label": "1-bottle subscription plan ID (optional)" },
     { "type": "text", "id": "plan_3_id", "label": "3-bottle subscription plan ID (optional)" },
-    { "type": "text", "id": "plan_5_id", "label": "5-bottle subscription plan ID (optional)" }
+    { "type": "text", "id": "plan_5_id", "label": "5-bottle subscription plan ID (optional)" },
+    { "type": "header", "content": "Offer — reviews (Okendo)" },
+    { "type": "text", "id": "reviews_heading", "label": "Reviews heading", "default": "What women are saying" },
+    { "type": "header", "content": "Offer — ingredients" },
+    { "type": "text", "id": "ing_eyebrow", "label": "Eyebrow", "default": "What's inside, and why" },
+    { "type": "text", "id": "ing_heading", "label": "Heading", "default": "Every ingredient, chosen for a reason" },
+    { "type": "textarea", "id": "ing_subhead", "label": "Subheading", "default": "No proprietary blends. No fairy dust. Every active in Womankind is clearly named, fully dosed, and chosen for the specific role it plays through perimenopause — grounded in published research, not marketing fluff." },
+    { "type": "text", "id": "supp_button_label", "label": "Supplement-facts button", "default": "See full supplement facts" },
+    { "type": "image_picker", "id": "supp_facts_image", "label": "Supplement facts panel", "info": "Defaults to wk-supplement-facts.jpg" },
+    { "type": "header", "content": "Ingredient 1" },
+    { "type": "image_picker", "id": "ing1_image", "label": "Image" },
+    { "type": "text", "id": "ing1_name", "label": "Name", "default": "Ashwagandha root" },
+    { "type": "text", "id": "ing1_role", "label": "Card label (benefit)", "default": "Calmer moods and a steadier stress response" },
+    { "type": "text", "id": "ing1_dose", "label": "Dose", "default": "200 mg" },
+    { "type": "textarea", "id": "ing1_desc", "label": "Description", "default": "A standardised adaptogen for the stress response — supporting steadier mood and calmer days through the transition." },
+    { "type": "header", "content": "Ingredient 2" },
+    { "type": "image_picker", "id": "ing2_image", "label": "Image" },
+    { "type": "text", "id": "ing2_name", "label": "Name", "default": "Black cohosh" },
+    { "type": "text", "id": "ing2_role", "label": "Card label (benefit)", "default": "Fewer, milder hot flashes and night sweats" },
+    { "type": "text", "id": "ing2_dose", "label": "Dose", "default": "100 mg" },
+    { "type": "textarea", "id": "ing2_desc", "label": "Description", "default": "Standardised to 5% triterpene glycosides — the botanical most studied for hot flashes and night sweats." },
+    { "type": "header", "content": "Ingredient 3" },
+    { "type": "image_picker", "id": "ing3_image", "label": "Image" },
+    { "type": "text", "id": "ing3_name", "label": "Name", "default": "Red clover" },
+    { "type": "text", "id": "ing3_role", "label": "Card label (benefit)", "default": "Support through the hormonal changes of perimenopause" },
+    { "type": "text", "id": "ing3_dose", "label": "Dose", "default": "100 mg" },
+    { "type": "textarea", "id": "ing3_desc", "label": "Description", "default": "40% isoflavones — plant compounds that gently support hormonal balance as estrogen shifts." },
+    { "type": "header", "content": "Ingredient 4" },
+    { "type": "image_picker", "id": "ing4_image", "label": "Image" },
+    { "type": "text", "id": "ing4_name", "label": "Name", "default": "Chasteberry" },
+    { "type": "text", "id": "ing4_role", "label": "Card label (benefit)", "default": "A steadier cycle rhythm during perimenopause" },
+    { "type": "text", "id": "ing4_dose", "label": "Dose", "default": "100 mg" },
+    { "type": "textarea", "id": "ing4_desc", "label": "Description", "default": "Also known as Vitex — traditionally used to support hormonal rhythm and the month-to-month patterns that shift in perimenopause." },
+    { "type": "header", "content": "Ingredient 7" },
+    { "type": "image_picker", "id": "ing7_image", "label": "Image" },
+    { "type": "text", "id": "ing7_name", "label": "Name", "default": "Vitamins B6, D3 & E" },
+    { "type": "text", "id": "ing7_role", "label": "Card label (benefit)", "default": "Foundational support for mood, bones, immunity, and energy" },
+    { "type": "text", "id": "ing7_dose", "label": "Dose", "default": "2 mg · 20 mcg · 15 mg" },
+    { "type": "textarea", "id": "ing7_desc", "label": "Description", "default": "Foundational support for mood, bone, and cellular defense — with D3 sourced from lichen, not sheep's wool." },
+    { "type": "header", "content": "Ingredient 8" },
+    { "type": "image_picker", "id": "ing8_image", "label": "Image" },
+    { "type": "text", "id": "ing8_name", "label": "Name", "default": "Probiotic blend" },
+    { "type": "text", "id": "ing8_role", "label": "Card label (benefit)", "default": "Gut support for the body's natural hormone pathways" },
+    { "type": "text", "id": "ing8_dose", "label": "Dose", "default": "10B CFU" },
+    { "type": "textarea", "id": "ing8_desc", "label": "Description", "default": "A 6-strain Lacto/Bifido blend that feeds the estrobolome — the gut bacteria that metabolise estrogen." },
+    { "type": "header", "content": "Offer — experts" },
+    { "type": "text", "id": "experts_heading", "label": "Heading", "default": "Recommended by women’s health experts" },
+    { "type": "image_picker", "id": "exp1_image", "label": "Expert 1 photo" },
+    { "type": "text", "id": "exp1_name", "label": "Expert 1 name", "default": "Carmen Delgado" },
+    { "type": "text", "id": "exp1_credential", "label": "Expert 1 credential", "default": "MSN, NP · Menopause Nurse Practitioner" },
+    { "type": "textarea", "id": "exp1_quote", "label": "Expert 1 quote", "default": "“Perimenopause doesn’t wait for a diagnosis—and women shouldn’t have to wait years for support. Womankind takes the real symptoms seriously: hot flashes, disrupted sleep, mood changes, and disappearing energy.”" },
+    { "type": "image_picker", "id": "exp2_image", "label": "Expert 2 photo" },
+    { "type": "text", "id": "exp2_name", "label": "Expert 2 name", "default": "Dr. Wei Lin" },
+    { "type": "text", "id": "exp2_credential", "label": "Expert 2 credential", "default": "PhD · Pharmacognosist" },
+    { "type": "textarea", "id": "exp2_quote", "label": "Expert 2 quote", "default": "“Many supplements look impressive because the label is crowded—not because the formula is purposeful. Womankind takes the opposite approach: specific extracts, clearly stated doses, and no proprietary blend hiding what’s really inside.”" },
+    { "type": "image_picker", "id": "exp3_image", "label": "Expert 3 photo" },
+    { "type": "text", "id": "exp3_name", "label": "Expert 3 name", "default": "Priya Raman" },
+    { "type": "text", "id": "exp3_credential", "label": "Expert 3 credential", "default": "PharmD · Clinical Pharmacist" },
+    { "type": "textarea", "id": "exp3_quote", "label": "Expert 3 quote", "default": "“If a supplement hides its doses behind a proprietary blend, you can’t properly evaluate it—and neither can your pharmacist. Womankind puts every active and every dose on the label, so there’s nothing to decode and no guessing about what you’re taking.”" }
   ]
 }
 {% endschema %}
