@@ -94,8 +94,15 @@
 
   /* offer buy box */
   #wkq-{{ uid }} .wkq-hero{position:relative;width:100%;aspect-ratio:1/1;border-radius:18px;overflow:hidden;margin:0 0 20px;background:radial-gradient(120% 92% at 50% 16%, #ECDBCC 0%, #D8BFB4 52%, #C2A099 100%);}
-  #wkq-{{ uid }} .wkq-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+  #wkq-{{ uid }} .wkq-hero > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
   #wkq-{{ uid }} .wkq-hero-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(107,61,66,0.5);font-weight:700;}
+  #wkq-{{ uid }} .wkq-hero-track{position:absolute;inset:0;display:flex;width:100%;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  #wkq-{{ uid }} .wkq-hero-track::-webkit-scrollbar{display:none;}
+  #wkq-{{ uid }} .wkq-hero-slide{flex:0 0 100%;width:100%;height:100%;scroll-snap-align:center;}
+  #wkq-{{ uid }} .wkq-hero-slide img{width:100%;height:100%;object-fit:cover;display:block;}
+  #wkq-{{ uid }} .wkq-hero-dots{position:absolute;left:0;right:0;bottom:12px;z-index:2;display:flex;justify-content:center;gap:7px;pointer-events:auto;}
+  #wkq-{{ uid }} .wkq-hero-dot{width:7px;height:7px;padding:0;border:none;border-radius:50%;cursor:pointer;background:rgba(255,255,255,0.55);box-shadow:0 1px 3px rgba(43,24,26,0.28);transition:background .2s ease,transform .2s ease;}
+  #wkq-{{ uid }} .wkq-hero-dot.on{background:#fff;transform:scale(1.25);}
   #wkq-{{ uid }} .wkq-rating{display:flex;align-items:center;gap:9px;margin:0 0 16px;font-size:13.5px;color:#7a6258;font-weight:600;}
   #wkq-{{ uid }} .wkq-rating .stars{color:var(--gold);letter-spacing:2px;font-size:15px;}
   #wkq-{{ uid }} .wkq-odesc{font-size:15px;line-height:1.55;color:var(--body);margin:0 0 18px;}
@@ -142,12 +149,14 @@
   #wkq-{{ uid }} .wkq-ex-sub{font-size:14.5px;line-height:1.55;color:var(--body);text-align:center;max-width:48ch;margin:0 auto 26px;}
   #wkq-{{ uid }} .wkq-ex-reviews{padding:34px 0 12px;border-top:1px solid var(--line);}
   #wkq-{{ uid }} .wkq-ex-ing{padding:38px 0 0;border-top:1px solid var(--line);margin-top:34px;}
+  #wkq-{{ uid }} .wkq-ex-finalcta{padding:38px 0 0;border-top:1px solid var(--line);margin-top:34px;text-align:center;}
+  #wkq-{{ uid }} .wkq-ex-finalcta .wkq-guar{text-align:left;}
   #wkq-{{ uid }} .wkq-ing-grid{display:grid;grid-template-columns:1fr;gap:14px;}
   #wkq-{{ uid }} .wkq-ing-card{position:relative;overflow:hidden;text-align:left;cursor:pointer;background:#FFFCF8;border:1px solid rgba(107,61,66,0.11);border-radius:16px;min-height:104px;padding:20px 46% 20px 20px;width:100%;display:block;box-shadow:0 6px 20px rgba(107,61,66,0.05);transition:box-shadow .18s ease,transform .18s ease;font-family:inherit;color:inherit;}
   #wkq-{{ uid }} .wkq-ing-card:hover{box-shadow:0 12px 30px rgba(107,61,66,0.12);transform:translateY(-2px);}
   #wkq-{{ uid }} .wkq-ing-card:focus-visible{outline:2px solid var(--terra);outline-offset:2px;}
   #wkq-{{ uid }} .wkq-ing-card-top{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:7px;}
-  #wkq-{{ uid }} .wkq-ing-card-name{font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.12;margin:0;color:var(--plum);}
+  #wkq-{{ uid }} .wkq-ing-card-name{font-family:'Fraunces',serif;font-weight:500;font-size:16.5px;line-height:1.15;margin:0;color:var(--plum);}
   #wkq-{{ uid }} .wkq-ing-card-dose{font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--terra);font-weight:700;}
   #wkq-{{ uid }} .wkq-ing-card-role{font-size:13px;line-height:1.4;color:#7a6258;margin:0;}
   #wkq-{{ uid }} .wkq-ing-card-img{position:absolute;top:0;right:0;bottom:0;width:42%;height:100%;object-fit:cover;display:block;}
@@ -375,6 +384,15 @@
           {%- endfor -%}
         </div>
       </div>
+
+      {%- comment -%} final add-to-cart — mirrors the offer buy box's selected plan {%- endcomment -%}
+      <div class="wkq-ex-finalcta">
+        <div class="wkq-ex-eyebrow">Ready when you are</div>
+        <h2 class="wkq-ex-h">Start your routine today.</h2>
+        <button type="button" class="wkq-atc" data-wkq-atc-bottom>Get my routine <span class="wkq-atc-total">— <span data-atc-total-bottom></span></span></button>
+        <div class="wkq-guar"><span class="wkq-guar-badge">90</span><span><span class="wkq-guar-t">90-day money-back guarantee</span><span class="wkq-guar-s">Love it, or get your money back.</span></span></div>
+        <div class="wkq-trust">Hormone-free · Third-party tested · Made in Europe</div>
+      </div>
     </div>
   </div>
 </section>
@@ -413,6 +431,17 @@
 
   /* ---- offer reveal content (ported from the gummies-3 buy box) ---- */
   var OFFER_IMG = {{ wk_offer_img | json }};
+  /* full product gallery (all PDP images) — sized at 800px for a fast, sharp 1:1 render */
+  var OFFER_IMGS = [
+    {%- assign wk_img_first = true -%}
+    {%- if section.settings.offer_image -%}{{ section.settings.offer_image | image_url: width: 800 | json }}{%- assign wk_img_first = false -%}{%- endif -%}
+    {%- if wk_product.images.size > 0 -%}
+      {%- for img in wk_product.images limit: 8 -%}
+        {%- unless wk_img_first %},{% endunless %}{{ img | image_url: width: 800 | json }}{%- assign wk_img_first = false -%}
+      {%- endfor -%}
+    {%- endif -%}
+    {%- if wk_img_first and wk_offer_img != blank -%}{{ wk_offer_img | json }}{%- endif -%}
+  ];
   var OFFER_DESC = {{ section.settings.offer_desc | default: 'Two zero-sugar gummies a day for hot flashes, night sweats, disrupted sleep, mood changes, and the energy dips that can make you feel unlike yourself.' | json }};
   var OFFER_BENEFITS = [
     {{ section.settings.benefit_1 | default: 'Fewer, milder hot flashes and night sweats' | json }},
@@ -450,7 +479,7 @@
       eyebrow:'Question 1 of ' + TOTAL_Q,
       title:'Which sounds most like the last few months?',
       sub:'Most supplements are built for one of these. Very few are built for the whole shift.',
-      note:'Eight questions, about 60 seconds. At the end you’ll see which part of your hormonal shift needs the most support, what to change first, and the routine built for the rest.',
+      note:'Eight questions, about 60 seconds. At the end you’ll see which part of your shift needs the most support — and what to do first.',
       options:[
         { v:'sleep',  label:'I’m up in the night and can’t get back down' },
         { v:'heat',   label:'I’m hot and sweaty, especially at night' },
@@ -658,6 +687,16 @@
   var fill  = root.querySelector('[data-wkq-fill]');
   var back  = root.querySelector('[data-wkq-back]');
   var cta   = root.querySelector('[data-wkq-cta]');
+  var extras = root.querySelector('[data-wkq-extras]');
+
+  // final CTA at the bottom of the offer extras re-uses the buy box's selected plan
+  var bottomAtc = extras ? extras.querySelector('[data-wkq-atc-bottom]') : null;
+  if(bottomAtc){
+    bottomAtc.addEventListener('click', function(){
+      var main = stage.querySelector('.wkq-atc-wrap [type="submit"]') || stage.querySelector('a.wkq-atc');
+      if(main) main.click();
+    });
+  }
 
   var i = 0;
   var answers = {};
@@ -680,7 +719,6 @@
     var step = STEPS[i];
     back.classList.toggle('show', i>0);
     setProgress();
-    var extras = root.querySelector('[data-wkq-extras]');
     if(extras) extras.hidden = (step.kind !== 'offer');
     root.classList.toggle('wkq-offermode', step.kind === 'offer');
     // park the live Okendo star node back in its holder before the stage is rewritten
@@ -973,7 +1011,18 @@
     }
 
     var h = '<div class="wkq-screen">';
-    h += '<div class="wkq-hero">' + (OFFER_IMG ? '<img src="'+esc(OFFER_IMG)+'" alt="Womankind Hormonal Support Gummies">' : '<span class="wkq-hero-ph">Product image</span>') + '</div>';
+    if(OFFER_IMGS.length > 1){
+      var slides = '', dots = '';
+      OFFER_IMGS.forEach(function(u, idx){
+        slides += '<div class="wkq-hero-slide"><img src="'+esc(u)+'" alt="Womankind Hormonal Support Gummies"'+(idx===0?'':' loading="lazy"')+'></div>';
+        dots += '<button type="button" class="wkq-hero-dot'+(idx===0?' on':'')+'" data-gi="'+idx+'" aria-label="Image '+(idx+1)+'"></button>';
+      });
+      h += '<div class="wkq-hero"><div class="wkq-hero-track" data-hero-track>'+slides+'</div><div class="wkq-hero-dots">'+dots+'</div></div>';
+    } else if(OFFER_IMGS.length === 1){
+      h += '<div class="wkq-hero"><img src="'+esc(OFFER_IMGS[0])+'" alt="Womankind Hormonal Support Gummies"></div>';
+    } else {
+      h += '<div class="wkq-hero"><span class="wkq-hero-ph">Product image</span></div>';
+    }
     h += '<div class="wkq-eyebrow">Your match</div>';
     h += '<h1 class="wkq-title">Built for your '+esc(s.weak.name.toLowerCase())+'.</h1>';
     h += '<div data-wkq-rating-slot></div>';
@@ -1005,6 +1054,21 @@
     var okeStar = root.querySelector('[data-wkq-oke-star]');
     if(okeSlot && okeStar) okeSlot.appendChild(okeStar);
 
+    // hero gallery: sync dots to swipe + jump on dot tap
+    var heroTrack = stage.querySelector('[data-hero-track]');
+    if(heroTrack){
+      heroTrack.addEventListener('scroll', function(){
+        var idx = Math.round(heroTrack.scrollLeft / heroTrack.clientWidth);
+        stage.querySelectorAll('.wkq-hero-dot').forEach(function(d, di){ d.classList.toggle('on', di===idx); });
+      }, { passive:true });
+      stage.querySelectorAll('.wkq-hero-dot').forEach(function(d){
+        d.addEventListener('click', function(){
+          var gi = parseInt(d.getAttribute('data-gi'), 10) || 0;
+          heroTrack.scrollTo({ left: gi*heroTrack.clientWidth, behavior:'smooth' });
+        });
+      });
+    }
+
     var refill = stage.querySelector('[data-refill]');
     function paint(){
       ['5','3','1'].forEach(function(k){
@@ -1020,6 +1084,7 @@
       });
       var q = wkQuote(oState.tier, oState.on);
       var at = stage.querySelector('[data-atc-total]'); if(at) at.textContent = wkMoney(q.total);
+      var atb = extras ? extras.querySelector('[data-atc-total-bottom]') : null; if(atb) atb.textContent = wkMoney(q.total);
       var qty = stage.querySelector('[data-qty]'); if(qty) qty.value = oState.tier;
       var planId = planForTier(oState.tier), sub = oState.on && planId;
       var pl = stage.querySelector('[data-plan]'); if(pl){ if(planId) pl.value = planId; pl.disabled = !sub; }
