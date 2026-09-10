@@ -176,8 +176,8 @@
           for (var i=0;i<SELLING_PLANS.length;i++){ if (wkParseInterval(SELLING_PLANS[i].name) === want) return SELLING_PLANS[i].id; }
           return SELLING_PLANS.length ? SELLING_PLANS[0].id : null;
         }
-        var TIERS = { '1': { m:1, off:0 }, '3': { m:3, off:1/3 }, '5': { m:5, off:0.40 } };
-        var SUB_OFF = 0.25;
+        // One-time vs subscription discounts decoupled per tier (one = 0/34/40% automatic discounts; sub = 25/50/55% selling plans)
+        var TIERS = { '1': { m:1, one:0, sub:0.25 }, '3': { m:3, one:0.34, sub:0.50 }, '5': { m:5, one:0.40, sub:0.55 } };
         var wkRefillEl = root.querySelector('[data-wk-refill]');
         // currency-aware money formatting — reads the active market currency (GBP, USD, …); the amount is already in that currency (Shopify Markets presentment), so never re-apply a rate.
         var WK_CUR = (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD';
@@ -188,7 +188,7 @@
         function wkQuote(tier, on){
           var t = TIERS[tier], full = BOTTLE * t.m;
           // Shopify rounds the discounted price per bottle, then multiplies — mirror that so the buy-box matches the cart/checkout exactly.
-          var perUnit = on ? Math.round(BOTTLE * (1 - t.off) * (1 - SUB_OFF)) : Math.round(BOTTLE * (1 - t.off));
+          var perUnit = Math.round(BOTTLE * (1 - (on ? t.sub : t.one)));
           var total = perUnit * t.m;
           return { full: full, total: total, perMo: perUnit, save: Math.round((1 - total/full) * 100) };
         }
