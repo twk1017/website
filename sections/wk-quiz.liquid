@@ -459,7 +459,8 @@
   function wkPerDay(c){ var v=(c||0)/100/30; return WK_NF ? WK_NF.format(v) : '$' + v.toFixed(2); }
   function wkQuote(tier,on){
     var t=TIERS[tier], full=BOTTLE*t.m;
-    var perUnit = Math.round(BOTTLE*(1-(on?t.sub:t.one)));
+    // subscription: per-bottle plan price (round). one-time: mirror Shopify's automatic-discount rounding (floors the per-bottle discount).
+    var perUnit = on ? Math.round(BOTTLE*(1-t.sub)) : (BOTTLE - Math.floor(BOTTLE*t.one));
     var total=perUnit*t.m;
     return { full:full, total:total, perMo:perUnit, save:Math.round((1-total/full)*100) };
   }
