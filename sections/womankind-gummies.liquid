@@ -1459,7 +1459,10 @@
   var SUB_OFF = 0.25;
   var wkRefillEl = root.querySelector('[data-wk-refill]');
 
-  function wkMoney(cents){ return '$' + (cents / 100).toFixed(2).replace(/\.00$/, ''); }
+  // currency-aware money formatting — reads the active market currency (GBP, USD, …); the amount is already in that currency (Shopify Markets presentment), so never re-apply a rate.
+  var WK_CUR = (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD';
+  var WK_NF; try { WK_NF = new Intl.NumberFormat('en', { style:'currency', currency:WK_CUR, currencyDisplay:'narrowSymbol' }); } catch(e){ try { WK_NF = new Intl.NumberFormat('en', { style:'currency', currency:WK_CUR }); } catch(_){ WK_NF = null; } }
+  function wkMoney(cents){ var v=(cents||0)/100; return WK_NF ? WK_NF.format(v).replace(/[.,]00(?=\D*$)/, '') : '$' + v.toFixed(2).replace(/\.00$/, ''); }
   function refillIsOn(){ return !!(wkRefillEl && wkRefillEl.getAttribute('aria-checked') === 'true'); }
   function wkQuote(tier, on){
     var t = TIERS[tier];

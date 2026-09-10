@@ -105,7 +105,7 @@
   var CUR = root.getAttribute('data-currency') || 'USD';
   var CART_URL = root.getAttribute('data-checkout-url') || '/cart';
   var fmt;
-  try { fmt = new Intl.NumberFormat(undefined, { style:'currency', currency: CUR }); } catch(e){ fmt = null; }
+  try { fmt = new Intl.NumberFormat('en', { style:'currency', currency: CUR, currencyDisplay:'narrowSymbol' }); } catch(e){ try { fmt = new Intl.NumberFormat('en', { style:'currency', currency: CUR }); } catch(_){ fmt = null; } }
   function money(cents){
     var v = (cents || 0) / 100;
     if (fmt) return fmt.format(v);

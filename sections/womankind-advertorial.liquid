@@ -456,7 +456,10 @@
       var TIERS = { '1': { m:1, off:0 }, '3': { m:3, off:0.30 }, '6': { m:6, off:0.40 } };
       var SUB_OFF = 0.25;
       var refillEl = root.querySelector('[data-adv-refill]');
-      function money(c){ return '$' + (c/100).toFixed(2).replace(/\.00$/, ''); }
+      // currency-aware money formatting — reads the active market currency (GBP, USD, …); the amount is already in that currency (Shopify Markets presentment), so never re-apply a rate.
+      var WK_CUR = (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD';
+      var WK_NF; try { WK_NF = new Intl.NumberFormat('en', { style:'currency', currency:WK_CUR, currencyDisplay:'narrowSymbol' }); } catch(e){ try { WK_NF = new Intl.NumberFormat('en', { style:'currency', currency:WK_CUR }); } catch(_){ WK_NF = null; } }
+      function money(c){ var v=(c||0)/100; return WK_NF ? WK_NF.format(v).replace(/[.,]00(?=\D*$)/, '') : '$' + v.toFixed(2).replace(/\.00$/, ''); }
       function refillOn(){ return !!(refillEl && refillEl.getAttribute('aria-checked') === 'true'); }
       function quote(tier, on){
         var t = TIERS[tier], full = BOTTLE * t.m;
