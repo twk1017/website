@@ -245,8 +245,8 @@
       root.querySelectorAll('[data-wk-save-wrap="'+k+'"]').forEach(function(e){ e.style.display = q.save > 0 ? '' : 'none'; });
     });
     root.querySelectorAll('[data-wk-atc-total]').forEach(function(e){ e.textContent = wkMoney(wkQuote(state.supply, on).total); });
-    // 1-month supply only gets free shipping with a subscription (3 & 6 month are always free)
-    root.querySelectorAll('[data-wk-ship1]').forEach(function(e){ e.style.display = on ? '' : 'none'; });
+    
+    
   }
 
   // sync cart quantity + attach the subscription selling plan only when refills are on (and one exists)
@@ -471,7 +471,7 @@
     { "type": "textarea", "id": "description", "label": "Description", "default": "Two zero-sugar gummies a day for hot flashes, night sweats, disrupted sleep, mood changes, and the energy dips that can make you feel unlike yourself.*" },
     { "type": "header", "content": "Benefit checklist" },
     { "type": "inline_richtext", "id": "benefit_1", "label": "Benefit 1", "default": "Fewer, milder hot flashes and night sweats*" },
-    { "type": "inline_richtext", "id": "benefit_2", "label": "Benefit 2", "default": "Deeper sleep and fewer 2am wake-ups*" },
+    { "type": "inline_richtext", "id": "benefit_2", "label": "Benefit 2", "default": "Deeper sleep and fewer 3am wake-ups*" },
     { "type": "inline_richtext", "id": "benefit_3", "label": "Benefit 3", "default": "Steadier mood, stress response, and daytime energy*" },
     { "type": "inline_richtext", "id": "benefit_4", "label": "Benefit 4", "default": "8 research-backed botanicals in fully disclosed doses — zero hormones, zero sugar, no proprietary blend" },
     { "type": "header", "content": "Flavor" },
@@ -481,12 +481,12 @@
     { "type": "header", "content": "Supply tiers (prices are auto-calculated)" },
     { "type": "text", "id": "tier6_badge", "label": "6-tier badge", "default": "Best value" },
     { "type": "text", "id": "tier6_name", "label": "6-tier name", "default": "Buy 3, get 2 free" },
-    { "type": "text", "id": "tier6_sub", "label": "6-tier sub", "default": "5 bottles · 150 servings · free shipping" },
+    { "type": "text", "id": "tier6_sub", "label": "6-tier sub", "default": "5 bottles · 150 servings" },
     { "type": "text", "id": "tier3_badge", "label": "3-tier badge", "default": "Most popular" },
     { "type": "text", "id": "tier3_name", "label": "3-tier name", "default": "Buy 2, get 1 free" },
-    { "type": "text", "id": "tier3_sub", "label": "3-tier sub", "default": "3 bottles · 90 servings · free shipping" },
+    { "type": "text", "id": "tier3_sub", "label": "3-tier sub", "default": "3 bottles · 90 servings" },
     { "type": "text", "id": "tier1_name", "label": "1-tier name", "default": "1-month supply" },
-    { "type": "text", "id": "tier1_sub", "label": "1-tier sub", "default": "1 bottle · 30 servings", "info": "'· free shipping' is appended automatically only when refills are on." },
+    { "type": "text", "id": "tier1_sub", "label": "1-tier sub", "default": "1 bottle · 30 servings" },
     { "type": "header", "content": "Auto-refill + checkout" },
     { "type": "text", "id": "refill_title", "label": "Refill title", "default": "Save 25% with automatic refills" },
     { "type": "text", "id": "refill_subtitle", "label": "Refill subtitle", "default": "Zero commitment — pause, skip, or cancel anytime" },
@@ -513,7 +513,7 @@
     { "type": "text", "id": "c2_eyebrow", "label": "Eyebrow", "default": "Month 1" },
     { "type": "text", "id": "c2_title", "label": "Title", "default": "Finding your rhythm" },
     { "type": "text", "id": "c2_b1", "label": "Bullet 1", "default": "Flushes feeling lighter — less like an attack, more like a wave you can ride out*" },
-    { "type": "text", "id": "c2_b2", "label": "Bullet 2", "default": "Your first flush-free afternoons, fewer 2am wake-ups*" },
+    { "type": "text", "id": "c2_b2", "label": "Bullet 2", "default": "Your first flush-free afternoons, fewer 3am wake-ups*" },
     { "type": "text", "id": "c2_b3", "label": "Bullet 3", "default": "Drier nights, deeper sleep — a clear pattern forming*" },
     { "type": "text", "id": "c2_b4", "label": "Bullet 4" },
     { "type": "header", "content": "What to expect · Stage 3" },

@@ -407,7 +407,7 @@
 
   /* ---- reviews (from the homepage) ---- */
   var TESTIMONIALS = [
-    { stars:5, quote:'I didn’t expect much after years of things that did nothing. Three weeks in, the 2am wake-ups eased and I finally feel steady in my own body again.', name:'Margaret R., 48', tags:['Better sleep','Mood balance'] },
+    { stars:5, quote:'I didn’t expect much after years of things that did nothing. Three weeks in, the 3am wake-ups eased and I finally feel steady in my own body again.', name:'Margaret R., 48', tags:['Better sleep','Mood balance'] },
     { stars:5, quote:'I’m a sceptic — I’ve wasted money on a lot of these. This is the first one where I can actually feel the difference. Cooler nights, fewer flushes.', name:'Grace L., 47', tags:['Hot flashes','Night sweats'] },
     { stars:5, quote:'A doctor told me my labs were normal and it was probably stress. This is the first thing that took the early changes seriously. I feel more like me.', name:'Renée J., 50', tags:['Hormonal balance','Steady energy'] },
     { stars:5, quote:'The little things stay little now. My family noticed I was more even before I said a word about taking anything.', name:'Gabriela R., 43', tags:['Mood balance','Stress response'] }
@@ -446,7 +446,7 @@
   var OFFER_DESC = {{ section.settings.offer_desc | default: 'Two zero-sugar gummies a day for hot flashes, night sweats, disrupted sleep, mood changes, and the energy dips that can make you feel unlike yourself.' | json }};
   var OFFER_BENEFITS = [
     {{ section.settings.benefit_1 | default: 'Fewer, milder hot flashes and night sweats' | json }},
-    {{ section.settings.benefit_2 | default: 'Deeper sleep and fewer 2am wake-ups' | json }},
+    {{ section.settings.benefit_2 | default: 'Deeper sleep and fewer 3am wake-ups' | json }},
     {{ section.settings.benefit_3 | default: 'Steadier mood, stress response, and daytime energy' | json }},
     {{ section.settings.benefit_4 | default: '8 research-backed botanicals in fully disclosed doses — zero hormones, zero sugar' | json }}
   ];
@@ -952,7 +952,7 @@
     var weak = s.weak.name.toLowerCase();
     // weak-pillar lead bullets, so their symptom is the first win they read
     var FIRST = {
-      R:'Fewer 2am wake-ups — more nights that actually leave you rested.',
+      R:'Fewer 3am wake-ups — more nights that actually leave you rested.',
       T:'Hot flashes feel less intense and easier to ride out.',
       M:'The edge comes off — steadier moods and less of that low-hum anxiety.',
       E:'The afternoon crash softens — steadier energy and a clearer head.'
@@ -1181,7 +1181,7 @@
     { "type": "image_picker", "id": "gallery_7_image", "label": "Image 7" },
     { "type": "image_picker", "id": "gallery_8_image", "label": "Image 8" },
     { "type": "text", "id": "benefit_1", "label": "Benefit 1", "default": "Fewer, milder hot flashes and night sweats" },
-    { "type": "text", "id": "benefit_2", "label": "Benefit 2", "default": "Deeper sleep and fewer 2am wake-ups" },
+    { "type": "text", "id": "benefit_2", "label": "Benefit 2", "default": "Deeper sleep and fewer 3am wake-ups" },
     { "type": "text", "id": "benefit_3", "label": "Benefit 3", "default": "Steadier mood, stress response, and daytime energy" },
     { "type": "text", "id": "benefit_4", "label": "Benefit 4", "default": "8 research-backed botanicals in fully disclosed doses — zero hormones, zero sugar" },
     { "type": "text", "id": "plan_1_id", "label": "1-month subscription plan ID (optional)" },
