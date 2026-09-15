@@ -448,7 +448,7 @@
     {{ section.settings.benefit_1 | default: 'Fewer, milder hot flashes and night sweats' | json }},
     {{ section.settings.benefit_2 | default: 'Deeper sleep and fewer 3am wake-ups' | json }},
     {{ section.settings.benefit_3 | default: 'Steadier mood, stress response, and daytime energy' | json }},
-    {{ section.settings.benefit_4 | default: '8 research-backed botanicals in fully disclosed doses — zero hormones, zero sugar' | json }}
+    {{ section.settings.benefit_4 | default: '6 research-backed botanicals in fully disclosed doses — zero hormones, zero sugar' | json }}
   ];
   // One-time vs subscription discounts decoupled per tier (one = 0/34/40% automatic discounts; sub = 25/50/55% selling plans)
   var TIERS = { '1':{m:1,one:0,sub:0.25}, '3':{m:3,one:0.34,sub:0.50}, '5':{m:5,one:0.40,sub:0.55} };
@@ -1183,7 +1183,7 @@
     { "type": "text", "id": "benefit_1", "label": "Benefit 1", "default": "Fewer, milder hot flashes and night sweats" },
     { "type": "text", "id": "benefit_2", "label": "Benefit 2", "default": "Deeper sleep and fewer 3am wake-ups" },
     { "type": "text", "id": "benefit_3", "label": "Benefit 3", "default": "Steadier mood, stress response, and daytime energy" },
-    { "type": "text", "id": "benefit_4", "label": "Benefit 4", "default": "8 research-backed botanicals in fully disclosed doses — zero hormones, zero sugar" },
+    { "type": "text", "id": "benefit_4", "label": "Benefit 4", "default": "6 research-backed botanicals in fully disclosed doses — zero hormones, zero sugar" },
     { "type": "text", "id": "plan_1_id", "label": "1-month subscription plan ID (optional)" },
     { "type": "text", "id": "plan_3_id", "label": "3-month subscription plan ID (optional)" },
     { "type": "text", "id": "plan_5_id", "label": "5-month subscription plan ID (optional)" },
