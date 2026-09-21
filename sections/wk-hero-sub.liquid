@@ -1,0 +1,597 @@
+{%- comment -%} gummies-sub hero — subscription-only clone of wk-hero-3 (2 plans + free gift stack) {%- endcomment -%}
+{%- assign wk_product = section.settings.product -%}
+{%- if wk_product != blank -%}{%- assign wk_variant = wk_product.selected_or_first_available_variant -%}{%- assign wk_selling_plan = wk_product.selling_plan_groups.first.selling_plans.first -%}{%- endif -%}
+
+<style>
+  #wk-sub-{{ section.id }} .wk-plan{position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:14px;overflow:hidden;display:block;transition:border-color .15s ease,box-shadow .15s ease;}
+  #wk-sub-{{ section.id }} .wk-plan.is-sel{border-color:#6B3D42;box-shadow:0 0 0 2px #6B3D42;}
+  #wk-sub-{{ section.id }} .wk-plan-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 18px;transition:background .15s ease,color .15s ease;}
+  #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-head{background:#6B3D42;}
+  /* inline colours on these spans would win over a plain class rule, so the selected (burgundy) header needs !important */
+  #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-name,
+  #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-price{color:#F5E6D8 !important;}
+  #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-sub,
+  #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-bill{color:rgba(245,230,216,0.82) !important;}
+  #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-compare{color:rgba(245,230,216,0.6) !important;}
+  #wk-sub-{{ section.id }} .wk-radio{width:22px;height:22px;flex:0 0 auto;border:1.5px solid rgba(107,61,66,0.5);border-radius:50%;display:flex;align-items:center;justify-content:center;background:transparent;}
+  #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-radio{border-color:#F5E6D8;background:#F5E6D8;}
+  #wk-sub-{{ section.id }} .wk-radio span{display:none;color:#6B3D42;font-size:13px;font-weight:700;line-height:1;}
+  #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-radio span{display:block;}
+  #wk-sub-{{ section.id }} .wk-plan-body{display:none;padding:16px 18px 0;background:#FFF9F1;}
+  #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-body{display:block;}
+  #wk-sub-{{ section.id }} .wk-inc-label{font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6B3D42;font-weight:700;margin-bottom:12px;}
+  #wk-sub-{{ section.id }} .wk-inc-row{display:flex;align-items:flex-start;gap:12px;padding:9px 0;}
+  #wk-sub-{{ section.id }} .wk-inc-thumb{width:46px;height:46px;flex:0 0 auto;border-radius:9px;object-fit:cover;display:block;background:#E8D5C6;}
+  #wk-sub-{{ section.id }} .wk-inc-ph{width:46px;height:46px;flex:0 0 auto;border-radius:9px;background:linear-gradient(135deg,#E8D5C6,#D8BFB4);display:flex;align-items:center;justify-content:center;color:#6B3D42;font-size:16px;line-height:1;}
+  #wk-sub-{{ section.id }} .wk-inc-t{font-size:13.5px;font-weight:700;color:#6B3D42;line-height:1.3;}
+  #wk-sub-{{ section.id }} .wk-inc-d{font-size:12px;color:#7a6258;line-height:1.45;margin-top:3px;}
+  #wk-sub-{{ section.id }} .wk-pill{flex:0 0 auto;align-self:center;background:#C9653F;color:#FFF7EE;font-size:10.5px;font-weight:700;letter-spacing:0.04em;padding:5px 10px;border-radius:999px;white-space:nowrap;}
+  #wk-sub-{{ section.id }} .wk-pill-soft{background:rgba(201,101,63,0.14);color:#C9653F;}
+  #wk-sub-{{ section.id }} .wk-gift-div{display:flex;align-items:center;gap:10px;margin:12px 0 4px;}
+  #wk-sub-{{ section.id }} .wk-gift-div::before,#wk-sub-{{ section.id }} .wk-gift-div::after{content:'';flex:1;border-top:1px dashed rgba(107,61,66,0.32);}
+  #wk-sub-{{ section.id }} .wk-gift-div span{font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;color:#C9653F;background:rgba(201,101,63,0.12);padding:5px 12px;border-radius:999px;}
+  #wk-sub-{{ section.id }} .wk-plan-foot{display:flex;align-items:center;flex-wrap:wrap;gap:8px 18px;border-top:1px solid rgba(107,61,66,0.14);margin-top:12px;padding:11px 0;font-size:11.5px;color:#7a6258;font-weight:600;}
+  #wk-sub-{{ section.id }} .wk-plan-foot span{display:inline-flex;align-items:center;gap:6px;}
+  #wk-sub-{{ section.id }} .wk-miss{padding:0 18px 14px;font-size:11.5px;color:#a08078;line-height:1.45;}
+  #wk-sub-{{ section.id }} .wk-plan-badge{position:absolute;top:-10px;left:18px;z-index:2;background:#C9653F;color:#F5E6D8;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;padding:3px 11px;border-radius:999px;}
+  @media(max-width:749px){
+    #wk-sub-{{ section.id }} .wk-plan-head{padding:14px 14px;gap:10px;}
+    #wk-sub-{{ section.id }} .wk-plan-body{padding:14px 14px 0;}
+    #wk-sub-{{ section.id }} .wk-plan-price{font-size:19px !important;}
+    #wk-sub-{{ section.id }} .wk-inc-d{font-size:11.5px;}
+  }
+</style>
+
+  <!-- HERO / SUBSCRIPTION LP -->
+  <section id="wk-sub-{{ section.id }}" style="max-width:1240px;margin:0 auto;padding:40px 28px 18px;display:grid;grid-template-columns:1.02fr 0.98fr;gap:54px;align-items:start;">
+
+    <!-- GALLERY -->
+    <div class="wk-gallery" style="position:sticky;top:96px;">
+      {%- assign wk_first_full = '' -%}{%- assign wk_first_alt = '' -%}
+      {%- for i in (1..8) -%}
+        {%- assign gik = 'gallery_' | append: i | append: '_image' -%}
+        {%- assign gimg = section.settings[gik] -%}
+        {%- if gimg -%}{%- assign wk_full = gimg | image_url: width: 1200 -%}{%- assign wk_galt = gimg.alt | default: 'Womankind Hormonal Support Gummies' -%}
+        {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- assign wk_full = gfname | asset_url -%}{%- assign wk_galt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
+        {%- if forloop.first -%}{%- assign wk_first_full = wk_full -%}{%- assign wk_first_alt = wk_galt -%}{%- endif -%}
+      {%- endfor -%}
+      <div class="wk-hero-img" style="position:relative;aspect-ratio:1/1;border-radius:18px;overflow:hidden;background:radial-gradient(120% 92% at 50% 16%, #ECDBCC 0%, #D8BFB4 52%, #C2A099 100%);">
+        <img data-wk-hero-img src="{{ wk_first_full }}" alt="{{ wk_first_alt }}" width="1200" height="1200" loading="eager" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <span data-wk-badge>{% render 'wk-clinicians-badge', text: section.settings.badge, image: section.settings.badge_image %}</span>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:10px;margin-top:14px;">
+        <button type="button" class="wk-thumb-arrow" data-wk-thumb-prev aria-label="Previous image">&lsaquo;</button>
+        <div class="wk-thumbs" data-wk-thumb-track>
+          {%- for i in (1..8) -%}
+            {%- assign gik = 'gallery_' | append: i | append: '_image' -%}
+            {%- assign gimg = section.settings[gik] -%}
+            {%- if gimg -%}{%- assign tsrc = gimg | image_url: width: 240 -%}{%- assign tfull = gimg | image_url: width: 1200 -%}{%- assign talt = gimg.alt | default: 'Womankind Hormonal Support Gummies' -%}
+            {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- assign tsrc = gfname | asset_img_url: '240x240' -%}{%- assign tfull = gfname | asset_url -%}{%- assign talt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
+            <button type="button" data-wk-thumb data-wk-full="{{ tfull }}" aria-label="View image {{ i }}" style="cursor:pointer;padding:0;aspect-ratio:1/1;background:#D8C2BA;border-radius:9px;overflow:hidden;{% if forloop.first %}border:2px solid #6B3D42;{% else %}border:2px solid transparent;{% endif %}display:flex;align-items:center;justify-content:center;">
+              <img src="{{ tsrc }}" alt="{{ talt }}" width="240" height="240" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+            </button>
+          {%- endfor -%}
+        </div>
+        <button type="button" class="wk-thumb-arrow" data-wk-thumb-next aria-label="Next image">&rsaquo;</button>
+      </div>
+    </div>
+
+    <!-- BUY BOX -->
+    <div>
+      <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:14px;">{{ section.settings.eyebrow }}</div>
+      <style>.wk-root h1.wk-herosub-title{font-size:clamp(26px, 3vw, 30px) !important;line-height:1.12 !important;}</style>
+      <h1 class="wk-herosub-title" style="font-family:'Fraunces',serif;font-weight:400;margin:0 0 14px;color:#6B3D42;letter-spacing:-0.01em;">{{ section.settings.heading }}</h1>
+
+      {%- assign oke_product = wk_product | default: all_products['hormonal-support-gummies'] -%}
+      <div data-oke-star-rating data-oke-reviews-product-id="shopify-{{ oke_product.id }}" style="margin-bottom:16px;">{{ oke_product.metafields.okendo.StarRatingSnippet }}</div>
+
+      <p style="font-size:15px;line-height:1.6;color:#4a3a30;margin:0 0 18px;max-width:30em;">{{ section.settings.description }}</p>
+
+      <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:22px;">
+        {%- for i in (1..4) -%}{%- assign bk = 'benefit_' | append: i -%}{%- assign bt = section.settings[bk] -%}{%- if bt != blank -%}<div style="display:flex;align-items:flex-start;gap:11px;font-size:14.5px;color:#3A2A20;"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span><span>{{ bt }}</span></div>{%- endif -%}{%- endfor -%}
+      </div>
+
+      <!-- FLAVOR -->
+      <style>
+        @media(max-width:749px){
+          .wk-sale-badge{margin-left:0 !important;font-size:11.5px !important;padding:8px 15px !important;gap:6px !important;letter-spacing:0.03em !important;box-shadow:0 3px 10px rgba(201,101,63,0.35) !important;}
+          .wk-sale-badge > span{font-size:13px !important;}
+        }
+      </style>
+      <div style="font-size:11.5px;letter-spacing:0.22em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:10px;">{{ section.settings.flavor_label }}</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:26px;flex-wrap:wrap;">
+        <button data-wk="flavor" data-wk-val="cranberry" style="position:relative;cursor:pointer;font-family:inherit;background:#F5E6D8;border:1.5px solid #6B3D42;color:#6B3D42;border-radius:999px;padding:9px 18px;font-size:13px;letter-spacing:0.04em;">{{ section.settings.flavor_pill }}<span data-wk-ring="flavor:cranberry" style="box-shadow:0 0 0 2px #6B3D42;position:absolute;inset:-1.5px;border-radius:999px;pointer-events:none;"></span></button>
+        {%- if section.settings.sale_badge != blank -%}
+          <div class="wk-sale-badge" style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#E2A24C,#C9653F);color:#FFF7EE;border:1.5px solid rgba(251,241,230,0.7);border-radius:999px;padding:10px 20px;font-size:13.5px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;line-height:1.1;box-shadow:0 4px 14px rgba(201,101,63,0.42);white-space:nowrap;"><span style="font-size:16px;line-height:1;">&#9728;</span>{{ section.settings.sale_badge }}</div>
+        {%- endif -%}
+      </div>
+
+      <!-- PLAN SELECTOR (subscription only) -->
+      <div style="font-size:11.5px;letter-spacing:0.22em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:12px;">{{ section.settings.plans_label }}</div>
+      <div style="display:flex;flex-direction:column;gap:18px;margin-bottom:20px;">
+
+        <!-- 3-MONTH -->
+        <div class="wk-plan is-sel" data-wk="supply" data-wk-val="3" data-wk-plan="3" role="radio" aria-checked="true" tabindex="0">
+          {%- if section.settings.tier3_badge != blank -%}<span class="wk-plan-badge">{{ section.settings.tier3_badge }}</span>{%- endif -%}
+          <div class="wk-plan-head">
+            <span style="display:flex;align-items:center;gap:12px;min-width:0;">
+              <span class="wk-radio"><span>&check;</span></span>
+              <span style="min-width:0;">
+                <span class="wk-plan-name" style="display:block;font-size:15.5px;font-weight:700;color:#6B3D42;line-height:1.25;">{{ section.settings.tier3_name }}</span>
+                <span class="wk-plan-sub" style="display:block;font-size:12.5px;color:#7a6258;margin-top:3px;">{{ section.settings.tier3_sub }}</span>
+              </span>
+            </span>
+            <span style="text-align:right;flex:0 0 auto;">
+              <span class="wk-plan-compare" data-wk-compare="3" style="display:block;font-size:13px;text-decoration:line-through;color:#8f6266;line-height:1.2;">$149.55</span>
+              <span class="wk-plan-price" data-wk-permo="3" style="display:block;font-size:21px;font-weight:700;color:#C9653F;line-height:1.15;">$24.93</span>
+              <span class="wk-plan-bill" style="display:block;font-size:11.5px;color:#7a6258;margin-top:2px;"><span data-wk-total="3">$74.79</span> {{ section.settings.tier3_billing }}</span>
+            </span>
+          </div>
+          <div class="wk-plan-body">
+            <div class="wk-inc-label">{{ section.settings.includes_label }}</div>
+            <div class="wk-inc-row">
+              {%- if section.settings.supply_image -%}
+                <img class="wk-inc-thumb" src="{{ section.settings.supply_image | image_url: width: 140 }}" alt="" width="140" height="140" loading="lazy">
+              {%- else -%}
+                <img class="wk-inc-thumb" src="{{ 'wk-buybox-1.jpg' | asset_img_url: '140x140' }}" alt="" width="140" height="140" loading="lazy">
+              {%- endif -%}
+              <span style="flex:1;min-width:0;">
+                <span class="wk-inc-t" style="display:block;">{{ section.settings.supply_title }}</span>
+                <span class="wk-inc-d" style="display:block;">{{ section.settings.supply_desc }}</span>
+              </span>
+              <span class="wk-pill" data-wk-save="3">Save 50%</span>
+            </div>
+
+            {%- assign has_gift = false -%}
+            {%- for i in (1..4) -%}{%- assign gt = 'gift_' | append: i | append: '_title' -%}{%- if section.settings[gt] != blank -%}{%- assign has_gift = true -%}{%- endif -%}{%- endfor -%}
+
+            {%- if has_gift -%}
+              <div class="wk-gift-div"><span>{{ section.settings.gifts_label }}</span></div>
+              {%- for i in (1..4) -%}
+                {%- assign gt = 'gift_' | append: i | append: '_title' -%}
+                {%- assign gd = 'gift_' | append: i | append: '_desc' -%}
+                {%- assign gv = 'gift_' | append: i | append: '_value' -%}
+                {%- assign gi = 'gift_' | append: i | append: '_image' -%}
+                {%- if section.settings[gt] != blank -%}
+                  <div class="wk-inc-row">
+                    {%- if section.settings[gi] -%}
+                      <img class="wk-inc-thumb" src="{{ section.settings[gi] | image_url: width: 140 }}" alt="" width="140" height="140" loading="lazy">
+                    {%- else -%}
+                      <span class="wk-inc-ph">&#10022;</span>
+                    {%- endif -%}
+                    <span style="flex:1;min-width:0;">
+                      <span class="wk-inc-t" style="display:block;">{{ section.settings[gt] }}</span>
+                      {%- if section.settings[gd] != blank -%}<span class="wk-inc-d" style="display:block;">{{ section.settings[gd] }}</span>{%- endif -%}
+                    </span>
+                    {%- if section.settings[gv] != blank -%}<span class="wk-pill wk-pill-soft">{{ section.settings[gv] }}</span>{%- endif -%}
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+
+            <div class="wk-plan-foot">
+              <span>&#8635; {{ section.settings.foot_1 }}</span>
+              <span>&#9829; {{ section.settings.foot_2 }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1-MONTH -->
+        <div class="wk-plan" data-wk="supply" data-wk-val="1" data-wk-plan="1" role="radio" aria-checked="false" tabindex="0">
+          <div class="wk-plan-head">
+            <span style="display:flex;align-items:center;gap:12px;min-width:0;">
+              <span class="wk-radio"><span>&check;</span></span>
+              <span style="min-width:0;">
+                <span class="wk-plan-name" style="display:block;font-size:15.5px;font-weight:700;color:#6B3D42;line-height:1.25;">{{ section.settings.tier1_name }}</span>
+                <span class="wk-plan-sub" style="display:block;font-size:12.5px;color:#7a6258;margin-top:3px;">{{ section.settings.tier1_sub }}</span>
+              </span>
+            </span>
+            <span style="text-align:right;flex:0 0 auto;">
+              <span class="wk-plan-compare" data-wk-compare="1" style="display:none;font-size:13px;text-decoration:line-through;color:#8f6266;line-height:1.2;">$49.85</span>
+              <span class="wk-plan-price" data-wk-permo="1" style="display:block;font-size:21px;font-weight:700;color:#C9653F;line-height:1.15;">$49.85</span>
+              <span class="wk-plan-bill" style="display:block;font-size:11.5px;color:#7a6258;margin-top:2px;"><span data-wk-total="1">$49.85</span> {{ section.settings.tier1_billing }}</span>
+            </span>
+          </div>
+          <div class="wk-plan-body">
+            <div class="wk-plan-foot" style="border-top:none;margin-top:0;">
+              <span>&#8635; {{ section.settings.foot_1 }}</span>
+              <span>&#9829; {{ section.settings.foot_2 }}</span>
+            </div>
+          </div>
+          {%- if section.settings.tier1_missing != blank -%}<div class="wk-miss">{{ section.settings.tier1_missing }}</div>{%- endif -%}
+        </div>
+      </div>
+
+      <!-- ADD TO CART -->
+      {%- if wk_product != blank -%}
+        <form method="post" action="{{ routes.cart_add_url }}" accept-charset="UTF-8" enctype="multipart/form-data" data-wk-form>
+          <input type="hidden" name="form_type" value="product">
+          <input type="hidden" name="utf8" value="✓">
+          <input type="hidden" name="id" value="{{ wk_variant.id }}">
+          <input type="hidden" name="quantity" value="3" data-wk-qty>
+          <input type="hidden" name="selling_plan" value="{{ wk_selling_plan.id }}" data-wk-selling-plan>
+          <button type="submit"{% unless wk_variant.available %} disabled{% endunless %} style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;{% unless wk_variant.available %}opacity:0.55;cursor:not-allowed;{% endunless %}">
+            {%- if wk_variant.available -%}
+              {{ section.settings.atc_label }} <span style="opacity:0.85;">— <span data-wk-atc-total>{{ wk_variant.price | times: 3 | money }}</span></span>
+            {%- else -%}
+              Sold out
+            {%- endif -%}
+          </button>
+        </form>
+      {%- else -%}
+        <button style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;">Select a product</button>
+      {%- endif -%}
+
+      {%- if section.settings.reason_why != blank -%}
+        <div style="text-align:center;margin:14px 0 0;font-size:13px;line-height:1.5;color:#6B3D42;font-weight:600;">{{ section.settings.reason_why }}</div>
+      {%- endif -%}
+
+      <div style="display:flex;align-items:center;gap:14px;margin:16px 0 0;padding:15px 18px;background:rgba(201,101,63,0.08);border:1.5px solid rgba(201,101,63,0.32);border-radius:12px;">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:#C9653F;color:#F5E6D8;font-size:13px;font-weight:700;flex:0 0 auto;line-height:1;box-shadow:0 3px 9px rgba(201,101,63,0.3);">{{ section.settings.guarantee_badge }}</span>
+        <span style="display:block;">
+          <span style="display:block;font-size:14.5px;color:#6B3D42;font-weight:700;letter-spacing:0.01em;line-height:1.25;">90-day money-back guarantee</span>
+          <span style="display:block;font-size:12.5px;color:#4a3a30;line-height:1.4;margin-top:3px;">Try Womankind for a full 90 days. If you don't love it, get your money back.</span>
+        </span>
+      </div>
+      <div style="text-align:center;margin:12px 0 0;font-size:11.5px;letter-spacing:0.02em;color:#7a6258;font-weight:600;line-height:1.45;">Hormone-free · Third-party tested · Made in Europe in a GMP-certified facility</div>
+
+      <!-- HOW TO USE / SHIPPING TABS -->
+      <style>
+        #wk-{{ section.id }}-tabs { margin-top:30px; }
+        #wk-{{ section.id }}-tabs [data-wk-xpanel="use"].is-active,
+        #wk-{{ section.id }}-tabs [data-wk-xpanel="ship"].is-active { display:block; }
+        #wk-{{ section.id }}-tabs .wk-xpanel.is-active { grid-template-columns:1fr; gap:30px; }
+        #wk-{{ section.id }}-tabs .wk-xt-simple { max-width:none; color:#F5E6D8; }
+        #wk-{{ section.id }}-tabs .wk-xt-simple ul { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr; gap:14px; }
+        #wk-{{ section.id }}-tabs .wk-xt-simple li { position:relative; padding-left:20px; font-size:15px; line-height:1.5; color:rgba(245,230,216,0.9); }
+        #wk-{{ section.id }}-tabs .wk-xt-simple li::before { content:'•'; position:absolute; left:0; color:#C9653F; }
+        #wk-{{ section.id }}-tabs .wk-xt-simple p { margin:0 0 14px; font-size:15px; line-height:1.6; color:rgba(245,230,216,0.9); }
+        #wk-{{ section.id }}-tabs .wk-xt-simple p:last-child { margin-bottom:0; }
+        #wk-{{ section.id }}-tabs .wk-xt-simple ul:last-child { margin-bottom:0; }
+      </style>
+      <div id="wk-{{ section.id }}-tabs">
+        <div class="wk-xt">
+          <div class="wk-xt-tabs" role="tablist">
+            <button class="wk-xtab is-active" data-wk-xtab="use" role="tab" aria-selected="true" type="button">{{ section.settings.tab2_label }}</button>
+            <button class="wk-xtab" data-wk-xtab="ship" role="tab" aria-selected="false" type="button">{{ section.settings.tab3_label }}</button>
+          </div>
+          <div class="wk-xt-body">
+            <div class="wk-xpanel is-active" data-wk-xpanel="use" role="tabpanel">
+              <div class="wk-xt-simple">{{ section.settings.use_content }}</div>
+            </div>
+            <div class="wk-xpanel" data-wk-xpanel="ship" role="tabpanel">
+              <div class="wk-xt-simple">{{ section.settings.ship_content }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<script>
+(function(){
+  function wkInit(){
+  var root = document.querySelector('.wk-root');
+  if (!root || root.dataset.wkInit) return;
+  root.dataset.wkInit = '1';
+  var RING = '0 0 0 2px #6B3D42', NONE = '0 0 0 0 transparent';
+  var state = { flavor:'cranberry', supply:'3' };
+
+  function applySelection(group){
+    var val = state[group];
+    root.querySelectorAll('[data-wk-ring]').forEach(function(el){
+      var parts = el.getAttribute('data-wk-ring').split(':');
+      if (parts[0] !== group) return;
+      el.style.boxShadow = (parts[1] === val) ? RING : NONE;
+    });
+    if (group === 'supply') {
+      root.querySelectorAll('[data-wk-plan]').forEach(function(card){
+        var on = card.getAttribute('data-wk-plan') === val;
+        card.classList.toggle('is-sel', on);
+        card.setAttribute('aria-checked', on ? 'true' : 'false');
+      });
+    }
+  }
+
+  // --- subscription-only pricing: every plan attaches a selling plan; no one-time path ---
+  var BOTTLE = {{ wk_variant.price | default: 4985 }};   // cents, live variant price (already in the market's presentment currency)
+  var SELLING_PLANS = [
+    {%- assign wk_sp_first = true -%}
+    {%- for grp in wk_product.selling_plan_groups -%}{%- for sp in grp.selling_plans -%}
+      {%- unless wk_sp_first %},{% endunless %}{ id: {{ sp.id }}, name: {{ sp.name | json }} }{%- assign wk_sp_first = false -%}
+    {%- endfor -%}{%- endfor -%}
+  ];
+  var PLAN_OVERRIDES = { '1': {{ section.settings.plan_1_id | default: 'null' }}, '3': {{ section.settings.plan_3_id | default: 'null' }} };
+  function wkParseInterval(name){
+    name = (name || '').toLowerCase();
+    if (/quarter/.test(name)) return 3;
+    var m = name.match(/(\d+)\s*-?\s*month/); if (m) return parseInt(m[1], 10);
+    if (/month/.test(name)) return 1;
+    if (/annual|year/.test(name)) return 12;
+    return 0;
+  }
+  function planForTier(tier){
+    if (PLAN_OVERRIDES[tier]) return PLAN_OVERRIDES[tier];
+    var want = { '1':1, '3':3 }[tier];
+    for (var i=0;i<SELLING_PLANS.length;i++){ if (wkParseInterval(SELLING_PLANS[i].name) === want) return SELLING_PLANS[i].id; }
+    return SELLING_PLANS.length ? SELLING_PLANS[0].id : null;
+  }
+  // sub = subscription discount % per tier. MUST equal the Shopify selling-plan discount or the buy box will disagree with checkout.
+  var TIERS = {
+    '1': { m: 1, sub: {{ section.settings.sub_1_pct | default: 0 | divided_by: 100.0 }} },
+    '3': { m: 3, sub: {{ section.settings.sub_3_pct | default: 50 | divided_by: 100.0 }} }
+  };
+
+  var WK_CUR = (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD';
+  var WK_NF; try { WK_NF = new Intl.NumberFormat('en', { style:'currency', currency:WK_CUR, currencyDisplay:'narrowSymbol' }); } catch(e){ try { WK_NF = new Intl.NumberFormat('en', { style:'currency', currency:WK_CUR }); } catch(_){ WK_NF = null; } }
+  function wkMoney(cents){ var v=(cents||0)/100; return WK_NF ? WK_NF.format(v).replace(/[.,]00(?=\D*$)/, '') : '$' + v.toFixed(2).replace(/\.00$/, ''); }
+
+  function wkQuote(tier){
+    var t = TIERS[tier];
+    var full = BOTTLE * t.m;
+    // Shopify rounds the discounted per-bottle plan price, then multiplies — mirror it so display == checkout.
+    var perUnit = Math.round(BOTTLE * (1 - t.sub));
+    var total = perUnit * t.m;
+    return { full: full, total: total, perMo: perUnit, save: Math.round((1 - total / full) * 100) };
+  }
+
+  function applyPricing(){
+    ['1','3'].forEach(function(k){
+      var q = wkQuote(k);
+      root.querySelectorAll('[data-wk-total="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.total); });
+      root.querySelectorAll('[data-wk-permo="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.perMo); });
+      root.querySelectorAll('[data-wk-compare="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.full); e.style.display = q.save > 0 ? 'block' : 'none'; });
+      root.querySelectorAll('[data-wk-save="'+k+'"]').forEach(function(e){ e.textContent = 'Save ' + q.save + '%'; e.style.display = q.save > 0 ? '' : 'none'; });
+    });
+    root.querySelectorAll('[data-wk-atc-total]').forEach(function(e){ e.textContent = wkMoney(wkQuote(state.supply).total); });
+  }
+
+  // subscription is always on — the selling plan is never disabled
+  function applyCart(){
+    var planId = planForTier(state.supply);
+    root.querySelectorAll('[data-wk-qty]').forEach(function(i){ i.value = state.supply; });
+    root.querySelectorAll('[data-wk-selling-plan]').forEach(function(i){ if (planId) i.value = planId; i.disabled = !planId; });
+  }
+
+  function applySupply(){ applyCart(); applyPricing(); }
+
+  root.querySelectorAll('[data-wk]').forEach(function(el){
+    function pick(){
+      var g = el.getAttribute('data-wk');
+      state[g] = el.getAttribute('data-wk-val');
+      applySelection(g);
+      if (g === 'supply') applySupply();
+    }
+    el.addEventListener('click', pick);
+    el.addEventListener('keydown', function(e){ if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); pick(); } });
+  });
+  applySelection('supply');
+  applySupply();
+
+  function bindAccordion(btnAttr, panelAttr){
+    root.querySelectorAll('['+btnAttr+']').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var id = btn.getAttribute(btnAttr);
+        var panel = root.querySelector('['+panelAttr+'="'+id+'"]');
+        var isOpen = panel && panel.style.display !== 'none';
+        root.querySelectorAll('['+panelAttr+']').forEach(function(p){ p.style.display = 'none'; });
+        if (!isOpen && panel) panel.style.display = 'block';
+      });
+    });
+  }
+  bindAccordion('data-wk-faq', 'data-wk-faq-panel');
+
+  var track = root.querySelector('[data-wk-track]');
+  if (track) {
+    var prevBtn = root.querySelector('[data-wk-prev]');
+    var nextBtn = root.querySelector('[data-wk-next]');
+    var bar = root.querySelector('[data-wk-bar]');
+    function cardStep() {
+      var card = track.querySelector('[data-wk-card]');
+      return card ? card.getBoundingClientRect().width + 22 : track.clientWidth;
+    }
+    if (prevBtn) prevBtn.addEventListener('click', function(){ track.scrollBy({ left: -cardStep(), behavior: 'smooth' }); });
+    if (nextBtn) nextBtn.addEventListener('click', function(){ track.scrollBy({ left: cardStep(), behavior: 'smooth' }); });
+    function updateBar() {
+      if (!bar) return;
+      var max = track.scrollWidth - track.clientWidth;
+      var ratio = max > 0 ? track.scrollLeft / max : 0;
+      bar.style.width = (33 + ratio * 67) + '%';
+    }
+    track.addEventListener('scroll', updateBar, { passive: true });
+    window.addEventListener('resize', updateBar);
+    updateBar();
+  }
+
+  var eg = root.querySelector('.wk-experts-grid');
+  var dotsWrap = root.querySelector('.wk-experts-dots');
+  if (eg && dotsWrap) {
+    var dots = dotsWrap.querySelectorAll('span');
+    var cards = eg.children;
+    function egStep() {
+      return (cards.length > 1)
+        ? (cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left)
+        : eg.clientWidth;
+    }
+    function egUpdate() {
+      var step = egStep() || eg.clientWidth;
+      var idx = Math.round(eg.scrollLeft / step);
+      idx = Math.max(0, Math.min(dots.length - 1, idx));
+      for (var i = 0; i < dots.length; i++) dots[i].classList.toggle('is-active', i === idx);
+    }
+    eg.addEventListener('scroll', egUpdate, { passive: true });
+    window.addEventListener('resize', egUpdate);
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () {
+        if (!cards[i]) return;
+        var target = eg.scrollLeft + (cards[i].getBoundingClientRect().left - eg.getBoundingClientRect().left);
+        eg.scrollTo({ left: target, behavior: 'smooth' });
+      });
+    });
+    egUpdate();
+  }
+
+  var ingTrack = root.querySelector('[data-wk-ing-track]');
+  if (ingTrack) {
+    var ingPrev = root.querySelector('[data-wk-ing-prev]');
+    var ingNext = root.querySelector('[data-wk-ing-next]');
+    var ingBar = root.querySelector('[data-wk-ing-bar]');
+    function ingStep() {
+      var c = ingTrack.querySelector('[data-wk-ing-card]');
+      return c ? c.getBoundingClientRect().width + 18 : ingTrack.clientWidth;
+    }
+    if (ingPrev) ingPrev.addEventListener('click', function () { ingTrack.scrollBy({ left: -ingStep(), behavior: 'smooth' }); });
+    if (ingNext) ingNext.addEventListener('click', function () { ingTrack.scrollBy({ left: ingStep(), behavior: 'smooth' }); });
+    function ingBarUpdate() {
+      if (!ingBar) return;
+      var max = ingTrack.scrollWidth - ingTrack.clientWidth;
+      var ratio = max > 0 ? ingTrack.scrollLeft / max : 0;
+      ingBar.style.width = (33 + ratio * 67) + '%';
+    }
+    ingTrack.addEventListener('scroll', ingBarUpdate, { passive: true });
+    window.addEventListener('resize', ingBarUpdate);
+    ingBarUpdate();
+  }
+
+  var sfOverlay = root.querySelector('[data-wk-suppfacts-overlay]');
+  if (sfOverlay) {
+    var sfDialog = sfOverlay.querySelector('[data-wk-suppfacts-dialog]');
+    function sfOpen() { sfOverlay.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+    function sfClose() { sfOverlay.style.display = 'none'; document.body.style.overflow = ''; }
+    root.querySelectorAll('[data-wk-suppfacts-open]').forEach(function (btn) { btn.addEventListener('click', sfOpen); });
+    root.querySelectorAll('[data-wk-suppfacts-close]').forEach(function (btn) { btn.addEventListener('click', sfClose); });
+    sfOverlay.addEventListener('click', function (e) { if (sfDialog && !sfDialog.contains(e.target)) sfClose(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && sfOverlay.style.display === 'flex') sfClose(); });
+  }
+
+  var thumbTrack = root.querySelector('[data-wk-thumb-track]');
+  if (thumbTrack) {
+    var thumbPrev = root.querySelector('[data-wk-thumb-prev]');
+    var thumbNext = root.querySelector('[data-wk-thumb-next]');
+    function thumbStep() {
+      var c = thumbTrack.querySelector('button');
+      return c ? c.getBoundingClientRect().width + 10 : thumbTrack.clientWidth;
+    }
+    if (thumbPrev) thumbPrev.addEventListener('click', function () { thumbTrack.scrollBy({ left: -thumbStep() * 2, behavior: 'smooth' }); });
+    if (thumbNext) thumbNext.addEventListener('click', function () { thumbTrack.scrollBy({ left: thumbStep() * 2, behavior: 'smooth' }); });
+  }
+
+  var heroImg = root.querySelector('[data-wk-hero-img]');
+  var heroBadge = root.querySelector('[data-wk-badge]');
+  var heroThumbs = root.querySelectorAll('[data-wk-thumb]');
+  heroThumbs.forEach(function (btn, idx) {
+    btn.addEventListener('click', function () {
+      var full = btn.getAttribute('data-wk-full');
+      if (heroImg && full) heroImg.src = full;
+      heroThumbs.forEach(function (b) { b.style.borderColor = 'transparent'; });
+      btn.style.borderColor = '#6B3D42';
+      if (heroBadge) heroBadge.style.display = (idx === 0) ? '' : 'none';
+    });
+  });
+
+  var xtabs = root.querySelectorAll('[data-wk-xtab]');
+  if (xtabs.length) {
+    xtabs.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var id = btn.getAttribute('data-wk-xtab');
+        xtabs.forEach(function (b) {
+          var on = b.getAttribute('data-wk-xtab') === id;
+          b.classList.toggle('is-active', on);
+          b.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        root.querySelectorAll('[data-wk-xpanel]').forEach(function (p) {
+          p.classList.toggle('is-active', p.getAttribute('data-wk-xpanel') === id);
+        });
+      });
+    });
+  }
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', wkInit); } else { wkInit(); }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "WK - Hero (subscription)",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product", "info": "Select the gummies product. Required for add-to-cart and pricing." },
+    { "type": "header", "content": "Gallery", "info": "8 images. Defaults to assets/wk-buybox-1…8.jpg." },
+    { "type": "text", "id": "badge", "label": "Badge label", "default": "Clinicians' Choice" },
+    { "type": "image_picker", "id": "badge_image", "label": "Badge image (optional)" },
+    { "type": "image_picker", "id": "gallery_1_image", "label": "Image 1 (main)" },
+    { "type": "image_picker", "id": "gallery_2_image", "label": "Image 2" },
+    { "type": "image_picker", "id": "gallery_3_image", "label": "Image 3" },
+    { "type": "image_picker", "id": "gallery_4_image", "label": "Image 4" },
+    { "type": "image_picker", "id": "gallery_5_image", "label": "Image 5" },
+    { "type": "image_picker", "id": "gallery_6_image", "label": "Image 6" },
+    { "type": "image_picker", "id": "gallery_7_image", "label": "Image 7" },
+    { "type": "image_picker", "id": "gallery_8_image", "label": "Image 8" },
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Zero sugar · no hormones · cancel anytime" },
+    { "type": "text", "id": "heading", "label": "Title", "default": "Wake up dry. Get through the day without the heat. Feel like yourself again." },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Two zero-sugar gummies a day for hot flashes, night sweats, disrupted sleep, mood changes, and the energy dips that can make you feel unlike yourself.*" },
+    { "type": "header", "content": "Benefit checklist" },
+    { "type": "inline_richtext", "id": "benefit_1", "label": "Benefit 1", "default": "Fewer, milder hot flashes and night sweats*" },
+    { "type": "inline_richtext", "id": "benefit_2", "label": "Benefit 2", "default": "Deeper sleep and fewer 3am wake-ups*" },
+    { "type": "inline_richtext", "id": "benefit_3", "label": "Benefit 3", "default": "Steadier mood, stress response, and daytime energy*" },
+    { "type": "inline_richtext", "id": "benefit_4", "label": "Benefit 4", "default": "6 research-backed botanicals in fully disclosed doses — zero hormones, zero sugar, no proprietary blend" },
+    { "type": "header", "content": "Flavor" },
+    { "type": "text", "id": "flavor_label", "label": "Section label", "default": "Flavor" },
+    { "type": "text", "id": "flavor_pill", "label": "Flavor pill", "default": "Deep-red cranberry" },
+    { "type": "text", "id": "sale_badge", "label": "Sale badge (leave blank to hide)", "default": "" },
+    { "type": "header", "content": "Plans", "info": "Subscription only. Both options attach a selling plan — there is no one-time path on this page." },
+    { "type": "text", "id": "plans_label", "label": "Selector label", "default": "Choose your plan" },
+    { "type": "text", "id": "tier3_badge", "label": "3-month badge", "default": "Best results · Most popular" },
+    { "type": "text", "id": "tier3_name", "label": "3-month name", "default": "3-Month Reset" },
+    { "type": "text", "id": "tier3_sub", "label": "3-month sub-line", "default": "3 bottles · delivered every 3 months" },
+    { "type": "text", "id": "tier3_billing", "label": "3-month billing note", "default": "billed every 3 months" },
+    { "type": "text", "id": "tier1_name", "label": "1-month name", "default": "1-Month Supply" },
+    { "type": "text", "id": "tier1_sub", "label": "1-month sub-line", "default": "1 bottle · delivered monthly" },
+    { "type": "text", "id": "tier1_billing", "label": "1-month billing note", "default": "billed monthly" },
+    { "type": "text", "id": "tier1_missing", "label": "1-month loss-aversion note", "default": "Does not include the 90-Day Reset Kit or the 50% saving." },
+    { "type": "header", "content": "Plan discounts", "info": "MUST match the discount on the matching Shopify selling plan, or the buy box will disagree with checkout. 0 = full price." },
+    { "type": "range", "id": "sub_1_pct", "label": "1-month discount %", "min": 0, "max": 60, "step": 1, "default": 0, "unit": "%" },
+    { "type": "range", "id": "sub_3_pct", "label": "3-month discount %", "min": 0, "max": 60, "step": 1, "default": 50, "unit": "%" },
+    { "type": "text", "id": "plan_1_id", "label": "1-month plan ID (optional override)" },
+    { "type": "text", "id": "plan_3_id", "label": "3-month plan ID (optional override)" },
+    { "type": "header", "content": "What's included" },
+    { "type": "text", "id": "includes_label", "label": "Includes label", "default": "Your 90-day reset includes" },
+    { "type": "image_picker", "id": "supply_image", "label": "Supply thumbnail" },
+    { "type": "text", "id": "supply_title", "label": "Supply title", "default": "90 days of Womankind" },
+    { "type": "text", "id": "supply_desc", "label": "Supply description", "default": "The full clinical window — the same 90 days our guarantee runs for." },
+    { "type": "header", "content": "Free gifts (3-month only)", "info": "Leave a title blank to hide that gift. Values are plain text — they do not convert between currencies." },
+    { "type": "text", "id": "gifts_label", "label": "Gifts divider label", "default": "Free gifts" },
+    { "type": "image_picker", "id": "gift_1_image", "label": "Gift 1 image" },
+    { "type": "text", "id": "gift_1_title", "label": "Gift 1 title", "default": "The 90-Day Reset Protocol" },
+    { "type": "text", "id": "gift_1_desc", "label": "Gift 1 description", "default": "Dr. Chen's week-by-week guide to your first 90 days (e-book)" },
+    { "type": "text", "id": "gift_1_value", "label": "Gift 1 value", "default": "$79 value" },
+    { "type": "image_picker", "id": "gift_2_image", "label": "Gift 2 image" },
+    { "type": "text", "id": "gift_2_title", "label": "Gift 2 title", "default": "The Estrobolome Food Guide" },
+    { "type": "text", "id": "gift_2_desc", "label": "Gift 2 description", "default": "Recipes and swaps that support the gut-hormone axis — zero sugar, zero guesswork" },
+    { "type": "text", "id": "gift_2_value", "label": "Gift 2 value", "default": "$39 value" },
+    { "type": "image_picker", "id": "gift_3_image", "label": "Gift 3 image" },
+    { "type": "text", "id": "gift_3_title", "label": "Gift 3 title", "default": "90-Day Symptom Tracker" },
+    { "type": "text", "id": "gift_3_desc", "label": "Gift 3 description", "default": "See your progress in black and white — flashes, sleep, and mood, week by week" },
+    { "type": "text", "id": "gift_3_value", "label": "Gift 3 value", "default": "$29 value" },
+    { "type": "image_picker", "id": "gift_4_image", "label": "Gift 4 image" },
+    { "type": "text", "id": "gift_4_title", "label": "Gift 4 title", "default": "" },
+    { "type": "text", "id": "gift_4_desc", "label": "Gift 4 description", "default": "" },
+    { "type": "text", "id": "gift_4_value", "label": "Gift 4 value", "default": "" },
+    { "type": "header", "content": "Plan footer + checkout" },
+    { "type": "text", "id": "foot_1", "label": "Footer item 1", "default": "Pause, skip or cancel anytime" },
+    { "type": "text", "id": "foot_2", "label": "Footer item 2", "default": "90-day money-back guarantee" },
+    { "type": "text", "id": "atc_label", "label": "Add-to-cart label", "default": "Start my 90-day reset" },
+    { "type": "text", "id": "reason_why", "label": "Reason-why line", "default": "Our guarantee is 90 days because that's how long it takes. So is the supply." },
+    { "type": "text", "id": "guarantee_badge", "label": "Guarantee badge", "default": "90" },
+    { "type": "header", "content": "Tabs · labels" },
+    { "type": "text", "id": "tab2_label", "label": "Tab 2 label", "default": "How to use" },
+    { "type": "text", "id": "tab3_label", "label": "Tab 3 label", "default": "Shipping" },
+    { "type": "header", "content": "How to use" },
+    { "type": "richtext", "id": "use_content", "label": "Content", "default": "<p>Take two gummies daily, with or without food. For the best experience, take Womankind consistently as part of your daily routine.</p>" },
+    { "type": "header", "content": "Shipping" },
+    { "type": "richtext", "id": "ship_content", "label": "Content", "default": "<p>Orders ship within 24 hours. You’ll receive tracking as soon as your order is on its way.</p><p>We are currently experiencing a high volume of orders, so delivery times, depending on your location, range from 2-9 business days.</p>" }
+  ]
+}
+{% endschema %}
