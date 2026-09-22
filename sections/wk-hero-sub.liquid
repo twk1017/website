@@ -231,8 +231,27 @@
             {%- endif -%}
           </button>
         </form>
+        {%- if section.settings.onetime_label != blank -%}
+          <div style="text-align:center;margin:14px 0 0;">
+            <button type="button" data-wk-onetime style="cursor:pointer;font-family:inherit;background:none;border:none;padding:4px 6px;font-size:13.5px;color:#6B3D42;font-weight:600;text-decoration:underline;text-underline-offset:3px;">{{ section.settings.onetime_label }} &mdash; <span data-wk-onetime-total>$149.55</span></button>
+          </div>
+        {%- endif -%}
       {%- else -%}
         <button style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;">Select a product</button>
+      {%- endif -%}
+
+      {%- if section.settings.urgency_heading != blank -%}
+        <div class="wk-urg" style="margin:18px 0 0;">
+          <div style="font-size:15.2px;font-weight:700;color:#6B3D42;line-height:1.3;">{{ section.settings.urgency_heading }}</div>
+          {%- if section.settings.urgency_text != blank -%}<div style="font-size:13.4px;color:#7a6258;line-height:1.45;margin-top:3px;">{{ section.settings.urgency_text }}</div>{%- endif -%}
+          <div style="height:10px;border-radius:999px;background:#E8D5C6;overflow:hidden;margin:11px 0 8px;">
+            <div style="height:100%;width:{{ section.settings.urgency_pct }}%;border-radius:999px;background:linear-gradient(90deg,#6B3D42,#C9653F);"></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13.4px;">
+            <span style="color:#7a6258;font-weight:600;">{{ section.settings.urgency_pct }}% sold</span>
+            <span style="color:#C9653F;font-weight:700;">{{ section.settings.urgency_countdown_label }} <span data-wk-countdown>00:00:00</span></span>
+          </div>
+        </div>
       {%- endif -%}
 
       {%- if section.settings.reason_why != blank -%}
@@ -332,8 +351,8 @@
   }
   // sub = subscription discount % per tier. MUST equal the Shopify selling-plan discount or the buy box will disagree with checkout.
   var TIERS = {
-    '1': { m: 1, sub: {{ section.settings.sub_1_pct | default: 0 | divided_by: 100.0 }} },
-    '3': { m: 3, sub: {{ section.settings.sub_3_pct | default: 50 | divided_by: 100.0 }} }
+    '1': { m: 1, sub: {{ section.settings.sub_1_pct | default: 0 | divided_by: 100.0 }}, one: {{ section.settings.one_1_pct | default: 0 | divided_by: 100.0 }} },
+    '3': { m: 3, sub: {{ section.settings.sub_3_pct | default: 50 | divided_by: 100.0 }}, one: {{ section.settings.one_3_pct | default: 0 | divided_by: 100.0 }} }
   };
 
   var WK_CUR = (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD';
@@ -349,6 +368,15 @@
     return { full: full, total: total, perMo: perUnit, save: Math.round((1 - total / full) * 100) };
   }
 
+  // One-time purchase: no selling plan attached, so Shopify's automatic quantity discounts apply
+  // instead of the plan price. Shopify floors the per-bottle discount, so mirror that exactly or
+  // the link will disagree with checkout.
+  function wkQuoteOne(tier){
+    var t = TIERS[tier];
+    var perUnit = BOTTLE - Math.floor(BOTTLE * (t.one || 0));
+    return { total: perUnit * t.m, perMo: perUnit };
+  }
+
   function applyPricing(){
     ['1','3'].forEach(function(k){
       var q = wkQuote(k);
@@ -358,6 +386,7 @@
       root.querySelectorAll('[data-wk-save="'+k+'"]').forEach(function(e){ e.textContent = 'Save ' + q.save + '%'; e.style.display = q.save > 0 ? '' : 'none'; });
     });
     root.querySelectorAll('[data-wk-atc-total]').forEach(function(e){ e.textContent = wkMoney(wkQuote(state.supply).total); });
+    root.querySelectorAll('[data-wk-onetime-total]').forEach(function(e){ e.textContent = wkMoney(wkQuoteOne(state.supply).total); });
   }
 
   // subscription is always on — the selling plan is never disabled
@@ -381,6 +410,44 @@
   });
   applySelection('supply');
   applySupply();
+
+  // "One-time purchase" — reuse the main form, but disable the selling-plan input so it is left out.
+  // The cart drawer intercepts the submit event and posts new FormData(form); disabled inputs are
+  // excluded from FormData, which is exactly what turns this into a one-time order.
+  // requestSubmit() fires the submit event (form.submit() does NOT, and would bypass the drawer).
+  // Countdown to the end of the viewer's own day. `end` is recomputed every tick from a fresh
+  // local Date, so it rolls over to the next midnight on its own and follows the visitor's timezone.
+  var wkCd = root.querySelector('[data-wk-countdown]');
+  if (wkCd) {
+    function wkPad(n){ return (n < 10 ? '0' : '') + n; }
+    function wkTick(){
+      var now = new Date();
+      var end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
+      var ms = end - now; if (ms < 0) ms = 0;
+      wkCd.textContent = wkPad(Math.floor(ms / 3600000)) + ':' +
+                         wkPad(Math.floor(ms % 3600000 / 60000)) + ':' +
+                         wkPad(Math.floor(ms % 60000 / 1000));
+    }
+    wkTick();
+    setInterval(wkTick, 1000);
+  }
+
+  root.querySelectorAll('[data-wk-onetime]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var form = root.querySelector('[data-wk-form]');
+      if (!form) return;
+      var plans = form.querySelectorAll('[data-wk-selling-plan]');
+      plans.forEach(function(i){ i.disabled = true; });
+      if (form.requestSubmit) {
+        form.requestSubmit();
+        // FormData was captured synchronously inside the submit handler, so it is already safe to
+        // restore the subscription state for the main add-to-cart button.
+        applyCart();
+      } else {
+        form.submit();   // legacy fallback: navigating away, so leave the plan disabled
+      }
+    });
+  });
 
   function bindAccordion(btnAttr, panelAttr){
     root.querySelectorAll('['+btnAttr+']').forEach(function(btn){
@@ -569,6 +636,10 @@
     { "type": "range", "id": "sub_3_pct", "label": "3-month discount %", "min": 0, "max": 60, "step": 1, "default": 50, "unit": "%" },
     { "type": "text", "id": "plan_1_id", "label": "1-month plan ID (optional override)" },
     { "type": "text", "id": "plan_3_id", "label": "3-month plan ID (optional override)" },
+    { "type": "header", "content": "One-time purchase link", "info": "Escape hatch for visitors who don't want a subscription. On this page one-time buyers get NO discount, so these stay at 0 — but they must still match whatever automatic discounts are actually live in Shopify, because no selling plan is attached and those are what apply at checkout. Leave the label blank to hide the link." },
+    { "type": "text", "id": "onetime_label", "label": "Link label", "default": "One-time purchase" },
+    { "type": "range", "id": "one_1_pct", "label": "1-bottle one-time discount %", "min": 0, "max": 60, "step": 1, "default": 0, "unit": "%" },
+    { "type": "range", "id": "one_3_pct", "label": "3-bottle one-time discount %", "min": 0, "max": 60, "step": 1, "default": 0, "unit": "%", "info": "0 = full price. Only raise this if a one-time automatic discount is live in Shopify." },
     { "type": "header", "content": "What's included" },
     { "type": "text", "id": "includes_label", "label": "Includes label", "default": "Your 90-day reset includes" },
     { "type": "image_picker", "id": "supply_image", "label": "Supply thumbnail" },
@@ -598,6 +669,11 @@
     { "type": "text", "id": "atc_label", "label": "Add-to-cart label", "default": "Start my 90-day reset" },
     { "type": "text", "id": "reason_why", "label": "Reason-why line", "info": "Shown under the add-to-cart button. Leave blank to hide." },
     { "type": "text", "id": "guarantee_badge", "label": "Guarantee badge", "default": "90" },
+    { "type": "header", "content": "Urgency bar", "info": "Shown under the add-to-cart button. The countdown runs to midnight in the visitor's own timezone and resets each day. Leave the heading blank to hide the whole block." },
+    { "type": "text", "id": "urgency_heading", "label": "Heading", "default": "Selling out fast" },
+    { "type": "text", "id": "urgency_text", "label": "Sub-text", "default": "Due to high demand, limited quantities available." },
+    { "type": "range", "id": "urgency_pct", "label": "Percent sold", "min": 1, "max": 99, "step": 1, "default": 89, "unit": "%" },
+    { "type": "text", "id": "urgency_countdown_label", "label": "Countdown label", "default": "Ends in" },
     { "type": "header", "content": "Tabs · labels" },
     { "type": "text", "id": "tab2_label", "label": "Tab 2 label", "default": "How to use" },
     { "type": "text", "id": "tab3_label", "label": "Tab 3 label", "default": "Shipping" },
