@@ -8,6 +8,8 @@
   #wk-sub-{{ section.id }} .wk-plan.is-sel{border-color:#6B3D42;box-shadow:0 0 0 2px #6B3D42;}
   #wk-sub-{{ section.id }} .wk-plan-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 19px;border-radius:12.5px 12.5px 0 0;transition:background .15s ease,color .15s ease;}
   #wk-sub-{{ section.id }} .wk-plan:not(.is-sel) .wk-plan-head{border-radius:12.5px;}
+  /* a plan with no body below it stays fully rounded even when selected */
+  #wk-sub-{{ section.id }} .wk-plan--bare .wk-plan-head{border-radius:12.5px;}
   #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-head{background:#6B3D42;}
   /* inline colours on these spans would win over a plain class rule, so the selected (burgundy) header needs !important */
   #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-name,
@@ -192,7 +194,9 @@
         </div>
 
         <!-- 1-MONTH -->
-        <div class="wk-plan" data-wk="supply" data-wk-val="1" data-wk-plan="1" role="radio" aria-checked="false" tabindex="0">
+        {%- comment -%} no body on this card: with nothing to list, a selected 1-month plan is header-only {%- endcomment -%}
+        {%- assign t1_bare = ' wk-plan--bare' -%}{%- if section.settings.tier1_missing != blank -%}{%- assign t1_bare = '' -%}{%- endif -%}
+        <div class="wk-plan{{ t1_bare }}" data-wk="supply" data-wk-val="1" data-wk-plan="1" role="radio" aria-checked="false" tabindex="0">
           <div class="wk-plan-head">
             <span style="display:flex;align-items:center;gap:12px;min-width:0;">
               <span class="wk-radio"><span>&check;</span></span>
@@ -206,14 +210,6 @@
               <span class="wk-plan-price" style="display:block;font-size:27px;font-weight:700;color:#C9653F;line-height:1.1;"><span data-wk-permo="1">$49.85</span>{{ section.settings.price_suffix }}</span>
               {%- if section.settings.tier1_billing != blank -%}<span class="wk-plan-bill" style="display:block;font-size:12.8px;color:#7a6258;margin-top:4px;"><span data-wk-total="1">$49.85</span> {{ section.settings.tier1_billing }}</span>{%- endif -%}
             </span>
-          </div>
-          <div class="wk-plan-body">
-            {%- if section.settings.foot_1 != blank or section.settings.foot_2 != blank -%}
-            <div class="wk-plan-foot" style="border-top:none;margin-top:0;">
-              {%- if section.settings.foot_1 != blank -%}<span>&#8635; {{ section.settings.foot_1 }}</span>{%- endif -%}
-              {%- if section.settings.foot_2 != blank -%}<span>&#9829; {{ section.settings.foot_2 }}</span>{%- endif -%}
-            </div>
-            {%- endif -%}
           </div>
           {%- if section.settings.tier1_missing != blank -%}<div class="wk-miss">{{ section.settings.tier1_missing }}</div>{%- endif -%}
         </div>
@@ -567,7 +563,7 @@
     { "type": "text", "id": "tier1_name", "label": "1-month name", "default": "1-Month Supply" },
     { "type": "text", "id": "tier1_sub", "label": "1-month sub-line", "default": "1 bottle · 30 day supply" },
     { "type": "text", "id": "tier1_billing", "label": "1-month billing note", "info": "Leave blank to hide the line under the price." },
-    { "type": "text", "id": "tier1_missing", "label": "1-month loss-aversion note", "default": "Does not include the 90-Day Reset Kit or the 50% saving." },
+    { "type": "text", "id": "tier1_missing", "label": "1-month loss-aversion note", "info": "Shown under the 1-month card. Leave blank to hide (the card then renders header-only)." },
     { "type": "header", "content": "Plan discounts", "info": "MUST match the discount on the matching Shopify selling plan, or the buy box will disagree with checkout. 0 = full price." },
     { "type": "range", "id": "sub_1_pct", "label": "1-month discount %", "min": 0, "max": 60, "step": 1, "default": 0, "unit": "%" },
     { "type": "range", "id": "sub_3_pct", "label": "3-month discount %", "min": 0, "max": 60, "step": 1, "default": 50, "unit": "%" },
