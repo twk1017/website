@@ -394,7 +394,7 @@
   var SELLING_PLANS = [
     {%- assign wk_sp_first = true -%}
     {%- for grp in wk_product.selling_plan_groups -%}{%- for sp in grp.selling_plans -%}
-      {%- unless wk_sp_first %},{% endunless %}{ id: {{ sp.id }}, name: {{ sp.name | json }} }{%- assign wk_sp_first = false -%}
+      {%- unless wk_sp_first %},{% endunless %}{%- assign wk_adj = sp.price_adjustments.first -%}{ id: {{ sp.id }}, name: {{ sp.name | json }}, pct: {% if wk_adj and wk_adj.value_type == 'percentage' %}{{ wk_adj.value }}{% else %}null{% endif %} }{%- assign wk_sp_first = false -%}
     {%- endfor -%}{%- endfor -%}
   ];
   var PLAN_OVERRIDES = { '1': {{ section.settings.plan_1_id | default: 'null' }}, '3': {{ section.settings.plan_3_id | default: 'null' }} };
@@ -406,11 +406,25 @@
     if (/annual|year/.test(name)) return 12;
     return 0;
   }
+  // Three strategies, most reliable first. Plan NAMES are cosmetic and get edited in the
+  // subscription app, so they are the last thing we trust — and if nothing matches we attach
+  // NO plan rather than guessing, because the wrong plan means the wrong price at checkout.
   function planForTier(tier){
+    // 1. explicit ID pinned in the theme settings — always wins
     if (PLAN_OVERRIDES[tier]) return PLAN_OVERRIDES[tier];
-    var want = { '1':1, '3':3 }[tier];
-    for (var i=0;i<SELLING_PLANS.length;i++){ if (wkParseInterval(SELLING_PLANS[i].name) === want) return SELLING_PLANS[i].id; }
-    return SELLING_PLANS.length ? SELLING_PLANS[0].id : null;
+    // 2. match on the actual discount, which is the contract the buy box prices against
+    var wantPct = Math.round(((TIERS[tier] && TIERS[tier].sub) || 0) * 100);
+    if (wantPct > 0) {
+      for (var i = 0; i < SELLING_PLANS.length; i++) {
+        if (SELLING_PLANS[i].pct === wantPct) return SELLING_PLANS[i].id;
+      }
+    }
+    // 3. last resort: read the delivery interval out of the plan name
+    var want = { '1': 1, '3': 3 }[tier];
+    for (var j = 0; j < SELLING_PLANS.length; j++) {
+      if (wkParseInterval(SELLING_PLANS[j].name) === want) return SELLING_PLANS[j].id;
+    }
+    return null;
   }
   // sub = subscription discount % per tier. MUST equal the Shopify selling-plan discount or the buy box will disagree with checkout.
   var TIERS = {
