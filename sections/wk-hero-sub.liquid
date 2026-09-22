@@ -25,6 +25,8 @@
   #wk-sub-{{ section.id }} .wk-inc-row{display:flex;align-items:flex-start;gap:12px;padding:9px 0;}
   #wk-sub-{{ section.id }} .wk-inc-thumb{width:46px;height:46px;flex:0 0 auto;border-radius:9px;object-fit:cover;display:block;background:#E8D5C6;}
   #wk-sub-{{ section.id }} .wk-inc-ph{width:46px;height:46px;flex:0 0 auto;border-radius:9px;background:linear-gradient(135deg,#E8D5C6,#D8BFB4);display:flex;align-items:center;justify-content:center;color:#6B3D42;font-size:16px;line-height:1;}
+  /* gift artwork (book mockups / community avatar) ships with its own shape + transparency, so no crop or tile background */
+  #wk-sub-{{ section.id }} .wk-gift-img{width:48px;height:48px;flex:0 0 auto;object-fit:contain;background:transparent;display:block;}
   #wk-sub-{{ section.id }} .wk-inc-t{font-size:13.5px;font-weight:700;color:#6B3D42;line-height:1.3;}
   #wk-sub-{{ section.id }} .wk-inc-d{font-size:12px;color:#7a6258;line-height:1.45;margin-top:3px;}
   #wk-sub-{{ section.id }} .wk-pill{flex:0 0 auto;align-self:center;background:#C9653F;color:#FFF7EE;font-size:10.5px;font-weight:700;letter-spacing:0.04em;padding:5px 10px;border-radius:999px;white-space:nowrap;}
@@ -158,7 +160,11 @@
                 {%- if section.settings[gt] != blank -%}
                   <div class="wk-inc-row">
                     {%- if section.settings[gi] -%}
-                      <img class="wk-inc-thumb" src="{{ section.settings[gi] | image_url: width: 140 }}" alt="" width="140" height="140" loading="lazy">
+                      <img class="wk-gift-img" src="{{ section.settings[gi] | image_url: width: 200 }}" alt="" width="200" height="200" loading="lazy">
+                    {%- elsif i <= 3 -%}
+                      {%- comment -%} defaults to assets/wk-gift-1..3.png — only 1–3 ship with artwork {%- endcomment -%}
+                      {%- assign gfb = 'wk-gift-' | append: i | append: '.png' -%}
+                      <img class="wk-gift-img" src="{{ gfb | asset_url }}" alt="" width="200" height="200" loading="lazy">
                     {%- else -%}
                       <span class="wk-inc-ph">&#10022;</span>
                     {%- endif -%}
@@ -563,7 +569,7 @@
     { "type": "image_picker", "id": "supply_image", "label": "Supply thumbnail" },
     { "type": "text", "id": "supply_title", "label": "Supply title", "default": "90 days of Womankind" },
     { "type": "text", "id": "supply_desc", "label": "Supply description", "default": "The full clinical window — the same 90 days our guarantee runs for." },
-    { "type": "header", "content": "Free gifts (3-month only)", "info": "Leave a title blank to hide that gift. Values are plain text — they do not convert between currencies." },
+    { "type": "header", "content": "Free gifts (3-month only)", "info": "Gifts 1–3 default to the artwork in assets/wk-gift-1…3.png (book mockups + community avatar) — upload an image only to override. Leave a title blank to hide that gift. Values are plain text and do not convert between currencies." },
     { "type": "text", "id": "gifts_label", "label": "Gifts divider label", "default": "Free gifts" },
     { "type": "image_picker", "id": "gift_1_image", "label": "Gift 1 image" },
     { "type": "text", "id": "gift_1_title", "label": "Gift 1 title", "default": "The 90-Day Reset Protocol" },
@@ -574,9 +580,9 @@
     { "type": "text", "id": "gift_2_desc", "label": "Gift 2 description", "default": "Recipes and swaps that support the gut-hormone axis — zero sugar, zero guesswork" },
     { "type": "text", "id": "gift_2_value", "label": "Gift 2 value", "default": "$39 value" },
     { "type": "image_picker", "id": "gift_3_image", "label": "Gift 3 image" },
-    { "type": "text", "id": "gift_3_title", "label": "Gift 3 title", "default": "90-Day Symptom Tracker" },
-    { "type": "text", "id": "gift_3_desc", "label": "Gift 3 description", "default": "See your progress in black and white — flashes, sleep, and mood, week by week" },
-    { "type": "text", "id": "gift_3_value", "label": "Gift 3 value", "default": "$29 value" },
+    { "type": "text", "id": "gift_3_title", "label": "Gift 3 title", "default": "The Womankind Circle" },
+    { "type": "text", "id": "gift_3_desc", "label": "Gift 3 description", "default": "Private Facebook group — with member-only live Q&As hosted by Dr. Chen" },
+    { "type": "text", "id": "gift_3_value", "label": "Gift 3 value", "default": "$150 value" },
     { "type": "image_picker", "id": "gift_4_image", "label": "Gift 4 image" },
     { "type": "text", "id": "gift_4_title", "label": "Gift 4 title" },
     { "type": "text", "id": "gift_4_desc", "label": "Gift 4 description" },
