@@ -43,6 +43,15 @@
   #wk-sub-{{ section.id }} .wk-card-gtee .wk-g-d{display:block;font-size:12.4px;color:#4a3a30;line-height:1.4;margin-top:3px;}
   #wk-sub-{{ section.id }} .wk-miss{padding:0 19px 15px;font-size:12.6px;color:#a08078;line-height:1.45;}
   #wk-sub-{{ section.id }} .wk-plan-badge{position:absolute;top:-11px;left:19px;z-index:2;background:#C9653F;color:#F5E6D8;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;padding:4px 13px;border-radius:999px;}
+  /* social-proof row that replaces the guarantee block under the countdown */
+  #wk-sub-{{ section.id }} .wk-trust{display:flex;align-items:center;gap:15px;margin:16px 0 0;padding:13px 20px 13px 16px;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.18);border-radius:999px;}
+  #wk-sub-{{ section.id }} .wk-trust-av{display:flex;align-items:center;flex:0 0 auto;position:relative;}
+  #wk-sub-{{ section.id }} .wk-trust-av img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2.5px solid #FFF9F1;margin-left:-13px;display:block;background:#E8D5C6;}
+  #wk-sub-{{ section.id }} .wk-trust-av img:first-child{margin-left:0;}
+  #wk-sub-{{ section.id }} .wk-trust-chk{position:absolute;right:-5px;bottom:-2px;width:20px;height:20px;border-radius:50%;background:#C9653F;color:#FFF9F1;font-size:11px;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center;border:2px solid #FFF9F1;}
+  #wk-sub-{{ section.id }} .wk-trust-h{display:block;font-size:14.6px;font-weight:700;color:#6B3D42;line-height:1.3;}
+  #wk-sub-{{ section.id }} .wk-trust-d{display:block;font-size:13px;color:#7a6258;line-height:1.4;margin-top:2px;}
+
   @media(max-width:749px){
     #wk-sub-{{ section.id }} .wk-plan-head{padding:15px 14px;gap:10px;}
     #wk-sub-{{ section.id }} .wk-plan-body{padding:15px 14px 0;}
@@ -52,6 +61,10 @@
     #wk-sub-{{ section.id }} .wk-gift-img,
     #wk-sub-{{ section.id }} .wk-inc-thumb,
     #wk-sub-{{ section.id }} .wk-inc-ph{width:64px;height:64px;}
+    #wk-sub-{{ section.id }} .wk-trust{gap:12px;padding:12px 16px 12px 14px;border-radius:18px;}
+    #wk-sub-{{ section.id }} .wk-trust-av img{width:38px;height:38px;}
+    #wk-sub-{{ section.id }} .wk-trust-h{font-size:13.8px;}
+    #wk-sub-{{ section.id }} .wk-trust-d{font-size:12.4px;}
   }
 </style>
 
@@ -264,13 +277,28 @@
         <div style="text-align:center;margin:14px 0 0;font-size:13px;line-height:1.5;color:#6B3D42;font-weight:600;">{{ section.settings.reason_why }}</div>
       {%- endif -%}
 
-      <div style="display:flex;align-items:center;gap:14px;margin:16px 0 0;padding:15px 18px;background:rgba(201,101,63,0.08);border:1.5px solid rgba(201,101,63,0.32);border-radius:12px;">
-        <span style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:#C9653F;color:#F5E6D8;font-size:13px;font-weight:700;flex:0 0 auto;line-height:1;box-shadow:0 3px 9px rgba(201,101,63,0.3);">{{ section.settings.guarantee_badge }}</span>
-        <span style="display:block;">
-          <span style="display:block;font-size:14.5px;color:#6B3D42;font-weight:700;letter-spacing:0.01em;line-height:1.25;">{{ section.settings.guarantee_title }}</span>
-          {%- if section.settings.guarantee_text != blank -%}<span style="display:block;font-size:12.5px;color:#4a3a30;line-height:1.4;margin-top:3px;">{{ section.settings.guarantee_text }}</span>{%- endif -%}
-        </span>
-      </div>
+      {%- if section.settings.trust_heading != blank -%}
+        <div class="wk-trust">
+          <span class="wk-trust-av">
+            {%- for i in (1..3) -%}
+              {%- assign tk = 'trust_' | append: i | append: '_image' -%}
+              {%- assign timg = section.settings[tk] -%}
+              {%- if timg -%}
+                <img src="{{ timg | image_url: width: 160 }}" alt="" width="160" height="160" loading="lazy">
+              {%- else -%}
+                {%- comment -%} same customer photos as the homepage testimonials {%- endcomment -%}
+                {%- assign tfb = 'wk-testimonial-' | append: i | append: '.jpg' -%}
+                <img src="{{ tfb | asset_img_url: '160x160' }}" alt="" width="160" height="160" loading="lazy">
+              {%- endif -%}
+            {%- endfor -%}
+            <span class="wk-trust-chk">&check;</span>
+          </span>
+          <span style="display:block;">
+            <span class="wk-trust-h">{{ section.settings.trust_heading }}</span>
+            {%- if section.settings.trust_text != blank -%}<span class="wk-trust-d">{{ section.settings.trust_text }}</span>{%- endif -%}
+          </span>
+        </div>
+      {%- endif -%}
       <div style="text-align:center;margin:12px 0 0;font-size:11.5px;letter-spacing:0.02em;color:#7a6258;font-weight:600;line-height:1.45;">Hormone-free · Third-party tested · Made in Europe in a GMP-certified facility</div>
 
       <!-- HOW TO USE / SHIPPING TABS -->
@@ -676,6 +704,12 @@
     { "type": "text", "id": "guarantee_badge", "label": "Guarantee badge number", "default": "90" },
     { "type": "text", "id": "guarantee_title", "label": "Guarantee title", "default": "90-day money-back guarantee", "info": "Used both inside the 3-month card and under the add-to-cart button. Leave blank to hide it inside the card." },
     { "type": "text", "id": "guarantee_text", "label": "Guarantee text", "default": "Try Womankind for a full 90 days. If you don't love it, get your money back." },
+    { "type": "header", "content": "Social proof row", "info": "Shown under the urgency bar. Avatars default to the homepage testimonial photos (wk-testimonial-1\u20133.jpg). Leave the heading blank to hide the row." },
+    { "type": "text", "id": "trust_heading", "label": "Heading", "default": "Trusted by 50,000+ women" },
+    { "type": "text", "id": "trust_text", "label": "Sub-text", "default": "who choose Womankind to feel like themselves again." },
+    { "type": "image_picker", "id": "trust_1_image", "label": "Avatar 1" },
+    { "type": "image_picker", "id": "trust_2_image", "label": "Avatar 2" },
+    { "type": "image_picker", "id": "trust_3_image", "label": "Avatar 3" },
     { "type": "header", "content": "Urgency bar", "info": "Shown under the add-to-cart button. The countdown runs to midnight in the visitor's own timezone and resets each day. Leave the heading blank to hide the whole block." },
     { "type": "text", "id": "urgency_heading", "label": "Heading", "default": "Selling out fast" },
     { "type": "text", "id": "urgency_text", "label": "Sub-text", "default": "Due to high demand, limited quantities available." },
