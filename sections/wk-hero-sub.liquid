@@ -21,7 +21,7 @@
   #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-radio{border-color:#F5E6D8;background:#F5E6D8;}
   #wk-sub-{{ section.id }} .wk-radio span{display:none;color:#6B3D42;font-size:15px;font-weight:700;line-height:1;}
   #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-radio span{display:block;}
-  #wk-sub-{{ section.id }} .wk-plan-body{display:none;padding:18px 19px 0;background:#FFF9F1;border-radius:0 0 12.5px 12.5px;}
+  #wk-sub-{{ section.id }} .wk-plan-body{display:none;padding:18px 19px 14px;background:#FFF9F1;border-radius:0 0 12.5px 12.5px;}
   #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-body{display:block;}
   #wk-sub-{{ section.id }} .wk-inc-label{font-size:11.8px;letter-spacing:0.16em;text-transform:uppercase;color:#6B3D42;font-weight:700;margin-bottom:14px;}
   #wk-sub-{{ section.id }} .wk-inc-row{display:flex;align-items:flex-start;gap:15px;padding:11px 0;}
@@ -36,11 +36,6 @@
   #wk-sub-{{ section.id }} .wk-gift-div{display:flex;align-items:center;gap:10px;margin:12px 0 4px;}
   #wk-sub-{{ section.id }} .wk-gift-div::before,#wk-sub-{{ section.id }} .wk-gift-div::after{content:'';flex:1;border-top:1px dashed rgba(107,61,66,0.32);}
   #wk-sub-{{ section.id }} .wk-gift-div span{font-size:11.8px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;color:#C9653F;background:rgba(201,101,63,0.12);padding:6px 14px;border-radius:999px;}
-  /* guarantee block, shared styling with the one under the add-to-cart button */
-  #wk-sub-{{ section.id }} .wk-card-gtee{display:flex;align-items:center;gap:13px;margin:15px 0 18px;padding:13px 15px;background:rgba(201,101,63,0.08);border:1.5px solid rgba(201,101,63,0.32);border-radius:11px;}
-  #wk-sub-{{ section.id }} .wk-card-gtee .wk-g-badge{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:#C9653F;color:#F5E6D8;font-size:12.5px;font-weight:700;flex:0 0 auto;line-height:1;box-shadow:0 3px 9px rgba(201,101,63,0.3);}
-  #wk-sub-{{ section.id }} .wk-card-gtee .wk-g-t{display:block;font-size:14px;color:#6B3D42;font-weight:700;line-height:1.25;}
-  #wk-sub-{{ section.id }} .wk-card-gtee .wk-g-d{display:block;font-size:12.4px;color:#4a3a30;line-height:1.4;margin-top:3px;}
   #wk-sub-{{ section.id }} .wk-miss{padding:0 19px 15px;font-size:12.6px;color:#a08078;line-height:1.45;}
   #wk-sub-{{ section.id }} .wk-plan-badge{position:absolute;top:-11px;left:19px;z-index:2;background:#C9653F;color:#F5E6D8;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;padding:4px 13px;border-radius:999px;}
   /* social-proof row that replaces the guarantee block under the countdown */
@@ -53,10 +48,10 @@
   #wk-sub-{{ section.id }} .wk-trust-d{display:block;font-size:12.2px;color:#7a6258;line-height:1.4;margin-top:2px;}
 
   /* add-to-cart: label on top, guarantee strip fused underneath (one button, two tiers) */
-  #wk-sub-{{ section.id }} .wk-atc{width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:14px;padding:0;overflow:hidden;display:block;text-align:center;}
+  #wk-sub-{{ section.id }} .wk-atc{width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:0;display:block;text-align:center;}
   #wk-sub-{{ section.id }} .wk-atc[disabled]{opacity:0.55;cursor:not-allowed;}
-  #wk-sub-{{ section.id }} .wk-atc-main{display:block;padding:17px 18px 15px;font-size:16px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;line-height:1.1;}
-  #wk-sub-{{ section.id }} .wk-atc-gtee{display:flex;align-items:center;justify-content:center;gap:7px;padding:9px 18px;background:rgba(74,32,26,0.22);font-size:11.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;line-height:1.1;}
+  #wk-sub-{{ section.id }} .wk-atc-main{display:block;padding:17px 18px 5px;font-size:16px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;line-height:1.1;}
+  #wk-sub-{{ section.id }} .wk-atc-gtee{display:flex;align-items:center;justify-content:center;gap:7px;padding:0 18px 16px;font-size:11.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;line-height:1.1;color:rgba(245,230,216,0.85);}
   #wk-sub-{{ section.id }} .wk-atc-gtee svg{flex:0 0 auto;display:block;}
 
   @media(max-width:749px){
@@ -71,8 +66,8 @@
     /* stack on narrow screens: side-by-side would leave the copy ~115px and wrap the heading.
        Stacking lets every face show, at a larger size, with the text on full width. */
     /* stays a single row on mobile — sized so the heading holds one line at 375px */
-    #wk-sub-{{ section.id }} .wk-atc-main{font-size:15px;padding:16px 14px 14px;}
-    #wk-sub-{{ section.id }} .wk-atc-gtee{font-size:10.6px;padding:8px 12px;gap:6px;}
+    #wk-sub-{{ section.id }} .wk-atc-main{font-size:15px;padding:16px 14px 5px;}
+    #wk-sub-{{ section.id }} .wk-atc-gtee{font-size:10.6px;padding:0 12px 15px;gap:6px;}
     #wk-sub-{{ section.id }} .wk-trust{gap:12px;padding:12px 16px 12px 14px;}
     #wk-sub-{{ section.id }} .wk-trust-av img{width:32px;height:32px;margin-left:-12px;border-width:2px;}
     #wk-sub-{{ section.id }} .wk-trust-chk{right:-4px;bottom:-1px;width:17px;height:17px;font-size:9.5px;border-width:1.5px;}
@@ -213,15 +208,6 @@
               {%- endfor -%}
             {%- endif -%}
 
-            {%- if section.settings.guarantee_title != blank -%}
-            <div class="wk-card-gtee">
-              <span class="wk-g-badge">{{ section.settings.guarantee_badge }}</span>
-              <span style="display:block;">
-                <span class="wk-g-t">{{ section.settings.guarantee_title }}</span>
-                {%- if section.settings.guarantee_text != blank -%}<span class="wk-g-d">{{ section.settings.guarantee_text }}</span>{%- endif -%}
-              </span>
-            </div>
-            {%- endif -%}
           </div>
         </div>
 
@@ -718,9 +704,6 @@
     { "type": "text", "id": "atc_label", "label": "Add-to-cart label", "default": "Add to cart" },
     { "type": "text", "id": "atc_guarantee", "label": "Guarantee strip (inside the button)", "default": "90-day money-back guarantee", "info": "Shown as a bar fused under the button label. Leave blank to hide it." },
     { "type": "text", "id": "reason_why", "label": "Reason-why line", "info": "Shown under the add-to-cart button. Leave blank to hide." },
-    { "type": "text", "id": "guarantee_badge", "label": "Guarantee badge number", "default": "90" },
-    { "type": "text", "id": "guarantee_title", "label": "Guarantee title", "default": "90-day money-back guarantee", "info": "Used both inside the 3-month card and under the add-to-cart button. Leave blank to hide it inside the card." },
-    { "type": "text", "id": "guarantee_text", "label": "Guarantee text", "default": "Try Womankind for a full 90 days. If you don't love it, get your money back." },
     { "type": "header", "content": "Social proof row", "info": "Shown under the urgency bar. Avatars default to the homepage testimonial photos (wk-testimonial-1\u20136.jpg). Leave the heading blank to hide the row." },
     { "type": "text", "id": "trust_heading", "label": "Heading", "default": "Trusted by 50,000+ women" },
     { "type": "text", "id": "trust_text", "label": "Sub-text", "default": "who choose Womankind to feel like themselves again." },
