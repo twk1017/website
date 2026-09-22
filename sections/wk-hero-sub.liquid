@@ -77,10 +77,12 @@
     #wk-sub-{{ section.id }} .wk-atc-gtee{font-size:13.5px;padding:0 12px 17px;gap:8px;}
     #wk-sub-{{ section.id }} .wk-atc-gtee svg{width:15px;height:15px;}
     #wk-sub-{{ section.id }} .wk-trust{gap:12px;padding:12px 16px 12px 14px;}
-    #wk-sub-{{ section.id }} .wk-trust-av img{width:32px;height:32px;margin-left:-12px;border-width:2px;}
-    #wk-sub-{{ section.id }} .wk-trust-chk{right:-4px;bottom:-1px;width:17px;height:17px;font-size:9.5px;border-width:1.5px;}
-    #wk-sub-{{ section.id }} .wk-trust-h{font-size:12.8px;}
-    #wk-sub-{{ section.id }} .wk-trust-d{font-size:12px;}
+    /* avatars give up 4px so the copy can grow — measured: at 335px the heading only holds
+       one line up to 13.8px once the faces are 28px */
+    #wk-sub-{{ section.id }} .wk-trust-av img{width:28px;height:28px;margin-left:-11px;border-width:2px;}
+    #wk-sub-{{ section.id }} .wk-trust-chk{right:-4px;bottom:-1px;width:16px;height:16px;font-size:9px;border-width:1.5px;}
+    #wk-sub-{{ section.id }} .wk-trust-h{font-size:13.8px;}
+    #wk-sub-{{ section.id }} .wk-trust-d{font-size:13px;}
   }
   @media(max-width:360px){
     #wk-sub-{{ section.id }} .wk-atc-main{font-size:17.5px;}
@@ -705,7 +707,7 @@
     { "type": "inline_richtext", "id": "benefit_4", "label": "Benefit 4", "default": "6 research-backed botanicals in fully disclosed doses — zero hormones, zero sugar, no proprietary blend" },
     { "type": "header", "content": "Flavor" },
     { "type": "text", "id": "flavor_label", "label": "Section label", "default": "Flavor" },
-    { "type": "text", "id": "flavor_pill", "label": "Flavor pill", "default": "Deep-red cranberry" },
+    { "type": "text", "id": "flavor_pill", "label": "Flavor pill", "default": "Mixed berries" },
     { "type": "text", "id": "sale_badge", "label": "Sale badge (leave blank to hide)" },
     { "type": "header", "content": "Plans", "info": "Subscription only. Both options attach a selling plan — there is no one-time path on this page." },
     { "type": "text", "id": "plans_label", "label": "Selector label", "default": "Choose your plan" },
@@ -741,11 +743,11 @@
     { "type": "image_picker", "id": "gift_1_image", "label": "Gift 1 image" },
     { "type": "text", "id": "gift_1_title", "label": "Gift 1 title", "default": "The 90-Day Reset Protocol" },
     { "type": "text", "id": "gift_1_desc", "label": "Gift 1 description", "default": "Dr. Katie Chen's week-by-week guide to your first 90 days (e-book)" },
-    { "type": "text", "id": "gift_1_value", "label": "Gift 1 value", "default": "$79 value" },
+    { "type": "text", "id": "gift_1_value", "label": "Gift 1 value", "default": "$45 value" },
     { "type": "image_picker", "id": "gift_2_image", "label": "Gift 2 image" },
     { "type": "text", "id": "gift_2_title", "label": "Gift 2 title", "default": "The Estrobolome Food Guide" },
     { "type": "text", "id": "gift_2_desc", "label": "Gift 2 description", "default": "Dr. Katie Chen's full guide to eating for perimenopause (e-book)" },
-    { "type": "text", "id": "gift_2_value", "label": "Gift 2 value", "default": "$39 value" },
+    { "type": "text", "id": "gift_2_value", "label": "Gift 2 value", "default": "$40 value" },
     { "type": "image_picker", "id": "gift_3_image", "label": "Gift 3 image" },
     { "type": "text", "id": "gift_3_title", "label": "Gift 3 title", "default": "The Womankind Circle" },
     { "type": "text", "id": "gift_3_desc", "label": "Gift 3 description", "default": "Private access to perimenopause guidance and member-only live Q&As with Dr. Katie Chen" },
