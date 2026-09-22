@@ -246,15 +246,15 @@
           <input type="hidden" name="utf8" value="✓">
           {%- comment -%}
             items[] notation so the free-gift products can be added in the same request.
-            Line 0 is the gummies (carries the selling plan). The gift lines deliberately
-            carry NO selling plan, so they stay out of the subscription contract and never
-            recur. They are disabled unless the 3-month plan is selected — FormData omits
-            disabled inputs, which is what makes them drop off the 1-month path.
+            The gift lines deliberately carry NO selling plan, so they stay out of the
+            subscription contract and never recur. They are disabled unless the 3-month
+            plan is selected — FormData omits disabled inputs, which is what drops them
+            from the 1-month path (leaving a gap in the indices, which Shopify accepts).
+
+            Order matters: Shopify lists cart lines in REVERSE of the order they are sent,
+            so the gummies go LAST here to appear FIRST in the cart, drawer and checkout.
           {%- endcomment -%}
-          <input type="hidden" name="items[0][id]" value="{{ wk_variant.id }}">
-          <input type="hidden" name="items[0][quantity]" value="3" data-wk-qty>
-          <input type="hidden" name="items[0][selling_plan]" value="{{ wk_selling_plan.id }}" data-wk-selling-plan>
-          {%- assign gidx = 0 -%}
+          {%- assign gidx = -1 -%}
           {%- for i in (1..3) -%}
             {%- assign gvk = 'gift_' | append: i | append: '_variant' -%}
             {%- assign gv = section.settings[gvk] -%}
@@ -264,6 +264,10 @@
               <input type="hidden" name="items[{{ gidx }}][quantity]" value="1" data-wk-gift>
             {%- endif -%}
           {%- endfor -%}
+          {%- assign midx = gidx | plus: 1 -%}
+          <input type="hidden" name="items[{{ midx }}][id]" value="{{ wk_variant.id }}">
+          <input type="hidden" name="items[{{ midx }}][quantity]" value="3" data-wk-qty>
+          <input type="hidden" name="items[{{ midx }}][selling_plan]" value="{{ wk_selling_plan.id }}" data-wk-selling-plan>
           <button type="submit" class="wk-atc"{% unless wk_variant.available %} disabled{% endunless %}>
             {%- if wk_variant.available -%}
               <span class="wk-atc-main">{{ section.settings.atc_label }}</span>
