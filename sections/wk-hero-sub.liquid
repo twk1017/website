@@ -46,11 +46,11 @@
   /* social-proof row that replaces the guarantee block under the countdown */
   #wk-sub-{{ section.id }} .wk-trust{display:flex;align-items:center;gap:15px;margin:16px 0 0;padding:13px 20px 13px 16px;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.18);border-radius:999px;}
   #wk-sub-{{ section.id }} .wk-trust-av{display:flex;align-items:center;flex:0 0 auto;position:relative;}
-  #wk-sub-{{ section.id }} .wk-trust-av img{width:54px;height:54px;border-radius:50%;object-fit:cover;border:3px solid #FFF9F1;margin-left:-15px;display:block;background:#E8D5C6;}
+  #wk-sub-{{ section.id }} .wk-trust-av img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2.5px solid #FFF9F1;margin-left:-13px;display:block;background:#E8D5C6;}
   #wk-sub-{{ section.id }} .wk-trust-av img:first-child{margin-left:0;}
-  #wk-sub-{{ section.id }} .wk-trust-chk{position:absolute;right:-6px;bottom:-1px;width:24px;height:24px;border-radius:50%;background:#C9653F;color:#FFF9F1;font-size:13px;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center;border:2px solid #FFF9F1;}
+  #wk-sub-{{ section.id }} .wk-trust-chk{position:absolute;right:-5px;bottom:-1px;width:21px;height:21px;border-radius:50%;background:#C9653F;color:#FFF9F1;font-size:11.5px;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center;border:2px solid #FFF9F1;}
   #wk-sub-{{ section.id }} .wk-trust-h{display:block;font-size:15.4px;font-weight:700;color:#6B3D42;line-height:1.3;}
-  #wk-sub-{{ section.id }} .wk-trust-d{display:block;font-size:13.4px;color:#7a6258;line-height:1.4;margin-top:2px;}
+  #wk-sub-{{ section.id }} .wk-trust-d{display:block;font-size:12.2px;color:#7a6258;line-height:1.4;margin-top:2px;}
 
   @media(max-width:749px){
     #wk-sub-{{ section.id }} .wk-plan-head{padding:15px 14px;gap:10px;}
@@ -63,14 +63,12 @@
     #wk-sub-{{ section.id }} .wk-inc-ph{width:64px;height:64px;}
     /* stack on narrow screens: side-by-side would leave the copy ~115px and wrap the heading.
        Stacking lets every face show, at a larger size, with the text on full width. */
-    #wk-sub-{{ section.id }} .wk-trust{flex-direction:column;align-items:stretch;gap:11px;padding:15px 17px;border-radius:20px;}
-    /* the copy stretches to full width so it wraps; the avatar row must not, or the
-       check badge (anchored to its right edge) drifts away from the faces */
-    #wk-sub-{{ section.id }} .wk-trust-av{align-self:flex-start;}
-    #wk-sub-{{ section.id }} .wk-trust-av img{width:50px;height:50px;margin-left:-14px;border-width:2.5px;}
-    #wk-sub-{{ section.id }} .wk-trust-chk{right:-5px;bottom:-1px;width:22px;height:22px;font-size:12px;}
-    #wk-sub-{{ section.id }} .wk-trust-h{font-size:14.6px;}
-    #wk-sub-{{ section.id }} .wk-trust-d{font-size:12.8px;}
+    /* stays a single row on mobile — sized so the heading holds one line at 375px */
+    #wk-sub-{{ section.id }} .wk-trust{gap:12px;padding:12px 16px 12px 14px;}
+    #wk-sub-{{ section.id }} .wk-trust-av img{width:32px;height:32px;margin-left:-12px;border-width:2px;}
+    #wk-sub-{{ section.id }} .wk-trust-chk{right:-4px;bottom:-1px;width:17px;height:17px;font-size:9.5px;border-width:1.5px;}
+    #wk-sub-{{ section.id }} .wk-trust-h{font-size:12.8px;}
+    #wk-sub-{{ section.id }} .wk-trust-d{font-size:12px;}
   }
 </style>
 
