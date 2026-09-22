@@ -6,7 +6,7 @@
   /* no overflow:hidden here — it would clip the badge that straddles the top edge; the head/body round their own corners instead */
   #wk-sub-{{ section.id }} .wk-plan{position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:14px;display:block;transition:border-color .15s ease,box-shadow .15s ease;}
   #wk-sub-{{ section.id }} .wk-plan.is-sel{border-color:#6B3D42;box-shadow:0 0 0 2px #6B3D42;}
-  #wk-sub-{{ section.id }} .wk-plan-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 18px;border-radius:12.5px 12.5px 0 0;transition:background .15s ease,color .15s ease;}
+  #wk-sub-{{ section.id }} .wk-plan-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 19px;border-radius:12.5px 12.5px 0 0;transition:background .15s ease,color .15s ease;}
   #wk-sub-{{ section.id }} .wk-plan:not(.is-sel) .wk-plan-head{border-radius:12.5px;}
   #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-head{background:#6B3D42;}
   /* inline colours on these spans would win over a plain class rule, so the selected (burgundy) header needs !important */
@@ -15,34 +15,38 @@
   #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-sub,
   #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-bill{color:rgba(245,230,216,0.82) !important;}
   #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-compare{color:rgba(245,230,216,0.6) !important;}
-  #wk-sub-{{ section.id }} .wk-radio{width:22px;height:22px;flex:0 0 auto;border:1.5px solid rgba(107,61,66,0.5);border-radius:50%;display:flex;align-items:center;justify-content:center;background:transparent;}
+  #wk-sub-{{ section.id }} .wk-radio{width:25px;height:25px;flex:0 0 auto;border:1.5px solid rgba(107,61,66,0.5);border-radius:50%;display:flex;align-items:center;justify-content:center;background:transparent;}
   #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-radio{border-color:#F5E6D8;background:#F5E6D8;}
-  #wk-sub-{{ section.id }} .wk-radio span{display:none;color:#6B3D42;font-size:13px;font-weight:700;line-height:1;}
+  #wk-sub-{{ section.id }} .wk-radio span{display:none;color:#6B3D42;font-size:15px;font-weight:700;line-height:1;}
   #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-radio span{display:block;}
-  #wk-sub-{{ section.id }} .wk-plan-body{display:none;padding:16px 18px 0;background:#FFF9F1;border-radius:0 0 12.5px 12.5px;}
+  #wk-sub-{{ section.id }} .wk-plan-body{display:none;padding:18px 19px 0;background:#FFF9F1;border-radius:0 0 12.5px 12.5px;}
   #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-body{display:block;}
-  #wk-sub-{{ section.id }} .wk-inc-label{font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6B3D42;font-weight:700;margin-bottom:12px;}
-  #wk-sub-{{ section.id }} .wk-inc-row{display:flex;align-items:flex-start;gap:12px;padding:9px 0;}
-  #wk-sub-{{ section.id }} .wk-inc-thumb{width:46px;height:46px;flex:0 0 auto;border-radius:9px;object-fit:cover;display:block;background:#E8D5C6;}
-  #wk-sub-{{ section.id }} .wk-inc-ph{width:46px;height:46px;flex:0 0 auto;border-radius:9px;background:linear-gradient(135deg,#E8D5C6,#D8BFB4);display:flex;align-items:center;justify-content:center;color:#6B3D42;font-size:16px;line-height:1;}
+  #wk-sub-{{ section.id }} .wk-inc-label{font-size:11.8px;letter-spacing:0.16em;text-transform:uppercase;color:#6B3D42;font-weight:700;margin-bottom:14px;}
+  #wk-sub-{{ section.id }} .wk-inc-row{display:flex;align-items:flex-start;gap:15px;padding:11px 0;}
+  #wk-sub-{{ section.id }} .wk-inc-thumb{width:62px;height:62px;flex:0 0 auto;border-radius:11px;object-fit:cover;display:block;background:#E8D5C6;}
+  #wk-sub-{{ section.id }} .wk-inc-ph{width:62px;height:62px;flex:0 0 auto;border-radius:11px;background:linear-gradient(135deg,#E8D5C6,#D8BFB4);display:flex;align-items:center;justify-content:center;color:#6B3D42;font-size:16px;line-height:1;}
   /* gift artwork (book mockups / community avatar) ships with its own shape + transparency, so no crop or tile background */
-  #wk-sub-{{ section.id }} .wk-gift-img{width:48px;height:48px;flex:0 0 auto;object-fit:contain;background:transparent;display:block;}
-  #wk-sub-{{ section.id }} .wk-inc-t{font-size:13.5px;font-weight:700;color:#6B3D42;line-height:1.3;}
-  #wk-sub-{{ section.id }} .wk-inc-d{font-size:12px;color:#7a6258;line-height:1.45;margin-top:3px;}
-  #wk-sub-{{ section.id }} .wk-pill{flex:0 0 auto;align-self:center;background:#C9653F;color:#FFF7EE;font-size:10.5px;font-weight:700;letter-spacing:0.04em;padding:5px 10px;border-radius:999px;white-space:nowrap;}
+  #wk-sub-{{ section.id }} .wk-gift-img{width:64px;height:64px;flex:0 0 auto;object-fit:contain;background:transparent;display:block;}
+  #wk-sub-{{ section.id }} .wk-inc-t{font-size:15.2px;font-weight:700;color:#6B3D42;line-height:1.3;}
+  #wk-sub-{{ section.id }} .wk-inc-d{font-size:13.4px;color:#7a6258;line-height:1.45;margin-top:4px;}
+  #wk-sub-{{ section.id }} .wk-pill{flex:0 0 auto;align-self:center;background:#C9653F;color:#FFF7EE;font-size:12.2px;font-weight:700;letter-spacing:0.04em;padding:7px 13px;border-radius:999px;white-space:nowrap;}
   #wk-sub-{{ section.id }} .wk-pill-soft{background:rgba(201,101,63,0.14);color:#C9653F;}
   #wk-sub-{{ section.id }} .wk-gift-div{display:flex;align-items:center;gap:10px;margin:12px 0 4px;}
   #wk-sub-{{ section.id }} .wk-gift-div::before,#wk-sub-{{ section.id }} .wk-gift-div::after{content:'';flex:1;border-top:1px dashed rgba(107,61,66,0.32);}
-  #wk-sub-{{ section.id }} .wk-gift-div span{font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;color:#C9653F;background:rgba(201,101,63,0.12);padding:5px 12px;border-radius:999px;}
-  #wk-sub-{{ section.id }} .wk-plan-foot{display:flex;align-items:center;flex-wrap:wrap;gap:8px 18px;border-top:1px solid rgba(107,61,66,0.14);margin-top:12px;padding:11px 0;font-size:11.5px;color:#7a6258;font-weight:600;}
+  #wk-sub-{{ section.id }} .wk-gift-div span{font-size:11.8px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;color:#C9653F;background:rgba(201,101,63,0.12);padding:6px 14px;border-radius:999px;}
+  #wk-sub-{{ section.id }} .wk-plan-foot{display:flex;align-items:center;flex-wrap:wrap;gap:8px 18px;border-top:1px solid rgba(107,61,66,0.14);margin-top:13px;padding:13px 0;font-size:12.8px;color:#7a6258;font-weight:600;}
   #wk-sub-{{ section.id }} .wk-plan-foot span{display:inline-flex;align-items:center;gap:6px;}
-  #wk-sub-{{ section.id }} .wk-miss{padding:0 18px 14px;font-size:11.5px;color:#a08078;line-height:1.45;}
-  #wk-sub-{{ section.id }} .wk-plan-badge{position:absolute;top:-10px;left:18px;z-index:2;background:#C9653F;color:#F5E6D8;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;padding:3px 11px;border-radius:999px;}
+  #wk-sub-{{ section.id }} .wk-miss{padding:0 19px 15px;font-size:12.6px;color:#a08078;line-height:1.45;}
+  #wk-sub-{{ section.id }} .wk-plan-badge{position:absolute;top:-11px;left:19px;z-index:2;background:#C9653F;color:#F5E6D8;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;padding:4px 13px;border-radius:999px;}
   @media(max-width:749px){
-    #wk-sub-{{ section.id }} .wk-plan-head{padding:14px 14px;gap:10px;}
-    #wk-sub-{{ section.id }} .wk-plan-body{padding:14px 14px 0;}
-    #wk-sub-{{ section.id }} .wk-plan-price{font-size:19px !important;}
-    #wk-sub-{{ section.id }} .wk-inc-d{font-size:11.5px;}
+    #wk-sub-{{ section.id }} .wk-plan-head{padding:15px 14px;gap:10px;}
+    #wk-sub-{{ section.id }} .wk-plan-body{padding:15px 14px 0;}
+    #wk-sub-{{ section.id }} .wk-plan-price{font-size:23px !important;}
+    #wk-sub-{{ section.id }} .wk-inc-d{font-size:12.6px;}
+    #wk-sub-{{ section.id }} .wk-inc-t{font-size:14.4px;}
+    #wk-sub-{{ section.id }} .wk-gift-img,
+    #wk-sub-{{ section.id }} .wk-inc-thumb,
+    #wk-sub-{{ section.id }} .wk-inc-ph{width:56px;height:56px;}
   }
 </style>
 
@@ -122,14 +126,14 @@
             <span style="display:flex;align-items:center;gap:12px;min-width:0;">
               <span class="wk-radio"><span>&check;</span></span>
               <span style="min-width:0;">
-                <span class="wk-plan-name" style="display:block;font-size:15.5px;font-weight:700;color:#6B3D42;line-height:1.25;">{{ section.settings.tier3_name }}</span>
-                <span class="wk-plan-sub" style="display:block;font-size:12.5px;color:#7a6258;margin-top:3px;">{{ section.settings.tier3_sub }}</span>
+                <span class="wk-plan-name" style="display:block;font-size:17.2px;font-weight:700;color:#6B3D42;line-height:1.25;">{{ section.settings.tier3_name }}</span>
+                <span class="wk-plan-sub" style="display:block;font-size:13.8px;color:#7a6258;margin-top:4px;">{{ section.settings.tier3_sub }}</span>
               </span>
             </span>
             <span style="text-align:right;flex:0 0 auto;">
-              <span class="wk-plan-compare" data-wk-compare="3" style="display:block;font-size:13px;text-decoration:line-through;color:#8f6266;line-height:1.2;">$149.55</span>
-              <span class="wk-plan-price" data-wk-permo="3" style="display:block;font-size:21px;font-weight:700;color:#C9653F;line-height:1.15;">$24.93</span>
-              <span class="wk-plan-bill" style="display:block;font-size:11.5px;color:#7a6258;margin-top:2px;"><span data-wk-total="3">$74.79</span> {{ section.settings.tier3_billing }}</span>
+              <span class="wk-plan-compare" data-wk-compare="3" style="display:block;font-size:14.6px;text-decoration:line-through;color:#8f6266;line-height:1.2;">$149.55</span>
+              <span class="wk-plan-price" style="display:block;font-size:27px;font-weight:700;color:#C9653F;line-height:1.1;"><span data-wk-permo="3">$24.93</span>{{ section.settings.price_suffix }}</span>
+              {%- if section.settings.tier3_billing != blank -%}<span class="wk-plan-bill" style="display:block;font-size:12.8px;color:#7a6258;margin-top:4px;"><span data-wk-total="3">$74.79</span> {{ section.settings.tier3_billing }}</span>{%- endif -%}
             </span>
           </div>
           <div class="wk-plan-body">
@@ -178,10 +182,12 @@
               {%- endfor -%}
             {%- endif -%}
 
+            {%- if section.settings.foot_1 != blank or section.settings.foot_2 != blank -%}
             <div class="wk-plan-foot">
-              <span>&#8635; {{ section.settings.foot_1 }}</span>
-              <span>&#9829; {{ section.settings.foot_2 }}</span>
+              {%- if section.settings.foot_1 != blank -%}<span>&#8635; {{ section.settings.foot_1 }}</span>{%- endif -%}
+              {%- if section.settings.foot_2 != blank -%}<span>&#9829; {{ section.settings.foot_2 }}</span>{%- endif -%}
             </div>
+            {%- endif -%}
           </div>
         </div>
 
@@ -191,21 +197,23 @@
             <span style="display:flex;align-items:center;gap:12px;min-width:0;">
               <span class="wk-radio"><span>&check;</span></span>
               <span style="min-width:0;">
-                <span class="wk-plan-name" style="display:block;font-size:15.5px;font-weight:700;color:#6B3D42;line-height:1.25;">{{ section.settings.tier1_name }}</span>
-                <span class="wk-plan-sub" style="display:block;font-size:12.5px;color:#7a6258;margin-top:3px;">{{ section.settings.tier1_sub }}</span>
+                <span class="wk-plan-name" style="display:block;font-size:17.2px;font-weight:700;color:#6B3D42;line-height:1.25;">{{ section.settings.tier1_name }}</span>
+                <span class="wk-plan-sub" style="display:block;font-size:13.8px;color:#7a6258;margin-top:4px;">{{ section.settings.tier1_sub }}</span>
               </span>
             </span>
             <span style="text-align:right;flex:0 0 auto;">
-              <span class="wk-plan-compare" data-wk-compare="1" style="display:none;font-size:13px;text-decoration:line-through;color:#8f6266;line-height:1.2;">$49.85</span>
-              <span class="wk-plan-price" data-wk-permo="1" style="display:block;font-size:21px;font-weight:700;color:#C9653F;line-height:1.15;">$49.85</span>
-              <span class="wk-plan-bill" style="display:block;font-size:11.5px;color:#7a6258;margin-top:2px;"><span data-wk-total="1">$49.85</span> {{ section.settings.tier1_billing }}</span>
+              <span class="wk-plan-compare" data-wk-compare="1" style="display:none;font-size:14.6px;text-decoration:line-through;color:#8f6266;line-height:1.2;">$49.85</span>
+              <span class="wk-plan-price" style="display:block;font-size:27px;font-weight:700;color:#C9653F;line-height:1.1;"><span data-wk-permo="1">$49.85</span>{{ section.settings.price_suffix }}</span>
+              {%- if section.settings.tier1_billing != blank -%}<span class="wk-plan-bill" style="display:block;font-size:12.8px;color:#7a6258;margin-top:4px;"><span data-wk-total="1">$49.85</span> {{ section.settings.tier1_billing }}</span>{%- endif -%}
             </span>
           </div>
           <div class="wk-plan-body">
+            {%- if section.settings.foot_1 != blank or section.settings.foot_2 != blank -%}
             <div class="wk-plan-foot" style="border-top:none;margin-top:0;">
-              <span>&#8635; {{ section.settings.foot_1 }}</span>
-              <span>&#9829; {{ section.settings.foot_2 }}</span>
+              {%- if section.settings.foot_1 != blank -%}<span>&#8635; {{ section.settings.foot_1 }}</span>{%- endif -%}
+              {%- if section.settings.foot_2 != blank -%}<span>&#9829; {{ section.settings.foot_2 }}</span>{%- endif -%}
             </div>
+            {%- endif -%}
           </div>
           {%- if section.settings.tier1_missing != blank -%}<div class="wk-miss">{{ section.settings.tier1_missing }}</div>{%- endif -%}
         </div>
@@ -553,11 +561,12 @@
     { "type": "text", "id": "plans_label", "label": "Selector label", "default": "Choose your plan" },
     { "type": "text", "id": "tier3_badge", "label": "3-month badge", "default": "Best results · Most popular" },
     { "type": "text", "id": "tier3_name", "label": "3-month name", "default": "3-Month Reset" },
-    { "type": "text", "id": "tier3_sub", "label": "3-month sub-line", "default": "3 bottles · delivered every 3 months" },
-    { "type": "text", "id": "tier3_billing", "label": "3-month billing note", "default": "billed every 3 months" },
+    { "type": "text", "id": "tier3_sub", "label": "3-month sub-line", "default": "3 bottles · 90 day supply" },
+    { "type": "text", "id": "tier3_billing", "label": "3-month billing note", "default": "billed today" },
+    { "type": "text", "id": "price_suffix", "label": "Price suffix", "default": "/mo", "info": "Shown after the large price, e.g. $24.93/mo" },
     { "type": "text", "id": "tier1_name", "label": "1-month name", "default": "1-Month Supply" },
-    { "type": "text", "id": "tier1_sub", "label": "1-month sub-line", "default": "1 bottle · delivered monthly" },
-    { "type": "text", "id": "tier1_billing", "label": "1-month billing note", "default": "billed monthly" },
+    { "type": "text", "id": "tier1_sub", "label": "1-month sub-line", "default": "1 bottle · 30 day supply" },
+    { "type": "text", "id": "tier1_billing", "label": "1-month billing note", "info": "Leave blank to hide the line under the price." },
     { "type": "text", "id": "tier1_missing", "label": "1-month loss-aversion note", "default": "Does not include the 90-Day Reset Kit or the 50% saving." },
     { "type": "header", "content": "Plan discounts", "info": "MUST match the discount on the matching Shopify selling plan, or the buy box will disagree with checkout. 0 = full price." },
     { "type": "range", "id": "sub_1_pct", "label": "1-month discount %", "min": 0, "max": 60, "step": 1, "default": 0, "unit": "%" },
@@ -588,10 +597,10 @@
     { "type": "text", "id": "gift_4_desc", "label": "Gift 4 description" },
     { "type": "text", "id": "gift_4_value", "label": "Gift 4 value" },
     { "type": "header", "content": "Plan footer + checkout" },
-    { "type": "text", "id": "foot_1", "label": "Footer item 1", "default": "Pause, skip or cancel anytime" },
+    { "type": "text", "id": "foot_1", "label": "Footer item 1", "info": "Leave blank to hide." },
     { "type": "text", "id": "foot_2", "label": "Footer item 2", "default": "90-day money-back guarantee" },
     { "type": "text", "id": "atc_label", "label": "Add-to-cart label", "default": "Start my 90-day reset" },
-    { "type": "text", "id": "reason_why", "label": "Reason-why line", "default": "Our guarantee is 90 days because that's how long it takes. So is the supply." },
+    { "type": "text", "id": "reason_why", "label": "Reason-why line", "info": "Shown under the add-to-cart button. Leave blank to hide." },
     { "type": "text", "id": "guarantee_badge", "label": "Guarantee badge", "default": "90" },
     { "type": "header", "content": "Tabs · labels" },
     { "type": "text", "id": "tab2_label", "label": "Tab 2 label", "default": "How to use" },
