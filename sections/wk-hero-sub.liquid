@@ -61,12 +61,16 @@
     #wk-sub-{{ section.id }} .wk-gift-img,
     #wk-sub-{{ section.id }} .wk-inc-thumb,
     #wk-sub-{{ section.id }} .wk-inc-ph{width:64px;height:64px;}
-    #wk-sub-{{ section.id }} .wk-trust{gap:12px;padding:12px 16px 12px 14px;border-radius:18px;}
-    #wk-sub-{{ section.id }} .wk-trust-av img{width:44px;height:44px;margin-left:-13px;border-width:2.5px;}
-    /* keep only three faces on narrow screens so the copy still has room */
-    #wk-sub-{{ section.id }} .wk-trust-av img:nth-child(n+4){display:none;}
-    #wk-sub-{{ section.id }} .wk-trust-h{font-size:14.2px;}
-    #wk-sub-{{ section.id }} .wk-trust-d{font-size:12.6px;}
+    /* stack on narrow screens: side-by-side would leave the copy ~115px and wrap the heading.
+       Stacking lets every face show, at a larger size, with the text on full width. */
+    #wk-sub-{{ section.id }} .wk-trust{flex-direction:column;align-items:stretch;gap:11px;padding:15px 17px;border-radius:20px;}
+    /* the copy stretches to full width so it wraps; the avatar row must not, or the
+       check badge (anchored to its right edge) drifts away from the faces */
+    #wk-sub-{{ section.id }} .wk-trust-av{align-self:flex-start;}
+    #wk-sub-{{ section.id }} .wk-trust-av img{width:50px;height:50px;margin-left:-14px;border-width:2.5px;}
+    #wk-sub-{{ section.id }} .wk-trust-chk{right:-5px;bottom:-1px;width:22px;height:22px;font-size:12px;}
+    #wk-sub-{{ section.id }} .wk-trust-h{font-size:14.6px;}
+    #wk-sub-{{ section.id }} .wk-trust-d{font-size:12.8px;}
   }
 </style>
 
