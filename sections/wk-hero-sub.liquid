@@ -50,9 +50,9 @@
   /* add-to-cart: label on top, guarantee strip fused underneath (one button, two tiers) */
   #wk-sub-{{ section.id }} .wk-atc{width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:0;display:block;text-align:center;}
   #wk-sub-{{ section.id }} .wk-atc[disabled]{opacity:0.55;cursor:not-allowed;}
-  #wk-sub-{{ section.id }} .wk-atc-main{display:block;padding:18px 18px 6px;font-size:18.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;line-height:1.1;}
-  #wk-sub-{{ section.id }} .wk-atc-gtee{display:flex;align-items:center;justify-content:center;gap:8px;padding:0 18px 17px;font-size:13.2px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;line-height:1.1;color:rgba(245,230,216,0.85);}
-  #wk-sub-{{ section.id }} .wk-atc-gtee svg{flex:0 0 auto;display:block;width:15px;height:15px;}
+  #wk-sub-{{ section.id }} .wk-atc-main{display:block;padding:20px 18px 7px;font-size:22px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;line-height:1.1;}
+  #wk-sub-{{ section.id }} .wk-atc-gtee{display:flex;align-items:center;justify-content:center;gap:9px;padding:0 18px 19px;font-size:15px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;line-height:1.1;color:rgba(245,230,216,0.85);}
+  #wk-sub-{{ section.id }} .wk-atc-gtee svg{flex:0 0 auto;display:block;width:17px;height:17px;}
 
   @media(max-width:749px){
     #wk-sub-{{ section.id }} .wk-plan-head{padding:15px 14px;gap:10px;}
@@ -66,14 +66,19 @@
     /* stack on narrow screens: side-by-side would leave the copy ~115px and wrap the heading.
        Stacking lets every face show, at a larger size, with the text on full width. */
     /* stays a single row on mobile — sized so the heading holds one line at 375px */
-    #wk-sub-{{ section.id }} .wk-atc-main{font-size:16.5px;padding:17px 14px 6px;}
-    #wk-sub-{{ section.id }} .wk-atc-gtee{font-size:12px;padding:0 12px 16px;gap:7px;}
-    #wk-sub-{{ section.id }} .wk-atc-gtee svg{width:13.5px;height:13.5px;}
+    #wk-sub-{{ section.id }} .wk-atc-main{font-size:19px;padding:18px 14px 7px;}
+    #wk-sub-{{ section.id }} .wk-atc-gtee{font-size:13.5px;padding:0 12px 17px;gap:8px;}
+    #wk-sub-{{ section.id }} .wk-atc-gtee svg{width:15px;height:15px;}
     #wk-sub-{{ section.id }} .wk-trust{gap:12px;padding:12px 16px 12px 14px;}
     #wk-sub-{{ section.id }} .wk-trust-av img{width:32px;height:32px;margin-left:-12px;border-width:2px;}
     #wk-sub-{{ section.id }} .wk-trust-chk{right:-4px;bottom:-1px;width:17px;height:17px;font-size:9.5px;border-width:1.5px;}
     #wk-sub-{{ section.id }} .wk-trust-h{font-size:12.8px;}
     #wk-sub-{{ section.id }} .wk-trust-d{font-size:12px;}
+  }
+  @media(max-width:360px){
+    #wk-sub-{{ section.id }} .wk-atc-main{font-size:17.5px;}
+    #wk-sub-{{ section.id }} .wk-atc-gtee{font-size:11.6px;gap:6px;}
+    #wk-sub-{{ section.id }} .wk-atc-gtee svg{width:13px;height:13px;}
   }
 </style>
 
