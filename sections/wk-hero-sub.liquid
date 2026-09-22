@@ -25,10 +25,10 @@
   #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-body{display:block;}
   #wk-sub-{{ section.id }} .wk-inc-label{font-size:11.8px;letter-spacing:0.16em;text-transform:uppercase;color:#6B3D42;font-weight:700;margin-bottom:14px;}
   #wk-sub-{{ section.id }} .wk-inc-row{display:flex;align-items:flex-start;gap:15px;padding:11px 0;}
-  #wk-sub-{{ section.id }} .wk-inc-thumb{width:62px;height:62px;flex:0 0 auto;border-radius:11px;object-fit:cover;display:block;background:#E8D5C6;}
-  #wk-sub-{{ section.id }} .wk-inc-ph{width:62px;height:62px;flex:0 0 auto;border-radius:11px;background:linear-gradient(135deg,#E8D5C6,#D8BFB4);display:flex;align-items:center;justify-content:center;color:#6B3D42;font-size:16px;line-height:1;}
+  #wk-sub-{{ section.id }} .wk-inc-thumb{width:68px;height:68px;flex:0 0 auto;border-radius:12px;object-fit:cover;display:block;background:#E8D5C6;}
+  #wk-sub-{{ section.id }} .wk-inc-ph{width:68px;height:68px;flex:0 0 auto;border-radius:12px;background:linear-gradient(135deg,#E8D5C6,#D8BFB4);display:flex;align-items:center;justify-content:center;color:#6B3D42;font-size:16px;line-height:1;}
   /* gift artwork (book mockups / community avatar) ships with its own shape + transparency, so no crop or tile background */
-  #wk-sub-{{ section.id }} .wk-gift-img{width:64px;height:64px;flex:0 0 auto;object-fit:contain;background:transparent;display:block;}
+  #wk-sub-{{ section.id }} .wk-gift-img{width:78px;height:78px;flex:0 0 auto;object-fit:contain;background:transparent;display:block;}
   #wk-sub-{{ section.id }} .wk-inc-t{font-size:15.2px;font-weight:700;color:#6B3D42;line-height:1.3;}
   #wk-sub-{{ section.id }} .wk-inc-d{font-size:13.4px;color:#7a6258;line-height:1.45;margin-top:4px;}
   #wk-sub-{{ section.id }} .wk-pill{flex:0 0 auto;align-self:center;background:#C9653F;color:#FFF7EE;font-size:12.2px;font-weight:700;letter-spacing:0.04em;padding:7px 13px;border-radius:999px;white-space:nowrap;}
@@ -36,8 +36,11 @@
   #wk-sub-{{ section.id }} .wk-gift-div{display:flex;align-items:center;gap:10px;margin:12px 0 4px;}
   #wk-sub-{{ section.id }} .wk-gift-div::before,#wk-sub-{{ section.id }} .wk-gift-div::after{content:'';flex:1;border-top:1px dashed rgba(107,61,66,0.32);}
   #wk-sub-{{ section.id }} .wk-gift-div span{font-size:11.8px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;color:#C9653F;background:rgba(201,101,63,0.12);padding:6px 14px;border-radius:999px;}
-  #wk-sub-{{ section.id }} .wk-plan-foot{display:flex;align-items:center;flex-wrap:wrap;gap:8px 18px;border-top:1px solid rgba(107,61,66,0.14);margin-top:13px;padding:13px 0;font-size:12.8px;color:#7a6258;font-weight:600;}
-  #wk-sub-{{ section.id }} .wk-plan-foot span{display:inline-flex;align-items:center;gap:6px;}
+  /* guarantee block, shared styling with the one under the add-to-cart button */
+  #wk-sub-{{ section.id }} .wk-card-gtee{display:flex;align-items:center;gap:13px;margin:15px 0 18px;padding:13px 15px;background:rgba(201,101,63,0.08);border:1.5px solid rgba(201,101,63,0.32);border-radius:11px;}
+  #wk-sub-{{ section.id }} .wk-card-gtee .wk-g-badge{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:#C9653F;color:#F5E6D8;font-size:12.5px;font-weight:700;flex:0 0 auto;line-height:1;box-shadow:0 3px 9px rgba(201,101,63,0.3);}
+  #wk-sub-{{ section.id }} .wk-card-gtee .wk-g-t{display:block;font-size:14px;color:#6B3D42;font-weight:700;line-height:1.25;}
+  #wk-sub-{{ section.id }} .wk-card-gtee .wk-g-d{display:block;font-size:12.4px;color:#4a3a30;line-height:1.4;margin-top:3px;}
   #wk-sub-{{ section.id }} .wk-miss{padding:0 19px 15px;font-size:12.6px;color:#a08078;line-height:1.45;}
   #wk-sub-{{ section.id }} .wk-plan-badge{position:absolute;top:-11px;left:19px;z-index:2;background:#C9653F;color:#F5E6D8;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;padding:4px 13px;border-radius:999px;}
   @media(max-width:749px){
@@ -48,7 +51,7 @@
     #wk-sub-{{ section.id }} .wk-inc-t{font-size:14.4px;}
     #wk-sub-{{ section.id }} .wk-gift-img,
     #wk-sub-{{ section.id }} .wk-inc-thumb,
-    #wk-sub-{{ section.id }} .wk-inc-ph{width:56px;height:56px;}
+    #wk-sub-{{ section.id }} .wk-inc-ph{width:64px;height:64px;}
   }
 </style>
 
@@ -184,10 +187,13 @@
               {%- endfor -%}
             {%- endif -%}
 
-            {%- if section.settings.foot_1 != blank or section.settings.foot_2 != blank -%}
-            <div class="wk-plan-foot">
-              {%- if section.settings.foot_1 != blank -%}<span>&#8635; {{ section.settings.foot_1 }}</span>{%- endif -%}
-              {%- if section.settings.foot_2 != blank -%}<span>&#9829; {{ section.settings.foot_2 }}</span>{%- endif -%}
+            {%- if section.settings.guarantee_title != blank -%}
+            <div class="wk-card-gtee">
+              <span class="wk-g-badge">{{ section.settings.guarantee_badge }}</span>
+              <span style="display:block;">
+                <span class="wk-g-t">{{ section.settings.guarantee_title }}</span>
+                {%- if section.settings.guarantee_text != blank -%}<span class="wk-g-d">{{ section.settings.guarantee_text }}</span>{%- endif -%}
+              </span>
             </div>
             {%- endif -%}
           </div>
@@ -233,7 +239,7 @@
         </form>
         {%- if section.settings.onetime_label != blank -%}
           <div style="text-align:center;margin:14px 0 0;">
-            <button type="button" data-wk-onetime style="cursor:pointer;font-family:inherit;background:none;border:none;padding:4px 6px;font-size:13.5px;color:#6B3D42;font-weight:600;text-decoration:underline;text-underline-offset:3px;">{{ section.settings.onetime_label }} &mdash; <span data-wk-onetime-total>$149.55</span></button>
+            <button type="button" data-wk-onetime style="cursor:pointer;font-family:inherit;background:none;border:none;padding:4px 6px;font-size:15.2px;color:#6B3D42;font-weight:600;text-decoration:underline;text-underline-offset:3px;">{{ section.settings.onetime_label }}</button>
           </div>
         {%- endif -%}
       {%- else -%}
@@ -261,8 +267,8 @@
       <div style="display:flex;align-items:center;gap:14px;margin:16px 0 0;padding:15px 18px;background:rgba(201,101,63,0.08);border:1.5px solid rgba(201,101,63,0.32);border-radius:12px;">
         <span style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:#C9653F;color:#F5E6D8;font-size:13px;font-weight:700;flex:0 0 auto;line-height:1;box-shadow:0 3px 9px rgba(201,101,63,0.3);">{{ section.settings.guarantee_badge }}</span>
         <span style="display:block;">
-          <span style="display:block;font-size:14.5px;color:#6B3D42;font-weight:700;letter-spacing:0.01em;line-height:1.25;">90-day money-back guarantee</span>
-          <span style="display:block;font-size:12.5px;color:#4a3a30;line-height:1.4;margin-top:3px;">Try Womankind for a full 90 days. If you don't love it, get your money back.</span>
+          <span style="display:block;font-size:14.5px;color:#6B3D42;font-weight:700;letter-spacing:0.01em;line-height:1.25;">{{ section.settings.guarantee_title }}</span>
+          {%- if section.settings.guarantee_text != blank -%}<span style="display:block;font-size:12.5px;color:#4a3a30;line-height:1.4;margin-top:3px;">{{ section.settings.guarantee_text }}</span>{%- endif -%}
         </span>
       </div>
       <div style="text-align:center;margin:12px 0 0;font-size:11.5px;letter-spacing:0.02em;color:#7a6258;font-weight:600;line-height:1.45;">Hormone-free · Third-party tested · Made in Europe in a GMP-certified facility</div>
@@ -664,11 +670,12 @@
     { "type": "text", "id": "gift_4_desc", "label": "Gift 4 description" },
     { "type": "text", "id": "gift_4_value", "label": "Gift 4 value" },
     { "type": "header", "content": "Plan footer + checkout" },
-    { "type": "text", "id": "foot_1", "label": "Footer item 1", "info": "Leave blank to hide." },
-    { "type": "text", "id": "foot_2", "label": "Footer item 2", "default": "90-day money-back guarantee" },
+
     { "type": "text", "id": "atc_label", "label": "Add-to-cart label", "default": "Start my 90-day reset" },
     { "type": "text", "id": "reason_why", "label": "Reason-why line", "info": "Shown under the add-to-cart button. Leave blank to hide." },
-    { "type": "text", "id": "guarantee_badge", "label": "Guarantee badge", "default": "90" },
+    { "type": "text", "id": "guarantee_badge", "label": "Guarantee badge number", "default": "90" },
+    { "type": "text", "id": "guarantee_title", "label": "Guarantee title", "default": "90-day money-back guarantee", "info": "Used both inside the 3-month card and under the add-to-cart button. Leave blank to hide it inside the card." },
+    { "type": "text", "id": "guarantee_text", "label": "Guarantee text", "default": "Try Womankind for a full 90 days. If you don't love it, get your money back." },
     { "type": "header", "content": "Urgency bar", "info": "Shown under the add-to-cart button. The countdown runs to midnight in the visitor's own timezone and resets each day. Leave the heading blank to hide the whole block." },
     { "type": "text", "id": "urgency_heading", "label": "Heading", "default": "Selling out fast" },
     { "type": "text", "id": "urgency_text", "label": "Sub-text", "default": "Due to high demand, limited quantities available." },
