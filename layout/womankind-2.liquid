@@ -16,6 +16,10 @@
     {%- if page_description -%}
       <meta name="description" content="{{ page_description | escape }}">
     {%- endif -%}
+    {%- comment -%} free-gift products are only reachable so they can be added to the cart — keep them out of search {%- endcomment -%}
+    {%- if template.suffix == 'wk-gift' -%}
+      <meta name="robots" content="noindex, nofollow">
+    {%- endif -%}
     {{ content_for_header }}
     <style>
       html, body { margin: 0; padding: 0; }

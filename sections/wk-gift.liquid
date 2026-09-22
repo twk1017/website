@@ -1,0 +1,74 @@
+{%- comment -%}
+  Minimal, on-brand page for the free-gift products.
+  These products must stay published so they can be added to the cart via the
+  buy box, which means their URLs are reachable — this replaces the default
+  Dawn product page so nobody lands on a $0.00 "Add to cart" screen.
+{%- endcomment -%}
+
+<style>
+  #wk-gift-{{ section.id }}{max-width:760px;margin:0 auto;padding:56px 24px 72px;text-align:center;}
+  #wk-gift-{{ section.id }} .wk-gf-img{width:100%;max-width:290px;height:auto;margin:0 auto 30px;display:block;}
+  #wk-gift-{{ section.id }} .wk-gf-eyebrow{font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:700;margin-bottom:14px;}
+  #wk-gift-{{ section.id }} h1{font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(28px,4vw,38px);line-height:1.12;color:#6B3D42;margin:0 0 18px;letter-spacing:-0.01em;}
+  #wk-gift-{{ section.id }} .wk-gf-desc{font-size:16px;line-height:1.65;color:#4a3a30;margin:0 auto 30px;max-width:52ch;}
+  #wk-gift-{{ section.id }} .wk-gf-desc p{margin:0 0 12px;}
+  #wk-gift-{{ section.id }} .wk-gf-note{display:flex;align-items:center;gap:14px;text-align:left;margin:0 auto 30px;padding:16px 20px;max-width:520px;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.18);border-radius:14px;}
+  #wk-gift-{{ section.id }} .wk-gf-note svg{flex:0 0 auto;color:#C9653F;}
+  #wk-gift-{{ section.id }} .wk-gf-note span{font-size:14.5px;line-height:1.5;color:#4a3a30;}
+  #wk-gift-{{ section.id }} .wk-gf-note b{color:#6B3D42;}
+  #wk-gift-{{ section.id }} .wk-gf-cta{display:inline-block;background:#C9653F;color:#F5E6D8;text-decoration:none;border-radius:999px;padding:17px 38px;font-size:15px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;}
+  #wk-gift-{{ section.id }} .wk-gf-sub{display:block;margin-top:16px;font-size:13px;color:#7a6258;}
+  @media(max-width:749px){
+    #wk-gift-{{ section.id }}{padding:40px 20px 56px;}
+    #wk-gift-{{ section.id }} .wk-gf-img{max-width:220px;margin-bottom:24px;}
+    #wk-gift-{{ section.id }} .wk-gf-desc{font-size:15px;}
+    #wk-gift-{{ section.id }} .wk-gf-note{gap:12px;padding:14px 16px;}
+  }
+</style>
+
+<section id="wk-gift-{{ section.id }}">
+  {%- if product.featured_image -%}
+    <img class="wk-gf-img" src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title | escape }}" width="800" height="800" loading="eager">
+  {%- endif -%}
+
+  {%- if section.settings.eyebrow != blank -%}
+    <div class="wk-gf-eyebrow">{{ section.settings.eyebrow }}</div>
+  {%- endif -%}
+
+  <h1>{{ product.title }}</h1>
+
+  {%- if product.description != blank -%}
+    <div class="wk-gf-desc">{{ product.description }}</div>
+  {%- endif -%}
+
+  {%- if section.settings.note != blank -%}
+    <div class="wk-gf-note">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+      </svg>
+      <span>{{ section.settings.note }}</span>
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.cta_label != blank -%}
+    <a class="wk-gf-cta" href="{{ section.settings.cta_url | default: '/' }}">{{ section.settings.cta_label }}</a>
+  {%- endif -%}
+
+  {%- if section.settings.cta_sub != blank -%}
+    <span class="wk-gf-sub">{{ section.settings.cta_sub }}</span>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "WK - Gift page",
+  "settings": [
+    { "type": "paragraph", "content": "Simple page for the free-gift products. Title, description and image come from the product itself — there is deliberately no add-to-cart, because these are only ever added alongside the 3-month plan." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Included free" },
+    { "type": "textarea", "id": "note", "label": "Note", "default": "This is one of three free gifts included with the Womankind 3-month plan. It isn't sold separately — it's added to your order automatically." },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "See the 3-month plan" },
+    { "type": "url", "id": "cta_url", "label": "Button link" },
+    { "type": "text", "id": "cta_sub", "label": "Text under the button", "default": "Zero sugar · no hormones · cancel anytime" }
+  ]
+}
+{% endschema %}

@@ -244,9 +244,26 @@
         <form method="post" action="{{ routes.cart_add_url }}" accept-charset="UTF-8" enctype="multipart/form-data" data-wk-form>
           <input type="hidden" name="form_type" value="product">
           <input type="hidden" name="utf8" value="✓">
-          <input type="hidden" name="id" value="{{ wk_variant.id }}">
-          <input type="hidden" name="quantity" value="3" data-wk-qty>
-          <input type="hidden" name="selling_plan" value="{{ wk_selling_plan.id }}" data-wk-selling-plan>
+          {%- comment -%}
+            items[] notation so the free-gift products can be added in the same request.
+            Line 0 is the gummies (carries the selling plan). The gift lines deliberately
+            carry NO selling plan, so they stay out of the subscription contract and never
+            recur. They are disabled unless the 3-month plan is selected — FormData omits
+            disabled inputs, which is what makes them drop off the 1-month path.
+          {%- endcomment -%}
+          <input type="hidden" name="items[0][id]" value="{{ wk_variant.id }}">
+          <input type="hidden" name="items[0][quantity]" value="3" data-wk-qty>
+          <input type="hidden" name="items[0][selling_plan]" value="{{ wk_selling_plan.id }}" data-wk-selling-plan>
+          {%- assign gidx = 0 -%}
+          {%- for i in (1..3) -%}
+            {%- assign gvk = 'gift_' | append: i | append: '_variant' -%}
+            {%- assign gv = section.settings[gvk] -%}
+            {%- if gv != blank -%}
+              {%- assign gidx = gidx | plus: 1 -%}
+              <input type="hidden" name="items[{{ gidx }}][id]" value="{{ gv }}" data-wk-gift>
+              <input type="hidden" name="items[{{ gidx }}][quantity]" value="1" data-wk-gift>
+            {%- endif -%}
+          {%- endfor -%}
           <button type="submit" class="wk-atc"{% unless wk_variant.available %} disabled{% endunless %}>
             {%- if wk_variant.available -%}
               <span class="wk-atc-main">{{ section.settings.atc_label }}</span>
@@ -436,6 +453,9 @@
     var planId = planForTier(state.supply);
     root.querySelectorAll('[data-wk-qty]').forEach(function(i){ i.value = state.supply; });
     root.querySelectorAll('[data-wk-selling-plan]').forEach(function(i){ if (planId) i.value = planId; i.disabled = !planId; });
+    // the free gifts ride along with the 3-month plan only
+    var giftsOn = (state.supply === '3');
+    root.querySelectorAll('[data-wk-gift]').forEach(function(i){ i.disabled = !giftsOn; });
   }
 
   function applySupply(){ applyCart(); applyPricing(); }
@@ -678,6 +698,10 @@
     { "type": "range", "id": "sub_3_pct", "label": "3-month discount %", "min": 0, "max": 60, "step": 1, "default": 50, "unit": "%" },
     { "type": "text", "id": "plan_1_id", "label": "1-month plan ID (optional override)" },
     { "type": "text", "id": "plan_3_id", "label": "3-month plan ID (optional override)" },
+    { "type": "header", "content": "Free gift products", "info": "Variant IDs (not product IDs) of the three $0 gift products. They are added as one-time lines alongside the 3-month plan and skipped on 1-month. Leave one blank to drop that gift. Find IDs at yourstore.com/products.json" },
+    { "type": "text", "id": "gift_1_variant", "label": "Gift 1 variant ID", "default": "55027541049683", "info": "The 90-Day Reset Protocol" },
+    { "type": "text", "id": "gift_2_variant", "label": "Gift 2 variant ID", "default": "55027546456403", "info": "The Estrobolome Food Guide" },
+    { "type": "text", "id": "gift_3_variant", "label": "Gift 3 variant ID", "default": "55027553272147", "info": "The Womankind Circle" },
     { "type": "header", "content": "One-time purchase link", "info": "Escape hatch for visitors who don't want a subscription. On this page one-time buyers get NO discount, so these stay at 0 — but they must still match whatever automatic discounts are actually live in Shopify, because no selling plan is attached and those are what apply at checkout. Leave the label blank to hide the link." },
     { "type": "text", "id": "onetime_label", "label": "Link label", "default": "One-time purchase" },
     { "type": "range", "id": "one_1_pct", "label": "1-bottle one-time discount %", "min": 0, "max": 60, "step": 1, "default": 0, "unit": "%" },
