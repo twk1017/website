@@ -953,7 +953,7 @@
           "tier3_name": "3-Month Reset",
           "tier3_sub": "3 bottles · 90 day supply",
           "tier3_billing": "billed today",
-          "price_suffix": "/mo",
+          "price_suffix": "/bottle",
           "tier1_name": "1-Month Supply",
           "tier1_sub": "1 bottle · 30 day supply",
           "tier1_billing": "",
