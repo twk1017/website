@@ -4,6 +4,9 @@
 
 <style>
   /* no overflow:hidden here — it would clip the badge that straddles the top edge; the head/body round their own corners instead */
+  #wk-sub-{{ section.id }} .wk-hero-track{position:absolute;inset:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;}
+  #wk-sub-{{ section.id }} .wk-hero-track::-webkit-scrollbar{display:none;}
+  #wk-sub-{{ section.id }} .wk-hero-slide{flex:0 0 100%;width:100%;height:100%;object-fit:cover;display:block;scroll-snap-align:center;scroll-snap-stop:always;user-select:none;-webkit-user-drag:none;}
   #wk-sub-{{ section.id }} .wk-plan{position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:14px;display:block;transition:border-color .15s ease,box-shadow .15s ease;}
   #wk-sub-{{ section.id }} .wk-plan.is-sel{border-color:#6B3D42;box-shadow:0 0 0 2px #6B3D42;}
   #wk-sub-{{ section.id }} .wk-plan-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 19px;border-radius:12.5px 12.5px 0 0;transition:background .15s ease,color .15s ease;}
@@ -70,9 +73,14 @@
   #wk-sub-{{ section.id }} .wk-urg-cd{color:#C9653F;font-weight:700;white-space:nowrap;}
 
   @media(max-width:749px){
+    /* self-contained mobile layout — womankind-home has no .wk-root layer */
+    #wk-sub-{{ section.id }}{grid-template-columns:1fr !important;gap:28px !important;padding:28px 20px 14px !important;}
+    #wk-sub-{{ section.id }} h1{font-size:34px !important;}
+    #wk-sub-{{ section.id }} .wk-gallery{position:static !important;top:auto !important;}
+    #wk-sub-{{ section.id }} .wk-thumbs > button{flex:0 0 calc((100% - 27px) / 3.5) !important;}
     #wk-sub-{{ section.id }} .wk-plan-head{padding:15px 14px;gap:10px;}
     #wk-sub-{{ section.id }} .wk-plan-body{padding:15px 14px 0;}
-    #wk-sub-{{ section.id }} .wk-plan-price{font-size:21px !important;}
+    #wk-sub-{{ section.id }} .wk-plan-price{font-size:18px !important;}
     #wk-sub-{{ section.id }} .wk-inc-d{font-size:12.6px;}
     #wk-sub-{{ section.id }} .wk-inc-t{font-size:14.4px;}
     #wk-sub-{{ section.id }} .wk-pill{font-size:13.4px;padding:8px 15px;}
@@ -110,16 +118,16 @@
 
     <!-- GALLERY -->
     <div class="wk-gallery" style="position:sticky;top:96px;">
-      {%- assign wk_first_full = '' -%}{%- assign wk_first_alt = '' -%}
-      {%- for i in (1..10) -%}
-        {%- assign gik = 'gallery_' | append: i | append: '_image' -%}
-        {%- assign gimg = section.settings[gik] -%}
-        {%- if gimg -%}{%- assign wk_full = gimg | image_url: width: 1200 -%}{%- assign wk_galt = gimg.alt | default: 'Womankind Hormonal Support Gummies' -%}
-        {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- assign wk_full = gfname | asset_url -%}{%- assign wk_galt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
-        {%- if forloop.first -%}{%- assign wk_first_full = wk_full -%}{%- assign wk_first_alt = wk_galt -%}{%- endif -%}
-      {%- endfor -%}
       <div class="wk-hero-img" style="position:relative;aspect-ratio:1/1;border-radius:18px;overflow:hidden;background:radial-gradient(120% 92% at 50% 16%, #ECDBCC 0%, #D8BFB4 52%, #C2A099 100%);">
-        <img data-wk-hero-img src="{{ wk_first_full }}" alt="{{ wk_first_alt }}" width="1200" height="1200" loading="eager" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="wk-hero-track" data-wk-hero-track>
+          {%- for i in (1..10) -%}
+            {%- assign gik = 'gallery_' | append: i | append: '_image' -%}
+            {%- assign gimg = section.settings[gik] -%}
+            {%- if gimg -%}{%- assign wk_full = gimg | image_url: width: 1200 -%}{%- assign wk_galt = gimg.alt | default: 'Womankind Hormonal Support Gummies' -%}
+            {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- assign wk_full = gfname | asset_url -%}{%- assign wk_galt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
+            <img class="wk-hero-slide" src="{{ wk_full }}" alt="{{ wk_galt }}" width="1200" height="1200" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" draggable="false">
+          {%- endfor -%}
+        </div>
         <span data-wk-badge>{% render 'wk-clinicians-badge', text: section.settings.badge, image: section.settings.badge_image %}</span>
       </div>
 
@@ -660,77 +668,54 @@
     if (thumbNext) thumbNext.addEventListener('click', function () { thumbTrack.scrollBy({ left: thumbStep() * 2, behavior: 'smooth' }); });
   }
 
-  var heroImg = root.querySelector('[data-wk-hero-img]');
+  var heroTrack = root.querySelector('[data-wk-hero-track]');
   var heroBadge = root.querySelector('[data-wk-badge]');
   var heroThumbs = root.querySelectorAll('[data-wk-thumb]');
+  var heroSlides = root.querySelectorAll('.wk-hero-slide');
   var heroIdx = 0;
 
-  function heroPreload(i) {
-    var b = heroThumbs[i];
-    if (!b) return;
-    var u = b.getAttribute('data-wk-full');
-    if (u) { var im = new Image(); im.src = u; }
-  }
-
-  function heroSelect(idx) {
-    if (!heroThumbs.length) return;
-    if (idx < 0) idx = heroThumbs.length - 1;
-    if (idx > heroThumbs.length - 1) idx = 0;
-    var btn = heroThumbs[idx];
-    var full = btn.getAttribute('data-wk-full');
-    if (heroImg && full) heroImg.src = full;
-    heroThumbs.forEach(function (b) { b.style.borderColor = 'transparent'; });
-    btn.style.borderColor = '#6B3D42';
-    if (heroBadge) heroBadge.style.display = (idx === 0) ? '' : 'none';
+  function heroMark(idx) {
+    if (idx === heroIdx || !heroThumbs.length) return;
     heroIdx = idx;
-    // keep the active thumb visible without moving the page
-    if (thumbTrack && thumbTrack.scrollTo) {
+    heroThumbs.forEach(function (b, i) { b.style.borderColor = (i === idx) ? '#6B3D42' : 'transparent'; });
+    if (heroBadge) heroBadge.style.display = (idx === 0) ? '' : 'none';
+    var btn = heroThumbs[idx];
+    if (btn && thumbTrack && thumbTrack.scrollTo) {
       thumbTrack.scrollTo({ left: btn.offsetLeft - (thumbTrack.clientWidth - btn.offsetWidth) / 2, behavior: 'smooth' });
     }
-    heroPreload(idx + 1);
-    heroPreload(idx - 1);
+  }
+
+  function heroGo(idx, smooth) {
+    if (!heroTrack || !heroSlides.length) return;
+    if (idx < 0) idx = 0;
+    if (idx > heroSlides.length - 1) idx = heroSlides.length - 1;
+    heroTrack.scrollTo({ left: idx * heroTrack.clientWidth, behavior: smooth === false ? 'auto' : 'smooth' });
+    heroMark(idx);
+  }
+
+  if (heroTrack) {
+    // the browser drives the gesture; we just read back where it landed
+    var heroTick = null;
+    heroTrack.addEventListener('scroll', function () {
+      if (heroTick) return;
+      heroTick = requestAnimationFrame(function () {
+        heroTick = null;
+        var w = heroTrack.clientWidth;
+        if (w) heroMark(Math.round(heroTrack.scrollLeft / w));
+      });
+    }, { passive: true });
+
+    // keep the current slide framed if the viewport changes
+    var heroRz;
+    window.addEventListener('resize', function () {
+      clearTimeout(heroRz);
+      heroRz = setTimeout(function () { heroGo(heroIdx, false); }, 150);
+    });
   }
 
   heroThumbs.forEach(function (btn, idx) {
-    btn.addEventListener('click', function () { heroSelect(idx); });
+    btn.addEventListener('click', function () { heroGo(idx); });
   });
-  heroPreload(1);
-
-  // swipe the main image on touch devices
-  var heroBox = root.querySelector('.wk-hero-img');
-  if (heroBox && heroImg && heroThumbs.length > 1) {
-    heroBox.style.touchAction = 'pan-y';
-    var sX = 0, sY = 0, dX = 0, dY = 0, swiping = false, decided = false, horiz = false;
-    heroBox.addEventListener('touchstart', function (e) {
-      if (e.touches.length !== 1) return;
-      sX = e.touches[0].clientX; sY = e.touches[0].clientY;
-      dX = 0; dY = 0; swiping = true; decided = false; horiz = false;
-      heroImg.style.transition = '';
-    }, { passive: true });
-    heroBox.addEventListener('touchmove', function (e) {
-      if (!swiping || e.touches.length !== 1) return;
-      dX = e.touches[0].clientX - sX;
-      dY = e.touches[0].clientY - sY;
-      if (!decided && (Math.abs(dX) > 8 || Math.abs(dY) > 8)) {
-        decided = true;
-        horiz = Math.abs(dX) > Math.abs(dY);   // let vertical scrolling through
-      }
-      if (decided && horiz) {
-        if (e.cancelable) e.preventDefault();
-        heroImg.style.transform = 'translateX(' + (dX * 0.3) + 'px)';
-      }
-    }, { passive: false });
-    function heroSwipeEnd() {
-      if (!swiping) return;
-      swiping = false;
-      heroImg.style.transition = 'transform .22s ease';
-      heroImg.style.transform = '';
-      setTimeout(function () { heroImg.style.transition = ''; }, 260);
-      if (horiz && Math.abs(dX) > 45) heroSelect(heroIdx + (dX < 0 ? 1 : -1));
-    }
-    heroBox.addEventListener('touchend', heroSwipeEnd);
-    heroBox.addEventListener('touchcancel', heroSwipeEnd);
-  }
 
   var xtabs = root.querySelectorAll('[data-wk-xtab]');
   if (xtabs.length) {
