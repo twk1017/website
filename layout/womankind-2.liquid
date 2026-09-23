@@ -472,7 +472,16 @@
   .wk-root [style*="grid-template-columns:repeat(6,1fr)"] { grid-template-columns:repeat(3,1fr) !important; }
   .wk-root [style*="grid-template-columns:1.4fr 1fr 1fr 1fr"] { grid-template-columns:1fr 1fr !important; }
   .wk-root header nav { display:none !important; }
-  .wk-root h1 { font-size:34px !important; }
+  .wk-root h1 { font-size:30px !important; }
+  .wk-root h2 { font-size:27px !important; }
+  /* tighten vertical rhythm between sections on small screens */
+  .wk-root [style*="padding:72px 28px"],
+  .wk-root [style*="padding:74px 28px"],
+  .wk-root [style*="padding:80px 28px"],
+  .wk-root [style*="padding:84px 28px"],
+  .wk-root [style*="padding:88px 28px"],
+  .wk-root [style*="padding:92px 28px"],
+  .wk-root [style*="padding:84px 0"] { padding-top:44px !important; padding-bottom:44px !important; }
   .wk-root .wk-gallery { position:static !important; top:auto !important; }
   .wk-root .wk-team-photo { min-height:0 !important; height:auto !important; aspect-ratio:1/1; }
   .wk-root .wk-thumbs > button { flex:0 0 calc((100% - 27px) / 3.5) !important; }
