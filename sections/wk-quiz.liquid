@@ -7,7 +7,7 @@
 {%- assign wk_offer_img = '' -%}
 {%- if section.settings.offer_image -%}{%- assign wk_offer_img = section.settings.offer_image | image_url: width: 900 -%}
 {%- elsif wk_product.featured_image -%}{%- assign wk_offer_img = wk_product.featured_image | image_url: width: 900 -%}
-{%- else -%}{%- assign wk_offer_img = 'wk-buybox-1.jpg' | asset_url -%}{%- endif -%}
+{%- else -%}{%- assign wk_offer_img = 'wk-bottle.jpg' | asset_url -%}{%- endif -%}
 {%- assign oke_product = wk_product | default: all_products['hormonal-support-gummies'] -%}
 <style>
   #wkq-{{ uid }}{--plum:#6B3D42;--terra:#C9653F;--gold:#E2A24C;--cream:#FBF1E6;--blush:#E9D6CE;--body:#4a3a30;--line:rgba(107,61,66,0.16);}
