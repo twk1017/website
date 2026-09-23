@@ -59,6 +59,16 @@
   #wk-sub-{{ section.id }} .wk-atc-gtee{display:flex;align-items:center;justify-content:center;gap:9px;padding:0 18px 19px;font-size:15px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;line-height:1.1;color:rgba(245,230,216,0.85);}
   #wk-sub-{{ section.id }} .wk-atc-gtee svg{flex:0 0 auto;display:block;width:17px;height:17px;}
 
+  /* urgency bar — classes rather than inline styles so the mobile block can scale it */
+  #wk-sub-{{ section.id }} .wk-urg{margin:20px 0 0;}
+  #wk-sub-{{ section.id }} .wk-urg-h{font-size:17.4px;font-weight:700;color:#6B3D42;line-height:1.3;}
+  #wk-sub-{{ section.id }} .wk-urg-t{font-size:14.8px;color:#7a6258;line-height:1.45;margin-top:4px;}
+  #wk-sub-{{ section.id }} .wk-urg-bar{height:13px;border-radius:999px;background:#E8D5C6;overflow:hidden;margin:13px 0 9px;}
+  #wk-sub-{{ section.id }} .wk-urg-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#6B3D42,#C9653F);}
+  #wk-sub-{{ section.id }} .wk-urg-row{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:14.8px;}
+  #wk-sub-{{ section.id }} .wk-urg-sold{color:#7a6258;font-weight:600;}
+  #wk-sub-{{ section.id }} .wk-urg-cd{color:#C9653F;font-weight:700;white-space:nowrap;}
+
   @media(max-width:749px){
     #wk-sub-{{ section.id }} .wk-plan-head{padding:15px 14px;gap:10px;}
     #wk-sub-{{ section.id }} .wk-plan-body{padding:15px 14px 0;}
@@ -76,6 +86,10 @@
     #wk-sub-{{ section.id }} .wk-atc-main{font-size:19px;padding:18px 14px 7px;}
     #wk-sub-{{ section.id }} .wk-atc-gtee{font-size:13.5px;padding:0 12px 17px;gap:8px;}
     #wk-sub-{{ section.id }} .wk-atc-gtee svg{width:15px;height:15px;}
+    #wk-sub-{{ section.id }} .wk-urg-h{font-size:16px;}
+    #wk-sub-{{ section.id }} .wk-urg-t{font-size:13.8px;}
+    #wk-sub-{{ section.id }} .wk-urg-bar{height:12px;}
+    #wk-sub-{{ section.id }} .wk-urg-row{font-size:13.8px;gap:10px;}
     #wk-sub-{{ section.id }} .wk-trust{gap:12px;padding:12px 16px 12px 14px;}
     /* avatars give up 4px so the copy can grow — measured: at 335px the heading only holds
        one line up to 13.8px once the faces are 28px */
@@ -298,15 +312,15 @@
       {%- endif -%}
 
       {%- if section.settings.urgency_heading != blank -%}
-        <div class="wk-urg" style="margin:18px 0 0;">
-          <div style="font-size:15.2px;font-weight:700;color:#6B3D42;line-height:1.3;">{{ section.settings.urgency_heading }}</div>
-          {%- if section.settings.urgency_text != blank -%}<div style="font-size:13.4px;color:#7a6258;line-height:1.45;margin-top:3px;">{{ section.settings.urgency_text }}</div>{%- endif -%}
-          <div style="height:10px;border-radius:999px;background:#E8D5C6;overflow:hidden;margin:11px 0 8px;">
-            <div style="height:100%;width:{{ section.settings.urgency_pct }}%;border-radius:999px;background:linear-gradient(90deg,#6B3D42,#C9653F);"></div>
+        <div class="wk-urg">
+          <div class="wk-urg-h">{{ section.settings.urgency_heading }}</div>
+          {%- if section.settings.urgency_text != blank -%}<div class="wk-urg-t">{{ section.settings.urgency_text }}</div>{%- endif -%}
+          <div class="wk-urg-bar">
+            <div class="wk-urg-fill" style="width:{{ section.settings.urgency_pct }}%;"></div>
           </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13.4px;">
-            <span style="color:#7a6258;font-weight:600;">{{ section.settings.urgency_pct }}% sold</span>
-            <span style="color:#C9653F;font-weight:700;">{{ section.settings.urgency_countdown_label }} <span data-wk-countdown>00:00:00</span></span>
+          <div class="wk-urg-row">
+            <span class="wk-urg-sold">{{ section.settings.urgency_pct }}% sold</span>
+            <span class="wk-urg-cd">{{ section.settings.urgency_countdown_label }} <span data-wk-countdown>00:00:00</span></span>
           </div>
         </div>
       {%- endif -%}
