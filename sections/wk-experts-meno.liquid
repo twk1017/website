@@ -3,8 +3,9 @@
   {%- assign exp_defaults = 'wk-expert-delgado.jpg,wk-expert-lin.jpg,wk-expert-raman.jpg' | split: ',' -%}
   <section style="background:#EFDFD0;padding:84px 28px;">
     <div style="max-width:1240px;margin:0 auto;">
-      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:46px;flex-wrap:wrap;">
+      <div style="margin-bottom:46px;">
         <h2 style="font-family:'Fraunces',serif;font-weight:400;font-style:italic;font-size:38px;line-height:1.05;margin:0;color:#3A2A20;">{{ section.settings.heading_lead }} <span style="color:#6B3D42;font-style:normal;font-weight:500;">{{ section.settings.heading_emph }}</span></h2>
+        {%- if section.settings.subheading != blank -%}<p style="font-size:15.5px;line-height:1.6;color:#4a3a30;max-width:62ch;margin:16px 0 0;">{{ section.settings.subheading }}</p>{%- endif -%}
       </div>
 
       <div class="wk-experts-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;">
@@ -38,23 +39,24 @@
 {
   "name": "WK - Experts (meno)",
   "settings": [
-    { "type": "text", "id": "heading_lead", "label": "Heading (italic part)", "default": "recommended by" },
-    { "type": "text", "id": "heading_emph", "label": "Heading (emphasis part)", "default": "women's health experts" },
+    { "type": "text", "id": "heading_lead", "label": "Heading (italic part)", "default": "Recommended by" },
+    { "type": "text", "id": "heading_emph", "label": "Heading (emphasis part)", "default": "the clinicians who treat hot flashes & night sweats" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Not influencers. Not affiliates. Clinicians who can tell the difference between a real formula and a pretty label." },
     { "type": "header", "content": "Expert 1" },
     { "type": "image_picker", "id": "exp1_image", "label": "Photo" },
     { "type": "text", "id": "exp1_name", "label": "Name", "default": "Carmen Delgado" },
-    { "type": "text", "id": "exp1_credential", "label": "Credential", "default": "MSN, NP · Perimenopause Nurse Practitioner" },
-    { "type": "textarea", "id": "exp1_quote", "label": "Quote", "default": "“Perimenopause doesn’t wait for a diagnosis—and women shouldn’t have to wait years for support. Womankind takes the real symptoms seriously: hot flashes, disrupted sleep, mood changes, and disappearing energy.”" },
+    { "type": "text", "id": "exp1_credential", "label": "Credential", "default": "MSN, NP · Menopause & Women’s Health Nurse Practitioner" },
+    { "type": "textarea", "id": "exp1_quote", "label": "Quote", "default": "“I’ve spent years watching women be told to just live with it. Hot flashes that hijack your day. Night sweats that steal your sleep. That’s not something you have to accept — and it’s not something a sugar-filled gummy will fix. Most formulas fail because they’re under-dosed and aimed at the surface. Womankind goes after the system that drives the flush.”" },
     { "type": "header", "content": "Expert 2" },
     { "type": "image_picker", "id": "exp2_image", "label": "Photo" },
     { "type": "text", "id": "exp2_name", "label": "Name", "default": "Dr. Wei Lin" },
     { "type": "text", "id": "exp2_credential", "label": "Credential", "default": "PhD · Pharmacognosist" },
-    { "type": "textarea", "id": "exp2_quote", "label": "Quote", "default": "“Many supplements look impressive because the label is crowded—not because the formula is purposeful. Womankind takes the opposite approach: specific extracts, clearly stated doses, and no proprietary blend hiding what’s really inside.”" },
+    { "type": "textarea", "id": "exp2_quote", "label": "Quote", "default": "“The difference between a supplement that works and one that doesn’t is almost always the dose — and most menopause formulas hide theirs behind a ‘proprietary blend.’ Black cohosh at the researched dose is one of the most studied botanicals for hot flashes and night sweats. Womankind prints every milligram. Because a flush doesn’t respond to a mystery dose.”" },
     { "type": "header", "content": "Expert 3" },
     { "type": "image_picker", "id": "exp3_image", "label": "Photo" },
     { "type": "text", "id": "exp3_name", "label": "Name", "default": "Priya Raman" },
     { "type": "text", "id": "exp3_credential", "label": "Credential", "default": "PharmD · Clinical Pharmacist" },
-    { "type": "textarea", "id": "exp3_quote", "label": "Quote", "default": "“If a supplement hides its doses behind a proprietary blend, you can’t properly evaluate it—and neither can your pharmacist. Womankind puts every active and every dose on the label, so there’s nothing to decode and no guessing about what you’re taking.”" }
+    { "type": "textarea", "id": "exp3_quote", "label": "Quote", "default": "“Women bring me cabinets full of supplements that did nothing for their hot flashes — and most can’t tell me what’s in any of them. If a label won’t disclose the dose, assume it’s too low to work. Womankind puts every active and every milligram on the label, in the doses the research used. That’s the only kind of formula worth taking — especially at 3am.”" }
   ]
 }
 {% endschema %}

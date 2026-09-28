@@ -979,7 +979,7 @@
           "gift_2_desc": "Dr. Katie Chen's full guide to eating for perimenopause",
           "gift_2_value": "$40 value",
           "gift_3_title": "The Womankind Circle",
-          "gift_3_desc": "Private access to perimenopause guidance and member-only live Q&As with Dr. Katie Chen",
+          "gift_3_desc": "Invites to every live Q&A Dr. Katie Chen hosts — bring your perimenopause questions",
           "gift_3_value": "$150 value",
           "gift_4_title": "",
           "gift_4_desc": "",
@@ -1150,7 +1150,7 @@
           "gift_2_desc": "Dr. Katie Chen’s full guide to eating through menopause",
           "gift_2_value": "$40 value",
           "gift_3_title": "The Womankind Circle",
-          "gift_3_desc": "Private access to menopause guidance and member-only live Q&As with Dr. Katie Chen",
+          "gift_3_desc": "Invites to every live Q&A Dr. Katie Chen hosts — bring your menopause questions",
           "gift_3_value": "$150 value",
           "gift_4_title": "",
           "gift_4_desc": "",
@@ -1317,17 +1317,18 @@
       "wk-experts-meno": {
         "type": "wk-experts-meno",
         "settings": {
-          "heading_lead": "recommended by",
-          "heading_emph": "women's health experts",
+          "heading_lead": "Recommended by",
+          "heading_emph": "the clinicians who treat hot flashes & night sweats",
           "exp1_name": "Carmen Delgado",
-          "exp1_credential": "MSN, NP · Perimenopause Nurse Practitioner",
-          "exp1_quote": "“Perimenopause doesn’t wait for a diagnosis—and women shouldn’t have to wait years for support. Womankind takes the real symptoms seriously: hot flashes, disrupted sleep, mood changes, and disappearing energy.”",
+          "exp1_credential": "MSN, NP · Menopause & Women’s Health Nurse Practitioner",
+          "exp1_quote": "“I’ve spent years watching women be told to just live with it. Hot flashes that hijack your day. Night sweats that steal your sleep. That’s not something you have to accept — and it’s not something a sugar-filled gummy will fix. Most formulas fail because they’re under-dosed and aimed at the surface. Womankind goes after the system that drives the flush.”",
           "exp2_name": "Dr. Wei Lin",
           "exp2_credential": "PhD · Pharmacognosist",
-          "exp2_quote": "“Many supplements look impressive because the label is crowded—not because the formula is purposeful. Womankind takes the opposite approach: specific extracts, clearly stated doses, and no proprietary blend hiding what’s really inside.”",
+          "exp2_quote": "“The difference between a supplement that works and one that doesn’t is almost always the dose — and most menopause formulas hide theirs behind a ‘proprietary blend.’ Black cohosh at the researched dose is one of the most studied botanicals for hot flashes and night sweats. Womankind prints every milligram. Because a flush doesn’t respond to a mystery dose.”",
           "exp3_name": "Priya Raman",
           "exp3_credential": "PharmD · Clinical Pharmacist",
-          "exp3_quote": "“If a supplement hides its doses behind a proprietary blend, you can’t properly evaluate it—and neither can your pharmacist. Womankind puts every active and every dose on the label, so there’s nothing to decode and no guessing about what you’re taking.”"
+          "exp3_quote": "“Women bring me cabinets full of supplements that did nothing for their hot flashes — and most can’t tell me what’s in any of them. If a label won’t disclose the dose, assume it’s too low to work. Womankind puts every active and every milligram on the label, in the doses the research used. That’s the only kind of formula worth taking — especially at 3am.”",
+          "subheading": "Not influencers. Not affiliates. Clinicians who can tell the difference between a real formula and a pretty label."
         }
       },
       "wk-okendo-meno": {
