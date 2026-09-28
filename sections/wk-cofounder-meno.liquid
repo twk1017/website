@@ -6,7 +6,7 @@
       <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#A6472A;font-weight:600;margin-bottom:32px;">{{ section.settings.eyebrow }}</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;margin-bottom:48px;">
         <div>
-          <img class="wk-cofounder-img" src="{{ wk_cf_src }}" alt="{{ section.settings.image.alt | default: section.settings.name_badge }}" width="800" height="800" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:center top;border-radius:14px;display:block;">
+          <img class="wk-cofounder-img" src="{{ wk_cf_src }}" alt="{{ section.settings.image.alt | default: section.settings.name_badge | append: ', ' | append: section.settings.role_badge }}" width="800" height="800" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:center top;border-radius:14px;display:block;">
         </div>
         <div>
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
@@ -31,7 +31,7 @@
 {
   "name": "WK - Co-founder (meno)",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Built by a perimenopause specialist—not a marketing department" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Built by a menopause specialist — not a marketing department" },
     { "type": "image_picker", "id": "image", "label": "Portrait", "info": "Defaults to wk-cofounder-katie.jpg if empty." },
     { "type": "text", "id": "name_badge", "label": "Name", "default": "Dr. Katie Chen, MD, MSCP" },
     { "type": "text", "id": "role_badge", "label": "Role badge", "default": "Co-founder & Medical Director" },
