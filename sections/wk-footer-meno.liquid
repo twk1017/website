@@ -1,0 +1,34 @@
+{%- comment -%} Menopause landing page (page.gummies-meno) — slim footer: FDA disclaimer, legal links (open in a new tab so the page stays open), copyright. No newsletter, no nav. {%- endcomment -%}
+  <!-- FOOTER (meno LP) -->
+  {% render 'wk-fonts' %}
+  <footer style="background:#6B3D42;color:#F5E6D8;font-family:'Hanken Grotesk',sans-serif;-webkit-font-smoothing:antialiased;padding:36px 28px 30px;">
+    <div style="max-width:1180px;margin:0 auto;">
+      <p style="font-size:11px;line-height:1.6;color:rgba(245,230,216,0.6);margin:0 0 20px;max-width:90ch;">{{ section.settings.disclaimer }}</p>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:14px 24px;flex-wrap:wrap;padding-top:18px;border-top:1px solid rgba(245,230,216,0.16);font-size:12px;color:rgba(245,230,216,0.6);">
+        <nav aria-label="Legal" style="display:flex;flex-wrap:wrap;gap:8px 20px;">
+          {%- if section.settings.privacy_label != blank -%}<a href="{%- render 'wk-localized-url', url: section.settings.privacy_url, fallback: '/pages/privacy-policy' -%}" target="_blank" rel="noopener" style="color:rgba(245,230,216,0.78);text-decoration:none;">{{ section.settings.privacy_label }}</a>{%- endif -%}
+          {%- if section.settings.refund_label != blank -%}<a href="{%- render 'wk-localized-url', url: section.settings.refund_url, fallback: '/pages/refund-policy' -%}" target="_blank" rel="noopener" style="color:rgba(245,230,216,0.78);text-decoration:none;">{{ section.settings.refund_label }}</a>{%- endif -%}
+          {%- if section.settings.terms_label != blank -%}<a href="{%- render 'wk-localized-url', url: section.settings.terms_url, fallback: '/pages/terms-of-service' -%}" target="_blank" rel="noopener" style="color:rgba(245,230,216,0.78);text-decoration:none;">{{ section.settings.terms_label }}</a>{%- endif -%}
+          {%- if section.settings.email != blank -%}<a href="mailto:{{ section.settings.email }}" style="color:rgba(245,230,216,0.78);text-decoration:none;">{{ section.settings.email }}</a>{%- endif -%}
+        </nav>
+        <span>{{ section.settings.copyright }} &nbsp;·&nbsp; Made in the USA</span>
+      </div>
+    </div>
+  </footer>
+
+{% schema %}
+{
+  "name": "WK - Footer (meno)",
+  "settings": [
+    { "type": "textarea", "id": "disclaimer", "label": "Disclaimer", "default": "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Consult your healthcare provider before beginning any supplement, particularly if you are pregnant, nursing, or taking medication." },
+    { "type": "text", "id": "privacy_label", "label": "Privacy link", "default": "Privacy policy" },
+    { "type": "url", "id": "privacy_url", "label": "Privacy URL" },
+    { "type": "text", "id": "refund_label", "label": "Refund link", "default": "Refund policy" },
+    { "type": "url", "id": "refund_url", "label": "Refund URL" },
+    { "type": "text", "id": "terms_label", "label": "Terms link", "default": "Terms of service" },
+    { "type": "url", "id": "terms_url", "label": "Terms URL" },
+    { "type": "text", "id": "email", "label": "Contact email", "default": "hello@trywomankind.com" },
+    { "type": "text", "id": "copyright", "label": "Copyright", "default": "© 2026 Womankind. All rights reserved." }
+  ]
+}
+{% endschema %}

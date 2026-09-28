@@ -1279,13 +1279,13 @@
           "footer_text": "Scroll to see more →",
           "card1_title": "“Cooler nights at last”",
           "card1_body": "“By week three, the night sweats were less frequent and I was sleeping more deeply. I started waking up feeling like myself again.”",
-          "card1_cite": "— Renée, 45",
+          "card1_cite": "— Renée, 49",
           "card2_title": "“I stopped planning around hot flashes”",
           "card2_body": "“I carried a fan everywhere and always knew the coolest seat in the room. A month in, the flushes started spacing out — and I stopped planning my day around them.”",
-          "card2_cite": "— Dani, 49",
+          "card2_cite": "— Dani, 52",
           "card3_title": "“Down to a handful a week”",
           "card3_body": "“I’d go bright red mid-sentence in meetings, sweat rolling down my back, praying no one was looking. By month three, the flushes were down to a handful a week.”",
-          "card3_cite": "— Diane R., 48",
+          "card3_cite": "— Diane R., 54",
           "card4_title": "“I assumed I’d left it too late”",
           "card4_body": "“A dozen a day and soaked twice a night. I assumed I’d left it too late at 56. Three months in, it’s a handful a week, and I sleep.”",
           "card4_cite": "— Carol S., 56",
@@ -1294,7 +1294,7 @@
           "card5_cite": "— Yvonne T., 53",
           "card6_title": "“I feel like myself again”",
           "card6_body": "“First the 3am wake-ups eased. Then, sometime in month two, I caught myself feeling like me again.”",
-          "card6_cite": "— Rowan, 46"
+          "card6_cite": "— Rowan, 52"
         }
       },
       "wk-stats-meno": {
@@ -1379,6 +1379,23 @@
           "a8": "",
           "q9": "",
           "a9": ""
+        }
+      },
+      "wk-header-meno": {
+        "type": "wk-header-meno",
+        "settings": {
+          "logo_text": "womankind"
+        }
+      },
+      "wk-footer-meno": {
+        "type": "wk-footer-meno",
+        "settings": {
+          "disclaimer": "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Consult your healthcare provider before beginning any supplement, particularly if you are pregnant, nursing, or taking medication.",
+          "privacy_label": "Privacy policy",
+          "refund_label": "Refund policy",
+          "terms_label": "Terms of service",
+          "email": "hello@trywomankind.com",
+          "copyright": "© 2026 Womankind. All rights reserved."
         }
       }
     },
