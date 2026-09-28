@@ -1,6 +1,6 @@
 {%- comment -%} Menopause landing page (page.gummies-meno) {%- endcomment -%}
   <!-- UGC TESTIMONIALS -->
-  {%- assign ugc_defaults = 'wk-ugc-6.jpg,dani-new.jpg,grace-new.jpg,wk-ugc-4.jpg,wk-ugc-5.jpg,wk-ugc-2.jpg' | split: ',' -%}
+  {%- assign ugc_defaults = 'wk-ugc-6.jpg,dani-new.jpg,wk-listicle-testimonial.jpg,wk-ugc-4.jpg,wk-ugc-5.jpg,wk-ugc-2.jpg' | split: ',' -%}
   <section style="background:#D8C2BA;padding:84px 0;">
     <div style="max-width:1240px;margin:0 auto;padding:0 28px 38px;text-align:center;">
       <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:14px;">{{ section.settings.eyebrow }}</div>
@@ -29,8 +29,8 @@
   "name": "WK - UGC (meno)",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Real Womankind customers" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Real women. Real changes. In their own words." },
-    { "type": "text", "id": "subhead", "label": "Subheading", "default": "No scripts. No stock photos. Just women sharing what changed after making Womankind part of their daily routine." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Real women. Cooler days. Drier nights. In their own words." },
+    { "type": "text", "id": "subhead", "label": "Subheading", "default": "No scripts. No stock photos. Just women sharing what changed — in their sleep, their days, and how they feel in their own skin." },
     { "type": "text", "id": "footer_text", "label": "Footer text", "default": "Scroll to see more →" },
     { "type": "header", "content": "Card 1" },
     { "type": "image_picker", "id": "card1_image", "label": "Photo", "info": "Defaults to wk-ugc-6.jpg" },
@@ -43,20 +43,20 @@
     { "type": "textarea", "id": "card2_body", "label": "Quote", "default": "“I carried a fan everywhere and always knew the coolest seat in the room. A month in, the flushes started spacing out—and I stopped planning my day around them.”" },
     { "type": "text", "id": "card2_cite", "label": "Name", "default": "— Dani, 49" },
     { "type": "header", "content": "Card 3" },
-    { "type": "image_picker", "id": "card3_image", "label": "Photo", "info": "Defaults to grace-new.jpg" },
-    { "type": "text", "id": "card3_title", "label": "Headline", "default": "“The bloating finally calmed down”" },
-    { "type": "textarea", "id": "card3_body", "label": "Quote", "default": "“Three weeks in, my stomach felt settled for the first time in a year. I didn’t expect that to be one of the first changes I noticed.”" },
-    { "type": "text", "id": "card3_cite", "label": "Name", "default": "— Grace L., 47" },
+    { "type": "image_picker", "id": "card3_image", "label": "Photo", "info": "Defaults to wk-listicle-testimonial.jpg" },
+    { "type": "text", "id": "card3_title", "label": "Headline", "default": "“Down to a handful a week”" },
+    { "type": "textarea", "id": "card3_body", "label": "Quote", "default": "“I’d go bright red mid-sentence in meetings, sweat rolling down my back, praying no one was looking. By month three, the flushes were down to a handful a week.”" },
+    { "type": "text", "id": "card3_cite", "label": "Name", "default": "— Diane R., 48" },
     { "type": "header", "content": "Card 4" },
     { "type": "image_picker", "id": "card4_image", "label": "Photo", "info": "Defaults to wk-ugc-4.jpg" },
-    { "type": "text", "id": "card4_title", "label": "Headline", "default": "“My afternoon fog lifted”" },
-    { "type": "textarea", "id": "card4_body", "label": "Quote", "default": "“The afternoon haze is gone. I can follow a thought through a whole meeting without losing the thread.”" },
-    { "type": "text", "id": "card4_cite", "label": "Name", "default": "— Cass, 51" },
+    { "type": "text", "id": "card4_title", "label": "Headline", "default": "“I assumed I’d left it too late”" },
+    { "type": "textarea", "id": "card4_body", "label": "Quote", "default": "“A dozen a day and soaked twice a night. I assumed I’d left it too late at 56. Three months in, it’s a handful a week, and I sleep.”" },
+    { "type": "text", "id": "card4_cite", "label": "Name", "default": "— Carol S., 56" },
     { "type": "header", "content": "Card 5" },
     { "type": "image_picker", "id": "card5_image", "label": "Photo", "info": "Defaults to wk-ugc-5.jpg" },
-    { "type": "text", "id": "card5_title", "label": "Headline", "default": "“The little things stay little now”" },
-    { "type": "textarea", "id": "card5_body", "label": "Quote", "default": "“I don’t feel as reactive or overwhelmed. My family noticed the difference before I did, honestly.”" },
-    { "type": "text", "id": "card5_cite", "label": "Name", "default": "— Lauren, 47" },
+    { "type": "text", "id": "card5_title", "label": "Headline", "default": "“The first thing that isn’t a hormone”" },
+    { "type": "textarea", "id": "card5_body", "label": "Quote", "default": "“HRT was off the table for me, so I’d resigned myself to the flushes for good. By month two they’d dropped right off — and I was sleeping through again, dry sheets.”" },
+    { "type": "text", "id": "card5_cite", "label": "Name", "default": "— Yvonne T., 53" },
     { "type": "header", "content": "Card 6" },
     { "type": "image_picker", "id": "card6_image", "label": "Photo", "info": "Defaults to wk-ugc-2.jpg" },
     { "type": "text", "id": "card6_title", "label": "Headline", "default": "“I feel like myself again”" },
