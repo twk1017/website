@@ -125,7 +125,7 @@
             {%- assign gik = 'gallery_' | append: i | append: '_image' -%}
             {%- assign gimg = section.settings[gik] -%}
             {%- if gimg -%}{%- assign wk_full = gimg | image_url: width: 1200 -%}{%- assign wk_galt = gimg.alt | default: 'Womankind Hormonal Support Gummies' -%}
-            {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- assign wk_full = gfname | asset_url -%}{%- assign wk_galt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
+            {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- if i == 4 -%}{%- assign gfname = 'wk-meno-buybox-4.jpg' -%}{%- endif -%}{%- assign wk_full = gfname | asset_url -%}{%- assign wk_galt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
             <img class="wk-hero-slide" src="{{ wk_full }}" alt="{{ wk_galt }}" width="1200" height="1200" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" draggable="false">
           {%- endfor -%}
         </div>
@@ -139,7 +139,7 @@
             {%- assign gik = 'gallery_' | append: i | append: '_image' -%}
             {%- assign gimg = section.settings[gik] -%}
             {%- if gimg -%}{%- assign tsrc = gimg | image_url: width: 240 -%}{%- assign tfull = gimg | image_url: width: 1200 -%}{%- assign talt = gimg.alt | default: 'Womankind Hormonal Support Gummies' -%}
-            {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- assign tsrc = gfname | asset_img_url: '240x240' -%}{%- assign tfull = gfname | asset_url -%}{%- assign talt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
+            {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- if i == 4 -%}{%- assign gfname = 'wk-meno-buybox-4.jpg' -%}{%- endif -%}{%- assign tsrc = gfname | asset_img_url: '240x240' -%}{%- assign tfull = gfname | asset_url -%}{%- assign talt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
             <button type="button" data-wk-thumb data-wk-full="{{ tfull }}" aria-label="View image {{ i }}" style="cursor:pointer;padding:0;aspect-ratio:1/1;background:#D8C2BA;border-radius:9px;overflow:hidden;{% if forloop.first %}border:2px solid #6B3D42;{% else %}border:2px solid transparent;{% endif %}display:flex;align-items:center;justify-content:center;">
               <img src="{{ tsrc }}" alt="{{ talt }}" width="240" height="240" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
             </button>
