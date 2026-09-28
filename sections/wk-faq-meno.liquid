@@ -1,0 +1,71 @@
+  <!-- FAQ -->
+  <section style="background:#F5E6D8;padding:88px 28px;">
+    <div style="max-width:880px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:52px;">
+        <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:14px;">{{ section.settings.eyebrow }}</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:40px;margin:0 0 14px;color:#6B3D42;">{{ section.settings.heading }}</h2>
+        {%- if section.settings.subhead != blank -%}<p style="font-size:15px;line-height:1.6;color:#4a3a30;max-width:48ch;margin:0 auto;">{{ section.settings.subhead }}</p>{%- endif -%}
+      </div>
+
+      <div style="border-top:1px solid rgba(107,61,66,0.2);">
+        {%- for i in (1..9) -%}
+          {%- assign qk = 'q' | append: i -%}
+          {%- assign ak = 'a' | append: i -%}
+          {%- assign q = section.settings[qk] -%}
+          {%- assign a = section.settings[ak] -%}
+          {%- if q != blank -%}
+          <div style="border-bottom:1px solid rgba(107,61,66,0.2);">
+            <button data-wk-faq="{{ i }}" style="width:100%;cursor:pointer;font-family:inherit;background:none;border:none;text-align:left;padding:24px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+              <span style="font-family:'Fraunces',serif;font-size:21px;color:#6B3D42;line-height:1.3;">{{ q }}</span>
+              <span style="font-size:22px;color:#C9653F;font-weight:300;flex:0 0 auto;">+</span>
+            </button>
+            <div class="wk-panel" data-wk-faq-panel="{{ i }}" style="display:{% if forloop.first %}block{% else %}none{% endif %};">
+              {%- assign wk_faq_paras = a | split: '||' -%}
+              {%- for para in wk_faq_paras -%}
+                <p style="font-size:15px;line-height:1.65;color:#4a3a30;margin:0 0 {% if forloop.last %}24{% else %}14{% endif %}px;max-width:66ch;">{{ para | strip }}</p>
+              {%- endfor -%}
+            </div>
+          </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+{% schema %}
+{
+  "name": "WK - FAQ (meno)",
+  "settings": [
+    {"type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Questions, answered"},
+    {"type": "text", "id": "heading", "label": "Heading", "default": "Frequently Asked Questions"},
+    {"type": "textarea", "id": "subhead", "label": "Subheading"},
+    {"type": "header", "content": "Q1"},
+    {"type": "text", "id": "q1", "label": "Question", "default": "Will this actually work for me, or is it another placebo?"},
+    {"type": "inline_richtext", "id": "a1", "label": "Answer", "default": "We built this formula because that's exactly what we refused to sell. Every active is at a clinically-relevant dose, printed on the label — no proprietary blends, no hidden under-dosing, zero sugar. The formula works on the root: the brain's thermostat and the gut-hormone axis. And if it doesn't work for you, it costs you nothing — we back that with our 90-day guarantee."},
+    {"type": "header", "content": "Q2"},
+    {"type": "text", "id": "q2", "label": "Question", "default": "Can I take it with my medications — and is it safe every day, long-term?"},
+    {"type": "inline_richtext", "id": "a2", "label": "Answer", "default": "There are no known interactions with common prescriptions like SSRIs, thyroid medication, blood pressure medication, or birth control — but if you take daily medication, please run it past your prescriber first. It's a quick conversation. For long-term daily use: yes. Our doses have established safety data, our six probiotic strains are among the most studied in the world, and every batch is third-party tested. Vegan, made in Europe, sugar-free."},
+    {"type": "header", "content": "Q3"},
+    {"type": "text", "id": "q3", "label": "Question", "default": "Does this contain hormones? I can’t take HRT."},
+    {"type": "inline_richtext", "id": "a3", "label": "Answer", "default": "No. There are no hormones in this. Not estrogen. Not progesterone. Not DHEA. Not “secretly kind of HRT.” || If you can’t take hormone therapy — or you don’t want to — that’s exactly who this was built for. Botanicals at researched doses, not a hormone in a gummy. || If you are already on HRT and want to add this, that’s a conversation with your clinician. Bring them the label. That’s why every milligram is printed."},
+    {"type": "header", "content": "Q4"},
+    {"type": "text", "id": "q4", "label": "Question", "default": "How long until I feel something — and what if I don’t?"},
+    {"type": "inline_richtext", "id": "a4", "label": "Answer", "default": "Some women notice quieter nights or spacing flashes around weeks 3–4. For a lot of people the clearer shift is closer to weeks 6–8. Full effect is a 30–90 day window. That’s the formula, not a delay tactic. || Take two a day and give it a real chance. If your nights, heat, mood, or energy haven’t moved in a way that matters to you, you don’t pay — keep the bottle."},
+    {"type": "header", "content": "Q5"},
+    {"type": "text", "id": "q5", "label": "Question", "default": "Is it too late for me? I'm past 50."},
+    {"type": "inline_richtext", "id": "a5", "label": "Answer", "default": "No. The systems our formula supports — the hypothalamus-thermostat axis and the estrobolome — don't switch off at menopause. Women in their mid-50s and beyond report the same pattern: flushes down from a dozen a day to a handful a week, dry sheets, real sleep. We built this for perimenopause <em>and</em> beyond. The only version of too late is another year you didn't have to spend soaked and sleepless."},
+    {"type": "header", "content": "Q6"},
+    {"type": "text", "id": "q6", "label": "Question", "default": "How does the subscription work — and can I cancel anytime?"},
+    {"type": "inline_richtext", "id": "a6", "label": "Answer", "default": "Subscribing gets you the best price, and you're always in control: pause, skip, or cancel anytime, no hoops. You can also order a one-time purchase if you'd rather try it first. Our honest take: the real results land at month 3, and subscribers pay the lowest price to get there."},
+    {"type": "header", "content": "Q7"},
+    {"type": "text", "id": "q7", "label": "Question", "default": "What if it doesn't work for me?"},
+    {"type": "inline_richtext", "id": "a7", "label": "Answer", "default": "Email us within 90 days for a full refund — no returns, no forms, no fine print. The gut-hormone axis doesn't reset overnight, and a 30-day guarantee would ask you to quit before the shift happens. We give you a full three months because that's what your body actually needs — and we're betting on you, not on the fine print."},
+    {"type": "header", "content": "Q8"},
+    {"type": "text", "id": "q8", "label": "Question", "default": "What if I already take HRT, or other perimenopause supplements?"},
+    {"type": "inline_richtext", "id": "a8", "label": "Answer", "default": "This is not HRT and it does not replace HRT. || Some women use it because they can’t take hormones. Some use it because they don’t want to. Some are already on a prescription and want a non-hormonal option for sleep and heat — that is between you and your clinician. Bring them the label. || If you’re already taking other perimenopause blends, don’t stack three things and then guess which one did what. Pick a protocol. Give it 90 days."},
+    {"type": "header", "content": "Q9"},
+    {"type": "text", "id": "q9", "label": "Question"},
+    {"type": "inline_richtext", "id": "a9", "label": "Answer"}
+  ]
+}
+{% endschema %}
