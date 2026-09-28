@@ -6,17 +6,21 @@
       #wk-compare-{{ section.id }} .wk-cmp-table th,
       #wk-compare-{{ section.id }} .wk-cmp-table td { padding:15px 18px; text-align:left; vertical-align:middle; }
       #wk-compare-{{ section.id }} .wk-cmp-feat { font-size:14.5px; font-weight:500; color:#6B3D42; }
-      #wk-compare-{{ section.id }} .wk-cmp-wk { text-align:center; background:rgba(107,61,66,0.055); }
-      #wk-compare-{{ section.id }} .wk-cmp-comp { text-align:right; font-size:13.5px; color:#8a7568; }
+      #wk-compare-{{ section.id }} .wk-cmp-wk { text-align:left; background:rgba(107,61,66,0.055); font-size:13.5px; line-height:1.4; color:#3A2A20; font-weight:500; }
+      #wk-compare-{{ section.id }} .wk-cmp-comp { text-align:left; font-size:13.5px; line-height:1.4; color:#8a7568; }
+      #wk-compare-{{ section.id }} .wk-cmp-line { display:flex; gap:8px; align-items:flex-start; }
       #wk-compare-{{ section.id }} .wk-cmp-table thead th { border-bottom:1px solid rgba(107,61,66,0.14); }
       #wk-compare-{{ section.id }} .wk-cmp-table tbody tr { border-bottom:1px solid rgba(107,61,66,0.10); }
       #wk-compare-{{ section.id }} .wk-cmp-table tbody tr:last-child { border-bottom:none; }
-      #wk-compare-{{ section.id }} .wk-cmp-check { display:block; text-align:center; color:#C9653F; font-size:18px; font-weight:700; line-height:1; }
+      #wk-compare-{{ section.id }} .wk-cmp-check { flex:0 0 auto; color:#C9653F; font-size:16px; font-weight:700; line-height:1.2; }
       @media (max-width:600px){
         #wk-compare-{{ section.id }} .wk-cmp-table th,
         #wk-compare-{{ section.id }} .wk-cmp-table td { padding:12px 9px; }
         #wk-compare-{{ section.id }} .wk-cmp-feat { font-size:13px; }
+        #wk-compare-{{ section.id }} .wk-cmp-wk,
         #wk-compare-{{ section.id }} .wk-cmp-comp { font-size:12px; }
+        #wk-compare-{{ section.id }} .wk-cmp-line { gap:5px; }
+        #wk-compare-{{ section.id }} .wk-cmp-check { font-size:14px; }
       }
     </style>
     <div style="max-width:760px;margin:0 auto;">
@@ -32,17 +36,18 @@
             <tr>
               <th></th>
               <th class="wk-cmp-wk" style="background:#6B3D42;color:#F5E6D8;font-family:'Fraunces',serif;font-weight:500;font-size:16px;text-align:center;">Womankind</th>
-              <th style="text-align:right;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:#8a7568;font-weight:600;">Typical menopause gummy</th>
+              <th style="text-align:left;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:#8a7568;font-weight:600;">Typical menopause gummy</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td class="wk-cmp-feat">Every active and dose disclosed</td><td class="wk-cmp-wk"><span class="wk-cmp-check">&check;</span></td><td class="wk-cmp-comp">Often hidden in blends</td></tr>
-            <tr><td class="wk-cmp-feat">Standardized botanical extracts</td><td class="wk-cmp-wk"><span class="wk-cmp-check">&check;</span></td><td class="wk-cmp-comp">Often unspecified</td></tr>
-            <tr><td class="wk-cmp-feat">10 billion CFU probiotic blend</td><td class="wk-cmp-wk"><span class="wk-cmp-check">&check;</span></td><td class="wk-cmp-comp">Rarely included</td></tr>
-            <tr><td class="wk-cmp-feat">Zero added sugar</td><td class="wk-cmp-wk"><span class="wk-cmp-check">&check;</span></td><td class="wk-cmp-comp">Often contains sugar</td></tr>
-            <tr><td class="wk-cmp-feat">Zero added hormones</td><td class="wk-cmp-wk"><span class="wk-cmp-check">&check;</span></td><td class="wk-cmp-comp">Not always clear</td></tr>
-            <tr><td class="wk-cmp-feat">Built for menopausal hot flashes and night sweats</td><td class="wk-cmp-wk"><span class="wk-cmp-check">&check;</span></td><td class="wk-cmp-comp">Often a repackaged multivitamin</td></tr>
-            <tr><td class="wk-cmp-feat">Third-party tested for quality</td><td class="wk-cmp-wk"><span class="wk-cmp-check">&check;</span></td><td class="wk-cmp-comp">Not always disclosed</td></tr>
+            <tr><td class="wk-cmp-feat">Fewer, milder hot flashes</td><td class="wk-cmp-wk"><span class="wk-cmp-line"><span class="wk-cmp-check">&check;</span><span>Built for them — 6 botanicals at researched doses</span></span></td><td class="wk-cmp-comp">Token doses hidden in a blend</td></tr>
+            <tr><td class="wk-cmp-feat">Night sweats &amp; the 3am wake-up</td><td class="wk-cmp-wk"><span class="wk-cmp-line"><span class="wk-cmp-check">&check;</span><span>Aimed at the sleep they steal</span></span></td><td class="wk-cmp-comp">Nothing for the cause</td></tr>
+            <tr><td class="wk-cmp-feat">The root of the flush</td><td class="wk-cmp-wk"><span class="wk-cmp-line"><span class="wk-cmp-check">&check;</span><span>Gut-hormone support — 10B CFU probiotic</span></span></td><td class="wk-cmp-comp">Skipped entirely</td></tr>
+            <tr><td class="wk-cmp-feat">Sugar</td><td class="wk-cmp-wk"><span class="wk-cmp-line"><span class="wk-cmp-check">&check;</span><span>Zero — stevia + monk fruit</span></span></td><td class="wk-cmp-comp">2–4g per serving, feeding the imbalance</td></tr>
+            <tr><td class="wk-cmp-feat">Botanical doses</td><td class="wk-cmp-wk"><span class="wk-cmp-line"><span class="wk-cmp-check">&check;</span><span>Every milligram printed</span></span></td><td class="wk-cmp-comp">“Proprietary blend” — amounts hidden</td></tr>
+            <tr><td class="wk-cmp-feat">Hormones</td><td class="wk-cmp-wk"><span class="wk-cmp-line"><span class="wk-cmp-check">&check;</span><span>Zero added — works with your body</span></span></td><td class="wk-cmp-comp">Not always clear</td></tr>
+            <tr><td class="wk-cmp-feat">The guarantee</td><td class="wk-cmp-wk"><span class="wk-cmp-line"><span class="wk-cmp-check">&check;</span><span>90 days — long enough for the root to shift</span></span></td><td class="wk-cmp-comp">30 days — expires before it works</td></tr>
+            <tr><td class="wk-cmp-feat">Third-party tested</td><td class="wk-cmp-wk"><span class="wk-cmp-line"><span class="wk-cmp-check">&check;</span><span>Every batch</span></span></td><td class="wk-cmp-comp">Not always disclosed</td></tr>
           </tbody>
         </table>
       </div>
@@ -71,7 +76,7 @@
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Not your typical menopause gummy" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "More than candy with a menopause label" },
-    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Too many menopause gummies rely on sugar, vague blends, and trendy ingredients in token doses. Womankind is different: a zero-sugar, hormone-free formula with every active and every dose printed clearly on the label." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Most menopause gummies were built to sell, not to help. Sugar that feeds the flush, token doses behind vague blends, and nothing aimed at the root of the problem. Womankind is built differently — for fewer hot flashes, drier nights, and the sleep they steal." },
     { "type": "textarea", "id": "closing", "label": "Closing line" },
     { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Feel like yourself again" },
     { "type": "text", "id": "guarantee_text", "label": "Guarantee text", "default": "90 days to feel it—or it’s free." }
