@@ -3,9 +3,10 @@
   {%- assign exp_defaults = 'wk-expert-delgado.jpg,wk-expert-lin.jpg,wk-expert-raman.jpg' | split: ',' -%}
   <section style="background:#EFDFD0;padding:84px 28px;">
     <div style="max-width:1240px;margin:0 auto;">
-      <div style="margin-bottom:46px;">
-        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-style:italic;font-size:38px;line-height:1.05;margin:0;color:#3A2A20;">{{ section.settings.heading_lead }} <span style="color:#6B3D42;font-style:normal;font-weight:500;">{{ section.settings.heading_emph }}</span></h2>
-        {%- if section.settings.subheading != blank -%}<p style="font-size:15.5px;line-height:1.6;color:#4a3a30;max-width:62ch;margin:16px 0 0;">{{ section.settings.subheading }}</p>{%- endif -%}
+      <div style="text-align:center;margin:0 auto 42px;max-width:760px;">
+        {%- if section.settings.heading_lead != blank -%}<div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:14px;">{{ section.settings.heading_lead }}</div>{%- endif -%}
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:40px;line-height:1.12;margin:0 auto;max-width:22ch;color:#6B3D42;text-wrap:balance;">{{ section.settings.heading_emph }}</h2>
+        {%- if section.settings.subheading != blank -%}<p style="font-size:14.5px;line-height:1.6;color:#5a4636;max-width:52ch;margin:14px auto 0;text-wrap:pretty;">{{ section.settings.subheading }}</p>{%- endif -%}
       </div>
 
       <div class="wk-experts-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;">
@@ -39,8 +40,8 @@
 {
   "name": "WK - Experts (meno)",
   "settings": [
-    { "type": "text", "id": "heading_lead", "label": "Heading (italic part)", "default": "Recommended by" },
-    { "type": "text", "id": "heading_emph", "label": "Heading (emphasis part)", "default": "the clinicians who treat hot flashes & night sweats" },
+    { "type": "text", "id": "heading_lead", "label": "Eyebrow", "default": "Recommended by" },
+    { "type": "text", "id": "heading_emph", "label": "Heading", "default": "The clinicians who treat hot flashes & night sweats" },
     { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Not influencers. Not affiliates. Clinicians who can tell the difference between a real formula and a pretty label." },
     { "type": "header", "content": "Expert 1" },
     { "type": "image_picker", "id": "exp1_image", "label": "Photo" },
