@@ -1,7 +1,7 @@
-{%- comment -%} Menopause landing page (page.gummies-meno) {%- endcomment -%}
-{%- comment -%} gummies-sub hero — subscription-only clone of wk-hero-3 (2 plans + free gift stack) {%- endcomment -%}
+{%- comment -%} Perimenopause PDP (product.gummies-sub) — 1-month buy box {%- endcomment -%}
+{%- comment -%} clone of wk-hero-meno-1m with the perimenopause copy + gallery of wk-hero-sub: Subscribe & Save (1 bottle/month + free gifts) vs one-time purchase (1 bottle) {%- endcomment -%}
 {%- assign wk_product = section.settings.product -%}
-{%- if wk_product != blank -%}{%- assign wk_variant = wk_product.selected_or_first_available_variant -%}{%- assign wk_selling_plan = wk_product.selling_plan_groups.first.selling_plans.first -%}{%- endif -%}
+{%- if wk_product != blank -%}{%- assign wk_variant = wk_product.selected_or_first_available_variant -%}{%- endif -%}
 
 <style>
   /* no overflow:hidden here — it would clip the badge that straddles the top edge; the head/body round their own corners instead */
@@ -125,7 +125,7 @@
             {%- assign gik = 'gallery_' | append: i | append: '_image' -%}
             {%- assign gimg = section.settings[gik] -%}
             {%- if gimg -%}{%- assign wk_full = gimg | image_url: width: 1200 -%}{%- assign wk_galt = gimg.alt | default: 'Womankind Hormonal Support Gummies' -%}
-            {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- if i == 4 -%}{%- assign gfname = 'wk-meno-buybox-4.jpg' -%}{%- endif -%}{%- assign wk_full = gfname | asset_url -%}{%- assign wk_galt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
+            {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- assign wk_full = gfname | asset_url -%}{%- assign wk_galt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
             <img class="wk-hero-slide" src="{{ wk_full }}" alt="{{ wk_galt }}" width="1200" height="1200" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" draggable="false">
           {%- endfor -%}
         </div>
@@ -139,7 +139,7 @@
             {%- assign gik = 'gallery_' | append: i | append: '_image' -%}
             {%- assign gimg = section.settings[gik] -%}
             {%- if gimg -%}{%- assign tsrc = gimg | image_url: width: 240 -%}{%- assign tfull = gimg | image_url: width: 1200 -%}{%- assign talt = gimg.alt | default: 'Womankind Hormonal Support Gummies' -%}
-            {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- if i == 4 -%}{%- assign gfname = 'wk-meno-buybox-4.jpg' -%}{%- endif -%}{%- assign tsrc = gfname | asset_img_url: '240x240' -%}{%- assign tfull = gfname | asset_url -%}{%- assign talt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
+            {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- assign tsrc = gfname | asset_img_url: '240x240' -%}{%- assign tfull = gfname | asset_url -%}{%- assign talt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
             <button type="button" data-wk-thumb data-wk-full="{{ tfull }}" aria-label="View image {{ i }}" style="cursor:pointer;padding:0;aspect-ratio:1/1;background:#D8C2BA;border-radius:9px;overflow:hidden;{% if forloop.first %}border:2px solid #6B3D42;{% else %}border:2px solid transparent;{% endif %}display:flex;align-items:center;justify-content:center;">
               <img src="{{ tsrc }}" alt="{{ talt }}" width="240" height="240" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
             </button>
@@ -179,25 +179,34 @@
         {%- endif -%}
       </div>
 
-      <!-- PLAN SELECTOR (subscription only) -->
+      <!-- PLAN SELECTOR (Subscribe & Save vs one-time, 1 bottle each) -->
+      {%- comment -%}
+        Server-rendered starting prices so nothing flashes before the script runs. The script then
+        re-prices against the LIVE selling-plan discount, which is what checkout charges.
+      {%- endcomment -%}
+      {%- assign wk_price = wk_variant.price | default: 5995 -%}
+      {%- assign wk_sub_keep = 100 | minus: section.settings.sub_pct -%}
+      {%- assign wk_sub_cents = wk_price | times: wk_sub_keep | divided_by: 100.0 | round -%}
+      {%- assign wk_one_off = wk_price | times: section.settings.one_pct | divided_by: 100 -%}
+      {%- assign wk_one_cents = wk_price | minus: wk_one_off -%}
       <div style="font-size:11.5px;letter-spacing:0.22em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:22px;">{{ section.settings.plans_label }}</div>
       <div style="display:flex;flex-direction:column;gap:18px;margin-bottom:20px;">
 
-        <!-- 3-MONTH -->
-        <div class="wk-plan is-sel" data-wk="supply" data-wk-val="3" data-wk-plan="3" role="radio" aria-checked="true" tabindex="0">
-          {%- if section.settings.tier3_badge != blank -%}<span class="wk-plan-badge">{{ section.settings.tier3_badge }}</span>{%- endif -%}
+        <!-- SUBSCRIBE & SAVE -->
+        <div class="wk-plan is-sel" data-wk="supply" data-wk-val="sub" data-wk-plan="sub" role="radio" aria-checked="true" tabindex="0">
+          {%- if section.settings.sub_badge != blank -%}<span class="wk-plan-badge">{{ section.settings.sub_badge }}</span>{%- endif -%}
           <div class="wk-plan-head">
             <span style="display:flex;align-items:center;gap:12px;min-width:0;">
               <span class="wk-radio"><span>&check;</span></span>
               <span style="min-width:0;">
-                <span class="wk-plan-name" style="display:block;font-size:17.2px;font-weight:700;color:#6B3D42;line-height:1.25;">{{ section.settings.tier3_name }}</span>
-                <span class="wk-plan-sub" style="display:block;font-size:13.8px;color:#7a6258;margin-top:4px;">{{ section.settings.tier3_sub }}</span>
+                <span class="wk-plan-name" style="display:block;font-size:17.2px;font-weight:700;color:#6B3D42;line-height:1.25;">{{ section.settings.sub_name }}</span>
+                <span class="wk-plan-sub" style="display:block;font-size:13.8px;color:#7a6258;margin-top:4px;">{{ section.settings.sub_sub }}</span>
               </span>
             </span>
             <span style="text-align:right;flex:0 0 auto;">
-              <span class="wk-plan-compare" data-wk-compare="3" style="display:block;font-size:14.6px;text-decoration:line-through;color:#8f6266;line-height:1.2;">$149.55</span>
-              <span class="wk-plan-price" style="display:block;font-size:27px;font-weight:700;color:#C9653F;line-height:1.1;"><span data-wk-permo="3">$24.93</span>{{ section.settings.price_suffix }}</span>
-              {%- if section.settings.tier3_billing != blank -%}<span class="wk-plan-bill" style="display:block;font-size:12.8px;color:#7a6258;margin-top:4px;"><span data-wk-total="3">$74.79</span> {{ section.settings.tier3_billing }}</span>{%- endif -%}
+              <span class="wk-plan-compare" data-wk-compare="sub" style="display:block;font-size:14.6px;text-decoration:line-through;color:#8f6266;line-height:1.2;">{{ wk_price | money }}</span>
+              <span class="wk-plan-price" style="display:block;font-size:27px;font-weight:700;color:#C9653F;line-height:1.1;"><span data-wk-permo="sub">{{ wk_sub_cents | money }}</span>{{ section.settings.sub_suffix }}</span>
+              {%- if section.settings.sub_billing != blank -%}<span class="wk-plan-bill" style="display:block;font-size:12.8px;color:#7a6258;margin-top:4px;">{{ section.settings.sub_billing }}</span>{%- endif -%}
             </span>
           </div>
           <div class="wk-plan-body">
@@ -212,7 +221,7 @@
                 <span class="wk-inc-t" style="display:block;">{{ section.settings.supply_title }}</span>
                 <span class="wk-inc-d" style="display:block;">{{ section.settings.supply_desc }}</span>
               </span>
-              <span class="wk-pill" data-wk-save="3">Save 50%</span>
+              <span class="wk-pill" data-wk-save="sub">Save {{ section.settings.sub_pct }}%</span>
             </div>
 
             {%- assign has_gift = false -%}
@@ -249,25 +258,24 @@
           </div>
         </div>
 
-        <!-- 1-MONTH -->
-        {%- comment -%} no body on this card: with nothing to list, a selected 1-month plan is header-only {%- endcomment -%}
-        {%- assign t1_bare = ' wk-plan--bare' -%}{%- if section.settings.tier1_missing != blank -%}{%- assign t1_bare = '' -%}{%- endif -%}
-        <div class="wk-plan{{ t1_bare }}" data-wk="supply" data-wk-val="1" data-wk-plan="1" role="radio" aria-checked="false" tabindex="0">
+        <!-- ONE-TIME PURCHASE -->
+        {%- comment -%} header-only card unless a loss-aversion note is set {%- endcomment -%}
+        {%- assign one_bare = ' wk-plan--bare' -%}{%- if section.settings.one_missing != blank -%}{%- assign one_bare = '' -%}{%- endif -%}
+        <div class="wk-plan{{ one_bare }}" data-wk="supply" data-wk-val="one" data-wk-plan="one" role="radio" aria-checked="false" tabindex="0">
           <div class="wk-plan-head">
             <span style="display:flex;align-items:center;gap:12px;min-width:0;">
               <span class="wk-radio"><span>&check;</span></span>
               <span style="min-width:0;">
-                <span class="wk-plan-name" style="display:block;font-size:17.2px;font-weight:700;color:#6B3D42;line-height:1.25;">{{ section.settings.tier1_name }}</span>
-                <span class="wk-plan-sub" style="display:block;font-size:13.8px;color:#7a6258;margin-top:4px;">{{ section.settings.tier1_sub }}</span>
+                <span class="wk-plan-name" style="display:block;font-size:17.2px;font-weight:700;color:#6B3D42;line-height:1.25;">{{ section.settings.one_name }}</span>
+                <span class="wk-plan-sub" style="display:block;font-size:13.8px;color:#7a6258;margin-top:4px;">{{ section.settings.one_sub }}</span>
               </span>
             </span>
             <span style="text-align:right;flex:0 0 auto;">
-              <span class="wk-plan-compare" data-wk-compare="1" style="display:none;font-size:14.6px;text-decoration:line-through;color:#8f6266;line-height:1.2;">$49.85</span>
-              <span class="wk-plan-price" style="display:block;font-size:27px;font-weight:700;color:#C9653F;line-height:1.1;"><span data-wk-permo="1">$49.85</span>{{ section.settings.price_suffix }}</span>
-              {%- if section.settings.tier1_billing != blank -%}<span class="wk-plan-bill" style="display:block;font-size:12.8px;color:#7a6258;margin-top:4px;"><span data-wk-total="1">$49.85</span> {{ section.settings.tier1_billing }}</span>{%- endif -%}
+              <span class="wk-plan-compare" data-wk-compare="one" style="display:none;font-size:14.6px;text-decoration:line-through;color:#8f6266;line-height:1.2;">{{ wk_price | money }}</span>
+              <span class="wk-plan-price" style="display:block;font-size:27px;font-weight:700;color:#C9653F;line-height:1.1;"><span data-wk-permo="one">{{ wk_one_cents | money }}</span>{{ section.settings.one_suffix }}</span>
             </span>
           </div>
-          {%- if section.settings.tier1_missing != blank -%}<div class="wk-miss">{{ section.settings.tier1_missing }}</div>{%- endif -%}
+          {%- if section.settings.one_missing != blank -%}<div class="wk-miss">{{ section.settings.one_missing }}</div>{%- endif -%}
         </div>
       </div>
 
@@ -279,9 +287,9 @@
           {%- comment -%}
             items[] notation so the free-gift products can be added in the same request.
             The gift lines deliberately carry NO selling plan, so they stay out of the
-            subscription contract and never recur. They are disabled unless the 3-month
-            plan is selected — FormData omits disabled inputs, which is what drops them
-            from the 1-month path (leaving a gap in the indices, which Shopify accepts).
+            subscription contract and never recur. They are disabled unless Subscribe & Save
+            is selected — FormData omits disabled inputs, which is what drops them from
+            the one-time path (leaving a gap in the indices, which Shopify accepts).
 
             Order matters: Shopify lists cart lines in REVERSE of the order they are sent,
             so the gummies go LAST here to appear FIRST in the cart, drawer and checkout.
@@ -298,8 +306,9 @@
           {%- endfor -%}
           {%- assign midx = gidx | plus: 1 -%}
           <input type="hidden" name="items[{{ midx }}][id]" value="{{ wk_variant.id }}">
-          <input type="hidden" name="items[{{ midx }}][quantity]" value="3" data-wk-qty>
-          <input type="hidden" name="items[{{ midx }}][selling_plan]" value="{{ wk_selling_plan.id }}" data-wk-selling-plan>
+          <input type="hidden" name="items[{{ midx }}][quantity]" value="1">
+          {%- comment -%} starts empty + disabled: the script fills in the monthly plan, so a page whose script never runs sells one-time at full price rather than on the wrong plan {%- endcomment -%}
+          <input type="hidden" name="items[{{ midx }}][selling_plan]" value="" data-wk-selling-plan disabled>
           <button type="submit" class="wk-atc"{% unless wk_variant.available %} disabled{% endunless %}>
             {%- if wk_variant.available -%}
               <span class="wk-atc-main">{{ section.settings.atc_label }}</span>
@@ -311,11 +320,6 @@
             {%- endif -%}
           </button>
         </form>
-        {%- if section.settings.onetime_label != blank -%}
-          <div style="text-align:center;margin:14px 0 0;">
-            <button type="button" data-wk-onetime style="cursor:pointer;font-family:inherit;background:none;border:none;padding:4px 6px;font-size:15.2px;color:#6B3D42;font-weight:600;text-decoration:underline;text-underline-offset:3px;">{{ section.settings.onetime_label }}</button>
-          </div>
-        {%- endif -%}
       {%- else -%}
         <button style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;">Select a product</button>
       {%- endif -%}
@@ -405,7 +409,7 @@
   if (!root || root.dataset.wkInit) return;
   root.dataset.wkInit = '1';
   var RING = '0 0 0 2px #6B3D42', NONE = '0 0 0 0 transparent';
-  var state = { flavor:'cranberry', supply:'3' };
+  var state = { flavor:'cranberry', supply:'sub' };
 
   function applySelection(group){
     var val = state[group];
@@ -423,103 +427,64 @@
     }
   }
 
-  // --- subscription-only pricing: every plan attaches a selling plan; no one-time path ---
-  var BOTTLE = {{ wk_variant.price | default: 4985 }};   // cents, live variant price (already in the market's presentment currency)
+  // --- Subscribe & Save (1 bottle on a monthly selling plan) vs one-time (1 bottle, no plan) ---
+  var BOTTLE = {{ wk_variant.price | default: 5995 }};   // cents, live variant price (already in the market's presentment currency)
   var SELLING_PLANS = [
     {%- assign wk_sp_first = true -%}
     {%- for grp in wk_product.selling_plan_groups -%}{%- for sp in grp.selling_plans -%}
       {%- unless wk_sp_first %},{% endunless %}{%- assign wk_adj = sp.price_adjustments.first -%}{ id: {{ sp.id }}, name: {{ sp.name | json }}, pct: {% if wk_adj and wk_adj.value_type == 'percentage' %}{{ wk_adj.value }}{% else %}null{% endif %} }{%- assign wk_sp_first = false -%}
     {%- endfor -%}{%- endfor -%}
   ];
-  var PLAN_OVERRIDES = { '1': {{ section.settings.plan_1_id | default: 'null' }}, '3': {{ section.settings.plan_3_id | default: 'null' }} };
-  function wkParseInterval(name){
-    name = (name || '').toLowerCase();
-    if (/quarter/.test(name)) return 3;
-    var m = name.match(/(\d+)\s*-?\s*month/); if (m) return parseInt(m[1], 10);
-    if (/month/.test(name)) return 1;
-    if (/annual|year/.test(name)) return 12;
-    return 0;
+  var SUB_PCT = {{ section.settings.sub_pct | default: 40 }};
+  var ONE_PCT = {{ section.settings.one_pct | default: 0 | divided_by: 100.0 }};
+  var PLAN_OVERRIDE = {{ section.settings.plan_id | default: 'null' }};
+
+  // The monthly plan: the pinned ID if one is set, otherwise the plan whose live discount equals
+  // SUB_PCT. Never matched by name — a wrong plan means a wrong price at checkout.
+  var SUB_PLAN = null;
+  for (var i = 0; i < SELLING_PLANS.length; i++) {
+    var sp = SELLING_PLANS[i];
+    if (PLAN_OVERRIDE ? sp.id === PLAN_OVERRIDE : sp.pct === SUB_PCT) { SUB_PLAN = sp; break; }
   }
-  // Three strategies, most reliable first. Plan NAMES are cosmetic and get edited in the
-  // subscription app, so they are the last thing we trust — and if nothing matches we attach
-  // NO plan rather than guessing, because the wrong plan means the wrong price at checkout.
-  function planForTier(tier){
-    // 1. explicit ID pinned in the theme settings — always wins
-    if (PLAN_OVERRIDES[tier]) return PLAN_OVERRIDES[tier];
-    // 2. match on the actual discount, which is the contract the buy box prices against
-    var wantPct = Math.round(((TIERS[tier] && TIERS[tier].sub) || 0) * 100);
-    if (wantPct > 0) {
-      for (var i = 0; i < SELLING_PLANS.length; i++) {
-        if (SELLING_PLANS[i].pct === wantPct) return SELLING_PLANS[i].id;
-      }
-    }
-    // 3. last resort: read the delivery interval out of the plan name
-    var want = { '1': 1, '3': 3 }[tier];
-    for (var j = 0; j < SELLING_PLANS.length; j++) {
-      if (wkParseInterval(SELLING_PLANS[j].name) === want) return SELLING_PLANS[j].id;
-    }
-    return null;
+  // Price against the plan's LIVE discount, so the buy box can never drift from checkout.
+  var subPct = SUB_PLAN ? (SUB_PLAN.pct || 0) / 100 : SUB_PCT / 100;
+
+  // No matching plan means we can't honestly sell the subscription: hide that card and fall back
+  // to one-time, which is always priced correctly. The theme editor still shows it (priced from
+  // sub_pct) so the layout can be reviewed before the plan exists.
+  if (!SUB_PLAN && !{{ request.design_mode }}) {
+    if (window.console) console.warn('[wk-hero-sub-1m] no selling plan at ' + SUB_PCT + '% (or pinned ID) - Subscribe & Save hidden');
+    root.querySelectorAll('[data-wk-plan="sub"]').forEach(function(c){ c.style.display = 'none'; });
+    state.supply = 'one';
   }
-  // sub = subscription discount % per tier. MUST equal the Shopify selling-plan discount or the buy box will disagree with checkout.
-  var TIERS = {
-    '1': { m: 1, sub: {{ section.settings.sub_1_pct | default: 0 | divided_by: 100.0 }}, one: {{ section.settings.one_1_pct | default: 0 | divided_by: 100.0 }} },
-    '3': { m: 3, sub: {{ section.settings.sub_3_pct | default: 50 | divided_by: 100.0 }}, one: {{ section.settings.one_3_pct | default: 0 | divided_by: 100.0 }} }
-  };
 
   var WK_CUR = (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD';
   var WK_NF; try { WK_NF = new Intl.NumberFormat('en', { style:'currency', currency:WK_CUR, currencyDisplay:'narrowSymbol' }); } catch(e){ try { WK_NF = new Intl.NumberFormat('en', { style:'currency', currency:WK_CUR }); } catch(_){ WK_NF = null; } }
   function wkMoney(cents){ var v=(cents||0)/100; return WK_NF ? WK_NF.format(v).replace(/[.,]00(?=\D*$)/, '') : '$' + v.toFixed(2).replace(/\.00$/, ''); }
 
-  // The discount to show: the LIVE discount on the plan this tier attaches, so a plan edited in the
-  // subscription app can never drift from the buy box. The sub_X_pct setting is only the fallback
-  // for when no plan resolves (and is what planForTier matches on when no ID is pinned).
-  function wkPlanPct(tier){
-    var pid = planForTier(tier);
-    if (!pid) return TIERS[tier].sub;
-    for (var i = 0; i < SELLING_PLANS.length; i++) {
-      if (SELLING_PLANS[i].id === pid) return (SELLING_PLANS[i].pct || 0) / 100;
-    }
-    return TIERS[tier].sub;
-  }
-
-  function wkQuote(tier){
-    var t = TIERS[tier];
-    var full = BOTTLE * t.m;
-    // Shopify rounds the discounted per-bottle plan price, then multiplies — mirror it so display == checkout.
-    var perUnit = Math.round(BOTTLE * (1 - wkPlanPct(tier)));
-    var total = perUnit * t.m;
-    return { full: full, total: total, perMo: perUnit, save: Math.round((1 - total / full) * 100) };
-  }
-
-  // One-time purchase: no selling plan attached, so Shopify's automatic quantity discounts apply
-  // instead of the plan price. Shopify floors the per-bottle discount, so mirror that exactly or
-  // the link will disagree with checkout.
-  function wkQuoteOne(tier){
-    var t = TIERS[tier];
-    var perUnit = BOTTLE - Math.floor(BOTTLE * (t.one || 0));
-    return { total: perUnit * t.m, perMo: perUnit };
+  // Shopify rounds the selling-plan price but floors an automatic discount — mirror both exactly.
+  function wkQuote(mode){
+    var price = (mode === 'sub')
+      ? Math.round(BOTTLE * (1 - subPct))
+      : BOTTLE - Math.floor(BOTTLE * ONE_PCT);
+    return { full: BOTTLE, total: price, save: Math.round((1 - price / BOTTLE) * 100) };
   }
 
   function applyPricing(){
-    ['1','3'].forEach(function(k){
+    ['sub','one'].forEach(function(k){
       var q = wkQuote(k);
-      root.querySelectorAll('[data-wk-total="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.total); });
-      root.querySelectorAll('[data-wk-permo="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.perMo); });
+      root.querySelectorAll('[data-wk-permo="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.total); });
       root.querySelectorAll('[data-wk-compare="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.full); e.style.display = q.save > 0 ? 'block' : 'none'; });
       root.querySelectorAll('[data-wk-save="'+k+'"]').forEach(function(e){ e.textContent = 'Save ' + q.save + '%'; e.style.display = q.save > 0 ? '' : 'none'; });
     });
     root.querySelectorAll('[data-wk-atc-total]').forEach(function(e){ e.textContent = wkMoney(wkQuote(state.supply).total); });
-    root.querySelectorAll('[data-wk-onetime-total]').forEach(function(e){ e.textContent = wkMoney(wkQuoteOne(state.supply).total); });
   }
 
-  // subscription is always on — the selling plan is never disabled
+  // Subscribe & Save attaches the monthly plan + the free gifts; one-time sends the bottle alone.
   function applyCart(){
-    var planId = planForTier(state.supply);
-    root.querySelectorAll('[data-wk-qty]').forEach(function(i){ i.value = state.supply; });
-    root.querySelectorAll('[data-wk-selling-plan]').forEach(function(i){ if (planId) i.value = planId; i.disabled = !planId; });
-    // the free gifts ride along with the 3-month plan only
-    var giftsOn = (state.supply === '3');
-    root.querySelectorAll('[data-wk-gift]').forEach(function(i){ i.disabled = !giftsOn; });
+    var sub = (state.supply === 'sub' && !!SUB_PLAN);
+    root.querySelectorAll('[data-wk-selling-plan]').forEach(function(i){ if (SUB_PLAN) i.value = SUB_PLAN.id; i.disabled = !sub; });
+    root.querySelectorAll('[data-wk-gift]').forEach(function(i){ i.disabled = !sub; });
   }
 
   function applySupply(){ applyCart(); applyPricing(); }
@@ -537,10 +502,6 @@
   applySelection('supply');
   applySupply();
 
-  // "One-time purchase" — reuse the main form, but disable the selling-plan input so it is left out.
-  // The cart drawer intercepts the submit event and posts new FormData(form); disabled inputs are
-  // excluded from FormData, which is exactly what turns this into a one-time order.
-  // requestSubmit() fires the submit event (form.submit() does NOT, and would bypass the drawer).
   // Countdown to the end of the viewer's own day. `end` is recomputed every tick from a fresh
   // local Date, so it rolls over to the next midnight on its own and follows the visitor's timezone.
   var wkCd = root.querySelector('[data-wk-countdown]');
@@ -557,26 +518,6 @@
     wkTick();
     setInterval(wkTick, 1000);
   }
-
-  root.querySelectorAll('[data-wk-onetime]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var form = root.querySelector('[data-wk-form]');
-      if (!form) return;
-      var plans = form.querySelectorAll('[data-wk-selling-plan]');
-      plans.forEach(function(i){ i.disabled = true; });
-      // the free gifts are subscription-only (the FREEGIFTS discount only applies to subscriptions),
-      // so a one-time order must not carry them or they'd be charged at full price
-      form.querySelectorAll('[data-wk-gift]').forEach(function(i){ i.disabled = true; });
-      if (form.requestSubmit) {
-        form.requestSubmit();
-        // FormData was captured synchronously inside the submit handler, so it is already safe to
-        // restore the subscription state for the main add-to-cart button.
-        applyCart();
-      } else {
-        form.submit();   // legacy fallback: navigating away, so leave the plan disabled
-      }
-    });
-  });
 
   function bindAccordion(btnAttr, panelAttr){
     root.querySelectorAll('['+btnAttr+']').forEach(function(btn){
@@ -758,7 +699,7 @@
 
 {% schema %}
 {
-  "name": "WK - Hero (meno)",
+  "name": "WK - Hero (sub 1-month)",
   "settings": [
     { "type": "product", "id": "product", "label": "Product", "info": "Select the gummies product. Required for add-to-cart and pricing." },
     { "type": "header", "content": "Gallery", "info": "10 images. Defaults to assets/wk-buybox-1…10.jpg." },
@@ -775,48 +716,43 @@
     { "type": "image_picker", "id": "gallery_9_image", "label": "Image 9" },
     { "type": "image_picker", "id": "gallery_10_image", "label": "Image 10" },
     { "type": "header", "content": "Heading" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Zero sugar · no hormones · 90-day guarantee" },
-    { "type": "text", "id": "heading", "label": "Title", "default": "Dry nights. Cooler days. Feel like yourself again." },
-    { "type": "textarea", "id": "description", "label": "Description", "default": "Two zero-sugar gummies a day for the hot flashes and night sweats of menopause — and the sleep they steal. Whether it’s been two years or ten.*" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Zero sugar · no hormones · cancel anytime" },
+    { "type": "text", "id": "heading", "label": "Title", "default": "Wake up dry. Get through the day without the heat. Feel like yourself again." },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Two zero-sugar gummies a day for hot flashes, night sweats, disrupted sleep, mood changes, and the energy dips that can make you feel unlike yourself.*" },
     { "type": "header", "content": "Benefit checklist" },
-    { "type": "inline_richtext", "id": "benefit_1", "label": "Benefit 1", "default": "Hot flashes cut by 92% — day and night*" },
-    { "type": "inline_richtext", "id": "benefit_2", "label": "Benefit 2", "default": "Soaked sheets gone — 94% sleep cooler and stop losing nights*" },
-    { "type": "inline_richtext", "id": "benefit_3", "label": "Benefit 3", "default": "Moods that stop swinging — 89% steadier within 90 days*" },
-    { "type": "inline_richtext", "id": "benefit_4", "label": "Benefit 4", "default": "Zero sugar. Zero hormones. Zero proprietary blends." },
+    { "type": "inline_richtext", "id": "benefit_1", "label": "Benefit 1", "default": "Fewer, milder hot flashes and night sweats*" },
+    { "type": "inline_richtext", "id": "benefit_2", "label": "Benefit 2", "default": "Deeper sleep and fewer 3am wake-ups*" },
+    { "type": "inline_richtext", "id": "benefit_3", "label": "Benefit 3", "default": "Steadier mood, stress response, and daytime energy*" },
+    { "type": "inline_richtext", "id": "benefit_4", "label": "Benefit 4", "default": "6 research-backed botanicals in fully disclosed doses — zero hormones, zero sugar, no proprietary blend" },
     { "type": "header", "content": "Flavor" },
     { "type": "text", "id": "flavor_label", "label": "Section label", "default": "Flavor" },
     { "type": "text", "id": "flavor_pill", "label": "Flavor pill", "default": "Mixed berries" },
     { "type": "text", "id": "sale_badge", "label": "Sale badge (leave blank to hide)" },
-    { "type": "header", "content": "Plans", "info": "Subscription only. Both options attach a selling plan — there is no one-time path on this page." },
-    { "type": "text", "id": "plans_label", "label": "Selector label", "default": "Choose your plan" },
-    { "type": "text", "id": "tier3_badge", "label": "3-month badge", "default": "Best results · Most popular" },
-    { "type": "text", "id": "tier3_name", "label": "3-month name", "default": "3-Month Reset" },
-    { "type": "text", "id": "tier3_sub", "label": "3-month sub-line", "default": "3 bottles · 90 day supply" },
-    { "type": "text", "id": "tier3_billing", "label": "3-month billing note", "default": "billed today" },
-    { "type": "text", "id": "price_suffix", "label": "Price suffix", "default": "/bottle", "info": "Shown after the large price, e.g. $24.93/bottle" },
-    { "type": "text", "id": "tier1_name", "label": "1-month name", "default": "1-Month Supply" },
-    { "type": "text", "id": "tier1_sub", "label": "1-month sub-line", "default": "1 bottle · 30 day supply" },
-    { "type": "text", "id": "tier1_billing", "label": "1-month billing note", "info": "Leave blank to hide the line under the price." },
-    { "type": "text", "id": "tier1_missing", "label": "1-month loss-aversion note", "info": "Shown under the 1-month card. Leave blank to hide (the card then renders header-only)." },
-    { "type": "header", "content": "Plan discounts", "info": "MUST match the discount on the matching Shopify selling plan, or the buy box will disagree with checkout. 0 = full price." },
-    { "type": "range", "id": "sub_1_pct", "label": "1-month discount %", "min": 0, "max": 60, "step": 1, "default": 0, "unit": "%" },
-    { "type": "range", "id": "sub_3_pct", "label": "3-month discount %", "min": 0, "max": 60, "step": 1, "default": 50, "unit": "%" },
-    { "type": "text", "id": "plan_1_id", "label": "1-month plan ID (optional override)" },
-    { "type": "text", "id": "plan_3_id", "label": "3-month plan ID (optional override)" },
-    { "type": "header", "content": "Free gift products", "info": "Variant IDs (not product IDs) of the three $0 gift products. They are added as one-time lines alongside the 3-month plan and skipped on 1-month. Leave one blank to drop that gift. Find IDs at yourstore.com/products.json" },
+    { "type": "header", "content": "Plans", "info": "Two cards, 1 bottle each: Subscribe & Save (monthly selling plan + free gifts) and a one-time purchase (no plan, no gifts)." },
+    { "type": "text", "id": "plans_label", "label": "Selector label", "default": "Choose how to start" },
+    { "type": "text", "id": "sub_badge", "label": "Subscribe badge", "default": "Most popular · Free gifts" },
+    { "type": "text", "id": "sub_name", "label": "Subscribe name", "default": "Subscribe & Save" },
+    { "type": "text", "id": "sub_sub", "label": "Subscribe sub-line", "default": "1 bottle every 30 days · Skip or cancel anytime" },
+    { "type": "text", "id": "sub_suffix", "label": "Subscribe price suffix", "default": "/mo" },
+    { "type": "text", "id": "sub_billing", "label": "Subscribe billing note", "info": "Small line under the price. Leave blank to hide." },
+    { "type": "text", "id": "one_name", "label": "One-time name", "default": "One-Time Purchase" },
+    { "type": "text", "id": "one_sub", "label": "One-time sub-line", "default": "1 bottle · 30 day supply" },
+    { "type": "text", "id": "one_suffix", "label": "One-time price suffix", "info": "Leave blank for no suffix." },
+    { "type": "text", "id": "one_missing", "label": "One-time loss-aversion note", "info": "Shown under the one-time card. Leave blank to hide." },
+    { "type": "header", "content": "Pricing", "info": "The subscription is priced from the LIVE discount on the matched selling plan, so display always equals checkout. If no plan matches, the Subscribe card hides itself and the page sells one-time only." },
+    { "type": "range", "id": "sub_pct", "label": "Subscription discount %", "min": 5, "max": 60, "step": 1, "default": 40, "unit": "%", "info": "Used to find the monthly selling plan with this exact discount." },
+    { "type": "text", "id": "plan_id", "label": "Monthly plan ID (override)", "info": "Optional. Pin a specific selling plan instead of matching on the discount." },
+    { "type": "range", "id": "one_pct", "label": "One-time discount %", "min": 0, "max": 60, "step": 1, "default": 0, "unit": "%", "info": "0 = full price. Only raise this if a matching automatic discount is live in Shopify." },
+    { "type": "header", "content": "Free gift products", "info": "Variant IDs (not product IDs) of the three $0 gift products. They are added as one-time lines with Subscribe & Save and skipped on one-time. Leave one blank to drop that gift. Find IDs at yourstore.com/products.json" },
     { "type": "text", "id": "gift_1_variant", "label": "Gift 1 variant ID", "default": "55027541049683", "info": "The 90-Day Reset Protocol" },
     { "type": "text", "id": "gift_2_variant", "label": "Gift 2 variant ID", "default": "55027546456403", "info": "The Estrobolome Food Guide" },
     { "type": "text", "id": "gift_3_variant", "label": "Gift 3 variant ID", "default": "55027553272147", "info": "The Womankind Circle" },
-    { "type": "header", "content": "One-time purchase link", "info": "Escape hatch for visitors who don't want a subscription. On this page one-time buyers get NO discount, so these stay at 0 — but they must still match whatever automatic discounts are actually live in Shopify, because no selling plan is attached and those are what apply at checkout. Leave the label blank to hide the link." },
-    { "type": "text", "id": "onetime_label", "label": "Link label", "default": "One-time purchase" },
-    { "type": "range", "id": "one_1_pct", "label": "1-bottle one-time discount %", "min": 0, "max": 60, "step": 1, "default": 0, "unit": "%" },
-    { "type": "range", "id": "one_3_pct", "label": "3-bottle one-time discount %", "min": 0, "max": 60, "step": 1, "default": 0, "unit": "%", "info": "0 = full price. Only raise this if a one-time automatic discount is live in Shopify." },
     { "type": "header", "content": "What's included" },
-    { "type": "text", "id": "includes_label", "label": "Includes label", "default": "Your 90-day reset includes" },
+    { "type": "text", "id": "includes_label", "label": "Includes label", "default": "Your first order includes" },
     { "type": "image_picker", "id": "supply_image", "label": "Supply thumbnail" },
-    { "type": "text", "id": "supply_title", "label": "Supply title", "default": "90 days of Womankind" },
-    { "type": "text", "id": "supply_desc", "label": "Supply description", "default": "OB/GYN-formulated protocol for daily menopause support" },
-    { "type": "header", "content": "Free gifts (3-month only)", "info": "Gifts 1–3 default to the artwork in assets/wk-gift-1…3.png (book mockups + community avatar) — upload an image only to override. Leave a title blank to hide that gift. Values are plain text and do not convert between currencies." },
+    { "type": "text", "id": "supply_title", "label": "Supply title", "default": "30 days of Womankind" },
+    { "type": "text", "id": "supply_desc", "label": "Supply description", "default": "OB/GYN-formulated protocol for daily perimenopause support, delivered monthly" },
+    { "type": "header", "content": "Free gifts (Subscribe & Save only)", "info": "Gifts 1–3 default to the artwork in assets/wk-gift-1…3.png (book mockups + community avatar) — upload an image only to override. Leave a title blank to hide that gift. Values are plain text and do not convert between currencies." },
     { "type": "text", "id": "gifts_label", "label": "Gifts divider label", "default": "Free gifts" },
     { "type": "image_picker", "id": "gift_1_image", "label": "Gift 1 image" },
     { "type": "text", "id": "gift_1_title", "label": "Gift 1 title", "default": "The 90-Day Reset Protocol" },
@@ -824,11 +760,11 @@
     { "type": "text", "id": "gift_1_value", "label": "Gift 1 value", "default": "$45 value" },
     { "type": "image_picker", "id": "gift_2_image", "label": "Gift 2 image" },
     { "type": "text", "id": "gift_2_title", "label": "Gift 2 title", "default": "The Estrobolome Food Guide" },
-    { "type": "text", "id": "gift_2_desc", "label": "Gift 2 description", "default": "Dr. Katie Chen’s full guide to eating through menopause" },
+    { "type": "text", "id": "gift_2_desc", "label": "Gift 2 description", "default": "Dr. Katie Chen's full guide to eating for perimenopause (e-book)" },
     { "type": "text", "id": "gift_2_value", "label": "Gift 2 value", "default": "$40 value" },
     { "type": "image_picker", "id": "gift_3_image", "label": "Gift 3 image" },
     { "type": "text", "id": "gift_3_title", "label": "Gift 3 title", "default": "The Womankind Circle" },
-    { "type": "text", "id": "gift_3_desc", "label": "Gift 3 description", "default": "Invites to every live Q&A Dr. Katie Chen hosts — bring your menopause questions" },
+    { "type": "text", "id": "gift_3_desc", "label": "Gift 3 description", "default": "Invites to every live Q&A Dr. Katie Chen hosts — bring your perimenopause questions" },
     { "type": "text", "id": "gift_3_value", "label": "Gift 3 value", "default": "$150 value" },
     { "type": "image_picker", "id": "gift_4_image", "label": "Gift 4 image" },
     { "type": "text", "id": "gift_4_title", "label": "Gift 4 title" },

@@ -403,7 +403,9 @@
 <script>
 (function(){
   function wkInit(){
-  var root = document.querySelector('.wk-root');
+  // womankind-2 pages wrap everything in .wk-root (and this script also drives the carousels there);
+  // the homepage layout has no .wk-root, so fall back to this section or the buy box never initialises
+  var root = document.querySelector('.wk-root') || document.getElementById('wk-sub-{{ section.id }}');
   if (!root || root.dataset.wkInit) return;
   root.dataset.wkInit = '1';
   var RING = '0 0 0 2px #6B3D42', NONE = '0 0 0 0 transparent';
