@@ -4,6 +4,32 @@
 {%- if wk_product != blank -%}{%- assign wk_variant = wk_product.selected_or_first_available_variant -%}{%- endif -%}
 
 <style>
+  /* Base styles this buy box needs, scoped to the section. On womankind-2 pages they repeat what the
+     layout already gives .wk-root (so no visual change there); the homepage layout (womankind-home)
+     has none of them, which left the thumbnails stacked and the tabs as unstyled buttons. */
+  #wk-sub-{{ section.id }},
+  #wk-sub-{{ section.id }} *,
+  #wk-sub-{{ section.id }} *::before,
+  #wk-sub-{{ section.id }} *::after{margin:0;padding:0;box-sizing:border-box;}
+  #wk-sub-{{ section.id }} button{font-family:inherit;}
+  #wk-sub-{{ section.id }} .wk-thumbs{flex:1;display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;}
+  #wk-sub-{{ section.id }} .wk-thumbs::-webkit-scrollbar{display:none;}
+  #wk-sub-{{ section.id }} .wk-thumbs > button{flex:0 0 calc((100% - 30px) / 4);scroll-snap-align:start;}
+  #wk-sub-{{ section.id }} .wk-thumb-arrow{flex:0 0 auto;cursor:pointer;font-family:inherit;width:26px;height:26px;border-radius:50%;border:none;background:#6B3D42;color:#F5E6D8;font-size:13px;line-height:1;display:inline-flex;align-items:center;justify-content:center;}
+  #wk-sub-{{ section.id }} .wk-xt-tabs{display:flex;gap:6px;}
+  #wk-sub-{{ section.id }} .wk-xtab{flex:1;cursor:pointer;font-family:inherit;border:none;background:#E7D2C1;color:rgba(107,61,66,0.62);font-size:15px;font-weight:600;letter-spacing:0.01em;padding:17px 18px;border-radius:14px 14px 0 0;transition:background .2s ease,color .2s ease;}
+  #wk-sub-{{ section.id }} .wk-xtab:hover{color:#6B3D42;}
+  #wk-sub-{{ section.id }} .wk-xtab.is-active{background:#6B3D42;color:#F5E6D8;cursor:default;}
+  #wk-sub-{{ section.id }} .wk-xt-body{background:#6B3D42;border-radius:0 0 20px 20px;padding:26px 32px;}
+  #wk-sub-{{ section.id }} .wk-xpanel{display:none;}
+  #wk-sub-{{ section.id }} h1.wk-herosub-title{font-size:clamp(26px, 3vw, 30px) !important;line-height:1.12 !important;}
+  @media(max-width:749px){
+    #wk-sub-{{ section.id }} .wk-xt-tabs{gap:4px;}
+    #wk-sub-{{ section.id }} .wk-xtab{font-size:12.5px;padding:14px 6px;letter-spacing:0;}
+    #wk-sub-{{ section.id }} .wk-xt-body{padding:22px 20px;border-radius:0 0 16px 16px;}
+  }
+</style>
+<style>
   /* no overflow:hidden here — it would clip the badge that straddles the top edge; the head/body round their own corners instead */
   #wk-sub-{{ section.id }} .wk-hero-track{position:absolute;inset:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;}
   #wk-sub-{{ section.id }} .wk-hero-track::-webkit-scrollbar{display:none;}
