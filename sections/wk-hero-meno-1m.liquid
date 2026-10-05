@@ -448,8 +448,9 @@
   var subPct = SUB_PLAN ? (SUB_PLAN.pct || 0) / 100 : SUB_PCT / 100;
 
   // No matching plan means we can't honestly sell the subscription: hide that card and fall back
-  // to one-time, which is always priced correctly.
-  if (!SUB_PLAN) {
+  // to one-time, which is always priced correctly. The theme editor still shows it (priced from
+  // sub_pct) so the layout can be reviewed before the plan exists.
+  if (!SUB_PLAN && !{{ request.design_mode }}) {
     if (window.console) console.warn('[wk-hero-meno-1m] no selling plan at ' + SUB_PCT + '% (or pinned ID) - Subscribe & Save hidden');
     root.querySelectorAll('[data-wk-plan="sub"]').forEach(function(c){ c.style.display = 'none'; });
     state.supply = 'one';

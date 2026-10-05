@@ -117,7 +117,29 @@
     document.querySelectorAll('[data-wk-cart-count]').forEach(function(el){ el.textContent = count; });
   }
 
+  // Free gifts are subscription-only: the FREEGIFTS discount only applies while a subscription line
+  // is in the cart. If the subscription is removed, take the gifts out too, or they'd be charged
+  // at full price. Variant IDs match the gift_X_variant settings on the hero buy boxes.
+  var WK_GIFT_IDS = [55027541049683, 55027546456403, 55027553272147];
+  function orphanGifts(cart){
+    var items = cart.items || [];
+    var hasSub = items.some(function(it){ return !!it.selling_plan_allocation; });
+    if (hasSub) return null;
+    var updates = {}, found = false;
+    items.forEach(function(it){ if (WK_GIFT_IDS.indexOf(it.variant_id) !== -1) { updates[it.key] = 0; found = true; } });
+    return found ? updates : null;
+  }
+
   function render(cart){
+    var orphans = orphanGifts(cart);
+    if (orphans) {
+      fetch('/cart/update.js', {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
+        body: JSON.stringify({ updates: orphans })
+      }).then(function(r){ return r.json(); }).then(render).catch(function(){});
+      return;
+    }
     setBadges(cart.item_count);
     if (countEl) countEl.textContent = cart.item_count ? '(' + cart.item_count + ')' : '';
     if (!cart.items || cart.items.length === 0){
@@ -138,14 +160,17 @@
       var spa = item.selling_plan_allocation;
       var compareLine = (spa && spa.compare_at_price && spa.compare_at_price > spa.price) ? (spa.compare_at_price * item.quantity) : item.original_line_price;
       var discounted = compareLine > item.final_line_price;
+      // a fully discounted line is one of the free gifts (FREEGIFTS automatic discount)
+      var isFree = discounted && item.final_line_price === 0;
       if (discounted) totalSaved += (compareLine - item.final_line_price);
       html += '<div class="wk-cd-item" data-line="'+line+'">';
       html += img ? '<img class="wk-cd-item-img" src="'+img+'" alt="'+esc(item.product_title)+'" loading="lazy">' : '<span class="wk-cd-item-img"></span>';
       html += '<div>';
       html += '<p class="wk-cd-item-title">'+esc(item.product_title)+'</p>';
       if (meta.length) html += '<p class="wk-cd-item-meta">'+meta.join(' · ')+'</p>';
-      if (spa) {
+      if (spa || isFree) {
         // Subscription lines are fixed-quantity bundles: lock the stepper so the plan discount can't be kept on a reduced quantity. Remove still clears the whole line.
+        // Free gifts are locked too: the discount covers one of each, so a second copy would be charged.
         html += '<div class="wk-cd-qty wk-cd-qty-locked"><span>'+item.quantity+'</span></div>';
       } else {
         html += '<div class="wk-cd-qty">';
@@ -159,7 +184,7 @@
       html += '<div>';
       html += '<div class="wk-cd-item-price">';
       if (discounted) html += '<span class="wk-cd-item-compare">'+money(compareLine)+'</span>';
-      html += money(item.final_line_price)+'</div>';
+      html += (isFree ? 'Free' : money(item.final_line_price))+'</div>';
       if (discounted) html += '<span class="wk-cd-item-saved">You save '+money(compareLine - item.final_line_price)+'</span>';
       html += '</div>';
       html += '<button type="button" class="wk-cd-remove" data-wk-remove>Remove</button>';

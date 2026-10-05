@@ -561,6 +561,9 @@
       if (!form) return;
       var plans = form.querySelectorAll('[data-wk-selling-plan]');
       plans.forEach(function(i){ i.disabled = true; });
+      // the free gifts are subscription-only (the FREEGIFTS discount only applies to subscriptions),
+      // so a one-time order must not carry them or they'd be charged at full price
+      form.querySelectorAll('[data-wk-gift]').forEach(function(i){ i.disabled = true; });
       if (form.requestSubmit) {
         form.requestSubmit();
         // FormData was captured synchronously inside the submit handler, so it is already safe to
