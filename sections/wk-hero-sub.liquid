@@ -467,11 +467,23 @@
   var WK_NF; try { WK_NF = new Intl.NumberFormat('en', { style:'currency', currency:WK_CUR, currencyDisplay:'narrowSymbol' }); } catch(e){ try { WK_NF = new Intl.NumberFormat('en', { style:'currency', currency:WK_CUR }); } catch(_){ WK_NF = null; } }
   function wkMoney(cents){ var v=(cents||0)/100; return WK_NF ? WK_NF.format(v).replace(/[.,]00(?=\D*$)/, '') : '$' + v.toFixed(2).replace(/\.00$/, ''); }
 
+  // The discount to show: the LIVE discount on the plan this tier attaches, so a plan edited in the
+  // subscription app can never drift from the buy box. The sub_X_pct setting is only the fallback
+  // for when no plan resolves (and is what planForTier matches on when no ID is pinned).
+  function wkPlanPct(tier){
+    var pid = planForTier(tier);
+    if (!pid) return TIERS[tier].sub;
+    for (var i = 0; i < SELLING_PLANS.length; i++) {
+      if (SELLING_PLANS[i].id === pid) return (SELLING_PLANS[i].pct || 0) / 100;
+    }
+    return TIERS[tier].sub;
+  }
+
   function wkQuote(tier){
     var t = TIERS[tier];
     var full = BOTTLE * t.m;
     // Shopify rounds the discounted per-bottle plan price, then multiplies — mirror it so display == checkout.
-    var perUnit = Math.round(BOTTLE * (1 - t.sub));
+    var perUnit = Math.round(BOTTLE * (1 - wkPlanPct(tier)));
     var total = perUnit * t.m;
     return { full: full, total: total, perMo: perUnit, save: Math.round((1 - total / full) * 100) };
   }
