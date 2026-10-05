@@ -1451,10 +1451,10 @@
           "sub_badge": "Most popular · Free gifts",
           "sub_name": "Subscribe & Save",
           "sub_sub": "1 bottle every 30 days · Skip or cancel anytime",
-          "sub_suffix": "/month",
+          "sub_suffix": "/mo",
           "one_name": "One-Time Purchase",
           "one_sub": "1 bottle · 30 day supply",
-          "one_missing": "Full price · no free gifts",
+          "one_missing": "",
           "sub_pct": 40,
           "one_pct": 0
         }
