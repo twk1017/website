@@ -169,7 +169,8 @@
       <h1 class="wk-herosub-title" style="font-family:'Fraunces',serif;font-weight:400;margin:0 0 14px;color:#6B3D42;letter-spacing:-0.01em;">{{ section.settings.heading }}</h1>
 
       {%- assign oke_product = wk_product | default: all_products['hormonal-support-gummies'] -%}
-      <div data-oke-star-rating data-oke-reviews-product-id="shopify-{{ oke_product.id }}" style="margin-bottom:16px;">{{ oke_product.metafields.okendo.StarRatingSnippet }}</div>
+      {%- comment -%} spacing sits on a wrapper: Okendo's widget styles its own element, which swallowed the margin {%- endcomment -%}
+      <div style="padding-bottom:16px;"><div data-oke-star-rating data-oke-reviews-product-id="shopify-{{ oke_product.id }}">{{ oke_product.metafields.okendo.StarRatingSnippet }}</div></div>
 
       <p style="font-size:15px;line-height:1.6;color:#4a3a30;margin:0 0 18px;max-width:30em;">{{ section.settings.description }}</p>
 
