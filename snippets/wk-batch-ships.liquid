@@ -1,0 +1,75 @@
+{%- comment -%}
+  "Next batch ships on" module — replaces the "Selling out fast" bar in a buy box.
+  Three rows, dated in the visitor's own timezone so the module never goes stale:
+    1. the previous batch (struck through, sold out)
+    2. the next batch (burgundy fill at `pct` %, "88% reserved")
+    3. the batch after that (still formulating)
+  The next batch is the first `weekday` at least 2 days away; the others sit a week either side.
+
+  Params:
+    id       — unique id (section id)
+    title    — e.g. "Next batch ships on:"
+    note     — bullet line under the title (blank hides it)
+    weekday  — batch day, 0 = Sunday … 6 = Saturday
+    pct      — how full the next batch is (50–99)
+    sold     — label for the previous batch, e.g. "Sold out"
+    reserved — word after the %, e.g. "reserved"
+    later    — label for the batch after next, e.g. "Formulating"
+{%- endcomment -%}
+{%- assign wk_bpct = pct | default: 88 | at_least: 50 | at_most: 99 -%}
+<style>
+  #wk-batch-{{ id }}{margin:20px 0 0;padding:20px 20px 18px;border-radius:16px;background:linear-gradient(135deg,#FBEDE6 0%,#F6E2DA 55%,#EFD2C9 100%);border:1px solid rgba(107,61,66,0.12);}
+  #wk-batch-{{ id }} .wk-batch-h{font-size:17.4px;font-weight:700;color:#6B3D42;line-height:1.3;}
+  #wk-batch-{{ id }} .wk-batch-note{display:flex;align-items:flex-start;gap:8px;font-size:14px;color:#7a6258;line-height:1.45;margin-top:6px;}
+  #wk-batch-{{ id }} .wk-batch-note::before{content:'';flex:0 0 auto;width:5px;height:5px;border-radius:50%;background:#6B3D42;margin-top:8px;}
+  #wk-batch-{{ id }} .wk-batch-rows{display:flex;flex-direction:column;gap:9px;margin-top:15px;}
+  #wk-batch-{{ id }} .wk-batch-row{position:relative;height:46px;border-radius:999px;background:#FFF9F4;overflow:hidden;font-size:14.6px;font-weight:600;color:#6B3D42;}
+  #wk-batch-{{ id }} .wk-batch-in{position:absolute;top:0;bottom:0;left:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 20px;border-radius:999px;white-space:nowrap;}
+  #wk-batch-{{ id }} .wk-batch-lbl{font-size:13.4px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;}
+  /* previous batch: gone */
+  #wk-batch-{{ id }} .wk-batch-row.is-past{background:rgba(255,249,244,0.6);color:#A07E81;}
+  #wk-batch-{{ id }} .wk-batch-row.is-past .wk-batch-in{right:0;text-decoration:line-through;}
+  /* next batch: burgundy fill at pct %, the label rides the end of the fill */
+  #wk-batch-{{ id }} .wk-batch-row.is-next{background:#F1DDD4;}
+  #wk-batch-{{ id }} .wk-batch-row.is-next .wk-batch-in{background:linear-gradient(90deg,#6B3D42,#86484E);color:#F5E6D8;}
+  /* the batch after: still open */
+  #wk-batch-{{ id }} .wk-batch-row.is-later{background:#FFFFFF;}
+  #wk-batch-{{ id }} .wk-batch-row.is-later .wk-batch-in{right:0;}
+  #wk-batch-{{ id }} .wk-batch-row.is-later .wk-batch-lbl{color:#C9653F;}
+  @media(max-width:749px){
+    #wk-batch-{{ id }}{padding:17px 15px 15px;}
+    #wk-batch-{{ id }} .wk-batch-h{font-size:16px;}
+    #wk-batch-{{ id }} .wk-batch-note{font-size:13.4px;}
+    #wk-batch-{{ id }} .wk-batch-row{height:43px;font-size:13.8px;}
+    #wk-batch-{{ id }} .wk-batch-in{padding:0 16px;}
+    #wk-batch-{{ id }} .wk-batch-lbl{font-size:12.4px;}
+  }
+</style>
+<div id="wk-batch-{{ id }}" data-wk-batch data-weekday="{{ weekday | default: 4 }}">
+  <div class="wk-batch-h">{{ title }}</div>
+  {%- if note != blank -%}<div class="wk-batch-note">{{ note }}</div>{%- endif -%}
+  <div class="wk-batch-rows">
+    <div class="wk-batch-row is-past"><div class="wk-batch-in"><span data-wk-batch-date="prev">&nbsp;</span><span class="wk-batch-lbl">{{ sold }}</span></div></div>
+    <div class="wk-batch-row is-next"><div class="wk-batch-in" style="width:{{ wk_bpct }}%;"><span data-wk-batch-date="next">&nbsp;</span><span class="wk-batch-lbl">{{ wk_bpct }}% {{ reserved }}</span></div></div>
+    <div class="wk-batch-row is-later"><div class="wk-batch-in"><span data-wk-batch-date="later">&nbsp;</span><span class="wk-batch-lbl">{{ later }}</span></div></div>
+  </div>
+</div>
+<script>
+  (function(){
+    var el = document.getElementById('wk-batch-{{ id }}');
+    if (!el) return;
+    var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    function ord(n){ var v = n % 100; if (v >= 11 && v <= 13) return 'th'; return ({1:'st',2:'nd',3:'rd'})[n % 10] || 'th'; }
+    function fmt(d){ return MONTHS[d.getMonth()] + ' ' + d.getDate() + ord(d.getDate()); }
+    function shift(d, days){ var c = new Date(d); c.setDate(c.getDate() + days); return c; }
+    var wd = parseInt(el.getAttribute('data-weekday'), 10) || 0;
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    // next batch = the first batch day at least 2 days out, so it never reads "ships today/tomorrow"
+    var add = (wd - today.getDay() + 7) % 7;
+    if (add < 2) add += 7;
+    var next = shift(today, add);
+    var dates = { prev: shift(next, -7), next: next, later: shift(next, 7) };
+    el.querySelectorAll('[data-wk-batch-date]').forEach(function(s){ s.textContent = fmt(dates[s.getAttribute('data-wk-batch-date')]); });
+  })();
+</script>

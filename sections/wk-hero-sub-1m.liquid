@@ -65,9 +65,10 @@
      uppercase and lifted off the surface. Hierarchy comes from size + elevation because
      a brighter green would drop below 4.5:1 against white text at this size. */
   #wk-sub-{{ section.id }} .wk-pill{flex:0 0 auto;align-self:center;background:#1A7F4B;color:#FFFFFF;font-size:14.6px;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;padding:9px 18px;border-radius:999px;white-space:nowrap;box-shadow:0 4px 13px rgba(26,127,75,0.42);}
-  /* gift values: same green so they still read as money, but reset back to the smaller,
-     flat treatment so they sit clearly below the SAVE badge */
-  #wk-sub-{{ section.id }} .wk-pill-soft{background:#1A7F4B;color:#FFFFFF;font-size:12.2px;font-weight:700;letter-spacing:0.04em;text-transform:none;padding:7px 13px;box-shadow:none;}
+  /* gift prices: plain struck-through price over $0, no badge — the SAVE badge stays the only pill in the card */
+  #wk-sub-{{ section.id }} .wk-gift-price{flex:0 0 auto;align-self:center;text-align:right;line-height:1.15;white-space:nowrap;}
+  #wk-sub-{{ section.id }} .wk-gift-was{display:block;font-size:13.4px;color:#8f6266;text-decoration:line-through;}
+  #wk-sub-{{ section.id }} .wk-gift-now{display:block;font-size:18px;font-weight:700;color:#C9653F;margin-top:2px;}
   #wk-sub-{{ section.id }} .wk-gift-div{display:flex;align-items:center;gap:10px;margin:12px 0 4px;}
   #wk-sub-{{ section.id }} .wk-gift-div::before,#wk-sub-{{ section.id }} .wk-gift-div::after{content:'';flex:1;border-top:1px dashed rgba(107,61,66,0.32);}
   #wk-sub-{{ section.id }} .wk-gift-div span{font-size:11.8px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;color:#C9653F;background:rgba(201,101,63,0.12);padding:6px 14px;border-radius:999px;}
@@ -111,7 +112,8 @@
     #wk-sub-{{ section.id }} .wk-inc-d{font-size:12.6px;}
     #wk-sub-{{ section.id }} .wk-inc-t{font-size:14.4px;}
     #wk-sub-{{ section.id }} .wk-pill{font-size:13.4px;padding:8px 15px;}
-    #wk-sub-{{ section.id }} .wk-pill-soft{font-size:11.6px;padding:6px 11px;}
+    #wk-sub-{{ section.id }} .wk-gift-was{font-size:12.6px;}
+    #wk-sub-{{ section.id }} .wk-gift-now{font-size:16.5px;}
     #wk-sub-{{ section.id }} .wk-gift-img,
     #wk-sub-{{ section.id }} .wk-inc-thumb,
     #wk-sub-{{ section.id }} .wk-inc-ph{width:64px;height:64px;}
@@ -275,7 +277,18 @@
                       <span class="wk-inc-t" style="display:block;">{{ section.settings[gt] }}</span>
                       {%- if section.settings[gd] != blank -%}<span class="wk-inc-d" style="display:block;">{{ section.settings[gd] }}</span>{%- endif -%}
                     </span>
-                    {%- if section.settings[gv] != blank -%}<span class="wk-pill wk-pill-soft">{{ section.settings[gv] }}</span>{%- endif -%}
+                    {%- comment -%} real gift price in the visitor's currency when the gift product is set, else the plain-text value {%- endcomment -%}
+                    {%- assign gpk = 'gift_' | append: i | append: '_product' -%}
+                    {%- assign gp = section.settings[gpk] -%}
+                    {%- assign g_was = '' -%}
+                    {%- if gp != blank and gp.price > 0 -%}
+                      {%- assign g_was = gp.price | money_without_trailing_zeros -%}
+                      {%- assign g_now = 0 | money_without_trailing_zeros -%}
+                    {%- elsif section.settings[gv] != blank -%}
+                      {%- assign g_was = section.settings[gv] | remove: ' value' | strip -%}
+                      {%- assign g_now = '$0' -%}
+                    {%- endif -%}
+                    {%- if g_was != blank -%}<span class="wk-gift-price"><span class="wk-gift-was">{{ g_was }}</span><span class="wk-gift-now">{{ g_now }}</span></span>{%- endif -%}
                   </div>
                 {%- endif -%}
               {%- endfor -%}
@@ -783,15 +796,18 @@
     { "type": "image_picker", "id": "gift_1_image", "label": "Gift 1 image" },
     { "type": "text", "id": "gift_1_title", "label": "Gift 1 title", "default": "The 90-Day Reset Protocol" },
     { "type": "text", "id": "gift_1_desc", "label": "Gift 1 description", "default": "Dr. Katie Chen's week-by-week guide to your first 90 days (e-book)" },
-    { "type": "text", "id": "gift_1_value", "label": "Gift 1 value", "default": "$45 value" },
+    { "type": "product", "id": "gift_1_product", "label": "Gift 1 product", "info": "Its price is shown struck through above $0, in the visitor's currency." },
+    { "type": "text", "id": "gift_1_value", "label": "Gift 1 value (fallback)", "info": "Only used when no gift product is set.", "default": "$45 value" },
     { "type": "image_picker", "id": "gift_2_image", "label": "Gift 2 image" },
     { "type": "text", "id": "gift_2_title", "label": "Gift 2 title", "default": "The Estrobolome Food Guide" },
     { "type": "text", "id": "gift_2_desc", "label": "Gift 2 description", "default": "Dr. Katie Chen's full guide to eating for perimenopause (e-book)" },
-    { "type": "text", "id": "gift_2_value", "label": "Gift 2 value", "default": "$40 value" },
+    { "type": "product", "id": "gift_2_product", "label": "Gift 2 product", "info": "Its price is shown struck through above $0, in the visitor's currency." },
+    { "type": "text", "id": "gift_2_value", "label": "Gift 2 value (fallback)", "info": "Only used when no gift product is set.", "default": "$40 value" },
     { "type": "image_picker", "id": "gift_3_image", "label": "Gift 3 image" },
     { "type": "text", "id": "gift_3_title", "label": "Gift 3 title", "default": "The Womankind Circle" },
     { "type": "text", "id": "gift_3_desc", "label": "Gift 3 description", "default": "Invites to every live Q&A Dr. Katie Chen hosts — bring your perimenopause questions" },
-    { "type": "text", "id": "gift_3_value", "label": "Gift 3 value", "default": "$150 value" },
+    { "type": "product", "id": "gift_3_product", "label": "Gift 3 product", "info": "Its price is shown struck through above $0, in the visitor's currency." },
+    { "type": "text", "id": "gift_3_value", "label": "Gift 3 value (fallback)", "info": "Only used when no gift product is set.", "default": "$150 value" },
     { "type": "image_picker", "id": "gift_4_image", "label": "Gift 4 image" },
     { "type": "text", "id": "gift_4_title", "label": "Gift 4 title" },
     { "type": "text", "id": "gift_4_desc", "label": "Gift 4 description" },

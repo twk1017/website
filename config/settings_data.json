@@ -1456,7 +1456,18 @@
           "one_sub": "1 bottle · 30 day supply",
           "one_missing": "",
           "sub_pct": 40,
-          "one_pct": 0
+          "one_pct": 0,
+          "batch_pages": "meno-hf-hrt",
+          "batch_title": "Next batch ships on:",
+          "batch_note": "Made in small batches for maximum potency",
+          "batch_weekday": "4",
+          "batch_pct": 88,
+          "batch_sold": "Sold out",
+          "batch_reserved": "reserved",
+          "batch_later": "Formulating",
+          "gift_1_product": "the-90-day-reset-protocol",
+          "gift_2_product": "the-estrobolome-food-guide",
+          "gift_3_product": "the-womankind-circle"
         }
       },
       "wk-hero-sub-1m": {
@@ -1516,7 +1527,10 @@
           "one_sub": "1 bottle · 30 day supply",
           "one_missing": "",
           "sub_pct": 40,
-          "one_pct": 0
+          "one_pct": 0,
+          "gift_1_product": "the-90-day-reset-protocol",
+          "gift_2_product": "the-estrobolome-food-guide",
+          "gift_3_product": "the-womankind-circle"
         }
       }
     },

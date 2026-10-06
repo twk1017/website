@@ -39,9 +39,10 @@
      uppercase and lifted off the surface. Hierarchy comes from size + elevation because
      a brighter green would drop below 4.5:1 against white text at this size. */
   #wk-sub-{{ section.id }} .wk-pill{flex:0 0 auto;align-self:center;background:#1A7F4B;color:#FFFFFF;font-size:14.6px;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;padding:9px 18px;border-radius:999px;white-space:nowrap;box-shadow:0 4px 13px rgba(26,127,75,0.42);}
-  /* gift values: same green so they still read as money, but reset back to the smaller,
-     flat treatment so they sit clearly below the SAVE badge */
-  #wk-sub-{{ section.id }} .wk-pill-soft{background:#1A7F4B;color:#FFFFFF;font-size:12.2px;font-weight:700;letter-spacing:0.04em;text-transform:none;padding:7px 13px;box-shadow:none;}
+  /* gift prices: plain struck-through price over $0, no badge — the SAVE badge stays the only pill in the card */
+  #wk-sub-{{ section.id }} .wk-gift-price{flex:0 0 auto;align-self:center;text-align:right;line-height:1.15;white-space:nowrap;}
+  #wk-sub-{{ section.id }} .wk-gift-was{display:block;font-size:13.4px;color:#8f6266;text-decoration:line-through;}
+  #wk-sub-{{ section.id }} .wk-gift-now{display:block;font-size:18px;font-weight:700;color:#C9653F;margin-top:2px;}
   #wk-sub-{{ section.id }} .wk-gift-div{display:flex;align-items:center;gap:10px;margin:12px 0 4px;}
   #wk-sub-{{ section.id }} .wk-gift-div::before,#wk-sub-{{ section.id }} .wk-gift-div::after{content:'';flex:1;border-top:1px dashed rgba(107,61,66,0.32);}
   #wk-sub-{{ section.id }} .wk-gift-div span{font-size:11.8px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;color:#C9653F;background:rgba(201,101,63,0.12);padding:6px 14px;border-radius:999px;}
@@ -85,7 +86,8 @@
     #wk-sub-{{ section.id }} .wk-inc-d{font-size:12.6px;}
     #wk-sub-{{ section.id }} .wk-inc-t{font-size:14.4px;}
     #wk-sub-{{ section.id }} .wk-pill{font-size:13.4px;padding:8px 15px;}
-    #wk-sub-{{ section.id }} .wk-pill-soft{font-size:11.6px;padding:6px 11px;}
+    #wk-sub-{{ section.id }} .wk-gift-was{font-size:12.6px;}
+    #wk-sub-{{ section.id }} .wk-gift-now{font-size:16.5px;}
     #wk-sub-{{ section.id }} .wk-gift-img,
     #wk-sub-{{ section.id }} .wk-inc-thumb,
     #wk-sub-{{ section.id }} .wk-inc-ph{width:64px;height:64px;}
@@ -249,7 +251,18 @@
                       <span class="wk-inc-t" style="display:block;">{{ section.settings[gt] }}</span>
                       {%- if section.settings[gd] != blank -%}<span class="wk-inc-d" style="display:block;">{{ section.settings[gd] }}</span>{%- endif -%}
                     </span>
-                    {%- if section.settings[gv] != blank -%}<span class="wk-pill wk-pill-soft">{{ section.settings[gv] }}</span>{%- endif -%}
+                    {%- comment -%} real gift price in the visitor's currency when the gift product is set, else the plain-text value {%- endcomment -%}
+                    {%- assign gpk = 'gift_' | append: i | append: '_product' -%}
+                    {%- assign gp = section.settings[gpk] -%}
+                    {%- assign g_was = '' -%}
+                    {%- if gp != blank and gp.price > 0 -%}
+                      {%- assign g_was = gp.price | money_without_trailing_zeros -%}
+                      {%- assign g_now = 0 | money_without_trailing_zeros -%}
+                    {%- elsif section.settings[gv] != blank -%}
+                      {%- assign g_was = section.settings[gv] | remove: ' value' | strip -%}
+                      {%- assign g_now = '$0' -%}
+                    {%- endif -%}
+                    {%- if g_was != blank -%}<span class="wk-gift-price"><span class="wk-gift-was">{{ g_was }}</span><span class="wk-gift-now">{{ g_now }}</span></span>{%- endif -%}
                   </div>
                 {%- endif -%}
               {%- endfor -%}
@@ -324,7 +337,24 @@
         <button style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;">Select a product</button>
       {%- endif -%}
 
-      {%- if section.settings.urgency_heading != blank -%}
+      {%- comment -%} pages listed in batch_pages get the "Next batch ships on" module instead of the urgency bar {%- endcomment -%}
+      {%- assign wk_batch = false -%}
+      {%- assign wk_batch_pages = section.settings.batch_pages | remove: ' ' | split: ',' -%}
+      {%- if wk_batch_pages contains '*' -%}{%- assign wk_batch = true -%}
+      {%- elsif page and wk_batch_pages contains page.handle -%}{%- assign wk_batch = true -%}{%- endif -%}
+
+      {%- if wk_batch -%}
+        {%- render 'wk-batch-ships',
+          id: section.id,
+          title: section.settings.batch_title,
+          note: section.settings.batch_note,
+          weekday: section.settings.batch_weekday,
+          pct: section.settings.batch_pct,
+          sold: section.settings.batch_sold,
+          reserved: section.settings.batch_reserved,
+          later: section.settings.batch_later
+        -%}
+      {%- elsif section.settings.urgency_heading != blank -%}
         <div class="wk-urg">
           <div class="wk-urg-h">{{ section.settings.urgency_heading }}</div>
           {%- if section.settings.urgency_text != blank -%}<div class="wk-urg-t">{{ section.settings.urgency_text }}</div>{%- endif -%}
@@ -757,15 +787,18 @@
     { "type": "image_picker", "id": "gift_1_image", "label": "Gift 1 image" },
     { "type": "text", "id": "gift_1_title", "label": "Gift 1 title", "default": "The 90-Day Reset Protocol" },
     { "type": "text", "id": "gift_1_desc", "label": "Gift 1 description", "default": "Dr. Katie Chen's week-by-week guide to your first 90 days (e-book)" },
-    { "type": "text", "id": "gift_1_value", "label": "Gift 1 value", "default": "$45 value" },
+    { "type": "product", "id": "gift_1_product", "label": "Gift 1 product", "info": "Its price is shown struck through above $0, in the visitor's currency." },
+    { "type": "text", "id": "gift_1_value", "label": "Gift 1 value (fallback)", "info": "Only used when no gift product is set.", "default": "$45 value" },
     { "type": "image_picker", "id": "gift_2_image", "label": "Gift 2 image" },
     { "type": "text", "id": "gift_2_title", "label": "Gift 2 title", "default": "The Estrobolome Food Guide" },
     { "type": "text", "id": "gift_2_desc", "label": "Gift 2 description", "default": "Dr. Katie Chen’s full guide to eating through menopause" },
-    { "type": "text", "id": "gift_2_value", "label": "Gift 2 value", "default": "$40 value" },
+    { "type": "product", "id": "gift_2_product", "label": "Gift 2 product", "info": "Its price is shown struck through above $0, in the visitor's currency." },
+    { "type": "text", "id": "gift_2_value", "label": "Gift 2 value (fallback)", "info": "Only used when no gift product is set.", "default": "$40 value" },
     { "type": "image_picker", "id": "gift_3_image", "label": "Gift 3 image" },
     { "type": "text", "id": "gift_3_title", "label": "Gift 3 title", "default": "The Womankind Circle" },
     { "type": "text", "id": "gift_3_desc", "label": "Gift 3 description", "default": "Invites to every live Q&A Dr. Katie Chen hosts — bring your menopause questions" },
-    { "type": "text", "id": "gift_3_value", "label": "Gift 3 value", "default": "$150 value" },
+    { "type": "product", "id": "gift_3_product", "label": "Gift 3 product", "info": "Its price is shown struck through above $0, in the visitor's currency." },
+    { "type": "text", "id": "gift_3_value", "label": "Gift 3 value (fallback)", "info": "Only used when no gift product is set.", "default": "$150 value" },
     { "type": "image_picker", "id": "gift_4_image", "label": "Gift 4 image" },
     { "type": "text", "id": "gift_4_title", "label": "Gift 4 title" },
     { "type": "text", "id": "gift_4_desc", "label": "Gift 4 description" },
@@ -790,6 +823,18 @@
     { "type": "text", "id": "urgency_text", "label": "Sub-text", "default": "Due to high demand, limited quantities available." },
     { "type": "range", "id": "urgency_pct", "label": "Percent sold", "min": 1, "max": 99, "step": 1, "default": 89, "unit": "%" },
     { "type": "text", "id": "urgency_countdown_label", "label": "Countdown label", "default": "Sale ends in" },
+    { "type": "header", "content": "Next batch module", "info": "Replaces the urgency bar on the pages listed below. Dates are worked out in the visitor's own timezone: the next batch is the first batch day at least 2 days away, with the previous batch (sold out) and the following one a week either side." },
+    { "type": "text", "id": "batch_pages", "label": "Show on pages (handles)", "default": "meno-hf-hrt", "info": "Comma-separated page handles, or * for every page using this buy box. Leave blank to use the urgency bar everywhere." },
+    { "type": "text", "id": "batch_title", "label": "Title", "default": "Next batch ships on:" },
+    { "type": "text", "id": "batch_note", "label": "Bullet line", "default": "Made in small batches for maximum potency", "info": "Leave blank to hide." },
+    { "type": "select", "id": "batch_weekday", "label": "Batch day", "default": "4", "options": [
+      { "value": "1", "label": "Monday" }, { "value": "2", "label": "Tuesday" }, { "value": "3", "label": "Wednesday" },
+      { "value": "4", "label": "Thursday" }, { "value": "5", "label": "Friday" }, { "value": "6", "label": "Saturday" }, { "value": "0", "label": "Sunday" }
+    ] },
+    { "type": "range", "id": "batch_pct", "label": "Next batch reserved", "min": 50, "max": 99, "step": 1, "default": 88, "unit": "%" },
+    { "type": "text", "id": "batch_sold", "label": "Previous batch label", "default": "Sold out" },
+    { "type": "text", "id": "batch_reserved", "label": "Next batch label (after the %)", "default": "reserved" },
+    { "type": "text", "id": "batch_later", "label": "Following batch label", "default": "Formulating" },
     { "type": "header", "content": "Tabs · labels" },
     { "type": "text", "id": "tab2_label", "label": "Tab 2 label", "default": "How to use" },
     { "type": "text", "id": "tab3_label", "label": "Tab 3 label", "default": "Shipping" },
