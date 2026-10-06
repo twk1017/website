@@ -1,0 +1,874 @@
+{%- comment -%} "DON'T WANT" menopause page (/pages/meno-hf-hrt, template page.gummies-meno-hrt) — women who've decided against hormones {%- endcomment -%}
+{%- comment -%} clone of wk-hero-meno-1m (Subscribe & Save vs one-time) + bridge line, founder line, HRT gallery image 1 and the next-batch module {%- endcomment -%}
+{%- assign wk_product = section.settings.product -%}
+{%- if wk_product != blank -%}{%- assign wk_variant = wk_product.selected_or_first_available_variant -%}{%- endif -%}
+
+<style>
+  /* no overflow:hidden here — it would clip the badge that straddles the top edge; the head/body round their own corners instead */
+  #wk-sub-{{ section.id }} .wk-hero-track{position:absolute;inset:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;}
+  #wk-sub-{{ section.id }} .wk-hero-track::-webkit-scrollbar{display:none;}
+  #wk-sub-{{ section.id }} .wk-hero-slide{flex:0 0 100%;width:100%;height:100%;object-fit:cover;display:block;scroll-snap-align:center;scroll-snap-stop:always;user-select:none;-webkit-user-drag:none;}
+  #wk-sub-{{ section.id }} .wk-plan{position:relative;cursor:pointer;font-family:inherit;text-align:left;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.35);border-radius:14px;display:block;transition:border-color .15s ease,box-shadow .15s ease;}
+  #wk-sub-{{ section.id }} .wk-plan.is-sel{border-color:#6B3D42;box-shadow:0 0 0 2px #6B3D42;}
+  #wk-sub-{{ section.id }} .wk-plan-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 19px;border-radius:12.5px 12.5px 0 0;transition:background .15s ease,color .15s ease;}
+  #wk-sub-{{ section.id }} .wk-plan:not(.is-sel) .wk-plan-head{border-radius:12.5px;}
+  /* a plan with no body below it stays fully rounded even when selected */
+  #wk-sub-{{ section.id }} .wk-plan--bare .wk-plan-head{border-radius:12.5px;}
+  #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-head{background:#6B3D42;}
+  /* inline colours on these spans would win over a plain class rule, so the selected (burgundy) header needs !important */
+  #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-name,
+  #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-price{color:#F5E6D8 !important;}
+  #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-sub,
+  #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-bill{color:rgba(245,230,216,0.82) !important;}
+  #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-compare{color:rgba(245,230,216,0.6) !important;}
+  #wk-sub-{{ section.id }} .wk-radio{width:25px;height:25px;flex:0 0 auto;border:1.5px solid rgba(107,61,66,0.5);border-radius:50%;display:flex;align-items:center;justify-content:center;background:transparent;}
+  #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-radio{border-color:#F5E6D8;background:#F5E6D8;}
+  #wk-sub-{{ section.id }} .wk-radio span{display:none;color:#6B3D42;font-size:15px;font-weight:700;line-height:1;}
+  #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-radio span{display:block;}
+  #wk-sub-{{ section.id }} .wk-plan-body{display:none;padding:18px 19px 14px;background:#FFF9F1;border-radius:0 0 12.5px 12.5px;}
+  #wk-sub-{{ section.id }} .wk-plan.is-sel .wk-plan-body{display:block;}
+  #wk-sub-{{ section.id }} .wk-inc-label{font-size:11.8px;letter-spacing:0.16em;text-transform:uppercase;color:#6B3D42;font-weight:700;margin-bottom:14px;}
+  #wk-sub-{{ section.id }} .wk-inc-row{display:flex;align-items:flex-start;gap:15px;padding:11px 0;}
+  #wk-sub-{{ section.id }} .wk-inc-thumb{width:68px;height:68px;flex:0 0 auto;border-radius:12px;object-fit:cover;display:block;background:#E8D5C6;}
+  #wk-sub-{{ section.id }} .wk-inc-ph{width:68px;height:68px;flex:0 0 auto;border-radius:12px;background:linear-gradient(135deg,#E8D5C6,#D8BFB4);display:flex;align-items:center;justify-content:center;color:#6B3D42;font-size:16px;line-height:1;}
+  /* gift artwork (book mockups / community avatar) ships with its own shape + transparency, so no crop or tile background */
+  #wk-sub-{{ section.id }} .wk-gift-img{width:78px;height:78px;flex:0 0 auto;object-fit:contain;background:transparent;display:block;}
+  #wk-sub-{{ section.id }} .wk-inc-t{font-size:15.2px;font-weight:700;color:#6B3D42;line-height:1.3;}
+  #wk-sub-{{ section.id }} .wk-inc-d{font-size:13.4px;color:#7a6258;line-height:1.45;margin-top:4px;}
+  /* .wk-pill is the SAVE badge — the most important thing in the card, so it is bigger,
+     uppercase and lifted off the surface. Hierarchy comes from size + elevation because
+     a brighter green would drop below 4.5:1 against white text at this size. */
+  #wk-sub-{{ section.id }} .wk-pill{flex:0 0 auto;align-self:center;background:#1A7F4B;color:#FFFFFF;font-size:14.6px;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;padding:9px 18px;border-radius:999px;white-space:nowrap;box-shadow:0 4px 13px rgba(26,127,75,0.42);}
+  /* gift prices: plain struck-through price over $0, no badge — the SAVE badge stays the only pill in the card */
+  #wk-sub-{{ section.id }} .wk-gift-price{flex:0 0 auto;align-self:center;text-align:right;line-height:1.15;white-space:nowrap;}
+  #wk-sub-{{ section.id }} .wk-gift-was{display:block;font-size:16px;font-weight:600;color:#7a5458;text-decoration:line-through;text-decoration-thickness:1.5px;}
+  #wk-sub-{{ section.id }} .wk-gift-now{display:block;font-size:19px;font-weight:700;color:#C9653F;margin-top:2px;}
+  #wk-sub-{{ section.id }} .wk-gift-div{display:flex;align-items:center;gap:10px;margin:12px 0 4px;}
+  #wk-sub-{{ section.id }} .wk-gift-div::before,#wk-sub-{{ section.id }} .wk-gift-div::after{content:'';flex:1;border-top:1px dashed rgba(107,61,66,0.32);}
+  #wk-sub-{{ section.id }} .wk-gift-div span{font-size:11.8px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;color:#C9653F;background:rgba(201,101,63,0.12);padding:6px 14px;border-radius:999px;}
+  #wk-sub-{{ section.id }} .wk-miss{padding:0 19px 15px;font-size:12.6px;color:#a08078;line-height:1.45;}
+  #wk-sub-{{ section.id }} .wk-plan-badge{position:absolute;top:-11px;left:19px;z-index:2;background:#C9653F;color:#F5E6D8;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;padding:4px 13px;border-radius:999px;}
+  /* DON'T WANT bridge + founder lines under the description */
+  #wk-sub-{{ section.id }} .wk-bridge{font-family:'Fraunces',serif;font-style:italic;font-size:16.5px;line-height:1.5;color:#6B3D42;margin:0 0 16px;max-width:30em;}
+  #wk-sub-{{ section.id }} .wk-founder{display:flex;align-items:flex-start;gap:13px;margin:0 0 20px;padding:13px 15px;background:rgba(107,61,66,0.06);border-radius:14px;max-width:34em;}
+  #wk-sub-{{ section.id }} .wk-founder img{width:46px;height:46px;flex:0 0 auto;border-radius:50%;object-fit:cover;object-position:top;display:block;background:#E8D5C6;}
+  #wk-sub-{{ section.id }} .wk-founder p{font-size:13.8px;line-height:1.55;color:#4a3a30;}
+  #wk-sub-{{ section.id }} .wk-founder strong{color:#6B3D42;}
+  /* social-proof row that replaces the guarantee block under the countdown */
+  #wk-sub-{{ section.id }} .wk-trust{display:flex;align-items:center;gap:15px;margin:16px 0 0;padding:13px 20px 13px 16px;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.18);border-radius:999px;}
+  #wk-sub-{{ section.id }} .wk-trust-av{display:flex;align-items:center;flex:0 0 auto;position:relative;}
+  #wk-sub-{{ section.id }} .wk-trust-av img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2.5px solid #FFF9F1;margin-left:-13px;display:block;background:#E8D5C6;}
+  #wk-sub-{{ section.id }} .wk-trust-av img:first-child{margin-left:0;}
+  #wk-sub-{{ section.id }} .wk-trust-chk{position:absolute;right:-5px;bottom:-1px;width:21px;height:21px;border-radius:50%;background:#C9653F;color:#FFF9F1;font-size:11.5px;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center;border:2px solid #FFF9F1;}
+  #wk-sub-{{ section.id }} .wk-trust-h{display:block;font-size:15.4px;font-weight:700;color:#6B3D42;line-height:1.3;}
+  #wk-sub-{{ section.id }} .wk-trust-d{display:block;font-size:12.2px;color:#7a6258;line-height:1.4;margin-top:2px;}
+
+  /* add-to-cart: label on top, guarantee strip fused underneath (one button, two tiers) */
+  #wk-sub-{{ section.id }} .wk-atc{width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:0;display:block;text-align:center;}
+  #wk-sub-{{ section.id }} .wk-atc[disabled]{opacity:0.55;cursor:not-allowed;}
+  #wk-sub-{{ section.id }} .wk-atc-main{display:block;padding:20px 18px 7px;font-size:22px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;line-height:1.1;}
+  #wk-sub-{{ section.id }} .wk-atc-gtee{display:flex;align-items:center;justify-content:center;gap:9px;padding:0 18px 19px;font-size:15px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;line-height:1.1;color:rgba(245,230,216,0.85);}
+  #wk-sub-{{ section.id }} .wk-atc-gtee svg{flex:0 0 auto;display:block;width:17px;height:17px;}
+
+  /* urgency bar — classes rather than inline styles so the mobile block can scale it */
+  #wk-sub-{{ section.id }} .wk-urg{margin:20px 0 0;}
+  #wk-sub-{{ section.id }} .wk-urg-h{font-size:17.4px;font-weight:700;color:#6B3D42;line-height:1.3;}
+  #wk-sub-{{ section.id }} .wk-urg-t{font-size:14.8px;color:#7a6258;line-height:1.45;margin-top:4px;}
+  #wk-sub-{{ section.id }} .wk-urg-bar{height:13px;border-radius:999px;background:#E8D5C6;overflow:hidden;margin:13px 0 9px;}
+  #wk-sub-{{ section.id }} .wk-urg-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#6B3D42,#C9653F);}
+  #wk-sub-{{ section.id }} .wk-urg-row{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:14.8px;}
+  #wk-sub-{{ section.id }} .wk-urg-sold{color:#7a6258;font-weight:600;}
+  #wk-sub-{{ section.id }} .wk-urg-cd{color:#C9653F;font-weight:700;white-space:nowrap;}
+
+  @media(max-width:749px){
+    /* self-contained mobile layout — womankind-home has no .wk-root layer */
+    #wk-sub-{{ section.id }}{grid-template-columns:1fr !important;gap:28px !important;padding:28px 20px 14px !important;}
+    #wk-sub-{{ section.id }} h1{font-size:28px !important;}
+    #wk-sub-{{ section.id }} .wk-gallery{position:static !important;top:auto !important;}
+    #wk-sub-{{ section.id }} .wk-thumbs > button{flex:0 0 calc((100% - 27px) / 3.5) !important;}
+    #wk-sub-{{ section.id }} .wk-plan-head{padding:15px 14px;gap:10px;}
+    #wk-sub-{{ section.id }} .wk-plan-body{padding:15px 14px 0;}
+    #wk-sub-{{ section.id }} .wk-plan-price{font-size:18px !important;}
+    #wk-sub-{{ section.id }} .wk-inc-d{font-size:12.6px;}
+    #wk-sub-{{ section.id }} .wk-bridge{font-size:15.5px;}
+    #wk-sub-{{ section.id }} .wk-founder{padding:12px 13px;gap:11px;}
+    #wk-sub-{{ section.id }} .wk-founder img{width:40px;height:40px;}
+    #wk-sub-{{ section.id }} .wk-founder p{font-size:13.2px;}
+    #wk-sub-{{ section.id }} .wk-inc-t{font-size:14.4px;}
+    #wk-sub-{{ section.id }} .wk-pill{font-size:13.4px;padding:8px 15px;}
+    #wk-sub-{{ section.id }} .wk-gift-was{font-size:15px;}
+    #wk-sub-{{ section.id }} .wk-gift-now{font-size:17.5px;}
+    #wk-sub-{{ section.id }} .wk-gift-img,
+    #wk-sub-{{ section.id }} .wk-inc-thumb,
+    #wk-sub-{{ section.id }} .wk-inc-ph{width:64px;height:64px;}
+    /* stack on narrow screens: side-by-side would leave the copy ~115px and wrap the heading.
+       Stacking lets every face show, at a larger size, with the text on full width. */
+    /* stays a single row on mobile — sized so the heading holds one line at 375px */
+    #wk-sub-{{ section.id }} .wk-atc-main{font-size:19px;padding:18px 14px 7px;}
+    #wk-sub-{{ section.id }} .wk-atc-gtee{font-size:13.5px;padding:0 12px 17px;gap:8px;}
+    #wk-sub-{{ section.id }} .wk-atc-gtee svg{width:15px;height:15px;}
+    #wk-sub-{{ section.id }} .wk-urg-h{font-size:16px;}
+    #wk-sub-{{ section.id }} .wk-urg-t{font-size:13.8px;}
+    #wk-sub-{{ section.id }} .wk-urg-bar{height:12px;}
+    #wk-sub-{{ section.id }} .wk-urg-row{font-size:13.8px;gap:10px;}
+    #wk-sub-{{ section.id }} .wk-trust{gap:12px;padding:12px 16px 12px 14px;}
+    /* avatars give up 4px so the copy can grow — measured: at 335px the heading only holds
+       one line up to 13.8px once the faces are 28px */
+    #wk-sub-{{ section.id }} .wk-trust-av img{width:28px;height:28px;margin-left:-11px;border-width:2px;}
+    #wk-sub-{{ section.id }} .wk-trust-chk{right:-4px;bottom:-1px;width:16px;height:16px;font-size:9px;border-width:1.5px;}
+    #wk-sub-{{ section.id }} .wk-trust-h{font-size:13.8px;}
+    #wk-sub-{{ section.id }} .wk-trust-d{font-size:13px;}
+  }
+  @media(max-width:360px){
+    #wk-sub-{{ section.id }} .wk-atc-main{font-size:17.5px;}
+    #wk-sub-{{ section.id }} .wk-atc-gtee{font-size:11.6px;gap:6px;}
+    #wk-sub-{{ section.id }} .wk-atc-gtee svg{width:13px;height:13px;}
+  }
+</style>
+
+  <!-- HERO / SUBSCRIPTION LP -->
+  <section id="wk-sub-{{ section.id }}" style="max-width:1240px;margin:0 auto;padding:40px 28px 18px;display:grid;grid-template-columns:1.02fr 0.98fr;gap:54px;align-items:start;">
+
+    <!-- GALLERY -->
+    <div class="wk-gallery" style="position:sticky;top:96px;">
+      <div class="wk-hero-img" style="position:relative;aspect-ratio:1/1;border-radius:18px;overflow:hidden;background:radial-gradient(120% 92% at 50% 16%, #ECDBCC 0%, #D8BFB4 52%, #C2A099 100%);">
+        <div class="wk-hero-track" data-wk-hero-track>
+          {%- for i in (1..10) -%}
+            {%- assign gik = 'gallery_' | append: i | append: '_image' -%}
+            {%- assign gimg = section.settings[gik] -%}
+            {%- if gimg -%}{%- assign wk_full = gimg | image_url: width: 1200 -%}{%- assign wk_galt = gimg.alt | default: 'Womankind Hormonal Support Gummies' -%}
+            {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- if i == 1 -%}{%- assign gfname = 'wk-meno-hrt-buybox-1.jpg' -%}{%- endif -%}{%- if i == 4 -%}{%- assign gfname = 'wk-meno-buybox-4.jpg' -%}{%- endif -%}{%- assign wk_full = gfname | asset_url -%}{%- assign wk_galt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
+            <img class="wk-hero-slide" src="{{ wk_full }}" alt="{{ wk_galt }}" width="1200" height="1200" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" draggable="false">
+          {%- endfor -%}
+        </div>
+        <span data-wk-badge>{% render 'wk-clinicians-badge', text: section.settings.badge, image: section.settings.badge_image %}</span>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:10px;margin-top:14px;">
+        <button type="button" class="wk-thumb-arrow" data-wk-thumb-prev aria-label="Previous image">&lsaquo;</button>
+        <div class="wk-thumbs" data-wk-thumb-track>
+          {%- for i in (1..10) -%}
+            {%- assign gik = 'gallery_' | append: i | append: '_image' -%}
+            {%- assign gimg = section.settings[gik] -%}
+            {%- if gimg -%}{%- assign tsrc = gimg | image_url: width: 240 -%}{%- assign tfull = gimg | image_url: width: 1200 -%}{%- assign talt = gimg.alt | default: 'Womankind Hormonal Support Gummies' -%}
+            {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- if i == 1 -%}{%- assign gfname = 'wk-meno-hrt-buybox-1.jpg' -%}{%- endif -%}{%- if i == 4 -%}{%- assign gfname = 'wk-meno-buybox-4.jpg' -%}{%- endif -%}{%- assign tsrc = gfname | asset_img_url: '240x240' -%}{%- assign tfull = gfname | asset_url -%}{%- assign talt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
+            <button type="button" data-wk-thumb data-wk-full="{{ tfull }}" aria-label="View image {{ i }}" style="cursor:pointer;padding:0;aspect-ratio:1/1;background:#D8C2BA;border-radius:9px;overflow:hidden;{% if forloop.first %}border:2px solid #6B3D42;{% else %}border:2px solid transparent;{% endif %}display:flex;align-items:center;justify-content:center;">
+              <img src="{{ tsrc }}" alt="{{ talt }}" width="240" height="240" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+            </button>
+          {%- endfor -%}
+        </div>
+        <button type="button" class="wk-thumb-arrow" data-wk-thumb-next aria-label="Next image">&rsaquo;</button>
+      </div>
+    </div>
+
+    <!-- BUY BOX -->
+    <div>
+      <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#C9653F;font-weight:600;margin-bottom:14px;">{{ section.settings.eyebrow }}</div>
+      <style>.wk-root h1.wk-herosub-title{font-size:clamp(26px, 3vw, 30px) !important;line-height:1.12 !important;}</style>
+      <h1 class="wk-herosub-title" style="font-family:'Fraunces',serif;font-weight:400;margin:0 0 14px;color:#6B3D42;letter-spacing:-0.01em;">{{ section.settings.heading }}</h1>
+
+      {%- assign oke_product = wk_product | default: all_products['hormonal-support-gummies'] -%}
+      <div data-oke-star-rating data-oke-reviews-product-id="shopify-{{ oke_product.id }}" style="margin-bottom:16px;">{{ oke_product.metafields.okendo.StarRatingSnippet }}</div>
+
+      <p style="font-size:15px;line-height:1.6;color:#4a3a30;margin:0 0 18px;max-width:30em;">{{ section.settings.description }}</p>
+
+      {%- if section.settings.bridge_line != blank -%}
+        <p class="wk-bridge">{{ section.settings.bridge_line }}</p>
+      {%- endif -%}
+      {%- if section.settings.founder_line != blank -%}
+        <div class="wk-founder">
+          {%- if section.settings.founder_image -%}
+            <img src="{{ section.settings.founder_image | image_url: width: 120 }}" alt="Dr. Katie Chen" width="120" height="120" loading="lazy">
+          {%- else -%}
+            <img src="{{ 'wk-katie-avatar.jpg' | asset_url }}" alt="Dr. Katie Chen" width="120" height="120" loading="lazy">
+          {%- endif -%}
+          <p>{{ section.settings.founder_line }}</p>
+        </div>
+      {%- endif -%}
+
+      <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:22px;">
+        {%- for i in (1..4) -%}{%- assign bk = 'benefit_' | append: i -%}{%- assign bt = section.settings[bk] -%}{%- if bt != blank -%}<div style="display:flex;align-items:flex-start;gap:11px;font-size:14.5px;color:#3A2A20;"><span style="color:#C9653F;font-weight:700;flex:0 0 auto;">✓</span><span>{{ bt }}</span></div>{%- endif -%}{%- endfor -%}
+      </div>
+
+      <!-- FLAVOR -->
+      <style>
+        @media(max-width:749px){
+          .wk-sale-badge{margin-left:0 !important;font-size:11.5px !important;padding:8px 15px !important;gap:6px !important;letter-spacing:0.03em !important;box-shadow:0 3px 10px rgba(201,101,63,0.35) !important;}
+          .wk-sale-badge > span{font-size:13px !important;}
+        }
+      </style>
+      <div style="font-size:11.5px;letter-spacing:0.22em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:10px;">{{ section.settings.flavor_label }}</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:26px;flex-wrap:wrap;">
+        <button data-wk="flavor" data-wk-val="cranberry" style="position:relative;cursor:pointer;font-family:inherit;background:#F5E6D8;border:1.5px solid #6B3D42;color:#6B3D42;border-radius:999px;padding:9px 18px;font-size:13px;letter-spacing:0.04em;">{{ section.settings.flavor_pill }}<span data-wk-ring="flavor:cranberry" style="box-shadow:0 0 0 2px #6B3D42;position:absolute;inset:-1.5px;border-radius:999px;pointer-events:none;"></span></button>
+        {%- if section.settings.sale_badge != blank -%}
+          <div class="wk-sale-badge" style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#E2A24C,#C9653F);color:#FFF7EE;border:1.5px solid rgba(251,241,230,0.7);border-radius:999px;padding:10px 20px;font-size:13.5px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;line-height:1.1;box-shadow:0 4px 14px rgba(201,101,63,0.42);white-space:nowrap;"><span style="font-size:16px;line-height:1;">&#9728;</span>{{ section.settings.sale_badge }}</div>
+        {%- endif -%}
+      </div>
+
+      <!-- PLAN SELECTOR (Subscribe & Save vs one-time, 1 bottle each) -->
+      {%- comment -%}
+        Server-rendered starting prices so nothing flashes before the script runs. The script then
+        re-prices against the LIVE selling-plan discount, which is what checkout charges.
+      {%- endcomment -%}
+      {%- assign wk_price = wk_variant.price | default: 5995 -%}
+      {%- assign wk_sub_keep = 100 | minus: section.settings.sub_pct -%}
+      {%- assign wk_sub_cents = wk_price | times: wk_sub_keep | divided_by: 100.0 | round -%}
+      {%- assign wk_one_off = wk_price | times: section.settings.one_pct | divided_by: 100 -%}
+      {%- assign wk_one_cents = wk_price | minus: wk_one_off -%}
+      <div style="font-size:11.5px;letter-spacing:0.22em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:22px;">{{ section.settings.plans_label }}</div>
+      <div style="display:flex;flex-direction:column;gap:18px;margin-bottom:20px;">
+
+        <!-- SUBSCRIBE & SAVE -->
+        <div class="wk-plan is-sel" data-wk="supply" data-wk-val="sub" data-wk-plan="sub" role="radio" aria-checked="true" tabindex="0">
+          {%- if section.settings.sub_badge != blank -%}<span class="wk-plan-badge">{{ section.settings.sub_badge }}</span>{%- endif -%}
+          <div class="wk-plan-head">
+            <span style="display:flex;align-items:center;gap:12px;min-width:0;">
+              <span class="wk-radio"><span>&check;</span></span>
+              <span style="min-width:0;">
+                <span class="wk-plan-name" style="display:block;font-size:17.2px;font-weight:700;color:#6B3D42;line-height:1.25;">{{ section.settings.sub_name }}</span>
+                <span class="wk-plan-sub" style="display:block;font-size:13.8px;color:#7a6258;margin-top:4px;">{{ section.settings.sub_sub }}</span>
+              </span>
+            </span>
+            <span style="text-align:right;flex:0 0 auto;">
+              <span class="wk-plan-compare" data-wk-compare="sub" style="display:block;font-size:14.6px;text-decoration:line-through;color:#8f6266;line-height:1.2;">{{ wk_price | money }}</span>
+              <span class="wk-plan-price" style="display:block;font-size:27px;font-weight:700;color:#C9653F;line-height:1.1;"><span data-wk-permo="sub">{{ wk_sub_cents | money }}</span>{{ section.settings.sub_suffix }}</span>
+              {%- if section.settings.sub_billing != blank -%}<span class="wk-plan-bill" style="display:block;font-size:12.8px;color:#7a6258;margin-top:4px;">{{ section.settings.sub_billing }}</span>{%- endif -%}
+            </span>
+          </div>
+          <div class="wk-plan-body">
+            <div class="wk-inc-label">{{ section.settings.includes_label }}</div>
+            <div class="wk-inc-row">
+              {%- if section.settings.supply_image -%}
+                <img class="wk-inc-thumb" src="{{ section.settings.supply_image | image_url: width: 140 }}" alt="" width="140" height="140" loading="lazy">
+              {%- else -%}
+                <img class="wk-inc-thumb" src="{{ 'wk-bottle.jpg' | asset_img_url: '140x140' }}" alt="" width="140" height="140" loading="lazy">
+              {%- endif -%}
+              <span style="flex:1;min-width:0;">
+                <span class="wk-inc-t" style="display:block;">{{ section.settings.supply_title }}</span>
+                <span class="wk-inc-d" style="display:block;">{{ section.settings.supply_desc }}</span>
+              </span>
+              <span class="wk-pill" data-wk-save="sub">Save {{ section.settings.sub_pct }}%</span>
+            </div>
+
+            {%- assign has_gift = false -%}
+            {%- for i in (1..4) -%}{%- assign gt = 'gift_' | append: i | append: '_title' -%}{%- if section.settings[gt] != blank -%}{%- assign has_gift = true -%}{%- endif -%}{%- endfor -%}
+
+            {%- if has_gift -%}
+              <div class="wk-gift-div"><span>{{ section.settings.gifts_label }}</span></div>
+              {%- for i in (1..4) -%}
+                {%- assign gt = 'gift_' | append: i | append: '_title' -%}
+                {%- assign gd = 'gift_' | append: i | append: '_desc' -%}
+                {%- assign gv = 'gift_' | append: i | append: '_value' -%}
+                {%- assign gi = 'gift_' | append: i | append: '_image' -%}
+                {%- if section.settings[gt] != blank -%}
+                  <div class="wk-inc-row">
+                    {%- if section.settings[gi] -%}
+                      <img class="wk-gift-img" src="{{ section.settings[gi] | image_url: width: 200 }}" alt="" width="200" height="200" loading="lazy">
+                    {%- elsif i <= 3 -%}
+                      {%- comment -%} defaults to assets/wk-gift-1..3.png — only 1–3 ship with artwork {%- endcomment -%}
+                      {%- assign gfb = 'wk-gift-' | append: i | append: '.png' -%}
+                      <img class="wk-gift-img" src="{{ gfb | asset_url }}" alt="" width="200" height="200" loading="lazy">
+                    {%- else -%}
+                      <span class="wk-inc-ph">&#10022;</span>
+                    {%- endif -%}
+                    <span style="flex:1;min-width:0;">
+                      <span class="wk-inc-t" style="display:block;">{{ section.settings[gt] }}</span>
+                      {%- if section.settings[gd] != blank -%}<span class="wk-inc-d" style="display:block;">{{ section.settings[gd] }}</span>{%- endif -%}
+                    </span>
+                    {%- comment -%} real gift price in the visitor's currency when the gift product is set, else the plain-text value {%- endcomment -%}
+                    {%- assign gpk = 'gift_' | append: i | append: '_product' -%}
+                    {%- assign gp = section.settings[gpk] -%}
+                    {%- assign g_was = '' -%}
+                    {%- if gp != blank and gp.price > 0 -%}
+                      {%- assign g_was = gp.price | money_without_trailing_zeros -%}
+                      {%- assign g_now = 0 | money_without_trailing_zeros -%}
+                    {%- elsif section.settings[gv] != blank -%}
+                      {%- assign g_was = section.settings[gv] | remove: ' value' | strip -%}
+                      {%- assign g_now = '$0' -%}
+                    {%- endif -%}
+                    {%- if g_was != blank -%}<span class="wk-gift-price"><span class="wk-gift-was">{{ g_was }}</span><span class="wk-gift-now">{{ g_now }}</span></span>{%- endif -%}
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+
+          </div>
+        </div>
+
+        <!-- ONE-TIME PURCHASE -->
+        {%- comment -%} header-only card unless a loss-aversion note is set {%- endcomment -%}
+        {%- assign one_bare = ' wk-plan--bare' -%}{%- if section.settings.one_missing != blank -%}{%- assign one_bare = '' -%}{%- endif -%}
+        <div class="wk-plan{{ one_bare }}" data-wk="supply" data-wk-val="one" data-wk-plan="one" role="radio" aria-checked="false" tabindex="0">
+          <div class="wk-plan-head">
+            <span style="display:flex;align-items:center;gap:12px;min-width:0;">
+              <span class="wk-radio"><span>&check;</span></span>
+              <span style="min-width:0;">
+                <span class="wk-plan-name" style="display:block;font-size:17.2px;font-weight:700;color:#6B3D42;line-height:1.25;">{{ section.settings.one_name }}</span>
+                <span class="wk-plan-sub" style="display:block;font-size:13.8px;color:#7a6258;margin-top:4px;">{{ section.settings.one_sub }}</span>
+              </span>
+            </span>
+            <span style="text-align:right;flex:0 0 auto;">
+              <span class="wk-plan-compare" data-wk-compare="one" style="display:none;font-size:14.6px;text-decoration:line-through;color:#8f6266;line-height:1.2;">{{ wk_price | money }}</span>
+              <span class="wk-plan-price" style="display:block;font-size:27px;font-weight:700;color:#C9653F;line-height:1.1;"><span data-wk-permo="one">{{ wk_one_cents | money }}</span>{{ section.settings.one_suffix }}</span>
+            </span>
+          </div>
+          {%- if section.settings.one_missing != blank -%}<div class="wk-miss">{{ section.settings.one_missing }}</div>{%- endif -%}
+        </div>
+      </div>
+
+      <!-- ADD TO CART -->
+      {%- if wk_product != blank -%}
+        <form method="post" action="{{ routes.cart_add_url }}" accept-charset="UTF-8" enctype="multipart/form-data" data-wk-form>
+          <input type="hidden" name="form_type" value="product">
+          <input type="hidden" name="utf8" value="✓">
+          {%- comment -%}
+            items[] notation so the free-gift products can be added in the same request.
+            The gift lines deliberately carry NO selling plan, so they stay out of the
+            subscription contract and never recur. They are disabled unless Subscribe & Save
+            is selected — FormData omits disabled inputs, which is what drops them from
+            the one-time path (leaving a gap in the indices, which Shopify accepts).
+
+            Order matters: Shopify lists cart lines in REVERSE of the order they are sent,
+            so the gummies go LAST here to appear FIRST in the cart, drawer and checkout.
+          {%- endcomment -%}
+          {%- assign gidx = -1 -%}
+          {%- for i in (1..3) -%}
+            {%- assign gvk = 'gift_' | append: i | append: '_variant' -%}
+            {%- assign gv = section.settings[gvk] -%}
+            {%- if gv != blank -%}
+              {%- assign gidx = gidx | plus: 1 -%}
+              <input type="hidden" name="items[{{ gidx }}][id]" value="{{ gv }}" data-wk-gift>
+              <input type="hidden" name="items[{{ gidx }}][quantity]" value="1" data-wk-gift>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- assign midx = gidx | plus: 1 -%}
+          <input type="hidden" name="items[{{ midx }}][id]" value="{{ wk_variant.id }}">
+          <input type="hidden" name="items[{{ midx }}][quantity]" value="1">
+          {%- comment -%} starts empty + disabled: the script fills in the monthly plan, so a page whose script never runs sells one-time at full price rather than on the wrong plan {%- endcomment -%}
+          <input type="hidden" name="items[{{ midx }}][selling_plan]" value="" data-wk-selling-plan disabled>
+          <button type="submit" class="wk-atc"{% unless wk_variant.available %} disabled{% endunless %}>
+            {%- if wk_variant.available -%}
+              <span class="wk-atc-main">{{ section.settings.atc_label }}</span>
+              {%- if section.settings.atc_guarantee != blank -%}
+                <span class="wk-atc-gtee"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l8 3.5v5.5c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5.5L12 2z"/><path d="M9 12l2 2 4-4"/></svg>{{ section.settings.atc_guarantee }}</span>
+              {%- endif -%}
+            {%- else -%}
+              <span class="wk-atc-main">Sold out</span>
+            {%- endif -%}
+          </button>
+        </form>
+      {%- else -%}
+        <button style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;">Select a product</button>
+      {%- endif -%}
+
+      {%- comment -%} pages listed in batch_pages get the "Next batch ships on" module instead of the urgency bar {%- endcomment -%}
+      {%- assign wk_batch = false -%}
+      {%- assign wk_batch_pages = section.settings.batch_pages | remove: ' ' | split: ',' -%}
+      {%- if wk_batch_pages contains '*' -%}{%- assign wk_batch = true -%}
+      {%- elsif page and wk_batch_pages contains page.handle -%}{%- assign wk_batch = true -%}{%- endif -%}
+
+      {%- if wk_batch -%}
+        {%- render 'wk-batch-ships',
+          id: section.id,
+          title: section.settings.batch_title,
+          note: section.settings.batch_note,
+          weekday: section.settings.batch_weekday,
+          pct: section.settings.batch_pct,
+          sold: section.settings.batch_sold,
+          reserved: section.settings.batch_reserved,
+          later: section.settings.batch_later
+        -%}
+      {%- elsif section.settings.urgency_heading != blank -%}
+        <div class="wk-urg">
+          <div class="wk-urg-h">{{ section.settings.urgency_heading }}</div>
+          {%- if section.settings.urgency_text != blank -%}<div class="wk-urg-t">{{ section.settings.urgency_text }}</div>{%- endif -%}
+          <div class="wk-urg-bar">
+            <div class="wk-urg-fill" style="width:{{ section.settings.urgency_pct }}%;"></div>
+          </div>
+          <div class="wk-urg-row">
+            <span class="wk-urg-sold">{{ section.settings.urgency_pct }}% sold</span>
+            <span class="wk-urg-cd">{{ section.settings.urgency_countdown_label }} <span data-wk-countdown>00:00:00</span></span>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.reason_why != blank -%}
+        <div style="text-align:center;margin:14px 0 0;font-size:13px;line-height:1.5;color:#6B3D42;font-weight:600;">{{ section.settings.reason_why }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.trust_heading != blank -%}
+        <div class="wk-trust">
+          <span class="wk-trust-av">
+            {%- for i in (1..section.settings.trust_count) -%}
+              {%- assign tk = 'trust_' | append: i | append: '_image' -%}
+              {%- assign timg = section.settings[tk] -%}
+              {%- if timg -%}
+                <img src="{{ timg | image_url: width: 160 }}" alt="" width="160" height="160" loading="lazy">
+              {%- else -%}
+                {%- comment -%} same customer photos as the homepage testimonials {%- endcomment -%}
+                {%- assign tfb = 'wk-testimonial-' | append: i | append: '.jpg' -%}
+                <img src="{{ tfb | asset_img_url: '160x160' }}" alt="" width="160" height="160" loading="lazy">
+              {%- endif -%}
+            {%- endfor -%}
+            <span class="wk-trust-chk">&check;</span>
+          </span>
+          <span style="display:block;">
+            <span class="wk-trust-h">{{ section.settings.trust_heading }}</span>
+            {%- if section.settings.trust_text != blank -%}<span class="wk-trust-d">{{ section.settings.trust_text }}</span>{%- endif -%}
+          </span>
+        </div>
+      {%- endif -%}
+      <div style="text-align:center;margin:12px 0 0;font-size:11.5px;letter-spacing:0.02em;color:#7a6258;font-weight:600;line-height:1.45;">Hormone-free · Third-party tested · Made in America in a GMP-certified facility</div>
+
+      <!-- HOW TO USE / SHIPPING TABS -->
+      <style>
+        #wk-{{ section.id }}-tabs { margin-top:30px; }
+        #wk-{{ section.id }}-tabs [data-wk-xpanel="use"].is-active,
+        #wk-{{ section.id }}-tabs [data-wk-xpanel="ship"].is-active { display:block; }
+        #wk-{{ section.id }}-tabs .wk-xpanel.is-active { grid-template-columns:1fr; gap:30px; }
+        #wk-{{ section.id }}-tabs .wk-xt-simple { max-width:none; color:#F5E6D8; }
+        #wk-{{ section.id }}-tabs .wk-xt-simple ul { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr; gap:14px; }
+        #wk-{{ section.id }}-tabs .wk-xt-simple li { position:relative; padding-left:20px; font-size:15px; line-height:1.5; color:rgba(245,230,216,0.9); }
+        #wk-{{ section.id }}-tabs .wk-xt-simple li::before { content:'•'; position:absolute; left:0; color:#C9653F; }
+        #wk-{{ section.id }}-tabs .wk-xt-simple p { margin:0 0 14px; font-size:15px; line-height:1.6; color:rgba(245,230,216,0.9); }
+        #wk-{{ section.id }}-tabs .wk-xt-simple p:last-child { margin-bottom:0; }
+        #wk-{{ section.id }}-tabs .wk-xt-simple ul:last-child { margin-bottom:0; }
+      </style>
+      <div id="wk-{{ section.id }}-tabs">
+        <div class="wk-xt">
+          <div class="wk-xt-tabs" role="tablist">
+            <button class="wk-xtab is-active" data-wk-xtab="use" role="tab" aria-selected="true" type="button">{{ section.settings.tab2_label }}</button>
+            <button class="wk-xtab" data-wk-xtab="ship" role="tab" aria-selected="false" type="button">{{ section.settings.tab3_label }}</button>
+          </div>
+          <div class="wk-xt-body">
+            <div class="wk-xpanel is-active" data-wk-xpanel="use" role="tabpanel">
+              <div class="wk-xt-simple">{{ section.settings.use_content }}</div>
+            </div>
+            <div class="wk-xpanel" data-wk-xpanel="ship" role="tabpanel">
+              <div class="wk-xt-simple">{{ section.settings.ship_content }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<script>
+(function(){
+  function wkInit(){
+  // womankind-2 pages wrap everything in .wk-root (and this script also drives the carousels there);
+  // the homepage layout has no .wk-root, so fall back to this section or the buy box never initialises
+  var root = document.querySelector('.wk-root') || document.getElementById('wk-sub-{{ section.id }}');
+  if (!root || root.dataset.wkInit) return;
+  root.dataset.wkInit = '1';
+  var RING = '0 0 0 2px #6B3D42', NONE = '0 0 0 0 transparent';
+  var state = { flavor:'cranberry', supply:'sub' };
+
+  function applySelection(group){
+    var val = state[group];
+    root.querySelectorAll('[data-wk-ring]').forEach(function(el){
+      var parts = el.getAttribute('data-wk-ring').split(':');
+      if (parts[0] !== group) return;
+      el.style.boxShadow = (parts[1] === val) ? RING : NONE;
+    });
+    if (group === 'supply') {
+      root.querySelectorAll('[data-wk-plan]').forEach(function(card){
+        var on = card.getAttribute('data-wk-plan') === val;
+        card.classList.toggle('is-sel', on);
+        card.setAttribute('aria-checked', on ? 'true' : 'false');
+      });
+    }
+  }
+
+  // --- Subscribe & Save (1 bottle on a monthly selling plan) vs one-time (1 bottle, no plan) ---
+  var BOTTLE = {{ wk_variant.price | default: 5995 }};   // cents, live variant price (already in the market's presentment currency)
+  var SELLING_PLANS = [
+    {%- assign wk_sp_first = true -%}
+    {%- for grp in wk_product.selling_plan_groups -%}{%- for sp in grp.selling_plans -%}
+      {%- unless wk_sp_first %},{% endunless %}{%- assign wk_adj = sp.price_adjustments.first -%}{ id: {{ sp.id }}, name: {{ sp.name | json }}, pct: {% if wk_adj and wk_adj.value_type == 'percentage' %}{{ wk_adj.value }}{% else %}null{% endif %} }{%- assign wk_sp_first = false -%}
+    {%- endfor -%}{%- endfor -%}
+  ];
+  var SUB_PCT = {{ section.settings.sub_pct | default: 40 }};
+  var ONE_PCT = {{ section.settings.one_pct | default: 0 | divided_by: 100.0 }};
+  var PLAN_OVERRIDE = {{ section.settings.plan_id | default: 'null' }};
+
+  // The monthly plan: the pinned ID if one is set, otherwise the plan whose live discount equals
+  // SUB_PCT. Never matched by name — a wrong plan means a wrong price at checkout.
+  var SUB_PLAN = null;
+  for (var i = 0; i < SELLING_PLANS.length; i++) {
+    var sp = SELLING_PLANS[i];
+    if (PLAN_OVERRIDE ? sp.id === PLAN_OVERRIDE : sp.pct === SUB_PCT) { SUB_PLAN = sp; break; }
+  }
+  // Price against the plan's LIVE discount, so the buy box can never drift from checkout.
+  var subPct = SUB_PLAN ? (SUB_PLAN.pct || 0) / 100 : SUB_PCT / 100;
+
+  // No matching plan means we can't honestly sell the subscription: hide that card and fall back
+  // to one-time, which is always priced correctly. The theme editor still shows it (priced from
+  // sub_pct) so the layout can be reviewed before the plan exists.
+  if (!SUB_PLAN && !{{ request.design_mode }}) {
+    if (window.console) console.warn('[wk-hero-meno-hrt] no selling plan at ' + SUB_PCT + '% (or pinned ID) - Subscribe & Save hidden');
+    root.querySelectorAll('[data-wk-plan="sub"]').forEach(function(c){ c.style.display = 'none'; });
+    state.supply = 'one';
+  }
+
+  var WK_CUR = (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD';
+  var WK_NF; try { WK_NF = new Intl.NumberFormat('en', { style:'currency', currency:WK_CUR, currencyDisplay:'narrowSymbol' }); } catch(e){ try { WK_NF = new Intl.NumberFormat('en', { style:'currency', currency:WK_CUR }); } catch(_){ WK_NF = null; } }
+  function wkMoney(cents){ var v=(cents||0)/100; return WK_NF ? WK_NF.format(v).replace(/[.,]00(?=\D*$)/, '') : '$' + v.toFixed(2).replace(/\.00$/, ''); }
+
+  // Shopify rounds the selling-plan price but floors an automatic discount — mirror both exactly.
+  function wkQuote(mode){
+    var price = (mode === 'sub')
+      ? Math.round(BOTTLE * (1 - subPct))
+      : BOTTLE - Math.floor(BOTTLE * ONE_PCT);
+    return { full: BOTTLE, total: price, save: Math.round((1 - price / BOTTLE) * 100) };
+  }
+
+  function applyPricing(){
+    ['sub','one'].forEach(function(k){
+      var q = wkQuote(k);
+      root.querySelectorAll('[data-wk-permo="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.total); });
+      root.querySelectorAll('[data-wk-compare="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.full); e.style.display = q.save > 0 ? 'block' : 'none'; });
+      root.querySelectorAll('[data-wk-save="'+k+'"]').forEach(function(e){ e.textContent = 'Save ' + q.save + '%'; e.style.display = q.save > 0 ? '' : 'none'; });
+    });
+    root.querySelectorAll('[data-wk-atc-total]').forEach(function(e){ e.textContent = wkMoney(wkQuote(state.supply).total); });
+  }
+
+  // Subscribe & Save attaches the monthly plan + the free gifts; one-time sends the bottle alone.
+  function applyCart(){
+    var sub = (state.supply === 'sub' && !!SUB_PLAN);
+    root.querySelectorAll('[data-wk-selling-plan]').forEach(function(i){ if (SUB_PLAN) i.value = SUB_PLAN.id; i.disabled = !sub; });
+    root.querySelectorAll('[data-wk-gift]').forEach(function(i){ i.disabled = !sub; });
+  }
+
+  function applySupply(){ applyCart(); applyPricing(); }
+
+  root.querySelectorAll('[data-wk]').forEach(function(el){
+    function pick(){
+      var g = el.getAttribute('data-wk');
+      state[g] = el.getAttribute('data-wk-val');
+      applySelection(g);
+      if (g === 'supply') applySupply();
+    }
+    el.addEventListener('click', pick);
+    el.addEventListener('keydown', function(e){ if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); pick(); } });
+  });
+  applySelection('supply');
+  applySupply();
+
+  // Countdown to the end of the viewer's own day. `end` is recomputed every tick from a fresh
+  // local Date, so it rolls over to the next midnight on its own and follows the visitor's timezone.
+  var wkCd = root.querySelector('[data-wk-countdown]');
+  if (wkCd) {
+    function wkPad(n){ return (n < 10 ? '0' : '') + n; }
+    function wkTick(){
+      var now = new Date();
+      var end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
+      var ms = end - now; if (ms < 0) ms = 0;
+      wkCd.textContent = wkPad(Math.floor(ms / 3600000)) + ':' +
+                         wkPad(Math.floor(ms % 3600000 / 60000)) + ':' +
+                         wkPad(Math.floor(ms % 60000 / 1000));
+    }
+    wkTick();
+    setInterval(wkTick, 1000);
+  }
+
+  function bindAccordion(btnAttr, panelAttr){
+    root.querySelectorAll('['+btnAttr+']').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var id = btn.getAttribute(btnAttr);
+        var panel = root.querySelector('['+panelAttr+'="'+id+'"]');
+        var isOpen = panel && panel.style.display !== 'none';
+        root.querySelectorAll('['+panelAttr+']').forEach(function(p){ p.style.display = 'none'; });
+        if (!isOpen && panel) panel.style.display = 'block';
+      });
+    });
+  }
+  bindAccordion('data-wk-faq', 'data-wk-faq-panel');
+
+  var track = root.querySelector('[data-wk-track]');
+  if (track) {
+    var prevBtn = root.querySelector('[data-wk-prev]');
+    var nextBtn = root.querySelector('[data-wk-next]');
+    var bar = root.querySelector('[data-wk-bar]');
+    function cardStep() {
+      var card = track.querySelector('[data-wk-card]');
+      return card ? card.getBoundingClientRect().width + 22 : track.clientWidth;
+    }
+    if (prevBtn) prevBtn.addEventListener('click', function(){ track.scrollBy({ left: -cardStep(), behavior: 'smooth' }); });
+    if (nextBtn) nextBtn.addEventListener('click', function(){ track.scrollBy({ left: cardStep(), behavior: 'smooth' }); });
+    function updateBar() {
+      if (!bar) return;
+      var max = track.scrollWidth - track.clientWidth;
+      var ratio = max > 0 ? track.scrollLeft / max : 0;
+      bar.style.width = (33 + ratio * 67) + '%';
+    }
+    track.addEventListener('scroll', updateBar, { passive: true });
+    window.addEventListener('resize', updateBar);
+    updateBar();
+  }
+
+  var eg = root.querySelector('.wk-experts-grid');
+  var dotsWrap = root.querySelector('.wk-experts-dots');
+  if (eg && dotsWrap) {
+    var dots = dotsWrap.querySelectorAll('span');
+    var cards = eg.children;
+    function egStep() {
+      return (cards.length > 1)
+        ? (cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left)
+        : eg.clientWidth;
+    }
+    function egUpdate() {
+      var step = egStep() || eg.clientWidth;
+      var idx = Math.round(eg.scrollLeft / step);
+      idx = Math.max(0, Math.min(dots.length - 1, idx));
+      for (var i = 0; i < dots.length; i++) dots[i].classList.toggle('is-active', i === idx);
+    }
+    eg.addEventListener('scroll', egUpdate, { passive: true });
+    window.addEventListener('resize', egUpdate);
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () {
+        if (!cards[i]) return;
+        var target = eg.scrollLeft + (cards[i].getBoundingClientRect().left - eg.getBoundingClientRect().left);
+        eg.scrollTo({ left: target, behavior: 'smooth' });
+      });
+    });
+    egUpdate();
+  }
+
+  var ingTrack = root.querySelector('[data-wk-ing-track]');
+  if (ingTrack) {
+    var ingPrev = root.querySelector('[data-wk-ing-prev]');
+    var ingNext = root.querySelector('[data-wk-ing-next]');
+    var ingBar = root.querySelector('[data-wk-ing-bar]');
+    function ingStep() {
+      var c = ingTrack.querySelector('[data-wk-ing-card]');
+      return c ? c.getBoundingClientRect().width + 18 : ingTrack.clientWidth;
+    }
+    if (ingPrev) ingPrev.addEventListener('click', function () { ingTrack.scrollBy({ left: -ingStep(), behavior: 'smooth' }); });
+    if (ingNext) ingNext.addEventListener('click', function () { ingTrack.scrollBy({ left: ingStep(), behavior: 'smooth' }); });
+    function ingBarUpdate() {
+      if (!ingBar) return;
+      var max = ingTrack.scrollWidth - ingTrack.clientWidth;
+      var ratio = max > 0 ? ingTrack.scrollLeft / max : 0;
+      ingBar.style.width = (33 + ratio * 67) + '%';
+    }
+    ingTrack.addEventListener('scroll', ingBarUpdate, { passive: true });
+    window.addEventListener('resize', ingBarUpdate);
+    ingBarUpdate();
+  }
+
+  var sfOverlay = root.querySelector('[data-wk-suppfacts-overlay]');
+  if (sfOverlay) {
+    var sfDialog = sfOverlay.querySelector('[data-wk-suppfacts-dialog]');
+    function sfOpen() { sfOverlay.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+    function sfClose() { sfOverlay.style.display = 'none'; document.body.style.overflow = ''; }
+    root.querySelectorAll('[data-wk-suppfacts-open]').forEach(function (btn) { btn.addEventListener('click', sfOpen); });
+    root.querySelectorAll('[data-wk-suppfacts-close]').forEach(function (btn) { btn.addEventListener('click', sfClose); });
+    sfOverlay.addEventListener('click', function (e) { if (sfDialog && !sfDialog.contains(e.target)) sfClose(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && sfOverlay.style.display === 'flex') sfClose(); });
+  }
+
+  var thumbTrack = root.querySelector('[data-wk-thumb-track]');
+  if (thumbTrack) {
+    var thumbPrev = root.querySelector('[data-wk-thumb-prev]');
+    var thumbNext = root.querySelector('[data-wk-thumb-next]');
+    function thumbStep() {
+      var c = thumbTrack.querySelector('button');
+      return c ? c.getBoundingClientRect().width + 10 : thumbTrack.clientWidth;
+    }
+    if (thumbPrev) thumbPrev.addEventListener('click', function () { thumbTrack.scrollBy({ left: -thumbStep() * 2, behavior: 'smooth' }); });
+    if (thumbNext) thumbNext.addEventListener('click', function () { thumbTrack.scrollBy({ left: thumbStep() * 2, behavior: 'smooth' }); });
+  }
+
+  var heroTrack = root.querySelector('[data-wk-hero-track]');
+  var heroBadge = root.querySelector('[data-wk-badge]');
+  var heroThumbs = root.querySelectorAll('[data-wk-thumb]');
+  var heroSlides = root.querySelectorAll('.wk-hero-slide');
+  var heroIdx = 0;
+
+  function heroMark(idx) {
+    if (idx === heroIdx || !heroThumbs.length) return;
+    heroIdx = idx;
+    heroThumbs.forEach(function (b, i) { b.style.borderColor = (i === idx) ? '#6B3D42' : 'transparent'; });
+    if (heroBadge) heroBadge.style.display = (idx === 0) ? '' : 'none';
+    var btn = heroThumbs[idx];
+    if (btn && thumbTrack && thumbTrack.scrollTo) {
+      thumbTrack.scrollTo({ left: btn.offsetLeft - (thumbTrack.clientWidth - btn.offsetWidth) / 2, behavior: 'smooth' });
+    }
+  }
+
+  function heroGo(idx, smooth) {
+    if (!heroTrack || !heroSlides.length) return;
+    if (idx < 0) idx = 0;
+    if (idx > heroSlides.length - 1) idx = heroSlides.length - 1;
+    heroTrack.scrollTo({ left: idx * heroTrack.clientWidth, behavior: smooth === false ? 'auto' : 'smooth' });
+    heroMark(idx);
+  }
+
+  if (heroTrack) {
+    // the browser drives the gesture; we just read back where it landed
+    var heroTick = null;
+    heroTrack.addEventListener('scroll', function () {
+      if (heroTick) return;
+      heroTick = requestAnimationFrame(function () {
+        heroTick = null;
+        var w = heroTrack.clientWidth;
+        if (w) heroMark(Math.round(heroTrack.scrollLeft / w));
+      });
+    }, { passive: true });
+
+    // keep the current slide framed if the viewport changes
+    var heroRz;
+    window.addEventListener('resize', function () {
+      clearTimeout(heroRz);
+      heroRz = setTimeout(function () { heroGo(heroIdx, false); }, 150);
+    });
+  }
+
+  heroThumbs.forEach(function (btn, idx) {
+    btn.addEventListener('click', function () { heroGo(idx); });
+  });
+
+  var xtabs = root.querySelectorAll('[data-wk-xtab]');
+  if (xtabs.length) {
+    xtabs.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var id = btn.getAttribute('data-wk-xtab');
+        xtabs.forEach(function (b) {
+          var on = b.getAttribute('data-wk-xtab') === id;
+          b.classList.toggle('is-active', on);
+          b.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        root.querySelectorAll('[data-wk-xpanel]').forEach(function (p) {
+          p.classList.toggle('is-active', p.getAttribute('data-wk-xpanel') === id);
+        });
+      });
+    });
+  }
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', wkInit); } else { wkInit(); }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "WK - Hero (meno HRT)",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product", "info": "Select the gummies product. Required for add-to-cart and pricing." },
+    { "type": "header", "content": "Gallery", "info": "10 images. Defaults to assets/wk-buybox-1…10.jpg." },
+    { "type": "text", "id": "badge", "label": "Badge label", "default": "Clinicians' Choice" },
+    { "type": "image_picker", "id": "badge_image", "label": "Badge image (optional)" },
+    { "type": "image_picker", "id": "gallery_1_image", "label": "Image 1 (main)" },
+    { "type": "image_picker", "id": "gallery_2_image", "label": "Image 2" },
+    { "type": "image_picker", "id": "gallery_3_image", "label": "Image 3" },
+    { "type": "image_picker", "id": "gallery_4_image", "label": "Image 4" },
+    { "type": "image_picker", "id": "gallery_5_image", "label": "Image 5" },
+    { "type": "image_picker", "id": "gallery_6_image", "label": "Image 6" },
+    { "type": "image_picker", "id": "gallery_7_image", "label": "Image 7" },
+    { "type": "image_picker", "id": "gallery_8_image", "label": "Image 8" },
+    { "type": "image_picker", "id": "gallery_9_image", "label": "Image 9" },
+    { "type": "image_picker", "id": "gallery_10_image", "label": "Image 10" },
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "For women who’ve decided against hormones · Zero sugar · 90-day guarantee" },
+    { "type": "text", "id": "heading", "label": "Title", "default": "You said no to hormones. Nobody offered you anything else." },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Two zero-sugar gummies a day for the hot flashes and night sweats of menopause — and the sleep they steal. Whether it’s been two years or ten.*" },
+    { "type": "textarea", "id": "bridge_line", "label": "Bridge line", "default": "Whether you decided against hormones, or tried them and stopped — you don’t have to justify that here.", "info": "Italic line under the description. Leave blank to hide." },
+    { "type": "inline_richtext", "id": "founder_line", "label": "Founder line", "default": "Built by <strong>Dr. Katie Chen</strong>, board-certified OB/GYN and co-founder — after years of watching women leave her office with hot flashes and nothing to offer them. So she went deep into botanical research and built the alternative herself.", "info": "Shown in a small card with Dr. Katie Chen's photo. Leave blank to hide." },
+    { "type": "image_picker", "id": "founder_image", "label": "Founder photo", "info": "Defaults to wk-katie-avatar.jpg (face crop of the co-founder portrait)." },
+    { "type": "header", "content": "Benefit checklist" },
+    { "type": "inline_richtext", "id": "benefit_1", "label": "Benefit 1", "default": "Hot flashes cut by 92% — day and night*" },
+    { "type": "inline_richtext", "id": "benefit_2", "label": "Benefit 2", "default": "Soaked sheets gone — 94% sleep cooler and stop losing nights*" },
+    { "type": "inline_richtext", "id": "benefit_3", "label": "Benefit 3", "default": "Moods that stop swinging — 89% steadier within 90 days*" },
+    { "type": "inline_richtext", "id": "benefit_4", "label": "Benefit 4", "default": "<strong>Zero hormones. Zero sugar. Zero proprietary blends.</strong>" },
+    { "type": "header", "content": "Flavor" },
+    { "type": "text", "id": "flavor_label", "label": "Section label", "default": "Flavor" },
+    { "type": "text", "id": "flavor_pill", "label": "Flavor pill", "default": "Mixed berries" },
+    { "type": "text", "id": "sale_badge", "label": "Sale badge (leave blank to hide)" },
+    { "type": "header", "content": "Plans", "info": "Two cards, 1 bottle each: Subscribe & Save (monthly selling plan + free gifts) and a one-time purchase (no plan, no gifts)." },
+    { "type": "text", "id": "plans_label", "label": "Selector label", "default": "Choose how to start" },
+    { "type": "text", "id": "sub_badge", "label": "Subscribe badge", "default": "Most popular · Free gifts" },
+    { "type": "text", "id": "sub_name", "label": "Subscribe name", "default": "Subscribe & Save" },
+    { "type": "text", "id": "sub_sub", "label": "Subscribe sub-line", "default": "1 bottle every 30 days · Skip or cancel anytime" },
+    { "type": "text", "id": "sub_suffix", "label": "Subscribe price suffix", "default": "/mo" },
+    { "type": "text", "id": "sub_billing", "label": "Subscribe billing note", "info": "Small line under the price. Leave blank to hide." },
+    { "type": "text", "id": "one_name", "label": "One-time name", "default": "One-Time Purchase" },
+    { "type": "text", "id": "one_sub", "label": "One-time sub-line", "default": "1 bottle · 30 day supply" },
+    { "type": "text", "id": "one_suffix", "label": "One-time price suffix", "info": "Leave blank for no suffix." },
+    { "type": "text", "id": "one_missing", "label": "One-time loss-aversion note", "info": "Shown under the one-time card. Leave blank to hide." },
+    { "type": "header", "content": "Pricing", "info": "The subscription is priced from the LIVE discount on the matched selling plan, so display always equals checkout. If no plan matches, the Subscribe card hides itself and the page sells one-time only." },
+    { "type": "range", "id": "sub_pct", "label": "Subscription discount %", "min": 5, "max": 60, "step": 1, "default": 40, "unit": "%", "info": "Used to find the monthly selling plan with this exact discount." },
+    { "type": "text", "id": "plan_id", "label": "Monthly plan ID (override)", "info": "Optional. Pin a specific selling plan instead of matching on the discount." },
+    { "type": "range", "id": "one_pct", "label": "One-time discount %", "min": 0, "max": 60, "step": 1, "default": 0, "unit": "%", "info": "0 = full price. Only raise this if a matching automatic discount is live in Shopify." },
+    { "type": "header", "content": "Free gift products", "info": "Variant IDs (not product IDs) of the three $0 gift products. They are added as one-time lines with Subscribe & Save and skipped on one-time. Leave one blank to drop that gift. Find IDs at yourstore.com/products.json" },
+    { "type": "text", "id": "gift_1_variant", "label": "Gift 1 variant ID", "default": "55027541049683", "info": "The 90-Day Reset Protocol" },
+    { "type": "text", "id": "gift_2_variant", "label": "Gift 2 variant ID", "default": "55027546456403", "info": "The Estrobolome Food Guide" },
+    { "type": "text", "id": "gift_3_variant", "label": "Gift 3 variant ID", "default": "55027553272147", "info": "The Womankind Circle" },
+    { "type": "header", "content": "What's included" },
+    { "type": "text", "id": "includes_label", "label": "Includes label", "default": "Your first order includes" },
+    { "type": "image_picker", "id": "supply_image", "label": "Supply thumbnail" },
+    { "type": "text", "id": "supply_title", "label": "Supply title", "default": "30 days of Womankind" },
+    { "type": "text", "id": "supply_desc", "label": "Supply description", "default": "OB/GYN-formulated protocol for daily menopause support, delivered monthly" },
+    { "type": "header", "content": "Free gifts (Subscribe & Save only)", "info": "Gifts 1–3 default to the artwork in assets/wk-gift-1…3.png (book mockups + community avatar) — upload an image only to override. Leave a title blank to hide that gift. Values are plain text and do not convert between currencies." },
+    { "type": "text", "id": "gifts_label", "label": "Gifts divider label", "default": "Free gifts" },
+    { "type": "image_picker", "id": "gift_1_image", "label": "Gift 1 image" },
+    { "type": "text", "id": "gift_1_title", "label": "Gift 1 title", "default": "The 90-Day Reset Protocol" },
+    { "type": "text", "id": "gift_1_desc", "label": "Gift 1 description", "default": "Dr. Katie Chen's week-by-week guide to your first 90 days (e-book)" },
+    { "type": "product", "id": "gift_1_product", "label": "Gift 1 product", "info": "Its price is shown struck through above $0, in the visitor's currency." },
+    { "type": "text", "id": "gift_1_value", "label": "Gift 1 value (fallback)", "info": "Only used when no gift product is set.", "default": "$45 value" },
+    { "type": "image_picker", "id": "gift_2_image", "label": "Gift 2 image" },
+    { "type": "text", "id": "gift_2_title", "label": "Gift 2 title", "default": "The Estrobolome Food Guide" },
+    { "type": "text", "id": "gift_2_desc", "label": "Gift 2 description", "default": "Dr. Katie Chen’s full guide to eating through menopause" },
+    { "type": "product", "id": "gift_2_product", "label": "Gift 2 product", "info": "Its price is shown struck through above $0, in the visitor's currency." },
+    { "type": "text", "id": "gift_2_value", "label": "Gift 2 value (fallback)", "info": "Only used when no gift product is set.", "default": "$40 value" },
+    { "type": "image_picker", "id": "gift_3_image", "label": "Gift 3 image" },
+    { "type": "text", "id": "gift_3_title", "label": "Gift 3 title", "default": "The Womankind Circle" },
+    { "type": "text", "id": "gift_3_desc", "label": "Gift 3 description", "default": "Invites to every live Q&A Dr. Katie Chen hosts" },
+    { "type": "product", "id": "gift_3_product", "label": "Gift 3 product", "info": "Its price is shown struck through above $0, in the visitor's currency." },
+    { "type": "text", "id": "gift_3_value", "label": "Gift 3 value (fallback)", "info": "Only used when no gift product is set.", "default": "$150 value" },
+    { "type": "image_picker", "id": "gift_4_image", "label": "Gift 4 image" },
+    { "type": "text", "id": "gift_4_title", "label": "Gift 4 title" },
+    { "type": "text", "id": "gift_4_desc", "label": "Gift 4 description" },
+    { "type": "text", "id": "gift_4_value", "label": "Gift 4 value" },
+    { "type": "header", "content": "Plan footer + checkout" },
+
+    { "type": "text", "id": "atc_label", "label": "Add-to-cart label", "default": "Add to cart" },
+    { "type": "text", "id": "atc_guarantee", "label": "Guarantee strip (inside the button)", "default": "90-day money-back guarantee", "info": "Shown as a bar fused under the button label. Leave blank to hide it." },
+    { "type": "text", "id": "reason_why", "label": "Reason-why line", "info": "Shown under the add-to-cart button. Leave blank to hide." },
+    { "type": "header", "content": "Social proof row", "info": "Shown under the urgency bar. Avatars default to the homepage testimonial photos (wk-testimonial-1\u20136.jpg). Leave the heading blank to hide the row." },
+    { "type": "text", "id": "trust_heading", "label": "Heading", "default": "Trusted by 50,000+ women" },
+    { "type": "text", "id": "trust_text", "label": "Sub-text", "default": "who choose Womankind to feel like themselves again." },
+    { "type": "range", "id": "trust_count", "label": "How many faces", "min": 3, "max": 6, "step": 1, "default": 5, "info": "Mobile always shows the first three so the copy keeps its room." },
+    { "type": "image_picker", "id": "trust_1_image", "label": "Avatar 1" },
+    { "type": "image_picker", "id": "trust_2_image", "label": "Avatar 2" },
+    { "type": "image_picker", "id": "trust_3_image", "label": "Avatar 3" },
+    { "type": "image_picker", "id": "trust_4_image", "label": "Avatar 4" },
+    { "type": "image_picker", "id": "trust_5_image", "label": "Avatar 5" },
+    { "type": "image_picker", "id": "trust_6_image", "label": "Avatar 6" },
+    { "type": "header", "content": "Urgency bar", "info": "Shown under the add-to-cart button. The countdown runs to midnight in the visitor's own timezone and resets each day. Leave the heading blank to hide the whole block." },
+    { "type": "text", "id": "urgency_heading", "label": "Heading", "default": "Selling out fast" },
+    { "type": "text", "id": "urgency_text", "label": "Sub-text", "default": "Due to high demand, limited quantities available." },
+    { "type": "range", "id": "urgency_pct", "label": "Percent sold", "min": 1, "max": 99, "step": 1, "default": 89, "unit": "%" },
+    { "type": "text", "id": "urgency_countdown_label", "label": "Countdown label", "default": "Sale ends in" },
+    { "type": "header", "content": "Next batch module", "info": "Replaces the urgency bar on the pages listed below. Dates are worked out in the visitor's own timezone: the next batch is the first batch day at least 2 days away, with the previous batch (sold out) and the following one a week either side." },
+    { "type": "text", "id": "batch_pages", "label": "Show on pages (handles)", "default": "*", "info": "Comma-separated page handles, or * for every page using this buy box. Leave blank to use the urgency bar everywhere." },
+    { "type": "text", "id": "batch_title", "label": "Title", "default": "Next batch ships on:" },
+    { "type": "text", "id": "batch_note", "label": "Bullet line", "default": "Made in small batches for maximum potency", "info": "Leave blank to hide." },
+    { "type": "select", "id": "batch_weekday", "label": "Batch day", "default": "4", "options": [
+      { "value": "1", "label": "Monday" }, { "value": "2", "label": "Tuesday" }, { "value": "3", "label": "Wednesday" },
+      { "value": "4", "label": "Thursday" }, { "value": "5", "label": "Friday" }, { "value": "6", "label": "Saturday" }, { "value": "0", "label": "Sunday" }
+    ] },
+    { "type": "range", "id": "batch_pct", "label": "Next batch reserved", "min": 50, "max": 99, "step": 1, "default": 88, "unit": "%" },
+    { "type": "text", "id": "batch_sold", "label": "Previous batch label", "default": "Sold out" },
+    { "type": "text", "id": "batch_reserved", "label": "Next batch label (after the %)", "default": "reserved" },
+    { "type": "text", "id": "batch_later", "label": "Following batch label", "default": "Formulating" },
+    { "type": "header", "content": "Tabs · labels" },
+    { "type": "text", "id": "tab2_label", "label": "Tab 2 label", "default": "How to use" },
+    { "type": "text", "id": "tab3_label", "label": "Tab 3 label", "default": "Shipping" },
+    { "type": "header", "content": "How to use" },
+    { "type": "richtext", "id": "use_content", "label": "Content", "default": "<p>Take two gummies daily, with or without food. For the best experience, take Womankind consistently as part of your daily routine.</p>" },
+    { "type": "header", "content": "Shipping" },
+    { "type": "richtext", "id": "ship_content", "label": "Content", "default": "<p>Orders ship within 24 hours. You’ll receive tracking as soon as your order is on its way.</p><p>We are currently experiencing a high volume of orders, so delivery times, depending on your location, range from 2-9 business days.</p>" }
+  ]
+}
+{% endschema %}
