@@ -54,6 +54,7 @@
   #wk-sub-{{ section.id }} .wk-founder img{width:46px;height:46px;flex:0 0 auto;border-radius:50%;object-fit:cover;object-position:top;display:block;background:#E8D5C6;}
   #wk-sub-{{ section.id }} .wk-founder p{font-size:13.8px;line-height:1.55;color:#4a3a30;}
   #wk-sub-{{ section.id }} .wk-founder strong{color:#6B3D42;}
+  #wk-sub-{{ section.id }} .wk-trust-line strong{color:#6B3D42;font-weight:700;}
   /* social-proof row that replaces the guarantee block under the countdown */
   #wk-sub-{{ section.id }} .wk-trust{display:flex;align-items:center;gap:15px;margin:16px 0 0;padding:13px 20px 13px 16px;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.18);border-radius:999px;}
   #wk-sub-{{ section.id }} .wk-trust-av{display:flex;align-items:center;flex:0 0 auto;position:relative;}
@@ -418,7 +419,7 @@
           </span>
         </div>
       {%- endif -%}
-      <div style="text-align:center;margin:12px 0 0;font-size:11.5px;letter-spacing:0.02em;color:#7a6258;font-weight:600;line-height:1.45;">Hormone-free · Third-party tested · Made in America in a GMP-certified facility</div>
+      {%- if section.settings.trust_line != blank -%}<div class="wk-trust-line" style="text-align:center;margin:12px 0 0;font-size:11.5px;letter-spacing:0.02em;color:#7a6258;font-weight:600;line-height:1.45;">{{ section.settings.trust_line }}</div>{%- endif -%}
 
       <!-- HOW TO USE / SHIPPING TABS -->
       <style>
@@ -772,15 +773,15 @@
     { "type": "header", "content": "Heading" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "For women who’ve decided against hormones · Zero sugar · 90-day guarantee" },
     { "type": "text", "id": "heading", "label": "Title", "default": "You said no to hormones. Nobody offered you anything else." },
-    { "type": "textarea", "id": "description", "label": "Description", "default": "Two zero-sugar gummies a day for the hot flashes and night sweats of menopause — and the sleep they steal. Whether it’s been two years or ten.*" },
-    { "type": "textarea", "id": "bridge_line", "label": "Bridge line", "default": "Whether you decided against hormones, or tried them and stopped — you don’t have to justify that here.", "info": "Italic line under the description. Leave blank to hide." },
-    { "type": "inline_richtext", "id": "founder_line", "label": "Founder line", "default": "Built by <strong>Dr. Katie Chen</strong>, board-certified OB/GYN and co-founder — after years of watching women leave her office with hot flashes and nothing to offer them. So she went deep into botanical research and built the alternative herself.", "info": "Shown in a small card with Dr. Katie Chen's photo. Leave blank to hide." },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Two zero-sugar gummies a day for the hot flashes and night sweats of menopause — and the sleep they steal. Whether it’s been two years or ten, or you tried hormones and stopped.*" },
+    { "type": "textarea", "id": "bridge_line", "label": "Bridge line", "info": "Italic line under the description. Leave blank to hide." },
+    { "type": "inline_richtext", "id": "founder_line", "label": "Founder line", "info": "Shown in a small card with Dr. Katie Chen's photo. Leave blank to hide." },
     { "type": "image_picker", "id": "founder_image", "label": "Founder photo", "info": "Defaults to wk-katie-avatar.jpg (face crop of the co-founder portrait)." },
     { "type": "header", "content": "Benefit checklist" },
     { "type": "inline_richtext", "id": "benefit_1", "label": "Benefit 1", "default": "Hot flashes cut by 92% — day and night*" },
     { "type": "inline_richtext", "id": "benefit_2", "label": "Benefit 2", "default": "Soaked sheets gone — 94% sleep cooler and stop losing nights*" },
     { "type": "inline_richtext", "id": "benefit_3", "label": "Benefit 3", "default": "Moods that stop swinging — 89% steadier within 90 days*" },
-    { "type": "inline_richtext", "id": "benefit_4", "label": "Benefit 4", "default": "<strong>Zero hormones. Zero sugar. Zero proprietary blends.</strong>" },
+    { "type": "inline_richtext", "id": "benefit_4", "label": "Benefit 4" },
     { "type": "header", "content": "Flavor" },
     { "type": "text", "id": "flavor_label", "label": "Section label", "default": "Flavor" },
     { "type": "text", "id": "flavor_pill", "label": "Flavor pill", "default": "Mixed berries" },
@@ -845,6 +846,7 @@
     { "type": "image_picker", "id": "trust_4_image", "label": "Avatar 4" },
     { "type": "image_picker", "id": "trust_5_image", "label": "Avatar 5" },
     { "type": "image_picker", "id": "trust_6_image", "label": "Avatar 6" },
+    { "type": "inline_richtext", "id": "trust_line", "label": "Trust line", "default": "Hormone-free · Third-party tested · Made in America in a GMP-certified facility · <strong>Formulated by Dr. Katie Chen, MD — board-certified OB/GYN</strong>", "info": "Small centred line under the social-proof row. Leave blank to hide." },
     { "type": "header", "content": "Urgency bar", "info": "Shown under the add-to-cart button. The countdown runs to midnight in the visitor's own timezone and resets each day. Leave the heading blank to hide the whole block." },
     { "type": "text", "id": "urgency_heading", "label": "Heading", "default": "Selling out fast" },
     { "type": "text", "id": "urgency_text", "label": "Sub-text", "default": "Due to high demand, limited quantities available." },
