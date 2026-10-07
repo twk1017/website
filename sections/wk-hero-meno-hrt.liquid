@@ -302,7 +302,8 @@
         {%- endfor -%}
       </div>
 
-      {%- case wk_def -%}{%- when '1' -%}{%- assign wk_int = section.settings.refill_int_1 -%}{%- when '5' -%}{%- assign wk_int = section.settings.refill_int_5 -%}{%- else -%}{%- assign wk_int = section.settings.refill_int_3 -%}{%- endcase -%}
+      {%- assign wk_fk = 'tier_' | append: wk_def | append: '_freq' -%}{%- assign wk_f = section.settings[wk_fk] | default: 1 -%}
+      {%- if wk_f == 1 -%}{%- assign wk_int = 'month' -%}{%- else -%}{%- assign wk_int = wk_f | append: ' months' -%}{%- endif -%}
       <div class="wk-refill is-on" data-wk-refill>
         <div class="wk-refill-head" data-wk-refill-toggle role="checkbox" aria-checked="true" tabindex="0">
           <span class="wk-refill-box"><span>&check;</span></span>
@@ -532,9 +533,9 @@
   ];
   //   sub = selling-plan % with auto-refill · one = the automatic one-time discount Shopify applies at that quantity
   var TIERS = {
-    '5': { m: 5, sub: {{ section.settings.tier_5_sub_pct }}, one: {{ section.settings.tier_5_one_pct }}, int: {{ section.settings.refill_int_5 | json }} },
-    '3': { m: 3, sub: {{ section.settings.tier_3_sub_pct }}, one: {{ section.settings.tier_3_one_pct }}, int: {{ section.settings.refill_int_3 | json }} },
-    '1': { m: 1, sub: {{ section.settings.tier_1_sub_pct }}, one: {{ section.settings.tier_1_one_pct }}, int: {{ section.settings.refill_int_1 | json }} }
+    '5': { m: 5, sub: {{ section.settings.tier_5_sub_pct }}, one: {{ section.settings.tier_5_one_pct }}, f: {{ section.settings.tier_5_freq | default: 1 }} },
+    '3': { m: 3, sub: {{ section.settings.tier_3_sub_pct }}, one: {{ section.settings.tier_3_one_pct }}, f: {{ section.settings.tier_3_freq | default: 1 }} },
+    '1': { m: 1, sub: {{ section.settings.tier_1_sub_pct }}, one: {{ section.settings.tier_1_one_pct }}, f: {{ section.settings.tier_1_freq | default: 1 }} }
   };
   var DESIGN = {{ request.design_mode }};
   var REFILL_SUB = {{ section.settings.refill_subtitle | json }};
@@ -545,16 +546,17 @@
     }
     return null;
   }
-  // Each tier's plan = the one whose live discount equals the tier's sub % AND (when known) ships every m months.
+  // Each tier's plan = the one whose live discount equals the tier's sub % AND (when known) ships every f months
+  // (all monthly by default: the 3- and 5-bottle tiers are a monthly supply to share with a friend/sister).
   // Never matched by name — a wrong plan means a wrong price at checkout.
   var PLANS = {};
   Object.keys(TIERS).forEach(function(k){
     var t = TIERS[k];
     for (var i = 0; i < SELLING_PLANS.length; i++) {
       var sp = SELLING_PLANS[i], f = wkFreq(sp);
-      if (sp.pct === t.sub && (f === null || f === t.m)) { PLANS[k] = sp; break; }
+      if (sp.pct === t.sub && (f === null || f === t.f)) { PLANS[k] = sp; break; }
     }
-    if (!PLANS[k] && window.console) console.warn('[wk-hero-meno-hrt] no ' + t.m + '-month selling plan at ' + t.sub + '% - auto-refill unavailable for that tier');
+    if (!PLANS[k] && window.console) console.warn('[wk-hero-meno-hrt] no every-' + t.f + '-month selling plan at ' + t.sub + '% for ' + t.m + ' bottles - auto-refill unavailable for that tier');
   });
   // a tier without a matching plan sells one-time only (the theme editor still previews it, priced from the setting)
   function canRefill(k){ return !!PLANS[k] || DESIGN; }
@@ -598,7 +600,7 @@
       refillEl.classList.toggle('is-on', on);
     }
     if (refillTog) refillTog.setAttribute('aria-checked', on ? 'true' : 'false');
-    if (refillSub && REFILL_SUB) refillSub.textContent = REFILL_SUB.replace('[interval]', TIERS[k].int);
+    if (refillSub && REFILL_SUB) refillSub.textContent = REFILL_SUB.replace('[interval]', TIERS[k].f === 1 ? 'month' : TIERS[k].f + ' months');
   }
 
   // auto-refill attaches the tier's plan + the free gifts; otherwise the bottles go alone at the one-time price
@@ -863,7 +865,7 @@
     { "type": "text", "id": "flavor_label", "label": "Section label", "default": "Flavor" },
     { "type": "text", "id": "flavor_pill", "label": "Flavor pill", "default": "Mixed berries" },
     { "type": "text", "id": "sale_badge", "label": "Sale badge (leave blank to hide)" },
-    { "type": "header", "content": "Supply tiers", "info": "Three cards: 5, 3 and 1 bottles. With auto-refill ticked, each tier goes on the selling plan whose LIVE discount equals its refill % (and ships every 5/3/1 months), plus the free gifts. Unticked, it is a one-time purchase at the automatic-discount price. A tier with no matching plan sells one-time only." },
+    { "type": "header", "content": "Supply tiers", "info": "Three cards: 5, 3 and 1 bottles. With auto-refill ticked, each tier goes on the selling plan whose LIVE discount equals its refill % and whose delivery interval equals its 'ships every' setting, plus the free gifts. Unticked, it is a one-time purchase at the automatic-discount price. A tier with no matching plan sells one-time only." },
     { "type": "text", "id": "plans_label", "label": "Selector label", "default": "Choose your supply" },
     { "type": "select", "id": "default_tier", "label": "Selected by default", "default": "3", "options": [
       { "value": "5", "label": "5 bottles" }, { "value": "3", "label": "3 bottles" }, { "value": "1", "label": "1 bottle" }
@@ -871,21 +873,21 @@
     { "type": "text", "id": "tier_5_badge", "label": "5-bottle badge", "default": "Best value" },
     { "type": "text", "id": "tier_5_name", "label": "5-bottle name", "default": "Buy 3, get 2 free" },
     { "type": "range", "id": "tier_5_sub_pct", "label": "5-bottle refill %", "min": 0, "max": 70, "step": 1, "default": 55, "unit": "%" },
+    { "type": "range", "id": "tier_5_freq", "label": "5-bottle ships every", "min": 1, "max": 6, "step": 1, "default": 1, "unit": "mo", "info": "Must match the selling plan's delivery interval, or auto-refill is withheld for this tier." },
     { "type": "range", "id": "tier_5_one_pct", "label": "5-bottle one-time %", "min": 0, "max": 70, "step": 1, "default": 40, "unit": "%", "info": "Must match the BUY3GET2FREE automatic discount." },
     { "type": "text", "id": "tier_3_badge", "label": "3-bottle badge", "default": "Most popular" },
     { "type": "text", "id": "tier_3_name", "label": "3-bottle name", "default": "Buy 2, get 1 free" },
     { "type": "range", "id": "tier_3_sub_pct", "label": "3-bottle refill %", "min": 0, "max": 70, "step": 1, "default": 50, "unit": "%" },
+    { "type": "range", "id": "tier_3_freq", "label": "3-bottle ships every", "min": 1, "max": 6, "step": 1, "default": 1, "unit": "mo", "info": "Must match the selling plan's delivery interval, or auto-refill is withheld for this tier." },
     { "type": "range", "id": "tier_3_one_pct", "label": "3-bottle one-time %", "min": 0, "max": 70, "step": 1, "default": 34, "unit": "%", "info": "Must match the BUY2GET1FREE automatic discount." },
     { "type": "text", "id": "tier_1_badge", "label": "1-bottle badge" },
     { "type": "text", "id": "tier_1_name", "label": "1-bottle name", "default": "1-month supply" },
     { "type": "range", "id": "tier_1_sub_pct", "label": "1-bottle refill %", "min": 0, "max": 70, "step": 1, "default": 25, "unit": "%" },
+    { "type": "range", "id": "tier_1_freq", "label": "1-bottle ships every", "min": 1, "max": 6, "step": 1, "default": 1, "unit": "mo", "info": "Must match the selling plan's delivery interval, or auto-refill is withheld for this tier." },
     { "type": "range", "id": "tier_1_one_pct", "label": "1-bottle one-time %", "min": 0, "max": 70, "step": 1, "default": 0, "unit": "%" },
     { "type": "header", "content": "Auto-refill" },
     { "type": "text", "id": "refill_title", "label": "Checkbox title", "default": "Save 25% + 3 free gifts with auto-refill" },
-    { "type": "text", "id": "refill_subtitle", "label": "Checkbox sub-line", "default": "Skip or cancel anytime", "info": "Optional: [interval] becomes the tier's refill interval below." },
-    { "type": "text", "id": "refill_int_1", "label": "1-bottle interval", "default": "month" },
-    { "type": "text", "id": "refill_int_3", "label": "3-bottle interval", "default": "3 months" },
-    { "type": "text", "id": "refill_int_5", "label": "5-bottle interval", "default": "5 months" },
+    { "type": "text", "id": "refill_subtitle", "label": "Checkbox sub-line", "default": "Skip or cancel anytime", "info": "Optional: [interval] becomes the tier's delivery interval (e.g. \"month\")." },
     { "type": "text", "id": "refill_hint", "label": "Unticked hint", "default": "Tick auto-refill to get all 3 gifts free", "info": "Shown under the faded gifts when auto-refill is off." },
     { "type": "header", "content": "Free gift products", "info": "Variant IDs (not product IDs) of the three $0 gift products. They are added as one-time lines with auto-refill and skipped on one-time. Leave one blank to drop that gift. Find IDs at yourstore.com/products.json" },
     { "type": "text", "id": "gift_1_variant", "label": "Gift 1 variant ID", "default": "55027541049683", "info": "The 90-Day Reset Protocol" },

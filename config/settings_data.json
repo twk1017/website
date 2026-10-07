@@ -1606,10 +1606,10 @@
           "tier_1_one_pct": 0,
           "refill_title": "Save 25% + 3 free gifts with auto-refill",
           "refill_subtitle": "Skip or cancel anytime",
-          "refill_int_1": "month",
-          "refill_int_3": "3 months",
-          "refill_int_5": "5 months",
-          "refill_hint": "Tick auto-refill to get all 3 gifts free"
+          "refill_hint": "Tick auto-refill to get all 3 gifts free",
+          "tier_5_freq": 1,
+          "tier_3_freq": 1,
+          "tier_1_freq": 1
         }
       },
       "wk-cofounder-meno-hrt": {
@@ -1631,6 +1631,24 @@
           "heading": "Not hormones. Not candy.||Built like a protocol.",
           "intro": "You’ve said no to hormones. End of story. Most menopause gummies were built to sell, not to help. Womankind is built like a protocol — six botanicals at researched doses, zero hormones, zero sugar — for fewer hot flashes, drier nights, and the sleep they steal.",
           "closing": "",
+          "cta_label": "Feel like yourself again",
+          "guarantee_text": "90 days to feel it—or it’s free."
+        }
+      },
+      "wk-benefits-meno-hrt": {
+        "type": "wk-benefits-meno-hrt",
+        "settings": {
+          "heading_lead": "Take back your days.",
+          "heading_emph": "Take back your nights.",
+          "subheading": "Hot flashes that stop hijacking your days. Night sweats that stop stealing your nights. No hormones required. Two zero-sugar gummies a day — and your days and nights come back.",
+          "b1_title": "Turn down the heat",
+          "b1_desc": "Fewer, milder hot flashes that stop hijacking your meetings, your dinners, your days.*",
+          "b2_title": "Sleep through the night",
+          "b2_desc": "Night sweats that stop dragging you out of sleep. Fewer 3am wake-ups, and mornings that don’t start soaked.*",
+          "b3_title": "Feel steadier again",
+          "b3_desc": "Steadier moods, less overwhelm, more patience — because broken nights make everything harder.*",
+          "b4_title": "Get your afternoons back",
+          "b4_desc": "Steadier energy and clearer focus — no more running on caffeine and fumes to get through the day.*",
           "cta_label": "Feel like yourself again",
           "guarantee_text": "90 days to feel it—or it’s free."
         }
