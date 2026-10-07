@@ -55,6 +55,7 @@
   #wk-sub-{{ section.id }} .wk-tier-name{display:block;font-size:17.2px;font-weight:700;color:#6B3D42;line-height:1.25;}
   #wk-sub-{{ section.id }} .wk-tier-meta{display:block;font-size:13.4px;color:#7a6258;margin-top:4px;line-height:1.4;}
   #wk-sub-{{ section.id }} .wk-tier--badge{padding-top:24px;}
+  #wk-sub-{{ section.id }} .wk-pb-short{display:none;}
   #wk-sub-{{ section.id }} .wk-tier-save{color:#C9653F;font-weight:700;white-space:nowrap;}
   #wk-sub-{{ section.id }} .wk-tier-was{display:block;font-size:14.6px;text-decoration:line-through;color:#8f6266;line-height:1.2;}
   #wk-sub-{{ section.id }} .wk-tier-now{display:block;font-size:25px;font-weight:700;color:#C9653F;line-height:1.15;}
@@ -119,9 +120,10 @@
     #wk-sub-{{ section.id }} .wk-tier-name{font-size:16px;}
     #wk-sub-{{ section.id }} .wk-tier--badge{padding-top:22px;}
     #wk-sub-{{ section.id }} .wk-tier-meta{font-size:12.6px;}
-    /* the save % gets its own line on mobile instead of breaking after the dot */
-    #wk-sub-{{ section.id }} .wk-tier-dot{display:none;}
-    #wk-sub-{{ section.id }} .wk-tier-save{display:block;margin-top:2px;}
+    /* one line on mobile: "$29.18/bottle · $0.97/day · Save 55%" */
+    #wk-sub-{{ section.id }} .wk-tier-meta{white-space:nowrap;letter-spacing:-0.01em;}
+    #wk-sub-{{ section.id }} .wk-pb-long{display:none;}
+    #wk-sub-{{ section.id }} .wk-pb-short{display:inline;}
     #wk-sub-{{ section.id }} .wk-tier-was{font-size:13.6px;}
     #wk-sub-{{ section.id }} .wk-tier-now{font-size:21px;}
     #wk-sub-{{ section.id }} .wk-refill-head{padding:15px 14px 10px;gap:12px;}
@@ -272,7 +274,7 @@
             {%- if section.settings[t_badge] != blank -%}<span class="wk-plan-badge{% if tm == 5 %} wk-plan-badge--dark{% endif %}">{{ section.settings[t_badge] }}</span>{%- endif -%}
             <span style="min-width:0;">
               <span class="wk-tier-name">{{ section.settings[t_name] }}</span>
-              <span class="wk-tier-meta"><span data-wk-permo="{{ tm }}">{{ t_per | money }}</span> per bottle · <span data-wk-perday="{{ tm }}">{{ t_day | money }}</span>/day<span data-wk-save-wrap="{{ tm }}"><span class="wk-tier-dot"> · </span><span class="wk-tier-save" data-wk-save="{{ tm }}">Save {{ section.settings[t_sub] }}%</span></span></span>
+              <span class="wk-tier-meta"><span data-wk-permo="{{ tm }}">{{ t_per | money }}</span><span class="wk-pb-long"> per bottle</span><span class="wk-pb-short">/bottle</span> · <span data-wk-perday="{{ tm }}">{{ t_day | money }}</span>/day<span data-wk-save-wrap="{{ tm }}"><span class="wk-tier-dot"> · </span><span class="wk-tier-save" data-wk-save="{{ tm }}">Save {{ section.settings[t_sub] }}%</span></span></span>
             </span>
             <span style="text-align:right;flex:0 0 auto;">
               <span class="wk-tier-was" data-wk-compare="{{ tm }}">{{ t_full | money }}</span>
@@ -861,8 +863,8 @@
     { "type": "range", "id": "tier_1_sub_pct", "label": "1-bottle refill %", "min": 0, "max": 70, "step": 1, "default": 25, "unit": "%" },
     { "type": "range", "id": "tier_1_one_pct", "label": "1-bottle one-time %", "min": 0, "max": 70, "step": 1, "default": 0, "unit": "%" },
     { "type": "header", "content": "Auto-refill" },
-    { "type": "text", "id": "refill_title", "label": "Checkbox title", "default": "Free gifts + 25% off with auto-refill" },
-    { "type": "text", "id": "refill_subtitle", "label": "Checkbox sub-line", "default": "Ships every [interval] · Skip or cancel anytime", "info": "[interval] becomes the tier's refill interval below." },
+    { "type": "text", "id": "refill_title", "label": "Checkbox title", "default": "Save 25% + 3 free gifts with auto-refill" },
+    { "type": "text", "id": "refill_subtitle", "label": "Checkbox sub-line", "default": "Skip or cancel anytime", "info": "Optional: [interval] becomes the tier's refill interval below." },
     { "type": "text", "id": "refill_int_1", "label": "1-bottle interval", "default": "month" },
     { "type": "text", "id": "refill_int_3", "label": "3-bottle interval", "default": "3 months" },
     { "type": "text", "id": "refill_int_5", "label": "5-bottle interval", "default": "5 months" },
