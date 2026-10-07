@@ -1706,6 +1706,23 @@
           "node_3_b3": "Steadier energy and moods that hold, because you’re finally sleeping.*",
           "node_3_b4": "A daily routine that helps you feel at home in your body again.*"
         }
+      },
+      "wk-experts-meno-hrt": {
+        "type": "wk-experts-meno-hrt",
+        "settings": {
+          "heading_lead": "Recommended by",
+          "heading_emph": "The clinicians who treat hot flashes & night sweats",
+          "exp1_name": "Carmen Delgado",
+          "exp1_credential": "MSN, NP · Menopause & Women’s Health Nurse Practitioner",
+          "exp1_quote": "“I’ve spent years watching women be told to just live with it — or pushed toward hormones they’d already turned down. Saying no shouldn’t mean suffering. A sugar-filled gummy won’t fix it — most formulas stop at the surface. Womankind goes after the gut-hormone system that drives the flush.”",
+          "exp2_name": "Dr. Wei Lin",
+          "exp2_credential": "PhD · Pharmacognosist",
+          "exp2_quote": "“‘Botanical’ reads as gentle, and gentle reads as weak — which is why women who’ve said no to hormones are left choosing between under-dosed and nothing. Plants are pharmacology. The difference between a supplement that works and one that doesn’t is almost always the dose — and Womankind is dosed to work.”",
+          "exp3_name": "Priya Raman",
+          "exp3_credential": "PharmD · Clinical Pharmacist",
+          "exp3_quote": "“In my pharmacy, the women who’ve said no to HRT read every label — then read it again. Most supplements don’t survive the second read; ‘proprietary blend’ is where they hide. Womankind prints every active, every milligram. Nothing to take on faith.”",
+          "subheading": "Not influencers. Not affiliates. Clinicians who can tell the difference between a real formula and a pretty label."
+        }
       }
     },
     "content_for_index": [],
