@@ -1623,6 +1623,17 @@
           "signature": "Dr. Katie Chen, MD, MSCP",
           "credentials": "Board-certified OB/GYN · Co-founder"
         }
+      },
+      "wk-compare-meno-hrt": {
+        "type": "wk-compare-meno-hrt",
+        "settings": {
+          "eyebrow": "Not your typical menopause gummy",
+          "heading": "Not hormones. Not candy.||Built like a protocol.",
+          "intro": "You’ve said no to hormones — nothing here asks you to reconsider. But most menopause gummies were built to sell, not to help: sugar that feeds the flush, token doses behind vague blends. Womankind is built like a protocol — six botanicals at researched doses, zero hormones, zero sugar — for fewer hot flashes, drier nights, and the sleep they steal.",
+          "closing": "",
+          "cta_label": "Feel like yourself again",
+          "guarantee_text": "90 days to feel it—or it’s free."
+        }
       }
     },
     "content_for_index": [],
