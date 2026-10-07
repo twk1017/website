@@ -1649,6 +1649,35 @@
           "b3_desc": "Steadier moods, less overwhelm, more patience — because broken nights make everything harder.*",
           "b4_title": "Get your afternoons back",
           "b4_desc": "Steadier energy and clearer focus — no more running on caffeine and fumes to get through the day.*",
+          "cta_label": "",
+          "guarantee_text": ""
+        }
+      },
+      "wk-ugc-meno-hrt": {
+        "type": "wk-ugc-meno-hrt",
+        "settings": {
+          "eyebrow": "Real Womankind customers",
+          "heading": "Real women. Cooler days. Drier nights. In their own words.",
+          "subhead": "No scripts. No stock photos. Just women sharing what changed — in their sleep, their days, and how they feel in their own skin.",
+          "footer_text": "Scroll to see more →",
+          "card1_title": "“Cooler nights at last”",
+          "card1_body": "“By week three, the night sweats were less frequent and I was sleeping more deeply. I started waking up feeling like myself again.”",
+          "card1_cite": "— Renée, 49",
+          "card2_title": "“I stopped planning around hot flashes”",
+          "card2_body": "“I carried a fan everywhere and always knew the coolest seat in the room. A month in, the flushes started spacing out — and I stopped planning my day around them.”",
+          "card2_cite": "— Dani, 52",
+          "card3_title": "“Down to a handful a week”",
+          "card3_body": "“I’d go bright red mid-sentence in meetings, sweat rolling down my back, praying no one was looking. By month three, the flushes were down to a handful a week.”",
+          "card3_cite": "— Diane R., 54",
+          "card4_title": "“I assumed I’d left it too late”",
+          "card4_body": "“A dozen a day and soaked twice a night. I assumed I’d left it too late at 56. Three months in, it’s a handful a week, and I sleep.”",
+          "card4_cite": "— Carol S., 56",
+          "card5_title": "“The first thing that isn’t a hormone”",
+          "card5_body": "“HRT was off the table for me, so I’d resigned myself to the flushes for good. By month two they’d dropped right off — and I was sleeping through again, dry sheets.”",
+          "card5_cite": "— Yvonne T., 53",
+          "card6_title": "“I feel like myself again”",
+          "card6_body": "“First the 3am wake-ups eased. Then, sometime in month two, I caught myself feeling like me again.”",
+          "card6_cite": "— Rowan, 52",
           "cta_label": "Feel like yourself again",
           "guarantee_text": "90 days to feel it—or it’s free."
         }
