@@ -1,5 +1,5 @@
 {%- comment -%} "DON'T WANT" menopause page (/pages/meno-hf-hrt, template page.gummies-meno-hrt) — women who've decided against hormones {%- endcomment -%}
-{%- comment -%} clone of wk-hero-meno-1m, now with 1/3/5-bottle tiers + an auto-refill checkbox (plan + free gifts) + bridge line, founder line, HRT gallery image 1 and the next-batch module {%- endcomment -%}
+{%- comment -%} clone of wk-hero-meno-1m, now with 1/3/5-bottle tiers + an auto-refill checkbox (plan + free gifts) + bridge line, founder line, HRT gallery images in slots 1, 2, 4, 5, 6, 7 (assets/wk-meno-hrt-buybox-N.jpg; 2/4/5/6/7 = Oct 2026 refresh) and the next-batch module {%- endcomment -%}
 {%- assign wk_product = section.settings.product -%}
 {%- if wk_product != blank -%}{%- assign wk_variant = wk_product.selected_or_first_available_variant -%}{%- endif -%}
 
@@ -198,7 +198,7 @@
             {%- assign gik = 'gallery_' | append: i | append: '_image' -%}
             {%- assign gimg = section.settings[gik] -%}
             {%- if gimg -%}{%- assign wk_full = gimg | image_url: width: 1200 -%}{%- assign wk_galt = gimg.alt | default: 'Womankind Hormonal Support Gummies' -%}
-            {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- if i == 1 -%}{%- assign gfname = 'wk-meno-hrt-buybox-1.jpg' -%}{%- endif -%}{%- if i == 4 -%}{%- assign gfname = 'wk-meno-buybox-4.jpg' -%}{%- endif -%}{%- assign wk_full = gfname | asset_url -%}{%- assign wk_galt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
+            {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- case i -%}{%- when 1, 2, 4, 5, 6, 7 -%}{%- assign gfname = 'wk-meno-hrt-buybox-' | append: i | append: '.jpg' -%}{%- endcase -%}{%- assign wk_full = gfname | asset_url -%}{%- assign wk_galt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
             <img class="wk-hero-slide" src="{{ wk_full }}" alt="{{ wk_galt }}" width="1200" height="1200" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" draggable="false">
           {%- endfor -%}
         </div>
@@ -212,7 +212,7 @@
             {%- assign gik = 'gallery_' | append: i | append: '_image' -%}
             {%- assign gimg = section.settings[gik] -%}
             {%- if gimg -%}{%- assign tsrc = gimg | image_url: width: 240 -%}{%- assign tfull = gimg | image_url: width: 1200 -%}{%- assign talt = gimg.alt | default: 'Womankind Hormonal Support Gummies' -%}
-            {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- if i == 1 -%}{%- assign gfname = 'wk-meno-hrt-buybox-1.jpg' -%}{%- endif -%}{%- if i == 4 -%}{%- assign gfname = 'wk-meno-buybox-4.jpg' -%}{%- endif -%}{%- assign tsrc = gfname | asset_img_url: '240x240' -%}{%- assign tfull = gfname | asset_url -%}{%- assign talt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
+            {%- else -%}{%- assign gfname = 'wk-buybox-' | append: i | append: '.jpg' -%}{%- case i -%}{%- when 1, 2, 4, 5, 6, 7 -%}{%- assign gfname = 'wk-meno-hrt-buybox-' | append: i | append: '.jpg' -%}{%- endcase -%}{%- assign tsrc = gfname | asset_img_url: '240x240' -%}{%- assign tfull = gfname | asset_url -%}{%- assign talt = 'Womankind Hormonal Support Gummies' -%}{%- endif -%}
             <button type="button" data-wk-thumb data-wk-full="{{ tfull }}" aria-label="View image {{ i }}" style="cursor:pointer;padding:0;aspect-ratio:1/1;background:#D8C2BA;border-radius:9px;overflow:hidden;{% if forloop.first %}border:2px solid #6B3D42;{% else %}border:2px solid transparent;{% endif %}display:flex;align-items:center;justify-content:center;">
               <img src="{{ tsrc }}" alt="{{ talt }}" width="240" height="240" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
             </button>
