@@ -1,5 +1,5 @@
 {%- comment -%} "DON'T WANT" menopause page (/pages/meno-hf-hrt, template page.gummies-meno-hrt) — women who've decided against hormones {%- endcomment -%}
-{%- comment -%} clone of wk-hero-meno-1m (Subscribe & Save vs one-time) + bridge line, founder line, HRT gallery image 1 and the next-batch module {%- endcomment -%}
+{%- comment -%} clone of wk-hero-meno-1m, now with 1/3/5-bottle tiers + an auto-refill checkbox (plan + free gifts) + bridge line, founder line, HRT gallery image 1 and the next-batch module {%- endcomment -%}
 {%- assign wk_product = section.settings.product -%}
 {%- if wk_product != blank -%}{%- assign wk_variant = wk_product.selected_or_first_available_variant -%}{%- endif -%}
 
@@ -48,6 +48,33 @@
   #wk-sub-{{ section.id }} .wk-gift-div span{font-size:11.8px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;color:#C9653F;background:rgba(201,101,63,0.12);padding:6px 14px;border-radius:999px;}
   #wk-sub-{{ section.id }} .wk-miss{padding:0 19px 15px;font-size:12.6px;color:#a08078;line-height:1.45;}
   #wk-sub-{{ section.id }} .wk-plan-badge{position:absolute;top:-11px;left:19px;z-index:2;background:#C9653F;color:#F5E6D8;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;padding:4px 13px;border-radius:999px;}
+  /* supply tiers — light cards, the selected one gets the burgundy ring */
+  #wk-sub-{{ section.id }} .wk-tiers{display:flex;flex-direction:column;gap:18px;margin-bottom:18px;}
+  #wk-sub-{{ section.id }} .wk-tier{position:relative;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:19px 20px;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.3);border-radius:14px;transition:border-color .15s ease,box-shadow .15s ease,background .15s ease;}
+  #wk-sub-{{ section.id }} .wk-tier.is-sel{background:#FFF9F1;border-color:#6B3D42;box-shadow:0 0 0 2px #6B3D42;}
+  #wk-sub-{{ section.id }} .wk-tier-name{display:block;font-size:17.2px;font-weight:700;color:#6B3D42;line-height:1.25;}
+  #wk-sub-{{ section.id }} .wk-tier-meta{display:block;font-size:13.4px;color:#7a6258;margin-top:4px;line-height:1.4;}
+  #wk-sub-{{ section.id }} .wk-tier--badge{padding-top:24px;}
+  #wk-sub-{{ section.id }} .wk-tier-save{color:#C9653F;font-weight:700;white-space:nowrap;}
+  #wk-sub-{{ section.id }} .wk-tier-was{display:block;font-size:14.6px;text-decoration:line-through;color:#8f6266;line-height:1.2;}
+  #wk-sub-{{ section.id }} .wk-tier-now{display:block;font-size:25px;font-weight:700;color:#C9653F;line-height:1.15;}
+  #wk-sub-{{ section.id }} .wk-plan-badge--dark{background:#6B3D42;}
+  /* auto-refill checkbox: unlocks the plan discount + the free gifts listed inside it */
+  #wk-sub-{{ section.id }} .wk-refill{border:1.5px dashed rgba(107,61,66,0.45);border-radius:14px;background:#FBF1E6;margin-bottom:20px;transition:border-color .15s ease,background .15s ease;}
+  #wk-sub-{{ section.id }} .wk-refill.is-on{border-style:solid;border-color:#6B3D42;background:#FFF9F1;}
+  #wk-sub-{{ section.id }} .wk-refill-head{display:flex;align-items:center;gap:14px;padding:17px 19px 12px;cursor:pointer;}
+  #wk-sub-{{ section.id }} .wk-refill-box{width:25px;height:25px;flex:0 0 auto;border:1.5px solid #6B3D42;border-radius:6px;display:flex;align-items:center;justify-content:center;background:transparent;}
+  #wk-sub-{{ section.id }} .wk-refill-box span{display:none;color:#F5E6D8;font-size:15px;font-weight:700;line-height:1;}
+  #wk-sub-{{ section.id }} .wk-refill.is-on .wk-refill-box{background:#6B3D42;}
+  #wk-sub-{{ section.id }} .wk-refill.is-on .wk-refill-box span{display:block;}
+  #wk-sub-{{ section.id }} .wk-refill-t{display:block;font-size:16.4px;font-weight:700;color:#6B3D42;line-height:1.3;}
+  #wk-sub-{{ section.id }} .wk-refill-d{display:block;font-size:13.4px;color:#7a6258;margin-top:3px;line-height:1.4;}
+  #wk-sub-{{ section.id }} .wk-refill-gifts{padding:0 19px 12px;}
+  #wk-sub-{{ section.id }} .wk-refill-gifts .wk-inc-row{transition:opacity .15s ease;}
+  #wk-sub-{{ section.id }} .wk-refill:not(.is-on) .wk-refill-gifts{cursor:pointer;}
+  #wk-sub-{{ section.id }} .wk-refill:not(.is-on) .wk-refill-gifts .wk-inc-row{opacity:0.42;}
+  #wk-sub-{{ section.id }} .wk-refill-hint{display:none;text-align:center;font-size:13.4px;font-weight:700;color:#C9653F;padding:6px 0 4px;}
+  #wk-sub-{{ section.id }} .wk-refill:not(.is-on) .wk-refill-hint{display:block;}
   /* DON'T WANT bridge + founder lines under the description */
   #wk-sub-{{ section.id }} .wk-bridge{font-family:'Fraunces',serif;font-style:italic;font-size:16.5px;line-height:1.5;color:#6B3D42;margin:0 0 16px;max-width:30em;}
   #wk-sub-{{ section.id }} .wk-founder{display:flex;align-items:flex-start;gap:13px;margin:0 0 20px;padding:13px 15px;background:rgba(107,61,66,0.06);border-radius:14px;max-width:34em;}
@@ -88,6 +115,19 @@
     #wk-sub-{{ section.id }} .wk-gallery{position:static !important;top:auto !important;}
     #wk-sub-{{ section.id }} .wk-thumbs > button{flex:0 0 calc((100% - 27px) / 3.5) !important;}
     #wk-sub-{{ section.id }} .wk-plan-head{padding:15px 14px;gap:10px;}
+    #wk-sub-{{ section.id }} .wk-tier{padding:16px 15px;gap:10px;}
+    #wk-sub-{{ section.id }} .wk-tier-name{font-size:16px;}
+    #wk-sub-{{ section.id }} .wk-tier--badge{padding-top:22px;}
+    #wk-sub-{{ section.id }} .wk-tier-meta{font-size:12.6px;}
+    /* the save % gets its own line on mobile instead of breaking after the dot */
+    #wk-sub-{{ section.id }} .wk-tier-dot{display:none;}
+    #wk-sub-{{ section.id }} .wk-tier-save{display:block;margin-top:2px;}
+    #wk-sub-{{ section.id }} .wk-tier-was{font-size:13.6px;}
+    #wk-sub-{{ section.id }} .wk-tier-now{font-size:21px;}
+    #wk-sub-{{ section.id }} .wk-refill-head{padding:15px 14px 10px;gap:12px;}
+    #wk-sub-{{ section.id }} .wk-refill-t{font-size:15.2px;}
+    #wk-sub-{{ section.id }} .wk-refill-d{font-size:12.6px;}
+    #wk-sub-{{ section.id }} .wk-refill-gifts{padding:0 14px 10px;}
     #wk-sub-{{ section.id }} .wk-plan-body{padding:15px 14px 0;}
     #wk-sub-{{ section.id }} .wk-plan-price{font-size:18px !important;}
     #wk-sub-{{ section.id }} .wk-inc-d{font-size:12.6px;}
@@ -207,51 +247,51 @@
         {%- endif -%}
       </div>
 
-      <!-- PLAN SELECTOR (Subscribe & Save vs one-time, 1 bottle each) -->
+      <!-- SUPPLY TIERS (1 / 3 / 5 bottles) + AUTO-REFILL (selling plan + free gifts) -->
       {%- comment -%}
-        Server-rendered starting prices so nothing flashes before the script runs. The script then
-        re-prices against the LIVE selling-plan discount, which is what checkout charges.
+        Server-rendered at the default tier with auto-refill ON so nothing flashes before the script runs.
+        The script then re-prices every tier against the LIVE selling-plan discount, which is what checkout charges.
+          refill ON  → the tier's selling plan (rounded per bottle) + the 3 free gift lines
+          refill OFF → no plan, no gifts; Shopify's automatic BUY2GET1FREE / BUY3GET2FREE discounts (floored per bottle)
       {%- endcomment -%}
-      {%- assign wk_price = wk_variant.price | default: 5995 -%}
-      {%- assign wk_sub_keep = 100 | minus: section.settings.sub_pct -%}
-      {%- assign wk_sub_cents = wk_price | times: wk_sub_keep | divided_by: 100.0 | round -%}
-      {%- assign wk_one_off = wk_price | times: section.settings.one_pct | divided_by: 100 -%}
-      {%- assign wk_one_cents = wk_price | minus: wk_one_off -%}
+      {%- assign wk_price = wk_variant.price | default: 6485 -%}
+      {%- assign wk_def = section.settings.default_tier | default: '3' -%}
       <div style="font-size:11.5px;letter-spacing:0.22em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:22px;">{{ section.settings.plans_label }}</div>
-      <div style="display:flex;flex-direction:column;gap:18px;margin-bottom:20px;">
-
-        <!-- SUBSCRIBE & SAVE -->
-        <div class="wk-plan is-sel" data-wk="supply" data-wk-val="sub" data-wk-plan="sub" role="radio" aria-checked="true" tabindex="0">
-          {%- if section.settings.sub_badge != blank -%}<span class="wk-plan-badge">{{ section.settings.sub_badge }}</span>{%- endif -%}
-          <div class="wk-plan-head">
-            <span style="display:flex;align-items:center;gap:12px;min-width:0;">
-              <span class="wk-radio"><span>&check;</span></span>
-              <span style="min-width:0;">
-                <span class="wk-plan-name" style="display:block;font-size:17.2px;font-weight:700;color:#6B3D42;line-height:1.25;">{{ section.settings.sub_name }}</span>
-                <span class="wk-plan-sub" style="display:block;font-size:13.8px;color:#7a6258;margin-top:4px;">{{ section.settings.sub_sub }}</span>
-              </span>
+      <div class="wk-tiers">
+        {%- for k in (1..3) -%}
+          {%- case k -%}{%- when 1 -%}{%- assign tm = 5 -%}{%- when 2 -%}{%- assign tm = 3 -%}{%- else -%}{%- assign tm = 1 -%}{%- endcase -%}
+          {%- assign tp = 'tier_' | append: tm | append: '_' -%}
+          {%- assign t_name = tp | append: 'name' -%}{%- assign t_badge = tp | append: 'badge' -%}{%- assign t_sub = tp | append: 'sub_pct' -%}
+          {%- assign t_keep = 100 | minus: section.settings[t_sub] -%}
+          {%- assign t_per = wk_price | times: t_keep | divided_by: 100.0 | round -%}
+          {%- assign t_total = t_per | times: tm -%}
+          {%- assign t_full = wk_price | times: tm -%}
+          {%- assign t_day = t_per | divided_by: 30.0 | round -%}
+          {%- assign tk = tm | append: '' -%}
+          <div class="wk-tier{% if section.settings[t_badge] != blank %} wk-tier--badge{% endif %}{% if tk == wk_def %} is-sel{% endif %}" data-wk="supply" data-wk-val="{{ tm }}" data-wk-plan="{{ tm }}" role="radio" aria-checked="{% if tk == wk_def %}true{% else %}false{% endif %}" tabindex="0">
+            {%- if section.settings[t_badge] != blank -%}<span class="wk-plan-badge{% if tm == 5 %} wk-plan-badge--dark{% endif %}">{{ section.settings[t_badge] }}</span>{%- endif -%}
+            <span style="min-width:0;">
+              <span class="wk-tier-name">{{ section.settings[t_name] }}</span>
+              <span class="wk-tier-meta"><span data-wk-permo="{{ tm }}">{{ t_per | money }}</span> per bottle · <span data-wk-perday="{{ tm }}">{{ t_day | money }}</span>/day<span data-wk-save-wrap="{{ tm }}"><span class="wk-tier-dot"> · </span><span class="wk-tier-save" data-wk-save="{{ tm }}">Save {{ section.settings[t_sub] }}%</span></span></span>
             </span>
             <span style="text-align:right;flex:0 0 auto;">
-              <span class="wk-plan-compare" data-wk-compare="sub" style="display:block;font-size:14.6px;text-decoration:line-through;color:#8f6266;line-height:1.2;">{{ wk_price | money }}</span>
-              <span class="wk-plan-price" style="display:block;font-size:27px;font-weight:700;color:#C9653F;line-height:1.1;"><span data-wk-permo="sub">{{ wk_sub_cents | money }}</span>{{ section.settings.sub_suffix }}</span>
-              {%- if section.settings.sub_billing != blank -%}<span class="wk-plan-bill" style="display:block;font-size:12.8px;color:#7a6258;margin-top:4px;">{{ section.settings.sub_billing }}</span>{%- endif -%}
+              <span class="wk-tier-was" data-wk-compare="{{ tm }}">{{ t_full | money }}</span>
+              <span class="wk-tier-now" data-wk-total="{{ tm }}">{{ t_total | money }}</span>
             </span>
           </div>
-          <div class="wk-plan-body">
-            <div class="wk-inc-label">{{ section.settings.includes_label }}</div>
-            <div class="wk-inc-row">
-              {%- if section.settings.supply_image -%}
-                <img class="wk-inc-thumb" src="{{ section.settings.supply_image | image_url: width: 140 }}" alt="" width="140" height="140" loading="lazy">
-              {%- else -%}
-                <img class="wk-inc-thumb" src="{{ 'wk-bottle.jpg' | asset_img_url: '140x140' }}" alt="" width="140" height="140" loading="lazy">
-              {%- endif -%}
-              <span style="flex:1;min-width:0;">
-                <span class="wk-inc-t" style="display:block;">{{ section.settings.supply_title }}</span>
-                <span class="wk-inc-d" style="display:block;">{{ section.settings.supply_desc }}</span>
-              </span>
-              <span class="wk-pill" data-wk-save="sub">Save {{ section.settings.sub_pct }}%</span>
-            </div>
+        {%- endfor -%}
+      </div>
 
+      {%- case wk_def -%}{%- when '1' -%}{%- assign wk_int = section.settings.refill_int_1 -%}{%- when '5' -%}{%- assign wk_int = section.settings.refill_int_5 -%}{%- else -%}{%- assign wk_int = section.settings.refill_int_3 -%}{%- endcase -%}
+      <div class="wk-refill is-on" data-wk-refill>
+        <div class="wk-refill-head" data-wk-refill-toggle role="checkbox" aria-checked="true" tabindex="0">
+          <span class="wk-refill-box"><span>&check;</span></span>
+          <span style="min-width:0;">
+            <span class="wk-refill-t">{{ section.settings.refill_title }}</span>
+            {%- if section.settings.refill_subtitle != blank -%}<span class="wk-refill-d" data-wk-refill-sub>{{ section.settings.refill_subtitle | replace: '[interval]', wk_int }}</span>{%- endif -%}
+          </span>
+        </div>
+        <div class="wk-refill-gifts">
             {%- assign has_gift = false -%}
             {%- for i in (1..4) -%}{%- assign gt = 'gift_' | append: i | append: '_title' -%}{%- if section.settings[gt] != blank -%}{%- assign has_gift = true -%}{%- endif -%}{%- endfor -%}
 
@@ -293,28 +333,7 @@
                 {%- endif -%}
               {%- endfor -%}
             {%- endif -%}
-
-          </div>
-        </div>
-
-        <!-- ONE-TIME PURCHASE -->
-        {%- comment -%} header-only card unless a loss-aversion note is set {%- endcomment -%}
-        {%- assign one_bare = ' wk-plan--bare' -%}{%- if section.settings.one_missing != blank -%}{%- assign one_bare = '' -%}{%- endif -%}
-        <div class="wk-plan{{ one_bare }}" data-wk="supply" data-wk-val="one" data-wk-plan="one" role="radio" aria-checked="false" tabindex="0">
-          <div class="wk-plan-head">
-            <span style="display:flex;align-items:center;gap:12px;min-width:0;">
-              <span class="wk-radio"><span>&check;</span></span>
-              <span style="min-width:0;">
-                <span class="wk-plan-name" style="display:block;font-size:17.2px;font-weight:700;color:#6B3D42;line-height:1.25;">{{ section.settings.one_name }}</span>
-                <span class="wk-plan-sub" style="display:block;font-size:13.8px;color:#7a6258;margin-top:4px;">{{ section.settings.one_sub }}</span>
-              </span>
-            </span>
-            <span style="text-align:right;flex:0 0 auto;">
-              <span class="wk-plan-compare" data-wk-compare="one" style="display:none;font-size:14.6px;text-decoration:line-through;color:#8f6266;line-height:1.2;">{{ wk_price | money }}</span>
-              <span class="wk-plan-price" style="display:block;font-size:27px;font-weight:700;color:#C9653F;line-height:1.1;"><span data-wk-permo="one">{{ wk_one_cents | money }}</span>{{ section.settings.one_suffix }}</span>
-            </span>
-          </div>
-          {%- if section.settings.one_missing != blank -%}<div class="wk-miss">{{ section.settings.one_missing }}</div>{%- endif -%}
+          {%- if has_gift and section.settings.refill_hint != blank -%}<div class="wk-refill-hint">{{ section.settings.refill_hint }}</div>{%- endif -%}
         </div>
       </div>
 
@@ -326,8 +345,8 @@
           {%- comment -%}
             items[] notation so the free-gift products can be added in the same request.
             The gift lines deliberately carry NO selling plan, so they stay out of the
-            subscription contract and never recur. They are disabled unless Subscribe & Save
-            is selected — FormData omits disabled inputs, which is what drops them from
+            subscription contract and never recur. They are disabled unless auto-refill
+            is ticked — FormData omits disabled inputs, which is what drops them from
             the one-time path (leaving a gap in the indices, which Shopify accepts).
 
             Order matters: Shopify lists cart lines in REVERSE of the order they are sent,
@@ -345,8 +364,8 @@
           {%- endfor -%}
           {%- assign midx = gidx | plus: 1 -%}
           <input type="hidden" name="items[{{ midx }}][id]" value="{{ wk_variant.id }}">
-          <input type="hidden" name="items[{{ midx }}][quantity]" value="1">
-          {%- comment -%} starts empty + disabled: the script fills in the monthly plan, so a page whose script never runs sells one-time at full price rather than on the wrong plan {%- endcomment -%}
+          <input type="hidden" name="items[{{ midx }}][quantity]" value="{{ wk_def }}" data-wk-qty>
+          {%- comment -%} starts empty + disabled: the script fills in the tier's plan, so a page whose script never runs sells one-time at full price rather than on the wrong plan {%- endcomment -%}
           <input type="hidden" name="items[{{ midx }}][selling_plan]" value="" data-wk-selling-plan disabled>
           <button type="submit" class="wk-atc"{% unless wk_variant.available %} disabled{% endunless %}>
             {%- if wk_variant.available -%}
@@ -464,7 +483,7 @@
   if (!root || root.dataset.wkInit) return;
   root.dataset.wkInit = '1';
   var RING = '0 0 0 2px #6B3D42', NONE = '0 0 0 0 transparent';
-  var state = { flavor:'cranberry', supply:'sub' };
+  var state = { flavor:'cranberry', supply:'{{ section.settings.default_tier | default: '3' }}', refill:true };
 
   function applySelection(group){
     var val = state[group];
@@ -482,67 +501,95 @@
     }
   }
 
-  // --- Subscribe & Save (1 bottle on a monthly selling plan) vs one-time (1 bottle, no plan) ---
-  var BOTTLE = {{ wk_variant.price | default: 5995 }};   // cents, live variant price (already in the market's presentment currency)
+  // --- supply tiers (1 / 3 / 5 bottles) × auto-refill ---
+  var BOTTLE = {{ wk_variant.price | default: 6485 }};   // cents, live variant price (already in the market's presentment currency)
+  // every selling plan on the product with its LIVE % discount and (Kaching config) delivery interval in months
   var SELLING_PLANS = [
     {%- assign wk_sp_first = true -%}
     {%- for grp in wk_product.selling_plan_groups -%}{%- for sp in grp.selling_plans -%}
-      {%- unless wk_sp_first %},{% endunless %}{%- assign wk_adj = sp.price_adjustments.first -%}{ id: {{ sp.id }}, name: {{ sp.name | json }}, pct: {% if wk_adj and wk_adj.value_type == 'percentage' %}{{ wk_adj.value }}{% else %}null{% endif %} }{%- assign wk_sp_first = false -%}
+      {%- unless wk_sp_first %},{% endunless %}{%- assign wk_adj = sp.price_adjustments.first -%}{ id: {{ sp.id }}, pct: {% if wk_adj and wk_adj.value_type == 'percentage' %}{{ wk_adj.value }}{% else %}0{% endif %}, opts: {{ sp.options | map: 'value' | json }} }{%- assign wk_sp_first = false -%}
     {%- endfor -%}{%- endfor -%}
   ];
-  var SUB_PCT = {{ section.settings.sub_pct | default: 40 }};
-  var ONE_PCT = {{ section.settings.one_pct | default: 0 | divided_by: 100.0 }};
-  var PLAN_OVERRIDE = {{ section.settings.plan_id | default: 'null' }};
+  //   sub = selling-plan % with auto-refill · one = the automatic one-time discount Shopify applies at that quantity
+  var TIERS = {
+    '5': { m: 5, sub: {{ section.settings.tier_5_sub_pct }}, one: {{ section.settings.tier_5_one_pct }}, int: {{ section.settings.refill_int_5 | json }} },
+    '3': { m: 3, sub: {{ section.settings.tier_3_sub_pct }}, one: {{ section.settings.tier_3_one_pct }}, int: {{ section.settings.refill_int_3 | json }} },
+    '1': { m: 1, sub: {{ section.settings.tier_1_sub_pct }}, one: {{ section.settings.tier_1_one_pct }}, int: {{ section.settings.refill_int_1 | json }} }
+  };
+  var DESIGN = {{ request.design_mode }};
+  var REFILL_SUB = {{ section.settings.refill_subtitle | json }};
 
-  // The monthly plan: the pinned ID if one is set, otherwise the plan whose live discount equals
-  // SUB_PCT. Never matched by name — a wrong plan means a wrong price at checkout.
-  var SUB_PLAN = null;
-  for (var i = 0; i < SELLING_PLANS.length; i++) {
-    var sp = SELLING_PLANS[i];
-    if (PLAN_OVERRIDE ? sp.id === PLAN_OVERRIDE : sp.pct === SUB_PCT) { SUB_PLAN = sp; break; }
+  function wkFreq(sp){
+    for (var i = 0; i < sp.opts.length; i++) {
+      try { var c = JSON.parse(sp.opts[i]); if (c && c.delivery && c.delivery.interval === 'MONTH') return c.delivery.frequency; } catch(e){}
+    }
+    return null;
   }
-  // Price against the plan's LIVE discount, so the buy box can never drift from checkout.
-  var subPct = SUB_PLAN ? (SUB_PLAN.pct || 0) / 100 : SUB_PCT / 100;
-
-  // No matching plan means we can't honestly sell the subscription: hide that card and fall back
-  // to one-time, which is always priced correctly. The theme editor still shows it (priced from
-  // sub_pct) so the layout can be reviewed before the plan exists.
-  if (!SUB_PLAN && !{{ request.design_mode }}) {
-    if (window.console) console.warn('[wk-hero-meno-hrt] no selling plan at ' + SUB_PCT + '% (or pinned ID) - Subscribe & Save hidden');
-    root.querySelectorAll('[data-wk-plan="sub"]').forEach(function(c){ c.style.display = 'none'; });
-    state.supply = 'one';
-  }
+  // Each tier's plan = the one whose live discount equals the tier's sub % AND (when known) ships every m months.
+  // Never matched by name — a wrong plan means a wrong price at checkout.
+  var PLANS = {};
+  Object.keys(TIERS).forEach(function(k){
+    var t = TIERS[k];
+    for (var i = 0; i < SELLING_PLANS.length; i++) {
+      var sp = SELLING_PLANS[i], f = wkFreq(sp);
+      if (sp.pct === t.sub && (f === null || f === t.m)) { PLANS[k] = sp; break; }
+    }
+    if (!PLANS[k] && window.console) console.warn('[wk-hero-meno-hrt] no ' + t.m + '-month selling plan at ' + t.sub + '% - auto-refill unavailable for that tier');
+  });
+  // a tier without a matching plan sells one-time only (the theme editor still previews it, priced from the setting)
+  function canRefill(k){ return !!PLANS[k] || DESIGN; }
+  function refillOn(k){ return state.refill && canRefill(k); }
 
   var WK_CUR = (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD';
   var WK_NF; try { WK_NF = new Intl.NumberFormat('en', { style:'currency', currency:WK_CUR, currencyDisplay:'narrowSymbol' }); } catch(e){ try { WK_NF = new Intl.NumberFormat('en', { style:'currency', currency:WK_CUR }); } catch(_){ WK_NF = null; } }
   function wkMoney(cents){ var v=(cents||0)/100; return WK_NF ? WK_NF.format(v).replace(/[.,]00(?=\D*$)/, '') : '$' + v.toFixed(2).replace(/\.00$/, ''); }
+  function wkPerDay(cents){ var v=(cents||0)/100/30; return WK_NF ? WK_NF.format(v) : '$' + v.toFixed(2); }   // one bottle = 30 days
 
-  // Shopify rounds the selling-plan price but floors an automatic discount — mirror both exactly.
-  function wkQuote(mode){
-    var price = (mode === 'sub')
-      ? Math.round(BOTTLE * (1 - subPct))
-      : BOTTLE - Math.floor(BOTTLE * ONE_PCT);
-    return { full: BOTTLE, total: price, save: Math.round((1 - price / BOTTLE) * 100) };
+  // Shopify rounds the selling-plan price per bottle but floors an automatic discount — mirror both exactly.
+  function wkQuote(k){
+    var t = TIERS[k];
+    var per = refillOn(k)
+      ? Math.round(BOTTLE * (1 - (PLANS[k] ? PLANS[k].pct : t.sub) / 100))
+      : BOTTLE - Math.floor(BOTTLE * t.one / 100);
+    var full = BOTTLE * t.m, total = per * t.m;
+    return { full: full, total: total, per: per, save: Math.round((1 - total / full) * 100) };
   }
+
+  var refillEl = root.querySelector('[data-wk-refill]');
+  var refillTog = root.querySelector('[data-wk-refill-toggle]');
+  var refillSub = root.querySelector('[data-wk-refill-sub]');
 
   function applyPricing(){
-    ['sub','one'].forEach(function(k){
+    Object.keys(TIERS).forEach(function(k){
       var q = wkQuote(k);
-      root.querySelectorAll('[data-wk-permo="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.total); });
+      root.querySelectorAll('[data-wk-total="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.total); });
+      root.querySelectorAll('[data-wk-permo="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.per); });
+      root.querySelectorAll('[data-wk-perday="'+k+'"]').forEach(function(e){ e.textContent = wkPerDay(q.per); });
       root.querySelectorAll('[data-wk-compare="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.full); e.style.display = q.save > 0 ? 'block' : 'none'; });
-      root.querySelectorAll('[data-wk-save="'+k+'"]').forEach(function(e){ e.textContent = 'Save ' + q.save + '%'; e.style.display = q.save > 0 ? '' : 'none'; });
+      root.querySelectorAll('[data-wk-save="'+k+'"]').forEach(function(e){ e.textContent = 'Save ' + q.save + '%'; });
+      root.querySelectorAll('[data-wk-save-wrap="'+k+'"]').forEach(function(e){ e.style.display = q.save > 0 ? '' : 'none'; });
     });
-    root.querySelectorAll('[data-wk-atc-total]').forEach(function(e){ e.textContent = wkMoney(wkQuote(state.supply).total); });
   }
 
-  // Subscribe & Save attaches the monthly plan + the free gifts; one-time sends the bottle alone.
+  function applyRefill(){
+    var k = state.supply, on = refillOn(k);
+    if (refillEl) {
+      refillEl.style.display = canRefill(k) ? '' : 'none';
+      refillEl.classList.toggle('is-on', on);
+    }
+    if (refillTog) refillTog.setAttribute('aria-checked', on ? 'true' : 'false');
+    if (refillSub && REFILL_SUB) refillSub.textContent = REFILL_SUB.replace('[interval]', TIERS[k].int);
+  }
+
+  // auto-refill attaches the tier's plan + the free gifts; otherwise the bottles go alone at the one-time price
   function applyCart(){
-    var sub = (state.supply === 'sub' && !!SUB_PLAN);
-    root.querySelectorAll('[data-wk-selling-plan]').forEach(function(i){ if (SUB_PLAN) i.value = SUB_PLAN.id; i.disabled = !sub; });
+    var k = state.supply, plan = PLANS[k], sub = refillOn(k) && !!plan;
+    root.querySelectorAll('[data-wk-qty]').forEach(function(i){ i.value = TIERS[k].m; });
+    root.querySelectorAll('[data-wk-selling-plan]').forEach(function(i){ i.value = plan ? plan.id : ''; i.disabled = !sub; });
     root.querySelectorAll('[data-wk-gift]').forEach(function(i){ i.disabled = !sub; });
   }
 
-  function applySupply(){ applyCart(); applyPricing(); }
+  function applySupply(){ applyRefill(); applyCart(); applyPricing(); }
 
   root.querySelectorAll('[data-wk]').forEach(function(el){
     function pick(){
@@ -554,6 +601,16 @@
     el.addEventListener('click', pick);
     el.addEventListener('keydown', function(e){ if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); pick(); } });
   });
+  if (refillEl) {
+    // the header toggles; tapping the faded gifts while it's off switches it back on
+    refillEl.addEventListener('click', function(e){
+      var onHead = refillTog && refillTog.contains(e.target);
+      if (!onHead && state.refill) return;
+      state.refill = !state.refill;
+      applySupply();
+    });
+    if (refillTog) refillTog.addEventListener('keydown', function(e){ if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); state.refill = !state.refill; applySupply(); } });
+  }
   applySelection('supply');
   applySupply();
 
@@ -786,31 +843,35 @@
     { "type": "text", "id": "flavor_label", "label": "Section label", "default": "Flavor" },
     { "type": "text", "id": "flavor_pill", "label": "Flavor pill", "default": "Mixed berries" },
     { "type": "text", "id": "sale_badge", "label": "Sale badge (leave blank to hide)" },
-    { "type": "header", "content": "Plans", "info": "Two cards, 1 bottle each: Subscribe & Save (monthly selling plan + free gifts) and a one-time purchase (no plan, no gifts)." },
-    { "type": "text", "id": "plans_label", "label": "Selector label", "default": "Choose how to start" },
-    { "type": "text", "id": "sub_badge", "label": "Subscribe badge", "default": "Most popular · Free gifts" },
-    { "type": "text", "id": "sub_name", "label": "Subscribe name", "default": "Subscribe & Save" },
-    { "type": "text", "id": "sub_sub", "label": "Subscribe sub-line", "default": "1 bottle every 30 days · Skip or cancel anytime" },
-    { "type": "text", "id": "sub_suffix", "label": "Subscribe price suffix", "default": "/mo" },
-    { "type": "text", "id": "sub_billing", "label": "Subscribe billing note", "info": "Small line under the price. Leave blank to hide." },
-    { "type": "text", "id": "one_name", "label": "One-time name", "default": "One-Time Purchase" },
-    { "type": "text", "id": "one_sub", "label": "One-time sub-line", "default": "1 bottle · 30 day supply" },
-    { "type": "text", "id": "one_suffix", "label": "One-time price suffix", "info": "Leave blank for no suffix." },
-    { "type": "text", "id": "one_missing", "label": "One-time loss-aversion note", "info": "Shown under the one-time card. Leave blank to hide." },
-    { "type": "header", "content": "Pricing", "info": "The subscription is priced from the LIVE discount on the matched selling plan, so display always equals checkout. If no plan matches, the Subscribe card hides itself and the page sells one-time only." },
-    { "type": "range", "id": "sub_pct", "label": "Subscription discount %", "min": 5, "max": 60, "step": 1, "default": 40, "unit": "%", "info": "Used to find the monthly selling plan with this exact discount." },
-    { "type": "text", "id": "plan_id", "label": "Monthly plan ID (override)", "info": "Optional. Pin a specific selling plan instead of matching on the discount." },
-    { "type": "range", "id": "one_pct", "label": "One-time discount %", "min": 0, "max": 60, "step": 1, "default": 0, "unit": "%", "info": "0 = full price. Only raise this if a matching automatic discount is live in Shopify." },
-    { "type": "header", "content": "Free gift products", "info": "Variant IDs (not product IDs) of the three $0 gift products. They are added as one-time lines with Subscribe & Save and skipped on one-time. Leave one blank to drop that gift. Find IDs at yourstore.com/products.json" },
+    { "type": "header", "content": "Supply tiers", "info": "Three cards: 5, 3 and 1 bottles. With auto-refill ticked, each tier goes on the selling plan whose LIVE discount equals its refill % (and ships every 5/3/1 months), plus the free gifts. Unticked, it is a one-time purchase at the automatic-discount price. A tier with no matching plan sells one-time only." },
+    { "type": "text", "id": "plans_label", "label": "Selector label", "default": "Choose your supply" },
+    { "type": "select", "id": "default_tier", "label": "Selected by default", "default": "3", "options": [
+      { "value": "5", "label": "5 bottles" }, { "value": "3", "label": "3 bottles" }, { "value": "1", "label": "1 bottle" }
+    ] },
+    { "type": "text", "id": "tier_5_badge", "label": "5-bottle badge", "default": "Best value" },
+    { "type": "text", "id": "tier_5_name", "label": "5-bottle name", "default": "Buy 3, get 2 free" },
+    { "type": "range", "id": "tier_5_sub_pct", "label": "5-bottle refill %", "min": 0, "max": 70, "step": 1, "default": 55, "unit": "%" },
+    { "type": "range", "id": "tier_5_one_pct", "label": "5-bottle one-time %", "min": 0, "max": 70, "step": 1, "default": 40, "unit": "%", "info": "Must match the BUY3GET2FREE automatic discount." },
+    { "type": "text", "id": "tier_3_badge", "label": "3-bottle badge", "default": "Most popular" },
+    { "type": "text", "id": "tier_3_name", "label": "3-bottle name", "default": "Buy 2, get 1 free" },
+    { "type": "range", "id": "tier_3_sub_pct", "label": "3-bottle refill %", "min": 0, "max": 70, "step": 1, "default": 50, "unit": "%" },
+    { "type": "range", "id": "tier_3_one_pct", "label": "3-bottle one-time %", "min": 0, "max": 70, "step": 1, "default": 34, "unit": "%", "info": "Must match the BUY2GET1FREE automatic discount." },
+    { "type": "text", "id": "tier_1_badge", "label": "1-bottle badge" },
+    { "type": "text", "id": "tier_1_name", "label": "1-bottle name", "default": "1-month supply" },
+    { "type": "range", "id": "tier_1_sub_pct", "label": "1-bottle refill %", "min": 0, "max": 70, "step": 1, "default": 25, "unit": "%" },
+    { "type": "range", "id": "tier_1_one_pct", "label": "1-bottle one-time %", "min": 0, "max": 70, "step": 1, "default": 0, "unit": "%" },
+    { "type": "header", "content": "Auto-refill" },
+    { "type": "text", "id": "refill_title", "label": "Checkbox title", "default": "Free gifts + 25% off with auto-refill" },
+    { "type": "text", "id": "refill_subtitle", "label": "Checkbox sub-line", "default": "Ships every [interval] · Skip or cancel anytime", "info": "[interval] becomes the tier's refill interval below." },
+    { "type": "text", "id": "refill_int_1", "label": "1-bottle interval", "default": "month" },
+    { "type": "text", "id": "refill_int_3", "label": "3-bottle interval", "default": "3 months" },
+    { "type": "text", "id": "refill_int_5", "label": "5-bottle interval", "default": "5 months" },
+    { "type": "text", "id": "refill_hint", "label": "Unticked hint", "default": "Tick auto-refill to get all 3 gifts free", "info": "Shown under the faded gifts when auto-refill is off." },
+    { "type": "header", "content": "Free gift products", "info": "Variant IDs (not product IDs) of the three $0 gift products. They are added as one-time lines with auto-refill and skipped on one-time. Leave one blank to drop that gift. Find IDs at yourstore.com/products.json" },
     { "type": "text", "id": "gift_1_variant", "label": "Gift 1 variant ID", "default": "55027541049683", "info": "The 90-Day Reset Protocol" },
     { "type": "text", "id": "gift_2_variant", "label": "Gift 2 variant ID", "default": "55027546456403", "info": "The Estrobolome Food Guide" },
     { "type": "text", "id": "gift_3_variant", "label": "Gift 3 variant ID", "default": "55027553272147", "info": "The Womankind Circle" },
-    { "type": "header", "content": "What's included" },
-    { "type": "text", "id": "includes_label", "label": "Includes label", "default": "Your first order includes" },
-    { "type": "image_picker", "id": "supply_image", "label": "Supply thumbnail" },
-    { "type": "text", "id": "supply_title", "label": "Supply title", "default": "30 days of Womankind" },
-    { "type": "text", "id": "supply_desc", "label": "Supply description", "default": "OB/GYN-formulated protocol for daily menopause support, delivered monthly" },
-    { "type": "header", "content": "Free gifts (Subscribe & Save only)", "info": "Gifts 1–3 default to the artwork in assets/wk-gift-1…3.png (book mockups + community avatar) — upload an image only to override. Leave a title blank to hide that gift. Values are plain text and do not convert between currencies." },
+    { "type": "header", "content": "Free gifts (auto-refill only)", "info": "Gifts 1–3 default to the artwork in assets/wk-gift-1…3.png (book mockups + community avatar) — upload an image only to override. Leave a title blank to hide that gift. Values are plain text and do not convert between currencies." },
     { "type": "text", "id": "gifts_label", "label": "Gifts divider label", "default": "Free gifts" },
     { "type": "image_picker", "id": "gift_1_image", "label": "Gift 1 image" },
     { "type": "text", "id": "gift_1_title", "label": "Gift 1 title", "default": "The 90-Day Reset Protocol" },
