@@ -3,18 +3,17 @@
   Three rows, dated in the visitor's own timezone so the module never goes stale:
     1. the previous batch (struck through, sold out)
     2. the next batch (burgundy fill at `pct` %, "88% reserved")
-    3. the batch after that (still formulating)
-  The next batch is the first `weekday` at least 2 days away; the others sit a week either side.
+    3. the batch after that (in production)
+  Dates roll with the visitor's day: previous = today − 2, next = today + 2, later = today + 7.
 
   Params:
     id       — unique id (section id)
     title    — e.g. "Next batch ships on:"
     note     — bullet line under the title (blank hides it)
-    weekday  — batch day, 0 = Sunday … 6 = Saturday
     pct      — how full the next batch is (50–99)
     sold     — label for the previous batch, e.g. "Sold out"
     reserved — word after the %, e.g. "reserved"
-    later    — label for the batch after next, e.g. "Formulating"
+    later    — label for the batch after next, e.g. "In production"
 {%- endcomment -%}
 {%- assign wk_bpct = pct | default: 88 | at_least: 50 | at_most: 99 -%}
 <style>
@@ -45,7 +44,7 @@
     #wk-batch-{{ id }} .wk-batch-lbl{font-size:12.4px;}
   }
 </style>
-<div id="wk-batch-{{ id }}" data-wk-batch data-weekday="{{ weekday | default: 4 }}">
+<div id="wk-batch-{{ id }}" data-wk-batch>
   <div class="wk-batch-h">{{ title }}</div>
   {%- if note != blank -%}<div class="wk-batch-note">{{ note }}</div>{%- endif -%}
   <div class="wk-batch-rows">
@@ -62,14 +61,10 @@
     function ord(n){ var v = n % 100; if (v >= 11 && v <= 13) return 'th'; return ({1:'st',2:'nd',3:'rd'})[n % 10] || 'th'; }
     function fmt(d){ return MONTHS[d.getMonth()] + ' ' + d.getDate() + ord(d.getDate()); }
     function shift(d, days){ var c = new Date(d); c.setDate(c.getDate() + days); return c; }
-    var wd = parseInt(el.getAttribute('data-weekday'), 10) || 0;
     var now = new Date();
     var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    // next batch = the first batch day at least 2 days out, so it never reads "ships today/tomorrow"
-    var add = (wd - today.getDay() + 7) % 7;
-    if (add < 2) add += 7;
-    var next = shift(today, add);
-    var dates = { prev: shift(next, -7), next: next, later: shift(next, 7) };
+    // rolls daily: last batch sold out 2 days ago, next ships in 2 days, the one after in 7
+    var dates = { prev: shift(today, -2), next: shift(today, 2), later: shift(today, 7) };
     el.querySelectorAll('[data-wk-batch-date]').forEach(function(s){ s.textContent = fmt(dates[s.getAttribute('data-wk-batch-date')]); });
   })();
 </script>
