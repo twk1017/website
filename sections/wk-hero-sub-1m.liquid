@@ -403,7 +403,23 @@
         <button style="width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:18px;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;">Select a product</button>
       {%- endif -%}
 
-      {%- if section.settings.urgency_heading != blank -%}
+      {%- comment -%} pages listed in batch_pages get the "Next batch ships on" module instead of the urgency bar {%- endcomment -%}
+      {%- assign wk_batch = false -%}
+      {%- assign wk_batch_pages = section.settings.batch_pages | remove: ' ' | split: ',' -%}
+      {%- if wk_batch_pages contains '*' -%}{%- assign wk_batch = true -%}
+      {%- elsif page and wk_batch_pages contains page.handle -%}{%- assign wk_batch = true -%}{%- endif -%}
+
+      {%- if wk_batch -%}
+        {%- render 'wk-batch-ships',
+          id: section.id,
+          title: section.settings.batch_title,
+          note: section.settings.batch_note,
+          pct: section.settings.batch_pct,
+          sold: section.settings.batch_sold,
+          reserved: section.settings.batch_reserved,
+          later: section.settings.batch_later
+        -%}
+      {%- elsif section.settings.urgency_heading != blank -%}
         <div class="wk-urg">
           <div class="wk-urg-h">{{ section.settings.urgency_heading }}</div>
           {%- if section.settings.urgency_text != blank -%}<div class="wk-urg-t">{{ section.settings.urgency_text }}</div>{%- endif -%}
@@ -915,6 +931,14 @@
     { "type": "text", "id": "urgency_text", "label": "Sub-text", "default": "Due to high demand, limited quantities available." },
     { "type": "range", "id": "urgency_pct", "label": "Percent sold", "min": 1, "max": 99, "step": 1, "default": 89, "unit": "%" },
     { "type": "text", "id": "urgency_countdown_label", "label": "Countdown label", "default": "Sale ends in" },
+    { "type": "header", "content": "Next batch module", "info": "Replaces the urgency bar on the pages listed below. Dates roll daily in the visitor's own timezone: previous batch 2 days ago (sold out), next batch in 2 days, the one after in 7 days." },
+    { "type": "text", "id": "batch_pages", "label": "Show on pages (handles)", "default": "*", "info": "Comma-separated page handles, or * for every page using this buy box. Leave blank to use the urgency bar everywhere." },
+    { "type": "text", "id": "batch_title", "label": "Title", "default": "Next batch ships on:" },
+    { "type": "text", "id": "batch_note", "label": "Bullet line", "default": "Made in small batches for maximum potency", "info": "Leave blank to hide." },
+    { "type": "range", "id": "batch_pct", "label": "Next batch reserved", "min": 50, "max": 99, "step": 1, "default": 88, "unit": "%" },
+    { "type": "text", "id": "batch_sold", "label": "Previous batch label", "default": "Sold out" },
+    { "type": "text", "id": "batch_reserved", "label": "Next batch label (after the %)", "default": "reserved" },
+    { "type": "text", "id": "batch_later", "label": "Following batch label", "default": "In production" },
     { "type": "header", "content": "Tabs · labels" },
     { "type": "text", "id": "tab2_label", "label": "Tab 2 label", "default": "How to use" },
     { "type": "text", "id": "tab3_label", "label": "Tab 3 label", "default": "Shipping" },
