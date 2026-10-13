@@ -1636,11 +1636,11 @@
       "wk-cofounder-meno-hrt": {
         "type": "wk-cofounder-meno-hrt",
         "settings": {
-          "eyebrow": "Why I built it",
+          "eyebrow": "",
           "name_badge": "Dr. Katie Chen, MD, MSCP",
           "role_badge": "Co-founder & Medical Director",
-          "heading": "The women I couldn’t help",
-          "quote": "For years, women sat across from me with hot flashes and soaked sheets, and told me hormones were not an option. And I had nothing I could offer them instead.||Modern medicine is very good at quieting symptoms. A pill for this, a patch for that. But quieting a symptom is not the same as going after the root.||I come from a Chinese background. In traditional Chinese medicine, plants have been medicine for thousands of years — and modern research is finally catching up.||You said no to hormones. That should never have meant no relief.",
+          "heading": "For the women I couldn’t help",
+          "quote": "For years, women told me hormones were not an option. And I had nothing to offer them instead.||Modern medicine is very good at quieting symptoms — not at going after the root. In Chinese medicine, plants have done that for thousands of years.||You said no to hormones. That should never have meant no relief.",
           "signature": "Dr. Katie Chen, MD, MSCP",
           "credentials": "Board-certified OB/GYN · Co-founder",
           "video_url": "https://cdn.shopify.com/videos/c/o/v/a9e4ac2bbac944f292a3b5723b65494f.mp4",
