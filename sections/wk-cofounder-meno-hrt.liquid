@@ -1,12 +1,42 @@
-{%- comment -%} "DON'T WANT" menopause page (page.gummies-meno-hrt) — co-founder story for women who said no to hormones {%- endcomment -%}
+{%- comment -%} "DON'T WANT" menopause page (page.gummies-meno-hrt) — co-founder story for women who said no to hormones; optional click-to-play video replaces the portrait {%- endcomment -%}
   <!-- EXPERT BLOCK 1 — CO-FOUNDER (gummies-3) -->
   {%- if section.settings.image -%}{%- assign wk_cf_src = section.settings.image | image_url: width: 800 -%}{%- else -%}{%- assign wk_cf_src = 'wk-cofounder-katie.jpg' | asset_url -%}{%- endif -%}
-  <section style="background:#FFFCF8;padding:84px 28px;">
+  <section id="wk-cf-{{ section.id }}" style="background:#FFFCF8;padding:84px 28px;">
+    <style>
+      /* video variant: a 9:16 click-to-play card. Only the poster loads with the page; the MP4 starts downloading on tap. */
+      #wk-cf-{{ section.id }} .wk-cf-grid--video{grid-template-columns:minmax(0,400px) 1fr !important;}
+      #wk-cf-{{ section.id }} .wk-cf-video{position:relative;width:100%;max-width:min(400px, calc(78vh * 9 / 16));margin:0 auto;aspect-ratio:9/16;border-radius:16px;overflow:hidden;background:#D8C2BA;box-shadow:0 18px 44px rgba(58,42,32,0.18);}
+      #wk-cf-{{ section.id }} .wk-cf-play{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;margin:0;cursor:pointer;background:none;display:block;font-family:inherit;}
+      #wk-cf-{{ section.id }} .wk-cf-play img,#wk-cf-{{ section.id }} .wk-cf-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+      #wk-cf-{{ section.id }} .wk-cf-play::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(30,18,14,0.28) 100%);}
+      #wk-cf-{{ section.id }} .wk-cf-btn{position:absolute;left:50%;top:50%;z-index:2;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:50%;background:rgba(201,101,63,0.94);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 26px rgba(0,0,0,0.28);transition:transform .18s ease;}
+      #wk-cf-{{ section.id }} .wk-cf-btn svg{width:28px;height:28px;margin-left:5px;fill:#FFF7EE;}
+      #wk-cf-{{ section.id }} .wk-cf-play:hover .wk-cf-btn{transform:scale(1.07);}
+      #wk-cf-{{ section.id }} .wk-cf-label{position:absolute;left:50%;top:calc(50% + 52px);z-index:2;transform:translateX(-50%);white-space:nowrap;background:rgba(255,249,244,0.94);color:#6B3D42;font-size:13px;font-weight:700;letter-spacing:0.04em;padding:8px 15px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,0.16);}
+      @media(max-width:749px){
+        #wk-cf-{{ section.id }} .wk-cf-grid--video{grid-template-columns:1fr !important;gap:30px !important;}
+        #wk-cf-{{ section.id }} .wk-cf-btn{width:66px;height:66px;margin:-33px 0 0 -33px;}
+        #wk-cf-{{ section.id }} .wk-cf-btn svg{width:24px;height:24px;}
+        #wk-cf-{{ section.id }} .wk-cf-label{top:calc(50% + 46px);font-size:12.5px;}
+      }
+    </style>
     <div style="max-width:1100px;margin:0 auto;">
       <div style="font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#A6472A;font-weight:600;margin-bottom:32px;">{{ section.settings.eyebrow }}</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;margin-bottom:48px;">
+      {%- assign wk_cf_video = section.settings.video_url | strip -%}
+      <div class="wk-cf-grid{% if wk_cf_video != blank %} wk-cf-grid--video{% endif %}" style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;margin-bottom:48px;">
         <div>
+          {%- if wk_cf_video != blank -%}
+            {%- if section.settings.video_poster -%}{%- assign wk_cf_poster = section.settings.video_poster | image_url: width: 720 -%}{%- else -%}{%- assign wk_cf_poster = 'wk-chen-video-poster.jpg' | asset_url -%}{%- endif -%}
+            <div class="wk-cf-video" data-wk-cf-video="{{ wk_cf_video | escape }}" data-wk-cf-poster="{{ wk_cf_poster }}">
+              <button type="button" class="wk-cf-play" data-wk-cf-play aria-label="Play video: {{ section.settings.video_label | escape }}">
+                <img src="{{ wk_cf_poster }}" alt="{{ section.settings.name_badge | escape }}" width="720" height="1280" loading="lazy">
+                <span class="wk-cf-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span>
+                {%- if section.settings.video_label != blank -%}<span class="wk-cf-label">{{ section.settings.video_label }}</span>{%- endif -%}
+              </button>
+            </div>
+          {%- else -%}
           <img class="wk-cofounder-img" src="{{ wk_cf_src }}" alt="{{ section.settings.image.alt | default: section.settings.name_badge | append: ', ' | append: section.settings.role_badge }}" width="800" height="800" loading="lazy" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:center top;border-radius:14px;display:block;">
+          {%- endif -%}
         </div>
         <div>
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
@@ -26,6 +56,26 @@
       </div>
     </div>
   </section>
+  <script>
+    (function(){
+      var box = document.querySelector('#wk-cf-{{ section.id }} [data-wk-cf-video]');
+      if (!box) return;
+      var btn = box.querySelector('[data-wk-cf-play]');
+      btn.addEventListener('click', function(){
+        // the MP4 is only requested now, on tap — it never weighs on page load
+        var v = document.createElement('video');
+        v.src = box.getAttribute('data-wk-cf-video');
+        v.poster = box.getAttribute('data-wk-cf-poster');
+        v.controls = true;
+        v.playsInline = true;
+        v.setAttribute('playsinline', '');
+        v.preload = 'auto';
+        box.replaceChildren(v);
+        var p = v.play();
+        if (p && p.catch) p.catch(function(){});
+      });
+    })();
+  </script>
 
 {% schema %}
 {
@@ -33,6 +83,9 @@
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why I built it" },
     { "type": "image_picker", "id": "image", "label": "Portrait", "info": "Defaults to wk-cofounder-katie.jpg if empty." },
+    { "type": "text", "id": "video_url", "label": "Video URL (MP4)", "info": "Upload in Content → Files and paste the link. Replaces the portrait with a click-to-play video. Leave blank to show the portrait." },
+    { "type": "image_picker", "id": "video_poster", "label": "Video poster", "info": "Still shown before play. Defaults to assets/wk-chen-video-poster.jpg." },
+    { "type": "text", "id": "video_label", "label": "Video label", "default": "Watch Dr. Chen’s story · 1:16" },
     { "type": "text", "id": "name_badge", "label": "Name", "default": "Dr. Katie Chen, MD, MSCP" },
     { "type": "text", "id": "role_badge", "label": "Role badge", "default": "Co-founder & Medical Director" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "The women I couldn’t help" },
