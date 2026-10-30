@@ -1633,7 +1633,8 @@
           "tier_2_one_pct": 0,
           "tier_2_freq": 1,
           "gift_4_unlock": "2",
-          "gift_4_title": "Free shipping"
+          "gift_4_title": "Free shipping",
+          "gift_4_value": "$4.95"
         }
       },
       "wk-hero-meno-hrt": {
