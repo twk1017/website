@@ -1605,7 +1605,7 @@
           "bridge_line": "",
           "founder_line": "",
           "trust_line": "Hormone-free · Third-party tested · Made in America in a GMP-certified facility",
-          "default_tier": "2",
+          "default_tier": "1",
           "tier_3_badge": "Best value",
           "tier_3_name": "3 Bottles",
           "tier_3_sub_pct": 25,
@@ -1621,7 +1621,7 @@
           "gifts_more": "Choose **[n] bottles** to unlock [count] more [gifts]",
           "gifts_all": "**All gifts unlocked**, free with your order",
           "gifts_none": "Free gifts come with subscribe & save",
-          "gift_starter_tag": "1 bottle",
+          "gift_starter_tag": "Starter kit",
           "gift_tier_tag": "[n] bottles",
           "gift_free_label": "Free",
           "gift_1_unlock": "1",
@@ -1634,7 +1634,7 @@
           "tier_2_freq": 1,
           "gift_4_unlock": "2",
           "gift_4_title": "Free shipping",
-          "gift_4_value": "$4.95"
+          "gift_4_value": "4.95"
         }
       },
       "wk-hero-meno-hrt": {

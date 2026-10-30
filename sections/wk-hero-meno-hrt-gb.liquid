@@ -1,6 +1,6 @@
 {%- comment -%} "DON'T WANT" page, gift-bundle test (template page.gummies-meno-hrt-gb) — clone of wk-hero-meno-hrt with the tier list + auto-refill checkbox swapped for a subscribe & save bundle picker {%- endcomment -%}
-{%- comment -%} Three side-by-side bundles (1 / 3 / 5 bottles, each on its own Kaching plan) and a "Gifts unlocked" ladder: each gift unlocks at a bottle count, and only unlocked gifts are added to the cart. The save line above the button and the price on the button follow the bundle. Everything outside the buy box is identical to wk-hero-meno-hrt.
-  Gift 4 (free shipping) is display-only: the actual free shipping comes from a Shopify automatic free-shipping discount whose minimum matches the 2-bottle bundle. {%- endcomment -%}
+{%- comment -%} Three side-by-side bundles (1 / 2 / 3 bottles, each on its own Kaching plan) and a "Gifts unlocked" ladder: each gift unlocks at a bottle count, and only unlocked gifts are added to the cart. The save line above the button and the price on the button follow the bundle. Everything outside the buy box is identical to wk-hero-meno-hrt.
+  Gift 4 (free shipping) is display-only: the actual free shipping comes from the store's shipping rates (free above $70 / €70 / £50), which the 2-bottle bundle clears and the 1-bottle bundle doesn't. {%- endcomment -%}
 {%- assign wk_product = section.settings.product -%}
 {%- if wk_product != blank -%}{%- assign wk_variant = wk_product.selected_or_first_available_variant -%}{%- endif -%}
 
@@ -9,49 +9,60 @@
   #wk-sub-{{ section.id }} .wk-hero-track{position:absolute;inset:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;}
   #wk-sub-{{ section.id }} .wk-hero-track::-webkit-scrollbar{display:none;}
   #wk-sub-{{ section.id }} .wk-hero-slide{flex:0 0 100%;width:100%;height:100%;object-fit:cover;display:block;scroll-snap-align:center;scroll-snap-stop:always;user-select:none;-webkit-user-drag:none;}
-  /* bundle picker: three cards side by side, the selected one gets the burgundy ring */
+  /* bundle picker: three cards side by side; struck price and bundle price share one row */
   #wk-sub-{{ section.id }} .wk-bl-label{font-size:11.5px;letter-spacing:0.22em;text-transform:uppercase;color:#6B3D42;font-weight:600;margin-bottom:20px;}
-  #wk-sub-{{ section.id }} .wk-bundles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:18px;}
-  #wk-sub-{{ section.id }} .wk-bundle{position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;text-align:center;padding:21px 8px 15px;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.3);border-radius:14px;transition:border-color .15s ease,box-shadow .15s ease,background .15s ease;}
-  #wk-sub-{{ section.id }} .wk-bundle.is-sel{background:#FFF9F1;border-color:#6B3D42;box-shadow:0 0 0 2px #6B3D42;}
+  #wk-sub-{{ section.id }} .wk-bundles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px;}
+  #wk-sub-{{ section.id }} .wk-bundle{position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;text-align:center;padding:22px 8px 14px;background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.25);border-radius:14px;transition:border-color .15s ease,box-shadow .15s ease,background .15s ease,transform .15s ease;}
+  #wk-sub-{{ section.id }} .wk-bundle:hover{border-color:rgba(107,61,66,0.5);}
+  #wk-sub-{{ section.id }} .wk-bundle.is-sel{background:#FFF9F1;border-color:#6B3D42;box-shadow:0 0 0 2px #6B3D42,0 8px 20px rgba(107,61,66,0.14);}
   #wk-sub-{{ section.id }} .wk-bundle-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);z-index:2;background:#C9653F;color:#F5E6D8;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;padding:4px 11px;border-radius:999px;white-space:nowrap;}
   #wk-sub-{{ section.id }} .wk-bundle-badge--dark{background:#6B3D42;}
   #wk-sub-{{ section.id }} .wk-bundle-name{font-size:15.5px;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;color:#6B3D42;line-height:1.2;}
-  #wk-sub-{{ section.id }} .wk-bundle-was{font-size:13.6px;color:#8f6266;text-decoration:line-through;line-height:1.2;margin-top:7px;}
-  #wk-sub-{{ section.id }} .wk-bundle-now{font-size:23px;font-weight:800;color:#C9653F;line-height:1.15;}
-  #wk-sub-{{ section.id }} .wk-bundle-per{font-size:12.6px;color:#7a6258;line-height:1.3;margin-top:2px;}
+  /* wraps onto two lines only if a long price can't fit the card */
+  #wk-sub-{{ section.id }} .wk-bundle-price{display:flex;align-items:baseline;justify-content:center;flex-wrap:wrap;column-gap:6px;margin-top:8px;line-height:1.15;}
+  #wk-sub-{{ section.id }} .wk-bundle-was{font-size:14px;font-weight:500;color:#8f6266;text-decoration:line-through;white-space:nowrap;}
+  #wk-sub-{{ section.id }} .wk-bundle-now{font-size:24px;font-weight:800;color:#C9653F;white-space:nowrap;}
+  #wk-sub-{{ section.id }} .wk-bundle-per{font-size:12.6px;color:#7a6258;line-height:1.3;margin-top:3px;}
   /* % off pill — green, same as the SAVE badge elsewhere on the site */
   #wk-sub-{{ section.id }} .wk-bundle-off{margin-top:10px;background:#1A7F4B;color:#FFFFFF;font-size:12.8px;font-weight:800;letter-spacing:0.04em;padding:5px 12px;border-radius:999px;white-space:nowrap;box-shadow:0 3px 9px rgba(26,127,75,0.32);}
-  /* gifts-unlocked ladder: one step per gift, locked steps are greyed with a padlock */
-  #wk-sub-{{ section.id }} .wk-gl{background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.2);border-radius:16px;padding:17px 15px 15px;margin-bottom:20px;}
+  /* gifts-unlocked ladder: gifts grouped by the bottle count that unlocks them, joined by bars that fill as you go */
+  #wk-sub-{{ section.id }} .wk-gl{background:#FBF1E6;border:1.5px solid rgba(107,61,66,0.2);border-radius:18px;padding:16px 14px 14px;margin-bottom:18px;}
+  #wk-sub-{{ section.id }} .wk-gl-top{display:flex;align-items:center;justify-content:space-between;gap:10px;}
   #wk-sub-{{ section.id }} .wk-gl-h{font-family:'Fraunces',serif;font-size:20px;line-height:1.2;color:#6B3D42;}
-  #wk-sub-{{ section.id }} .wk-gl-msg{font-size:13px;color:#7a6258;line-height:1.4;margin:3px 0 14px;}
+  #wk-sub-{{ section.id }} .wk-gl-count{flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;background:#6B3D42;color:#FFF9F1;font-size:12px;font-weight:800;letter-spacing:0.04em;line-height:1;padding:5px 10px 5px 8px;border-radius:999px;white-space:nowrap;}
+  #wk-sub-{{ section.id }} .wk-gl-count svg{width:13px;height:13px;display:block;}
+  #wk-sub-{{ section.id }} .wk-gl-count.is-pop{animation:wkGlPop .45s ease;}
+  #wk-sub-{{ section.id }} .wk-gl-msg{font-size:13px;color:#7a6258;line-height:1.4;margin:4px 0 14px;}
   #wk-sub-{{ section.id }} .wk-gl-msg strong{color:#C9653F;}
   #wk-sub-{{ section.id }} .wk-gl-track{display:flex;align-items:stretch;}
-  #wk-sub-{{ section.id }} .wk-gl-step{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;padding:11px 6px 12px;border-radius:12px;background:#F2E2D5;transition:background .2s ease,box-shadow .2s ease;}
-  #wk-sub-{{ section.id }} .wk-gl-step.is-on{background:#FFF9F1;box-shadow:inset 0 0 0 1.5px rgba(107,61,66,0.4);}
-  #wk-sub-{{ section.id }} .wk-gl-tag{font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:#a08078;margin-bottom:8px;white-space:nowrap;}
-  #wk-sub-{{ section.id }} .wk-gl-step.is-on .wk-gl-tag{color:#6B3D42;}
-  #wk-sub-{{ section.id }} .wk-gl-art{position:relative;width:64px;height:64px;}
-  #wk-sub-{{ section.id }} .wk-gl-art img{width:100%;height:100%;object-fit:contain;display:block;transition:filter .2s ease,opacity .2s ease;}
-  #wk-sub-{{ section.id }} .wk-gl-icon{width:100%;height:100%;border-radius:50%;background:#F5E6D8;color:#6B3D42;display:flex;align-items:center;justify-content:center;transition:filter .2s ease,opacity .2s ease;}
-  #wk-sub-{{ section.id }} .wk-gl-icon svg{width:58%;height:58%;display:block;}
-  #wk-sub-{{ section.id }} .wk-gl-step:not(.is-on) .wk-gl-art img,
-  #wk-sub-{{ section.id }} .wk-gl-step:not(.is-on) .wk-gl-icon{filter:grayscale(1);opacity:0.4;}
+  #wk-sub-{{ section.id }} .wk-gl-grp{position:relative;flex:1 1 0;min-width:0;display:flex;flex-direction:column;padding:9px 6px 11px;border-radius:13px;background:#F2E2D5;border:1.5px dashed rgba(107,61,66,0.25);transition:background .2s ease,border-color .2s ease;}
+  #wk-sub-{{ section.id }} .wk-gl-grp.is-on{background:#FFF9F1;border:1.5px solid #6B3D42;}
+  #wk-sub-{{ section.id }} .wk-gl-tag{text-align:center;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;font-weight:800;color:#a08078;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  #wk-sub-{{ section.id }} .wk-gl-grp.is-on .wk-gl-tag{color:#6B3D42;}
+  #wk-sub-{{ section.id }} .wk-gl-chk{position:absolute;right:-7px;top:-8px;width:21px;height:21px;border-radius:50%;background:#1A7F4B;color:#FFFFFF;font-size:11.5px;font-weight:700;line-height:1;display:none;align-items:center;justify-content:center;border:2px solid #FBF1E6;z-index:1;}
+  #wk-sub-{{ section.id }} .wk-gl-grp.is-on .wk-gl-chk{display:flex;}
+  #wk-sub-{{ section.id }} .wk-gl-items{display:flex;gap:6px;flex:1 1 auto;}
+  #wk-sub-{{ section.id }} .wk-gl-item{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;}
+  #wk-sub-{{ section.id }} .wk-gl-art{position:relative;width:60px;height:60px;border-radius:12px;background:#F5E6D8;display:flex;align-items:center;justify-content:center;}
+  #wk-sub-{{ section.id }} .wk-gl-art img{width:100%;height:100%;object-fit:contain;display:block;border-radius:12px;transition:filter .2s ease,opacity .2s ease;}
+  #wk-sub-{{ section.id }} .wk-gl-icon{width:100%;height:100%;color:#6B3D42;display:flex;align-items:center;justify-content:center;transition:filter .2s ease,opacity .2s ease;}
+  #wk-sub-{{ section.id }} .wk-gl-icon svg{width:56%;height:56%;display:block;}
+  #wk-sub-{{ section.id }} .wk-gl-grp:not(.is-on) .wk-gl-art img,
+  #wk-sub-{{ section.id }} .wk-gl-grp:not(.is-on) .wk-gl-icon{filter:grayscale(1);opacity:0.35;}
   #wk-sub-{{ section.id }} .wk-gl-lock{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#6B3D42;}
-  #wk-sub-{{ section.id }} .wk-gl-lock svg{width:22px;height:22px;display:block;}
-  #wk-sub-{{ section.id }} .wk-gl-step.is-on .wk-gl-lock{display:none;}
-  #wk-sub-{{ section.id }} .wk-gl-chk{position:absolute;right:-5px;top:-5px;width:21px;height:21px;border-radius:50%;background:#1A7F4B;color:#FFFFFF;font-size:11.5px;font-weight:700;line-height:1;display:none;align-items:center;justify-content:center;border:2px solid #FFF9F1;}
-  #wk-sub-{{ section.id }} .wk-gl-step.is-on .wk-gl-chk{display:flex;}
-  #wk-sub-{{ section.id }} .wk-gl-t{font-size:12.6px;font-weight:700;color:#6B3D42;line-height:1.3;margin-top:8px;}
-  #wk-sub-{{ section.id }} .wk-gl-step:not(.is-on) .wk-gl-t{color:#a08078;}
-  #wk-sub-{{ section.id }} .wk-gl-free{margin-top:auto;padding-top:6px;font-size:12px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#1A7F4B;white-space:nowrap;}
-  #wk-sub-{{ section.id }} .wk-gl-free s{font-weight:600;letter-spacing:0;text-transform:none;color:#a08078;margin-right:5px;}
-  #wk-sub-{{ section.id }} .wk-gl-step:not(.is-on) .wk-gl-free{color:#a08078;}
-  #wk-sub-{{ section.id }} .wk-gl-link{flex:0 0 12px;align-self:center;height:3px;margin:0 3px;border-radius:2px;background:rgba(107,61,66,0.18);transition:background .2s ease;}
-  #wk-sub-{{ section.id }} .wk-gl-link.is-on{background:#6B3D42;}
-  #wk-sub-{{ section.id }} .wk-gl-step.is-pop{animation:wkGlPop .45s ease;}
-  @keyframes wkGlPop{0%{transform:scale(1);}40%{transform:scale(1.07);}100%{transform:scale(1);}}
+  #wk-sub-{{ section.id }} .wk-gl-lock svg{width:21px;height:21px;display:block;}
+  #wk-sub-{{ section.id }} .wk-gl-grp.is-on .wk-gl-lock{display:none;}
+  #wk-sub-{{ section.id }} .wk-gl-t{font-size:12.4px;font-weight:700;color:#6B3D42;line-height:1.25;margin-top:7px;}
+  #wk-sub-{{ section.id }} .wk-gl-grp:not(.is-on) .wk-gl-t{color:#a08078;}
+  #wk-sub-{{ section.id }} .wk-gl-free{margin-top:auto;padding-top:5px;font-size:11.6px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#1A7F4B;white-space:nowrap;}
+  #wk-sub-{{ section.id }} .wk-gl-free s{font-weight:600;letter-spacing:0;text-transform:none;color:#a08078;margin-right:4px;}
+  #wk-sub-{{ section.id }} .wk-gl-grp:not(.is-on) .wk-gl-free{color:#a08078;}
+  /* connector: a grey track whose burgundy fill slides in when the next group unlocks */
+  #wk-sub-{{ section.id }} .wk-gl-link{position:relative;flex:0 0 14px;align-self:center;height:5px;margin:0 2px;border-radius:3px;background:rgba(107,61,66,0.15);overflow:hidden;}
+  #wk-sub-{{ section.id }} .wk-gl-link::after{content:'';position:absolute;inset:0;background:#6B3D42;transform:scaleX(0);transform-origin:left center;transition:transform .35s ease;}
+  #wk-sub-{{ section.id }} .wk-gl-link.is-on::after{transform:scaleX(1);}
+  #wk-sub-{{ section.id }} .wk-gl-grp.is-pop{animation:wkGlPop .45s ease .15s;}
+  @keyframes wkGlPop{0%{transform:scale(1);}40%{transform:scale(1.06);}100%{transform:scale(1);}}
   /* follows the bundle: "Subscribe & save · 50% off every order" */
   #wk-sub-{{ section.id }} .wk-saveline{text-align:center;font-size:12.6px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#6B3D42;line-height:1.4;margin:0 0 11px;}
   /* DON'T WANT bridge + founder lines under the description */
@@ -73,7 +84,7 @@
   /* add-to-cart: label + bundle price on top, guarantee strip fused underneath (one button, two tiers) */
   #wk-sub-{{ section.id }} .wk-atc{width:100%;cursor:pointer;font-family:inherit;background:#C9653F;color:#F5E6D8;border:none;border-radius:999px;padding:0;display:block;text-align:center;}
   #wk-sub-{{ section.id }} .wk-atc[disabled]{opacity:0.55;cursor:not-allowed;}
-  #wk-sub-{{ section.id }} .wk-atc-main{display:flex;align-items:baseline;justify-content:center;flex-wrap:wrap;column-gap:14px;row-gap:3px;padding:20px 18px 7px;font-size:21px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;line-height:1.1;}
+  #wk-sub-{{ section.id }} .wk-atc-main{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;column-gap:14px;row-gap:3px;padding:20px 28px 7px;font-size:21px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;line-height:1.1;text-align:left;}
   #wk-sub-{{ section.id }} .wk-atc-price{display:inline-flex;align-items:baseline;gap:8px;letter-spacing:0.02em;white-space:nowrap;}
   #wk-sub-{{ section.id }} .wk-atc-was{font-size:0.76em;font-weight:600;color:rgba(245,230,216,0.72);text-decoration:line-through;}
   #wk-sub-{{ section.id }} .wk-atc-arrow{font-weight:400;}
@@ -96,34 +107,38 @@
     #wk-sub-{{ section.id }} h1{font-size:28px !important;}
     #wk-sub-{{ section.id }} .wk-gallery{position:static !important;top:auto !important;}
     #wk-sub-{{ section.id }} .wk-thumbs > button{flex:0 0 calc((100% - 27px) / 3.5) !important;}
-    /* three bundles stay side by side down to 320px — sized so "$164.55" and "MOST POPULAR" still fit */
-    #wk-sub-{{ section.id }} .wk-bundles{gap:8px;}
-    #wk-sub-{{ section.id }} .wk-bundle{padding:19px 4px 13px;}
+    /* three bundles stay side by side down to 320px; prices scale with the screen so "$165 $123.75" fits on one row */
+    #wk-sub-{{ section.id }} .wk-bundles{gap:6px;}
+    #wk-sub-{{ section.id }} .wk-bundle{padding:19px 4px 12px;}
     #wk-sub-{{ section.id }} .wk-bundle-badge{font-size:9.4px;letter-spacing:0.07em;padding:4px 8px;}
     #wk-sub-{{ section.id }} .wk-bundle-name{font-size:14px;letter-spacing:0.03em;}
-    #wk-sub-{{ section.id }} .wk-bundle-was{font-size:12.4px;margin-top:6px;}
-    #wk-sub-{{ section.id }} .wk-bundle-now{font-size:19.5px;}
+    #wk-sub-{{ section.id }} .wk-bundle-price{column-gap:4px;margin-top:6px;}
+    #wk-sub-{{ section.id }} .wk-bundle-was{font-size:min(12px, 3.1vw);}
+    #wk-sub-{{ section.id }} .wk-bundle-now{font-size:min(19px, 4.7vw);}
     #wk-sub-{{ section.id }} .wk-bundle-per{font-size:11.6px;}
     #wk-sub-{{ section.id }} .wk-bundle-off{font-size:11.8px;padding:5px 9px;margin-top:8px;}
-    #wk-sub-{{ section.id }} .wk-gl{padding:15px 11px 12px;}
+    #wk-sub-{{ section.id }} .wk-gl{padding:14px 11px 12px;}
     #wk-sub-{{ section.id }} .wk-gl-h{font-size:18px;}
-    #wk-sub-{{ section.id }} .wk-gl-msg{font-size:12.4px;margin-bottom:12px;}
-    /* four steps across a 335px column: ~70px each */
-    #wk-sub-{{ section.id }} .wk-gl-step{padding:9px 3px 10px;}
+    #wk-sub-{{ section.id }} .wk-gl-count{font-size:11px;padding:4px 9px 4px 7px;}
+    #wk-sub-{{ section.id }} .wk-gl-msg{font-size:12.4px;margin-bottom:13px;}
+    /* four gifts in three groups across a 335px column: ~60px per gift */
+    #wk-sub-{{ section.id }} .wk-gl-grp{padding:8px 4px 9px;}
+    #wk-sub-{{ section.id }} .wk-gl-items{gap:3px;}
     #wk-sub-{{ section.id }} .wk-gl-tag{font-size:9px;letter-spacing:0.06em;margin-bottom:7px;}
-    #wk-sub-{{ section.id }} .wk-gl-art{width:46px;height:46px;}
-    #wk-sub-{{ section.id }} .wk-gl-chk{width:18px;height:18px;font-size:10px;right:-6px;top:-6px;}
-    #wk-sub-{{ section.id }} .wk-gl-lock svg{width:19px;height:19px;}
-    #wk-sub-{{ section.id }} .wk-gl-t{font-size:11px;line-height:1.25;margin-top:7px;}
-    #wk-sub-{{ section.id }} .wk-gl-free{font-size:10.4px;letter-spacing:0.04em;}
+    #wk-sub-{{ section.id }} .wk-gl-art{width:44px;height:44px;border-radius:10px;}
+    #wk-sub-{{ section.id }} .wk-gl-art img{border-radius:10px;}
+    #wk-sub-{{ section.id }} .wk-gl-chk{width:18px;height:18px;font-size:10px;right:-6px;top:-7px;}
+    #wk-sub-{{ section.id }} .wk-gl-lock svg{width:18px;height:18px;}
+    #wk-sub-{{ section.id }} .wk-gl-t{font-size:10.6px;line-height:1.22;margin-top:6px;}
+    #wk-sub-{{ section.id }} .wk-gl-free{font-size:10px;letter-spacing:0.03em;}
     #wk-sub-{{ section.id }} .wk-gl-free s{margin-right:3px;}
-    #wk-sub-{{ section.id }} .wk-gl-link{flex-basis:6px;margin:0 2px;}
+    #wk-sub-{{ section.id }} .wk-gl-link{flex-basis:8px;height:4px;margin:0 1px;}
     #wk-sub-{{ section.id }} .wk-saveline{font-size:11.6px;letter-spacing:0.05em;}
     #wk-sub-{{ section.id }} .wk-bridge{font-size:15.5px;}
     #wk-sub-{{ section.id }} .wk-founder{padding:12px 13px;gap:11px;}
     #wk-sub-{{ section.id }} .wk-founder img{width:40px;height:40px;}
     #wk-sub-{{ section.id }} .wk-founder p{font-size:13.2px;}
-    #wk-sub-{{ section.id }} .wk-atc-main{font-size:17.5px;column-gap:10px;padding:18px 12px 7px;}
+    #wk-sub-{{ section.id }} .wk-atc-main{font-size:17.5px;column-gap:10px;padding:18px 20px 7px;}
     #wk-sub-{{ section.id }} .wk-atc-gtee{font-size:13.5px;padding:0 12px 17px;gap:8px;}
     #wk-sub-{{ section.id }} .wk-atc-gtee svg{width:15px;height:15px;}
     #wk-sub-{{ section.id }} .wk-urg-h{font-size:16px;}
@@ -225,7 +240,7 @@
         {%- endif -%}
       </div>
 
-      <!-- BUNDLE PICKER (1 / 3 / 5 bottles, subscribe & save) + GIFTS UNLOCKED LADDER -->
+      <!-- BUNDLE PICKER (1 / 2 / 3 bottles, subscribe & save) + GIFTS UNLOCKED LADDER -->
       {%- comment -%}
         Server-rendered at the default bundle so nothing flashes before the script runs.
         The script then re-prices every bundle against its LIVE selling-plan discount (what checkout charges)
@@ -233,7 +248,7 @@
         sells one-time at the automatic-discount price, with no gifts.
       {%- endcomment -%}
       {%- assign wk_price = wk_variant.price | default: 6485 -%}
-      {%- assign wk_def = section.settings.default_tier | default: '3' -%}
+      {%- assign wk_def = section.settings.default_tier | default: '1' -%}
       {%- assign wk_def_n = wk_def | plus: 0 -%}
       <div class="wk-bl-label">{{ section.settings.plans_label }}</div>
       <div class="wk-bundles" role="radiogroup" aria-label="{{ section.settings.plans_label | escape }}">
@@ -249,8 +264,7 @@
           <div class="wk-bundle{% if tk == wk_def %} is-sel{% endif %}" data-wk="supply" data-wk-val="{{ tm }}" data-wk-plan="{{ tm }}" role="radio" aria-checked="{% if tk == wk_def %}true{% else %}false{% endif %}" tabindex="0">
             {%- if section.settings[t_badge] != blank -%}<span class="wk-bundle-badge{% if tm == 3 %} wk-bundle-badge--dark{% endif %}">{{ section.settings[t_badge] }}</span>{%- endif -%}
             <span class="wk-bundle-name">{{ section.settings[t_name] }}</span>
-            <span class="wk-bundle-was" data-wk-compare="{{ tm }}">{{ t_full | money }}</span>
-            <span class="wk-bundle-now" data-wk-total="{{ tm }}">{{ t_total | money }}</span>
+            <span class="wk-bundle-price"><s class="wk-bundle-was" data-wk-compare="{{ tm }}">{{ t_full | money_without_trailing_zeros }}</s><span class="wk-bundle-now" data-wk-total="{{ tm }}">{{ t_total | money_without_trailing_zeros }}</span></span>
             <span class="wk-bundle-per"><span data-wk-perday="{{ tm }}">{{ t_day | money }}</span>/day</span>
             <span class="wk-bundle-off" data-wk-save="{{ tm }}">{{ section.settings[t_sub] }}% off</span>
           </div>
@@ -262,44 +276,65 @@
       {%- assign wk_gift_order = '4,1,2,3' | split: ',' -%}
       {%- if has_gift -%}
         <div class="wk-gl" data-wk-gl>
-          <div class="wk-gl-h">{{ section.settings.gifts_heading }}</div>
+          <div class="wk-gl-top">
+            <div class="wk-gl-h">{{ section.settings.gifts_heading }}</div>
+            <div class="wk-gl-count" data-wk-gl-count-wrap><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg><span data-wk-gl-count></span></div>
+          </div>
           <div class="wk-gl-msg" data-wk-gl-msg></div>
           <div class="wk-gl-track">
-            {%- assign wk_first_step = true -%}
-            {%- for lvl in (1..3) -%}{%- for istr in wk_gift_order -%}
-              {%- assign i = istr | plus: 0 -%}
-              {%- assign gt = 'gift_' | append: i | append: '_title' -%}
-              {%- if section.settings[gt] == blank -%}{%- continue -%}{%- endif -%}
-              {%- assign gu = 'gift_' | append: i | append: '_unlock' -%}
-              {%- assign g_unlock = section.settings[gu] | default: '1' | plus: 0 -%}
-              {%- if g_unlock != lvl -%}{%- continue -%}{%- endif -%}
-              {%- assign gi = 'gift_' | append: i | append: '_image' -%}
-              {%- assign gpk = 'gift_' | append: i | append: '_product' -%}
-              {%- assign gv = 'gift_' | append: i | append: '_value' -%}
-              {%- assign gp = section.settings[gpk] -%}
-              {%- assign g_was = '' -%}
-              {%- if gp != blank and gp.price > 0 -%}{%- assign g_was = gp.price | money_without_trailing_zeros -%}
-              {%- elsif section.settings[gv] != blank -%}{%- assign g_was = section.settings[gv] | remove: ' value' | strip -%}{%- endif -%}
-              {%- unless wk_first_step -%}<span class="wk-gl-link{% if g_unlock <= wk_def_n %} is-on{% endif %}" data-wk-gl-link="{{ g_unlock }}"></span>{%- endunless -%}
-              {%- assign wk_first_step = false -%}
-              <div class="wk-gl-step{% if g_unlock <= wk_def_n %} is-on{% endif %}" data-wk-gl-step="{{ g_unlock }}">
-                <span class="wk-gl-tag">{% if g_unlock == 1 %}{{ section.settings.gift_starter_tag }}{% else %}{{ section.settings.gift_tier_tag | replace: '[n]', g_unlock }}{% endif %}</span>
-                <span class="wk-gl-art">
-                  {%- if section.settings[gi] -%}
-                    <img src="{{ section.settings[gi] | image_url: width: 200 }}" alt="" width="200" height="200" loading="lazy">
-                  {%- elsif i == 4 -%}
-                    <span class="wk-gl-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 6.5h12v9h-12z"/><path d="M13.5 9.5h4.2l3.3 3.4v2.6h-7.5"/><circle cx="6" cy="17.2" r="1.8"/><circle cx="17.2" cy="17.2" r="1.8"/></svg></span>
-                  {%- else -%}
-                    {%- assign gfb = 'wk-gift-' | append: i | append: '.png' -%}
-                    <img src="{{ gfb | asset_url }}" alt="" width="200" height="200" loading="lazy">
-                  {%- endif -%}
-                  <span class="wk-gl-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
-                  <span class="wk-gl-chk" aria-hidden="true">&check;</span>
-                </span>
-                <span class="wk-gl-t">{{ section.settings[gt] }}</span>
-                <span class="wk-gl-free">{%- if g_was != blank -%}<s>{{ g_was }}</s>{%- endif -%}{{ section.settings.gift_free_label }}</span>
+            {%- comment -%} one group per bottle count; gift 4 (free shipping) leads its group {%- endcomment -%}
+            {%- assign wk_first_grp = true -%}
+            {%- for lvl in (1..3) -%}
+              {%- assign g_n = 0 -%}
+              {%- for istr in wk_gift_order -%}
+                {%- assign gt = 'gift_' | append: istr | append: '_title' -%}
+                {%- assign gu = 'gift_' | append: istr | append: '_unlock' -%}
+                {%- assign g_unlock = section.settings[gu] | default: '1' | plus: 0 -%}
+                {%- if section.settings[gt] != blank and g_unlock == lvl -%}{%- assign g_n = g_n | plus: 1 -%}{%- endif -%}
+              {%- endfor -%}
+              {%- if g_n == 0 -%}{%- continue -%}{%- endif -%}
+              {%- unless wk_first_grp -%}<span class="wk-gl-link{% if lvl <= wk_def_n %} is-on{% endif %}" data-wk-gl-link="{{ lvl }}" aria-hidden="true"></span>{%- endunless -%}
+              {%- assign wk_first_grp = false -%}
+              <div class="wk-gl-grp{% if lvl <= wk_def_n %} is-on{% endif %}" data-wk-gl-step="{{ lvl }}" data-wk-gl-n="{{ g_n }}" style="flex-grow:{{ g_n }};">
+                <span class="wk-gl-tag">{% if lvl == 1 %}{{ section.settings.gift_starter_tag }}{% else %}{{ section.settings.gift_tier_tag | replace: '[n]', lvl }}{% endif %}</span>
+                <span class="wk-gl-chk" aria-hidden="true">&check;</span>
+                <div class="wk-gl-items">
+                  {%- for istr in wk_gift_order -%}
+                    {%- assign gt = 'gift_' | append: istr | append: '_title' -%}
+                    {%- if section.settings[gt] == blank -%}{%- continue -%}{%- endif -%}
+                    {%- assign gu = 'gift_' | append: istr | append: '_unlock' -%}
+                    {%- assign g_unlock = section.settings[gu] | default: '1' | plus: 0 -%}
+                    {%- if g_unlock != lvl -%}{%- continue -%}{%- endif -%}
+                    {%- assign gi = 'gift_' | append: istr | append: '_image' -%}
+                    {%- assign gpk = 'gift_' | append: istr | append: '_product' -%}
+                    {%- assign gv = 'gift_' | append: istr | append: '_value' -%}
+                    {%- assign gp = section.settings[gpk] -%}
+                    {%- assign g_was = '' -%}
+                    {%- if gp != blank and gp.price > 0 -%}{%- assign g_was = gp.price | money_without_trailing_zeros -%}
+                    {%- elsif istr == '4' and section.settings[gv] != blank -%}
+                      {%- comment -%} shipping costs the same number in every market (4.95 $/£/€), so show it in the visitor's currency {%- endcomment -%}
+                      {%- assign g_ship = section.settings[gv] | remove: '$' | remove: '£' | remove: '€' | replace: ',', '.' | strip | times: 100 | round -%}
+                      {%- if g_ship > 0 -%}{%- assign g_was = g_ship | money_without_trailing_zeros -%}{%- endif -%}
+                    {%- elsif section.settings[gv] != blank -%}{%- assign g_was = section.settings[gv] | remove: ' value' | strip -%}{%- endif -%}
+                    <div class="wk-gl-item">
+                      <span class="wk-gl-art">
+                        {%- if section.settings[gi] -%}
+                          <img src="{{ section.settings[gi] | image_url: width: 200 }}" alt="" width="200" height="200" loading="lazy">
+                        {%- elsif istr == '4' -%}
+                          <span class="wk-gl-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 6.5h12v9h-12z"/><path d="M13.5 9.5h4.2l3.3 3.4v2.6h-7.5"/><circle cx="6" cy="17.2" r="1.8"/><circle cx="17.2" cy="17.2" r="1.8"/></svg></span>
+                        {%- else -%}
+                          {%- assign gfb = 'wk-gift-' | append: istr | append: '.png' -%}
+                          <img src="{{ gfb | asset_url }}" alt="" width="200" height="200" loading="lazy">
+                        {%- endif -%}
+                        <span class="wk-gl-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+                      </span>
+                      <span class="wk-gl-t">{{ section.settings[gt] }}</span>
+                      <span class="wk-gl-free">{%- if g_was != blank -%}<s>{{ g_was }}</s>{%- endif -%}{{ section.settings.gift_free_label }}</span>
+                    </div>
+                  {%- endfor -%}
+                </div>
               </div>
-            {%- endfor -%}{%- endfor -%}
+            {%- endfor -%}
           </div>
         </div>
       {%- endif -%}
@@ -465,7 +500,7 @@
   if (!root || root.dataset.wkInit) return;
   root.dataset.wkInit = '1';
   var RING = '0 0 0 2px #6B3D42', NONE = '0 0 0 0 transparent';
-  var state = { flavor:'cranberry', supply:'{{ section.settings.default_tier | default: '3' }}' };
+  var state = { flavor:'cranberry', supply:'{{ section.settings.default_tier | default: '1' }}' };
 
   function applySelection(group){
     var val = state[group];
@@ -483,7 +518,7 @@
     }
   }
 
-  // --- bundles (1 / 3 / 5 bottles), each on its own subscribe & save plan, with gifts unlocked by bottle count ---
+  // --- bundles (1 / 2 / 3 bottles), each on its own subscribe & save plan, with gifts unlocked by bottle count ---
   var BOTTLE = {{ wk_variant.price | default: 6485 }};   // cents, live variant price (already in the market's presentment currency)
   // every selling plan on the product with its LIVE % discount and (Kaching config) delivery interval in months
   var SELLING_PLANS = [
@@ -544,7 +579,7 @@
       var q = wkQuote(k);
       root.querySelectorAll('[data-wk-total="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.total); });
       root.querySelectorAll('[data-wk-perday="'+k+'"]').forEach(function(e){ e.textContent = wkPerDay(q.per); });
-      root.querySelectorAll('[data-wk-compare="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.full); e.style.visibility = q.save > 0 ? '' : 'hidden'; });
+      root.querySelectorAll('[data-wk-compare="'+k+'"]').forEach(function(e){ e.textContent = wkMoney(q.full); e.style.display = q.save > 0 ? '' : 'none'; });
       root.querySelectorAll('[data-wk-save="'+k+'"]').forEach(function(e){ e.textContent = q.save + '% off'; e.style.visibility = q.save > 0 ? '' : 'hidden'; });
     });
     var q = wkQuote(state.supply);
@@ -558,20 +593,25 @@
 
   // a gift is unlocked when the bundle is a subscription and has at least the gift's bottle count
   function unlocked(n){ return isSub(state.supply) && TIERS[state.supply].m >= n; }
-  var glPrev = null;
+  var glPrev = null, glCountPrev = null;
   function applyGifts(){
-    var steps = root.querySelectorAll('[data-wk-gl-step]'), next = null, locked = 0;
-    steps.forEach(function(s){
-      var n = +s.getAttribute('data-wk-gl-step'), on = unlocked(n);
-      if (on && glPrev && !glPrev[n]) { s.classList.remove('is-pop'); void s.offsetWidth; s.classList.add('is-pop'); }
-      s.classList.toggle('is-on', on);
-      if (!on) { locked++; if (next === null || n < next) next = n; }
+    // groups = one per bottle count; data-wk-gl-n = how many gifts sit in that group
+    var grps = root.querySelectorAll('[data-wk-gl-step]'), next = null, atNext = 0, got = 0, total = 0;
+    grps.forEach(function(g){
+      var n = +g.getAttribute('data-wk-gl-step'), c = +g.getAttribute('data-wk-gl-n') || 1, on = unlocked(n);
+      total += c;
+      if (on) got += c;
+      if (on && glPrev && !glPrev[n]) { g.classList.remove('is-pop'); void g.offsetWidth; g.classList.add('is-pop'); }
+      g.classList.toggle('is-on', on);
+      if (!on && (next === null || n < next)) { next = n; atNext = c; }
     });
     root.querySelectorAll('[data-wk-gl-link]').forEach(function(l){ l.classList.toggle('is-on', unlocked(+l.getAttribute('data-wk-gl-link'))); });
+    root.querySelectorAll('[data-wk-gl-count]').forEach(function(e){ e.textContent = got + '/' + total; });
+    if (glCountPrev !== null && got > glCountPrev) root.querySelectorAll('[data-wk-gl-count-wrap]').forEach(function(w){ w.classList.remove('is-pop'); void w.offsetWidth; w.classList.add('is-pop'); });
+    glCountPrev = got;
     var msg = root.querySelector('[data-wk-gl-msg]');
     if (msg) {
-      var atNext = 0; steps.forEach(function(s){ if (+s.getAttribute('data-wk-gl-step') === next) atNext++; });
-      var txt = !isSub(state.supply) ? GL_NONE : (locked === 0 ? GL_ALL : GL_MORE.replace('[n]', next).replace('[count]', atNext).replace('[gifts]', atNext === 1 ? 'gift' : 'gifts').replace('bottles', next === 1 ? 'bottle' : 'bottles'));
+      var txt = !isSub(state.supply) ? GL_NONE : (next === null ? GL_ALL : GL_MORE.replace('[n]', next).replace('[count]', atNext).replace('[gifts]', atNext === 1 ? 'gift' : 'gifts').replace('bottles', next === 1 ? 'bottle' : 'bottles'));
       msg.innerHTML = txt.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
       msg.style.display = txt ? '' : 'none';
     }
@@ -832,7 +872,7 @@
     { "type": "text", "id": "sale_badge", "label": "Sale badge (leave blank to hide)" },
     { "type": "header", "content": "Bundles", "info": "Three side-by-side cards: 1, 2 and 3 bottles. Each goes on the selling plan whose LIVE discount equals its % and whose delivery interval equals its 'ships every' setting. A bundle with no matching plan sells one-time at its one-time %, without gifts." },
     { "type": "text", "id": "plans_label", "label": "Selector label", "default": "Choose your bundle" },
-    { "type": "select", "id": "default_tier", "label": "Selected by default", "default": "2", "options": [
+    { "type": "select", "id": "default_tier", "label": "Selected by default", "default": "1", "options": [
       { "value": "1", "label": "1 bottle" }, { "value": "2", "label": "2 bottles" }, { "value": "3", "label": "3 bottles" }
     ] },
     { "type": "text", "id": "tier_1_badge", "label": "1-bottle badge" },
@@ -856,7 +896,7 @@
     { "type": "text", "id": "gifts_more", "label": "Progress line", "default": "Choose **[n] bottles** to unlock [count] more [gifts]", "info": "[n] = bottles needed for the next locked gift(s), [count] = how many unlock there, [gifts] = gift/gifts. **text** = bold." },
     { "type": "text", "id": "gifts_all", "label": "All-unlocked line", "default": "**All gifts unlocked**, free with your order" },
     { "type": "text", "id": "gifts_none", "label": "No-subscription line", "default": "Free gifts come with subscribe & save" },
-    { "type": "text", "id": "gift_starter_tag", "label": "Tag on 1-bottle gifts", "default": "1 bottle" },
+    { "type": "text", "id": "gift_starter_tag", "label": "Tag on 1-bottle gifts", "default": "Starter kit" },
     { "type": "text", "id": "gift_tier_tag", "label": "Tag on other gifts", "default": "[n] bottles", "info": "[n] = the gift's bottle count." },
     { "type": "text", "id": "gift_free_label", "label": "Free label", "default": "Free" },
     { "type": "text", "id": "gift_1_variant", "label": "Gift 1 variant ID", "default": "55027541049683", "info": "The 90-Day Reset Protocol" },
@@ -880,7 +920,7 @@
     { "type": "select", "id": "gift_4_unlock", "label": "Gift 4 unlocks at", "default": "2", "options": [ { "value": "1", "label": "1 bottle" }, { "value": "2", "label": "2 bottles" }, { "value": "3", "label": "3 bottles" } ], "info": "Gift 4 has no cart line: it is display-only. Free shipping itself must be a Shopify shipping discount (see the section notes)." },
     { "type": "image_picker", "id": "gift_4_image", "label": "Gift 4 image", "info": "Defaults to a delivery-truck icon." },
     { "type": "text", "id": "gift_4_title", "label": "Gift 4 title", "default": "Free shipping" },
-    { "type": "text", "id": "gift_4_value", "label": "Gift 4 value (struck price)", "default": "$4.95", "info": "Optional, e.g. the usual shipping cost. Leave blank to show only the Free label." },
+    { "type": "text", "id": "gift_4_value", "label": "Gift 4 value (struck price)", "default": "4.95", "info": "The usual shipping cost as a number, e.g. 4.95. Shown in the visitor's currency ($4.95 / £4.95 / €4.95). Leave blank to show only the Free label." },
     { "type": "header", "content": "Plan footer + checkout" },
 
     { "type": "text", "id": "atc_label", "label": "Add-to-cart label", "default": "Try it today", "info": "Shown next to the selected bundle's price." },
