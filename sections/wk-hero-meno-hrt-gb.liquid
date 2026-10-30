@@ -1,5 +1,6 @@
 {%- comment -%} "DON'T WANT" page, gift-bundle test (template page.gummies-meno-hrt-gb) — clone of wk-hero-meno-hrt with the tier list + auto-refill checkbox swapped for a subscribe & save bundle picker {%- endcomment -%}
-{%- comment -%} Three side-by-side bundles (1 / 3 / 5 bottles, each on its own Kaching plan) and a "Gifts unlocked" ladder: each gift unlocks at a bottle count, and only unlocked gifts are added to the cart. The save line above the button and the price on the button follow the bundle. Everything outside the buy box is identical to wk-hero-meno-hrt. {%- endcomment -%}
+{%- comment -%} Three side-by-side bundles (1 / 3 / 5 bottles, each on its own Kaching plan) and a "Gifts unlocked" ladder: each gift unlocks at a bottle count, and only unlocked gifts are added to the cart. The save line above the button and the price on the button follow the bundle. Everything outside the buy box is identical to wk-hero-meno-hrt.
+  Gift 4 (free shipping) is display-only: the actual free shipping comes from a Shopify automatic free-shipping discount whose minimum matches the 2-bottle bundle. {%- endcomment -%}
 {%- assign wk_product = section.settings.product -%}
 {%- if wk_product != blank -%}{%- assign wk_variant = wk_product.selected_or_first_available_variant -%}{%- endif -%}
 
@@ -33,7 +34,10 @@
   #wk-sub-{{ section.id }} .wk-gl-step.is-on .wk-gl-tag{color:#6B3D42;}
   #wk-sub-{{ section.id }} .wk-gl-art{position:relative;width:64px;height:64px;}
   #wk-sub-{{ section.id }} .wk-gl-art img{width:100%;height:100%;object-fit:contain;display:block;transition:filter .2s ease,opacity .2s ease;}
-  #wk-sub-{{ section.id }} .wk-gl-step:not(.is-on) .wk-gl-art img{filter:grayscale(1);opacity:0.4;}
+  #wk-sub-{{ section.id }} .wk-gl-icon{width:100%;height:100%;border-radius:50%;background:#F5E6D8;color:#6B3D42;display:flex;align-items:center;justify-content:center;transition:filter .2s ease,opacity .2s ease;}
+  #wk-sub-{{ section.id }} .wk-gl-icon svg{width:58%;height:58%;display:block;}
+  #wk-sub-{{ section.id }} .wk-gl-step:not(.is-on) .wk-gl-art img,
+  #wk-sub-{{ section.id }} .wk-gl-step:not(.is-on) .wk-gl-icon{filter:grayscale(1);opacity:0.4;}
   #wk-sub-{{ section.id }} .wk-gl-lock{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#6B3D42;}
   #wk-sub-{{ section.id }} .wk-gl-lock svg{width:22px;height:22px;display:block;}
   #wk-sub-{{ section.id }} .wk-gl-step.is-on .wk-gl-lock{display:none;}
@@ -92,7 +96,7 @@
     #wk-sub-{{ section.id }} h1{font-size:28px !important;}
     #wk-sub-{{ section.id }} .wk-gallery{position:static !important;top:auto !important;}
     #wk-sub-{{ section.id }} .wk-thumbs > button{flex:0 0 calc((100% - 27px) / 3.5) !important;}
-    /* three bundles stay side by side down to 320px — sized so "$274.25" and "MOST POPULAR" still fit */
+    /* three bundles stay side by side down to 320px — sized so "$164.55" and "MOST POPULAR" still fit */
     #wk-sub-{{ section.id }} .wk-bundles{gap:8px;}
     #wk-sub-{{ section.id }} .wk-bundle{padding:19px 4px 13px;}
     #wk-sub-{{ section.id }} .wk-bundle-badge{font-size:9.4px;letter-spacing:0.07em;padding:4px 8px;}
@@ -104,12 +108,16 @@
     #wk-sub-{{ section.id }} .wk-gl{padding:15px 11px 12px;}
     #wk-sub-{{ section.id }} .wk-gl-h{font-size:18px;}
     #wk-sub-{{ section.id }} .wk-gl-msg{font-size:12.4px;margin-bottom:12px;}
-    #wk-sub-{{ section.id }} .wk-gl-step{padding:10px 4px 11px;}
-    #wk-sub-{{ section.id }} .wk-gl-tag{font-size:9.6px;letter-spacing:0.08em;}
-    #wk-sub-{{ section.id }} .wk-gl-art{width:54px;height:54px;}
-    #wk-sub-{{ section.id }} .wk-gl-t{font-size:11.8px;}
-    #wk-sub-{{ section.id }} .wk-gl-free{font-size:11px;letter-spacing:0.05em;}
-    #wk-sub-{{ section.id }} .wk-gl-link{flex-basis:8px;margin:0 2px;}
+    /* four steps across a 335px column: ~70px each */
+    #wk-sub-{{ section.id }} .wk-gl-step{padding:9px 3px 10px;}
+    #wk-sub-{{ section.id }} .wk-gl-tag{font-size:9px;letter-spacing:0.06em;margin-bottom:7px;}
+    #wk-sub-{{ section.id }} .wk-gl-art{width:46px;height:46px;}
+    #wk-sub-{{ section.id }} .wk-gl-chk{width:18px;height:18px;font-size:10px;right:-6px;top:-6px;}
+    #wk-sub-{{ section.id }} .wk-gl-lock svg{width:19px;height:19px;}
+    #wk-sub-{{ section.id }} .wk-gl-t{font-size:11px;line-height:1.25;margin-top:7px;}
+    #wk-sub-{{ section.id }} .wk-gl-free{font-size:10.4px;letter-spacing:0.04em;}
+    #wk-sub-{{ section.id }} .wk-gl-free s{margin-right:3px;}
+    #wk-sub-{{ section.id }} .wk-gl-link{flex-basis:6px;margin:0 2px;}
     #wk-sub-{{ section.id }} .wk-saveline{font-size:11.6px;letter-spacing:0.05em;}
     #wk-sub-{{ section.id }} .wk-bridge{font-size:15.5px;}
     #wk-sub-{{ section.id }} .wk-founder{padding:12px 13px;gap:11px;}
@@ -229,8 +237,7 @@
       {%- assign wk_def_n = wk_def | plus: 0 -%}
       <div class="wk-bl-label">{{ section.settings.plans_label }}</div>
       <div class="wk-bundles" role="radiogroup" aria-label="{{ section.settings.plans_label | escape }}">
-        {%- for tm in (1..5) -%}
-          {%- unless tm == 1 or tm == 3 or tm == 5 -%}{%- continue -%}{%- endunless -%}
+        {%- for tm in (1..3) -%}
           {%- assign tp = 'tier_' | append: tm | append: '_' -%}
           {%- assign t_name = tp | append: 'name' -%}{%- assign t_badge = tp | append: 'badge' -%}{%- assign t_sub = tp | append: 'sub_pct' -%}
           {%- assign t_keep = 100 | minus: section.settings[t_sub] -%}
@@ -240,7 +247,7 @@
           {%- assign t_day = t_per | divided_by: 30.0 | round -%}
           {%- assign tk = tm | append: '' -%}
           <div class="wk-bundle{% if tk == wk_def %} is-sel{% endif %}" data-wk="supply" data-wk-val="{{ tm }}" data-wk-plan="{{ tm }}" role="radio" aria-checked="{% if tk == wk_def %}true{% else %}false{% endif %}" tabindex="0">
-            {%- if section.settings[t_badge] != blank -%}<span class="wk-bundle-badge{% if tm == 5 %} wk-bundle-badge--dark{% endif %}">{{ section.settings[t_badge] }}</span>{%- endif -%}
+            {%- if section.settings[t_badge] != blank -%}<span class="wk-bundle-badge{% if tm == 3 %} wk-bundle-badge--dark{% endif %}">{{ section.settings[t_badge] }}</span>{%- endif -%}
             <span class="wk-bundle-name">{{ section.settings[t_name] }}</span>
             <span class="wk-bundle-was" data-wk-compare="{{ tm }}">{{ t_full | money }}</span>
             <span class="wk-bundle-now" data-wk-total="{{ tm }}">{{ t_total | money }}</span>
@@ -251,18 +258,21 @@
       </div>
 
       {%- assign has_gift = false -%}
-      {%- for i in (1..3) -%}{%- assign gt = 'gift_' | append: i | append: '_title' -%}{%- if section.settings[gt] != blank -%}{%- assign has_gift = true -%}{%- endif -%}{%- endfor -%}
+      {%- for i in (1..4) -%}{%- assign gt = 'gift_' | append: i | append: '_title' -%}{%- if section.settings[gt] != blank -%}{%- assign has_gift = true -%}{%- endif -%}{%- endfor -%}
+      {%- assign wk_gift_order = '4,1,2,3' | split: ',' -%}
       {%- if has_gift -%}
         <div class="wk-gl" data-wk-gl>
           <div class="wk-gl-h">{{ section.settings.gifts_heading }}</div>
           <div class="wk-gl-msg" data-wk-gl-msg></div>
           <div class="wk-gl-track">
             {%- assign wk_first_step = true -%}
-            {%- for i in (1..3) -%}
+            {%- for lvl in (1..3) -%}{%- for istr in wk_gift_order -%}
+              {%- assign i = istr | plus: 0 -%}
               {%- assign gt = 'gift_' | append: i | append: '_title' -%}
               {%- if section.settings[gt] == blank -%}{%- continue -%}{%- endif -%}
               {%- assign gu = 'gift_' | append: i | append: '_unlock' -%}
               {%- assign g_unlock = section.settings[gu] | default: '1' | plus: 0 -%}
+              {%- if g_unlock != lvl -%}{%- continue -%}{%- endif -%}
               {%- assign gi = 'gift_' | append: i | append: '_image' -%}
               {%- assign gpk = 'gift_' | append: i | append: '_product' -%}
               {%- assign gv = 'gift_' | append: i | append: '_value' -%}
@@ -277,6 +287,8 @@
                 <span class="wk-gl-art">
                   {%- if section.settings[gi] -%}
                     <img src="{{ section.settings[gi] | image_url: width: 200 }}" alt="" width="200" height="200" loading="lazy">
+                  {%- elsif i == 4 -%}
+                    <span class="wk-gl-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 6.5h12v9h-12z"/><path d="M13.5 9.5h4.2l3.3 3.4v2.6h-7.5"/><circle cx="6" cy="17.2" r="1.8"/><circle cx="17.2" cy="17.2" r="1.8"/></svg></span>
                   {%- else -%}
                     {%- assign gfb = 'wk-gift-' | append: i | append: '.png' -%}
                     <img src="{{ gfb | asset_url }}" alt="" width="200" height="200" loading="lazy">
@@ -287,7 +299,7 @@
                 <span class="wk-gl-t">{{ section.settings[gt] }}</span>
                 <span class="wk-gl-free">{%- if g_was != blank -%}<s>{{ g_was }}</s>{%- endif -%}{{ section.settings.gift_free_label }}</span>
               </div>
-            {%- endfor -%}
+            {%- endfor -%}{%- endfor -%}
           </div>
         </div>
       {%- endif -%}
@@ -483,8 +495,8 @@
   //   sub = the bundle's selling-plan % · one = the automatic one-time discount, used only if the bundle has no plan
   var TIERS = {
     '1': { m: 1, sub: {{ section.settings.tier_1_sub_pct }}, one: {{ section.settings.tier_1_one_pct }}, f: {{ section.settings.tier_1_freq | default: 1 }} },
-    '3': { m: 3, sub: {{ section.settings.tier_3_sub_pct }}, one: {{ section.settings.tier_3_one_pct }}, f: {{ section.settings.tier_3_freq | default: 1 }} },
-    '5': { m: 5, sub: {{ section.settings.tier_5_sub_pct }}, one: {{ section.settings.tier_5_one_pct }}, f: {{ section.settings.tier_5_freq | default: 1 }} }
+    '2': { m: 2, sub: {{ section.settings.tier_2_sub_pct }}, one: {{ section.settings.tier_2_one_pct }}, f: {{ section.settings.tier_2_freq | default: 1 }} },
+    '3': { m: 3, sub: {{ section.settings.tier_3_sub_pct }}, one: {{ section.settings.tier_3_one_pct }}, f: {{ section.settings.tier_3_freq | default: 1 }} }
   };
   var DESIGN = {{ request.design_mode }};
   var SAVE_LINE = {{ section.settings.save_line | json }};
@@ -558,11 +570,12 @@
     root.querySelectorAll('[data-wk-gl-link]').forEach(function(l){ l.classList.toggle('is-on', unlocked(+l.getAttribute('data-wk-gl-link'))); });
     var msg = root.querySelector('[data-wk-gl-msg]');
     if (msg) {
-      var txt = !isSub(state.supply) ? GL_NONE : (locked === 0 ? GL_ALL : GL_MORE.replace('[n]', next).replace('[count]', locked));
+      var atNext = 0; steps.forEach(function(s){ if (+s.getAttribute('data-wk-gl-step') === next) atNext++; });
+      var txt = !isSub(state.supply) ? GL_NONE : (locked === 0 ? GL_ALL : GL_MORE.replace('[n]', next).replace('[count]', atNext).replace('[gifts]', atNext === 1 ? 'gift' : 'gifts').replace('bottles', next === 1 ? 'bottle' : 'bottles'));
       msg.innerHTML = txt.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
       msg.style.display = txt ? '' : 'none';
     }
-    glPrev = {}; [1, 3, 5].forEach(function(n){ glPrev[n] = unlocked(n); });
+    glPrev = {}; [1, 2, 3].forEach(function(n){ glPrev[n] = unlocked(n); });
   }
 
   // the bundle's plan + its unlocked gifts; without a plan the bottles go alone at the one-time price
@@ -817,53 +830,57 @@
     { "type": "text", "id": "flavor_label", "label": "Section label", "default": "Flavor" },
     { "type": "text", "id": "flavor_pill", "label": "Flavor pill", "default": "Mixed berries" },
     { "type": "text", "id": "sale_badge", "label": "Sale badge (leave blank to hide)" },
-    { "type": "header", "content": "Bundles", "info": "Three side-by-side cards: 1, 3 and 5 bottles. Each goes on the selling plan whose LIVE discount equals its % and whose delivery interval equals its 'ships every' setting. A bundle with no matching plan sells one-time at its one-time %, without gifts." },
+    { "type": "header", "content": "Bundles", "info": "Three side-by-side cards: 1, 2 and 3 bottles. Each goes on the selling plan whose LIVE discount equals its % and whose delivery interval equals its 'ships every' setting. A bundle with no matching plan sells one-time at its one-time %, without gifts." },
     { "type": "text", "id": "plans_label", "label": "Selector label", "default": "Choose your bundle" },
-    { "type": "select", "id": "default_tier", "label": "Selected by default", "default": "3", "options": [
-      { "value": "1", "label": "1 bottle" }, { "value": "3", "label": "3 bottles" }, { "value": "5", "label": "5 bottles" }
+    { "type": "select", "id": "default_tier", "label": "Selected by default", "default": "2", "options": [
+      { "value": "1", "label": "1 bottle" }, { "value": "2", "label": "2 bottles" }, { "value": "3", "label": "3 bottles" }
     ] },
     { "type": "text", "id": "tier_1_badge", "label": "1-bottle badge" },
     { "type": "text", "id": "tier_1_name", "label": "1-bottle name", "default": "1 Bottle" },
-    { "type": "range", "id": "tier_1_sub_pct", "label": "1-bottle plan %", "min": 0, "max": 70, "step": 1, "default": 25, "unit": "%" },
+    { "type": "range", "id": "tier_1_sub_pct", "label": "1-bottle plan %", "min": 0, "max": 70, "step": 1, "default": 15, "unit": "%" },
     { "type": "range", "id": "tier_1_freq", "label": "1-bottle ships every", "min": 1, "max": 6, "step": 1, "default": 1, "unit": "mo", "info": "Must match the selling plan's delivery interval." },
     { "type": "range", "id": "tier_1_one_pct", "label": "1-bottle one-time % (fallback)", "min": 0, "max": 70, "step": 1, "default": 0, "unit": "%" },
-    { "type": "text", "id": "tier_3_badge", "label": "3-bottle badge", "default": "Most popular" },
+    { "type": "text", "id": "tier_2_badge", "label": "2-bottle badge", "default": "Most popular" },
+    { "type": "text", "id": "tier_2_name", "label": "2-bottle name", "default": "2 Bottles" },
+    { "type": "range", "id": "tier_2_sub_pct", "label": "2-bottle plan %", "min": 0, "max": 70, "step": 1, "default": 20, "unit": "%" },
+    { "type": "range", "id": "tier_2_freq", "label": "2-bottle ships every", "min": 1, "max": 6, "step": 1, "default": 1, "unit": "mo", "info": "Must match the selling plan's delivery interval." },
+    { "type": "range", "id": "tier_2_one_pct", "label": "2-bottle one-time % (fallback)", "min": 0, "max": 70, "step": 1, "default": 0, "unit": "%" },
+    { "type": "text", "id": "tier_3_badge", "label": "3-bottle badge", "default": "Best value" },
     { "type": "text", "id": "tier_3_name", "label": "3-bottle name", "default": "3 Bottles" },
-    { "type": "range", "id": "tier_3_sub_pct", "label": "3-bottle plan %", "min": 0, "max": 70, "step": 1, "default": 50, "unit": "%" },
+    { "type": "range", "id": "tier_3_sub_pct", "label": "3-bottle plan %", "min": 0, "max": 70, "step": 1, "default": 25, "unit": "%" },
     { "type": "range", "id": "tier_3_freq", "label": "3-bottle ships every", "min": 1, "max": 6, "step": 1, "default": 1, "unit": "mo", "info": "Must match the selling plan's delivery interval." },
     { "type": "range", "id": "tier_3_one_pct", "label": "3-bottle one-time % (fallback)", "min": 0, "max": 70, "step": 1, "default": 34, "unit": "%", "info": "Must match the BUY2GET1FREE automatic discount." },
-    { "type": "text", "id": "tier_5_badge", "label": "5-bottle badge", "default": "Best value" },
-    { "type": "text", "id": "tier_5_name", "label": "5-bottle name", "default": "5 Bottles" },
-    { "type": "range", "id": "tier_5_sub_pct", "label": "5-bottle plan %", "min": 0, "max": 70, "step": 1, "default": 55, "unit": "%" },
-    { "type": "range", "id": "tier_5_freq", "label": "5-bottle ships every", "min": 1, "max": 6, "step": 1, "default": 1, "unit": "mo", "info": "Must match the selling plan's delivery interval." },
-    { "type": "range", "id": "tier_5_one_pct", "label": "5-bottle one-time % (fallback)", "min": 0, "max": 70, "step": 1, "default": 40, "unit": "%", "info": "Must match the BUY3GET2FREE automatic discount." },
     { "type": "text", "id": "save_line", "label": "Save line above the button", "default": "Subscribe & save · [pct]% off every order", "info": "[pct] becomes the selected bundle's discount." },
     { "type": "header", "content": "Gifts unlocked", "info": "One step per gift. Each gift unlocks at a bottle count; only unlocked gifts are added to the cart (as one-time $0 lines, never on the subscription). Gifts 1–3 default to the artwork in assets/wk-gift-1…3.png. Leave a title blank to hide that gift." },
     { "type": "text", "id": "gifts_heading", "label": "Heading", "default": "Gifts unlocked" },
-    { "type": "text", "id": "gifts_more", "label": "Progress line", "default": "Choose **[n] bottles** to unlock the next gift", "info": "[n] = bottles needed for the next locked gift, [count] = how many gifts are still locked. **text** = bold." },
+    { "type": "text", "id": "gifts_more", "label": "Progress line", "default": "Choose **[n] bottles** to unlock [count] more [gifts]", "info": "[n] = bottles needed for the next locked gift(s), [count] = how many unlock there, [gifts] = gift/gifts. **text** = bold." },
     { "type": "text", "id": "gifts_all", "label": "All-unlocked line", "default": "**All gifts unlocked**, free with your order" },
     { "type": "text", "id": "gifts_none", "label": "No-subscription line", "default": "Free gifts come with subscribe & save" },
-    { "type": "text", "id": "gift_starter_tag", "label": "Tag on 1-bottle gifts", "default": "Starter gift" },
+    { "type": "text", "id": "gift_starter_tag", "label": "Tag on 1-bottle gifts", "default": "1 bottle" },
     { "type": "text", "id": "gift_tier_tag", "label": "Tag on other gifts", "default": "[n] bottles", "info": "[n] = the gift's bottle count." },
     { "type": "text", "id": "gift_free_label", "label": "Free label", "default": "Free" },
     { "type": "text", "id": "gift_1_variant", "label": "Gift 1 variant ID", "default": "55027541049683", "info": "The 90-Day Reset Protocol" },
-    { "type": "select", "id": "gift_1_unlock", "label": "Gift 1 unlocks at", "default": "1", "options": [ { "value": "1", "label": "1 bottle" }, { "value": "3", "label": "3 bottles" }, { "value": "5", "label": "5 bottles" } ] },
+    { "type": "select", "id": "gift_1_unlock", "label": "Gift 1 unlocks at", "default": "1", "options": [ { "value": "1", "label": "1 bottle" }, { "value": "2", "label": "2 bottles" }, { "value": "3", "label": "3 bottles" } ] },
     { "type": "image_picker", "id": "gift_1_image", "label": "Gift 1 image" },
     { "type": "text", "id": "gift_1_title", "label": "Gift 1 title", "default": "90-Day Reset Protocol" },
     { "type": "product", "id": "gift_1_product", "label": "Gift 1 product", "info": "Its price is shown struck through next to Free, in the visitor's currency." },
     { "type": "text", "id": "gift_1_value", "label": "Gift 1 value (fallback)", "default": "$45", "info": "Only used when no gift product is set." },
     { "type": "text", "id": "gift_2_variant", "label": "Gift 2 variant ID", "default": "55027546456403", "info": "The Estrobolome Food Guide" },
-    { "type": "select", "id": "gift_2_unlock", "label": "Gift 2 unlocks at", "default": "3", "options": [ { "value": "1", "label": "1 bottle" }, { "value": "3", "label": "3 bottles" }, { "value": "5", "label": "5 bottles" } ] },
+    { "type": "select", "id": "gift_2_unlock", "label": "Gift 2 unlocks at", "default": "2", "options": [ { "value": "1", "label": "1 bottle" }, { "value": "2", "label": "2 bottles" }, { "value": "3", "label": "3 bottles" } ] },
     { "type": "image_picker", "id": "gift_2_image", "label": "Gift 2 image" },
     { "type": "text", "id": "gift_2_title", "label": "Gift 2 title", "default": "Estrobolome Food Guide" },
     { "type": "product", "id": "gift_2_product", "label": "Gift 2 product", "info": "Its price is shown struck through next to Free, in the visitor's currency." },
     { "type": "text", "id": "gift_2_value", "label": "Gift 2 value (fallback)", "default": "$40", "info": "Only used when no gift product is set." },
     { "type": "text", "id": "gift_3_variant", "label": "Gift 3 variant ID", "default": "55027553272147", "info": "The Womankind Circle" },
-    { "type": "select", "id": "gift_3_unlock", "label": "Gift 3 unlocks at", "default": "5", "options": [ { "value": "1", "label": "1 bottle" }, { "value": "3", "label": "3 bottles" }, { "value": "5", "label": "5 bottles" } ] },
+    { "type": "select", "id": "gift_3_unlock", "label": "Gift 3 unlocks at", "default": "3", "options": [ { "value": "1", "label": "1 bottle" }, { "value": "2", "label": "2 bottles" }, { "value": "3", "label": "3 bottles" } ] },
     { "type": "image_picker", "id": "gift_3_image", "label": "Gift 3 image" },
     { "type": "text", "id": "gift_3_title", "label": "Gift 3 title", "default": "Womankind Circle" },
     { "type": "product", "id": "gift_3_product", "label": "Gift 3 product", "info": "Its price is shown struck through next to Free, in the visitor's currency." },
     { "type": "text", "id": "gift_3_value", "label": "Gift 3 value (fallback)", "default": "$150", "info": "Only used when no gift product is set." },
+    { "type": "select", "id": "gift_4_unlock", "label": "Gift 4 unlocks at", "default": "2", "options": [ { "value": "1", "label": "1 bottle" }, { "value": "2", "label": "2 bottles" }, { "value": "3", "label": "3 bottles" } ], "info": "Gift 4 has no cart line: it is display-only. Free shipping itself must be a Shopify shipping discount (see the section notes)." },
+    { "type": "image_picker", "id": "gift_4_image", "label": "Gift 4 image", "info": "Defaults to a delivery-truck icon." },
+    { "type": "text", "id": "gift_4_title", "label": "Gift 4 title", "default": "Free shipping" },
+    { "type": "text", "id": "gift_4_value", "label": "Gift 4 value (struck price)", "info": "Optional, e.g. the usual shipping cost. Leave blank to show only the Free label." },
     { "type": "header", "content": "Plan footer + checkout" },
 
     { "type": "text", "id": "atc_label", "label": "Add-to-cart label", "default": "Try it today", "info": "Shown next to the selected bundle's price." },
